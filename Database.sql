@@ -3,5 +3,8 @@ CREATE DATABASE SWP391
 
 CREATE TABLE Student (
     StudentId INT PRIMARY KEY,
-    
+    Password VARCHAR(30) NOT NULL,
+    Name VARCHAR(30),
+    Status INT,
+    Email VARCHAR(50) UNIQUE
 )
