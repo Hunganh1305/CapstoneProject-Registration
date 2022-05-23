@@ -5,6 +5,8 @@ CREATE DATABASE SWP391
 -- SELECT * FROM Semester
 -- SELECT * FROM Business
 -- SELECT * FROM Category
+
+
 USE  SWP391
 
 CREATE TABLE Lecturer (
@@ -12,7 +14,13 @@ CREATE TABLE Lecturer (
     Name VARCHAR(30),
     Password VARCHAR(30) NOT NULL,
     Status INT,
-    Email VARCHAR(50) UNIQUE
+    Email VARCHAR(50) UNIQUE,	
+)
+
+CREATE TABLE LectureTopic (
+	ID INT PRIMARY KEY,
+	LecturerId INT NOT NULL FOREIGN KEY  (LecturerId) REFERENCES Lecturer(LecturerId),
+	TopicId INT NOT NULL FOREIGN KEY  (TopicId) REFERENCES Topic(TopicId)
 )
 
 CREATE TABLE Business (
@@ -33,7 +41,7 @@ CREATE TABLE Topic(
 	CategoryId INT FOREIGN KEY (CategoryId) REFERENCES Category(CategoryId),
 	Description VARCHAR(200),
 	BusinessId INT FOREIGN KEY (BusinessId) REFERENCES Business(BusinessId),
-	LecturerId INT FOREIGN KEY (LecturerId) REFERENCES Lecturer(LecturerId)
+	DepartmentId INT FOREIGN KEY (DepartmentId) REFERENCES Department(DepartmentId)
 )
 
 CREATE TABLE Semester (
@@ -46,20 +54,16 @@ CREATE TABLE Semester (
 
  CREATE TABLE Department (
 	DepartmentId INT PRIMARY KEY,
-	Name VARCHAR(30)
+	Name VARCHAR(30),
+	
  )
 
- CREATE TABLE DepartmentTopic (
-	Id INT PRIMARY KEY,
-	DepartmentId INT NOT NULL FOREIGN KEY  (DepartmentId) REFERENCES Department(DepartmentId),
-	TopicId INT NOT NULL FOREIGN KEY  (TopicId) REFERENCES Topic(TopicId)
- )
 
  CREATE TABLE Student (
     StudentId INT PRIMARY KEY,
     Name VARCHAR(30),
     Password VARCHAR(30) NOT NULL,
-    Status INT,
+    Status INT,	
     Email VARCHAR(50) UNIQUE,
 	DepartmentId INT FOREIGN KEY (DepartmentId) REFERENCES Department(DepartmentId)
 )
@@ -67,12 +71,14 @@ CREATE TABLE Semester (
 CREATE TABLE Groups (
 	GroupId INT PRIMARY KEY,
 	GroupName VARCHAR(30),
+	SemID INT FOREIGN KEY (SemID) REFERENCES Semester(SemesterId)
 )
 
 CREATE TABLE StudentGroup (
 	Id INT PRIMARY KEY,
 	StudentId INT NOT NULL FOREIGN KEY (StudentId) REFERENCES Student(StudentId),
-	GroupId INT NOT NULL FOREIGN KEY (GroupId) REFERENCES Groups(GroupId)
+	GroupId INT NOT NULL FOREIGN KEY (GroupId) REFERENCES Groups(GroupId),
+	LeaderStatus INT,
 )
 
 CREATE TABLE Project(
@@ -82,7 +88,7 @@ CREATE TABLE Project(
 	SourceCode VARCHAR(200),
 	TopicId INT FOREIGN KEY(TopicId) REFERENCES Topic(TopicId),
 	Status INT,
-	GroupId INT UNIQUE NOT NULL FOREIGN KEY(GroupId) REFERENCES Groups(GroupId)
+	GroupId INT NOT NULL FOREIGN KEY(GroupId) REFERENCES Groups(GroupId)
 )
 
 CREATE TABLE ProjectLecturer(
@@ -90,3 +96,4 @@ CREATE TABLE ProjectLecturer(
 	ProjectId INT NOT NULL FOREIGN KEY (ProjectId) REFERENCES Project(ProjectId),
 	LecturerId INT NOT NULL FOREIGN KEY (LecturerId) REFERENCES Lecturer(LecturerId)
 )
+
