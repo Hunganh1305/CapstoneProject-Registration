@@ -17,12 +17,6 @@ CREATE TABLE Lecturer (
     Email VARCHAR(50) UNIQUE,	
 )
 
-CREATE TABLE LectureTopic (
-	ID INT PRIMARY KEY,
-	LecturerId INT NOT NULL FOREIGN KEY  (LecturerId) REFERENCES Lecturer(LecturerId),
-	TopicId INT NOT NULL FOREIGN KEY  (TopicId) REFERENCES Topic(TopicId)
-)
-
 CREATE TABLE Business (
     BusinessId INT PRIMARY KEY,
     Name VARCHAR(30),
@@ -35,6 +29,11 @@ CREATE TABLE Category (
     CategoryName VARCHAR(30),
 )
 
+CREATE TABLE Department (
+	DepartmentId INT PRIMARY KEY,
+	Name VARCHAR(30),	
+)
+
 CREATE TABLE Topic(
 	TopicId INT PRIMARY KEY,
 	Name VARCHAR(30),
@@ -42,6 +41,12 @@ CREATE TABLE Topic(
 	Description VARCHAR(200),
 	BusinessId INT FOREIGN KEY (BusinessId) REFERENCES Business(BusinessId),
 	DepartmentId INT FOREIGN KEY (DepartmentId) REFERENCES Department(DepartmentId)
+)
+
+CREATE TABLE LectureTopic (
+	ID INT PRIMARY KEY,
+	LecturerId INT NOT NULL FOREIGN KEY  (LecturerId) REFERENCES Lecturer(LecturerId),
+	TopicId INT NOT NULL FOREIGN KEY  (TopicId) REFERENCES Topic(TopicId)
 )
 
 CREATE TABLE Semester (
@@ -52,14 +57,7 @@ CREATE TABLE Semester (
 	TopicId INT FOREIGN KEY (TopicId) REFERENCES Topic(TopicId)
 )
 
- CREATE TABLE Department (
-	DepartmentId INT PRIMARY KEY,
-	Name VARCHAR(30),
-	
- )
-
-
- CREATE TABLE Student (
+CREATE TABLE Student (
     StudentId INT PRIMARY KEY,
     Name VARCHAR(30),
     Password VARCHAR(30) NOT NULL,
