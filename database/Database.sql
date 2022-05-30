@@ -95,4 +95,3 @@ CREATE TABLE ProjectLecturer(
 	LecturerId INT NOT NULL FOREIGN KEY (LecturerId) REFERENCES Lecturer(LecturerId)
 )
 
- ádfasdfsdf
