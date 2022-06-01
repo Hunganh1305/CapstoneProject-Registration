@@ -3,24 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/sessionbeans/ProjectFacade.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/sessionbeans/ProjectLecturerFacade.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/sessionbeans/TopicFacade.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/sessionbeans/AbstractFacade.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/entities/Lecturer.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/sessionbeans/StudentGroupFacade.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/web/WEB-INF/layouts/main.jsp</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/sessionbeans/LecturerFacade.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/sessionbeans/BusinessFacade.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/sessionbeans/SemesterFacade.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/sessionbeans/DepartmentFacade.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/sessionbeans/LecturerTopicFacade.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/sessionbeans/CategoryFacade.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/sessionbeans/StudentFacade.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/entities/LecturerTopic.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/entities/Business.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/sessionbeans/GroupsFacade.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP/src/java/entities/Category.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/sessionbeans/ProjectFacade.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/sessionbeans/AbstractFacade.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/sessionbeans/DepartmentFacade.java</file>
         </group>
     </open-files>
 </project-private>
