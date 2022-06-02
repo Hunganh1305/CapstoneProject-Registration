@@ -3,9 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/sessionbeans/ProjectFacade.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/entities/Student.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/entities/Semester.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/sessionbeans/StudentFacade.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/controllers/FrontController.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/controllers/App.java</file>
             <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/sessionbeans/AbstractFacade.java</file>
-            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/sessionbeans/DepartmentFacade.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/sessionbeans/BusinessFacade.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/entities/ProjectLecturer.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/controllers/HomeController.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/entities/Category.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/sessionbeans/CategoryFacade.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/controllers/StudentController.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/src/java/entities/Business.java</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/web/WEB-INF/view/users/student.jsp</file>
+            <file>file:/D:/dl/FTPU/SEM5/SWP/SWP391/SWP_MVC/web/WEB-INF/layouts/main.jsp</file>
         </group>
     </open-files>
 </project-private>

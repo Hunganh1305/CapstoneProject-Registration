@@ -12,6 +12,13 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div class="container body-contain">
+            <div class="row content py-3">
+                <div class="col">                    
+                    <jsp:include page="/WEB-INF/views/${controller}/${action}.jsp" />
+                </div>
+            </div>
+        </div>
+        
     </body>
 </html>
