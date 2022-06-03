@@ -1,3 +1,7 @@
+use master
+
+drop database SWP391
+
 CREATE DATABASE SWP391
 -- DROP DATABASE SWP391
 -- SELECT * FROM Student
