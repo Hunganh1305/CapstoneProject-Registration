@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import DTO.Student;
+import DTO.Topic;
 import Utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,29 +15,29 @@ import java.util.ArrayList;
 
 /**
  *
- * @author HLong
+ * @author SE161714 Ha Anh Tu
  */
-public class StudentDAO {
+public class TopicDAO {
 
-    public static ArrayList<Student> readAll() {
+    public static ArrayList<Topic> readAll() {
         Connection cn = null;
-        ArrayList<Student> list = new ArrayList<>();
+        ArrayList<Topic> list = new ArrayList<>();
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
                 String sql = "select *\n"
-                        + "from dbo.Student\n";
+                        + "from dbo.Topic\n";
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
-                    int stuID = rs.getInt("StudentId");
+                    int topicID = rs.getInt("topicId");
                     String name = rs.getString("Name");
-                    String password = rs.getString("Password");
-                    int status = rs.getInt("Status");
-                    String email = rs.getString("Email");
+                    int category = rs.getInt("categoryId");
+                    String description = rs.getString("description");
+                    int businessId = rs.getInt("businessId");
                     int depId = rs.getInt("DepartmentId");
-                    Student stu = new Student(stuID, name, password, status, email, depId);
-                    list.add(stu);
+                    Topic topic = new Topic(topicID, name, category, description, businessId, depId);
+                    list.add(topic);
                 }
                 cn.close();
             }
@@ -47,53 +47,73 @@ public class StudentDAO {
         return list;
     }
 
-    public static Student read(Object id) {
+    public static Topic read(Object id) {
         Connection cn = null;
-        Student student = null;
+        Topic topic = null;
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select * from dbo.Student where StudentId=?";
+                String sql = "select * from dbo.Topic where TopicId=?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, id.toString());
                 ResultSet rs = stm.executeQuery();
                 if (rs.next()) {
-                    student = new Student();
-                    student.setStudentId(rs.getInt("studentId"));
-                    student.setName(rs.getString("name"));
-                    student.setPassword(rs.getString("password"));
-                    student.setStatus(rs.getInt("status"));
-                    student.setEmail(rs.getString("email"));
-                    student.setDepartmentId(rs.getInt("departmentId"));
+                    topic = new Topic();
+                    topic.setTopicId(rs.getInt("topicId"));
+                    topic.setName(rs.getString("name"));
+                    topic.setCatergoryId(rs.getInt("categoryId"));
+                    topic.setDescription(rs.getString("description"));
+                    topic.setBusinessId(rs.getInt("businessId"));
+                    topic.setDepartmentId(rs.getInt("departmentId"));
                 }
                 cn.close();
             }
         } catch (Exception e) {
             e.getStackTrace();
         }
-        return student;
+        return topic;
     }
 
-    public static void update(Student student) {
+    public static void create(Topic topic) {
         Connection cn = null;
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "update dbo.Student set name=?,password=?,status=?,email=?,departmentId=? where StudentId=?";
+                String sql = "insert into dbo.Topic values(?, ?, ?, ?, ?, ?)";
                 PreparedStatement stm = cn.prepareStatement(sql);
-                stm.setString(1, student.getName());
-                stm.setString(2, student.getPassword());
-                stm.setInt(3, student.getStatus());
-                stm.setString(4, student.getEmail());
-                stm.setInt(5, student.getDepartmentId());
-                stm.setInt(6, student.getStudentId());
+                stm.setInt(1, topic.getTopicId());
+                stm.setString(2, topic.getName());
+                stm.setInt(3, topic.getCatergoryId());
+                stm.setString(4, topic.getDescription());
+                stm.setInt(5, topic.getBusinessId());
+                stm.setInt(6, topic.getDepartmentId());
                 stm.executeUpdate();
                 cn.close();
             }
         } catch (Exception e) {
             e.getStackTrace();
         }
+    }
 
+    public static void update(Topic topic) {
+        Connection cn = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update dbo.Topic set Name=?,CategoryId=?,Description=?,BusinessId=?,DepartmentId=? where TopicId=?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setString(1, topic.getName());
+                stm.setInt(2, topic.getCatergoryId());
+                stm.setString(3, topic.getDescription());
+                stm.setInt(4, topic.getBusinessId());
+                stm.setInt(5, topic.getDepartmentId());
+                stm.setInt(6, topic.getTopicId());
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
     }
 
     public static void delete(Object id) {
@@ -101,7 +121,7 @@ public class StudentDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "delete dbo.Student where StudentId=?";
+                String sql = "delete dbo.Topic where TopicId=?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, id.toString());
                 stm.executeUpdate();
@@ -112,24 +132,4 @@ public class StudentDAO {
         }
     }
 
-    public static void create(Student student) {
-        Connection cn = null;
-        try {
-            cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "insert into dbo.Student values(?, ?, ?, ?, ?, ?)";
-                PreparedStatement stm = cn.prepareStatement(sql);
-                stm.setInt(1, student.getStudentId());
-                stm.setString(2, student.getName());
-                stm.setString(3, student.getPassword());
-                stm.setInt(4,student.getStatus() );
-                stm.setString(5,student.getEmail());
-                stm.setInt(6, student.getDepartmentId());
-                stm.executeUpdate();
-                cn.close();
-            }
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-    }
 }
