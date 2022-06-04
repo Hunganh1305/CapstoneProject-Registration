@@ -6,6 +6,7 @@
 package DAO;
 
 import DTO.Groups;
+import DTO.LectureTopic;
 import DTO.Semester;
 import DTO.Student;
 import DTO.StudentGroup;
@@ -33,7 +34,7 @@ public class TestConnection {
 //        } 
 //******************************************
 //        test student create()
-//        Student student = new Student(6,"Ha Anh Tu31","12345678123",1,"haanhtu@g123mail.com",2);
+//        Student student = new Student(7,"Ha Anh Tu31","12345678123",1,"haanhtu@g123mail.com",2);
 //        StudentDAO.create(student);
 //        System.out.println(student.getStudentId()+","+student.getName()+","+student.getPassword()+","+student.getStatus()+","+student.getEmail()+","+student.getDepartmentId());
 //******************************************
@@ -46,7 +47,7 @@ public class TestConnection {
 //        StudentDAO.update(student);
 //******************************************
 //        test student delete()
-//        StudentDAO.delete(6);
+//        StudentDAO.delete(7);
 //******************************************
 //        test studentGroup readAll()
 //        ArrayList<StudentGroup> list = StudentGroupDAO.readAll();
@@ -191,6 +192,28 @@ public class TestConnection {
 //******************************************
 //        test Groups delete()
 //        GroupsDAO.delete(5);
+//******************************************
+//           test LectureTopic readAll()
+//           ArrayList<LectureTopic> list = LectureTopicDAO.readAll();
+//           for (LectureTopic lectureTopic : list) {
+//              System.out.println(lectureTopic.getId()+ "," + lectureTopic.getLectureId()+ "," + lectureTopic.getTopicId());
+//           }
+//******************************************
+//        test LectureTopic create()
+//        LectureTopic lectureTopic = new LectureTopic(3,1,1);
+//        LectureTopicDAO.create(lectureTopic);
+//        System.out.println(lectureTopic.getId()+","+lectureTopic.getLectureId()+","+lectureTopic.getTopicId());
+//******************************************
+//        test LectureTopic read()
+//        LectureTopic lectureTopic = LectureTopicDAO.read(1);
+//        System.out.println(lectureTopic.getId()+","+lectureTopic.getLectureId()+","+lectureTopic.getTopicId());
+//******************************************
+//        test LectureTopic update()
+//        LectureTopic lectureTopic = new LectureTopic(2,1,2);
+//        LectureTopicDAO.update(lectureTopic);
+//******************************************
+//        test LectureTopic delete()
+//        LectureTopicDAO.delete(2);
 //******************************************
     }
 }
