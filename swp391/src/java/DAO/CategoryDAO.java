@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import DTO.ProjectLecturer;
+import DTO.Category;
 import Utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,27 +15,25 @@ import java.util.ArrayList;
 
 /**
  *
- * @author SE161740 Pham Nguyen Hung Anh
+ * @author HLong
  */
-public class ProjectLecturerDAO {
+public class CategoryDAO {
 
-    public static ArrayList<ProjectLecturer> readAll() {
+    public static ArrayList<Category> readAll() {
         Connection cn = null;
-        ArrayList<ProjectLecturer> list = new ArrayList<>();
+        ArrayList<Category> list = new ArrayList<>();
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
                 String sql = "select *\n"
-                        + "from dbo.ProjectLecturer\n";
+                        + "from dbo.Category\n";
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
-                    int ID = rs.getInt("id");
-                    int projectId = rs.getInt("projectId");
-                    int lecturerId = rs.getInt("lecturerId");
-
-                    ProjectLecturer proLec = new ProjectLecturer(ID, projectId, lecturerId);
-                    list.add(proLec);
+                    int categoryId = rs.getInt("CategoryId");
+                    String name = rs.getString("Name");
+                    Category category = new Category(categoryId, name);
+                    list.add(category);
                 }
                 cn.close();
             }
@@ -45,60 +43,55 @@ public class ProjectLecturerDAO {
         return list;
     }
 
-    public static ProjectLecturer read(Object id) {
+    public static Category read(Object id) {
         Connection cn = null;
-        ProjectLecturer proLec = null;
+        Category category = null;
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select * from dbo.ProjectLecturer where Id=?";
+                String sql = "select * from dbo.Category where CategoryId=?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, id.toString());
                 ResultSet rs = stm.executeQuery();
                 if (rs.next()) {
-                    proLec = new ProjectLecturer();
-                    proLec.setId(rs.getInt("id"));
-                    proLec.setProjectId(rs.getInt("projectId"));
-                    proLec.setLectureId(rs.getInt("lecturerId"));
-
+                    category = new Category();
+                    category.setCategoryId(rs.getInt("CategoryId"));
+                    category.setCategoryName(rs.getString("Name"));
                 }
                 cn.close();
             }
         } catch (Exception e) {
             e.getStackTrace();
         }
-        return proLec;
+        return category;
     }
 
-    public static void update(ProjectLecturer proLec) {
+    public static void create(Category category) {
         Connection cn = null;
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "update dbo.ProjectLecturer set ProjectId=?,LecturerId=? where Id=?";
+                String sql = "insert into dbo.Category values(?, ?)";
                 PreparedStatement stm = cn.prepareStatement(sql);
-                stm.setInt(1, proLec.getProjectId());
-                stm.setInt(2, proLec.getLecturerId());
-                stm.setInt(3, proLec.getId());
+                stm.setInt(1, category.getCategoryId());
+                stm.setString(2, category.getCategoryName());
                 stm.executeUpdate();
                 cn.close();
             }
         } catch (Exception e) {
             e.getStackTrace();
         }
-
     }
 
-    public static void create(ProjectLecturer proLec) {
+    public static void update(Category category) {
         Connection cn = null;
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "insert into dbo.ProjectLecturer values(?, ?, ?)";
+                String sql = "update dbo.Category set Name=? where CategoryId=?";
                 PreparedStatement stm = cn.prepareStatement(sql);
-                stm.setInt(1, proLec.getId());
-                stm.setInt(2, proLec.getProjectId());
-                stm.setInt(3, proLec.getLecturerId());
+                stm.setString(1, category.getCategoryName());
+                stm.setInt(2, category.getCategoryId());
                 stm.executeUpdate();
                 cn.close();
             }
@@ -112,7 +105,7 @@ public class ProjectLecturerDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "delete dbo.ProjectLecturer where Id=?";
+                String sql = "delete dbo.Category where CategoryId=?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, id.toString());
                 stm.executeUpdate();

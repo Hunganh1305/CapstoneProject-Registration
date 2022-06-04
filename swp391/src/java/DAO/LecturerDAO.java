@@ -5,7 +5,6 @@
  */
 package DAO;
 
-
 import DTO.Lecturer;
 import Utils.DBUtils;
 import java.sql.Connection;
@@ -19,7 +18,8 @@ import java.util.ArrayList;
  * @author SE161740 Pham Nguyen Hung Anh
  */
 public class LecturerDAO {
-     public static ArrayList<Lecturer> readAll() {
+
+    public static ArrayList<Lecturer> readAll() {
         Connection cn = null;
         ArrayList<Lecturer> list = new ArrayList<>();
         try {
@@ -32,11 +32,11 @@ public class LecturerDAO {
                 while (rs.next()) {
                     int lecturerId = rs.getInt("lecturerId");
                     String name = rs.getString("name");
-                    String password = rs.getString("password");                                                                         
+                    String password = rs.getString("password");
                     int status = rs.getInt("status");
-                    String email = rs.getString("email");           
+                    String email = rs.getString("email");
                     Lecturer lecturer = new Lecturer(lecturerId, name, password, status, email);
-                    list.add(lecturer);                    
+                    list.add(lecturer);
                 }
                 cn.close();
             }
@@ -58,12 +58,12 @@ public class LecturerDAO {
                 ResultSet rs = stm.executeQuery();
                 if (rs.next()) {
                     lecturer = new Lecturer();
-                    lecturer.setLecturerId(rs.getInt("lecturerId"));                    
+                    lecturer.setLecturerId(rs.getInt("lecturerId"));
                     lecturer.setName(rs.getString("name"));
-                    lecturer.setPassword(rs.getString("password"));                                                            
+                    lecturer.setPassword(rs.getString("password"));
                     lecturer.setStatus(rs.getInt("status"));
-                    lecturer.setEmail(rs.getString("email"));    
-                    
+                    lecturer.setEmail(rs.getString("email"));
+
                 }
                 cn.close();
             }
@@ -82,10 +82,10 @@ public class LecturerDAO {
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setInt(1, lecturer.getLecturerId());
                 stm.setString(2, lecturer.getName());
-                stm.setString(3, lecturer.getPassword());                
+                stm.setString(3, lecturer.getPassword());
                 stm.setInt(4, lecturer.getStatus());
                 stm.setString(5, lecturer.getEmail());
-                
+
                 stm.executeUpdate();
                 cn.close();
             }
@@ -102,11 +102,11 @@ public class LecturerDAO {
                 String sql = "update dbo.Lecturer set Name=?,Password=?,Status=?,Email=? where LecturerId=?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, lecturer.getName());
-                stm.setString(2, lecturer.getPassword());                                           
+                stm.setString(2, lecturer.getPassword());
                 stm.setInt(3, lecturer.getStatus());
-                stm.setString(4, lecturer.getEmail());     
+                stm.setString(4, lecturer.getEmail());
                 stm.setInt(5, lecturer.getLecturerId());
-                
+
                 stm.executeUpdate();
                 cn.close();
             }
@@ -130,4 +130,5 @@ public class LecturerDAO {
             e.getStackTrace();
         }
     }
+    
 }

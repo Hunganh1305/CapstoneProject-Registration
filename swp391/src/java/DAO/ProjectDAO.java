@@ -5,7 +5,6 @@
  */
 package DAO;
 
-
 import DTO.Project;
 import Utils.DBUtils;
 import java.sql.Connection;
@@ -19,6 +18,7 @@ import java.util.ArrayList;
  * @author SE161740 Pham Nguyen Hung Anh
  */
 public class ProjectDAO {
+
     public static ArrayList<Project> readAll() {
         Connection cn = null;
         ArrayList<Project> list = new ArrayList<>();
@@ -32,9 +32,9 @@ public class ProjectDAO {
                 while (rs.next()) {
                     int projectId = rs.getInt("projectId");
                     String description = rs.getString("description");
-                    String name = rs.getString("name");                    
-                    String sourceCode = rs.getString("sourceCode");                    
-                    int topicId = rs.getInt("topicId");                    
+                    String name = rs.getString("name");
+                    String sourceCode = rs.getString("sourceCode");
+                    int topicId = rs.getInt("topicId");
                     int status = rs.getInt("status");
                     int groupId = rs.getInt("groupId");
                     Project project = new Project(projectId, description, name, sourceCode, topicId, status, groupId);
@@ -63,7 +63,7 @@ public class ProjectDAO {
                     project.setProjectId(rs.getInt("projectId"));
                     project.setDescription(rs.getString("description"));
                     project.setName(rs.getString("name"));
-                    project.setSourceCode(rs.getString("sourceCode"));                                        
+                    project.setSourceCode(rs.getString("sourceCode"));
                     project.setTopicId(rs.getInt("topicId"));
                     project.setStatus(rs.getInt("status"));
                     project.setGroupId(rs.getInt("groupId"));
@@ -86,7 +86,7 @@ public class ProjectDAO {
                 stm.setInt(1, project.getProjectId());
                 stm.setString(2, project.getDescription());
                 stm.setString(3, project.getName());
-                stm.setString(4, project.getSourceCode());                
+                stm.setString(4, project.getSourceCode());
                 stm.setInt(5, project.getTopicId());
                 stm.setInt(6, project.getStatus());
                 stm.setInt(7, project.getGroupId());
@@ -107,7 +107,7 @@ public class ProjectDAO {
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, project.getDescription());
                 stm.setString(2, project.getName());
-                stm.setString(3, project.getSourceCode());                                
+                stm.setString(3, project.getSourceCode());
                 stm.setInt(4, project.getTopicId());
                 stm.setInt(5, project.getStatus());
                 stm.setInt(6, project.getGroupId());

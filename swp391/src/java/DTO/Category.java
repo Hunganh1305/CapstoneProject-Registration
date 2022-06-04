@@ -9,14 +9,14 @@ package DTO;
  *
  * @author HLong
  */
-public class Catergory {
+public class Category {
     private int categoryId;
     private String categoryName;
 
-    public Catergory() {
+    public Category() {
     }
 
-    public Catergory(int categoryId, String categoryName) {
+    public Category(int categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
     }

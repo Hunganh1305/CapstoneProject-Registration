@@ -122,8 +122,8 @@ public class StudentDAO {
                 stm.setInt(1, student.getStudentId());
                 stm.setString(2, student.getName());
                 stm.setString(3, student.getPassword());
-                stm.setInt(4,student.getStatus() );
-                stm.setString(5,student.getEmail());
+                stm.setInt(4, student.getStatus());
+                stm.setString(5, student.getEmail());
                 stm.setInt(6, student.getDepartmentId());
                 stm.executeUpdate();
                 cn.close();
