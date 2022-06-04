@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import DTO.Project;
 import DTO.Semester;
 import DTO.Student;
 import DTO.StudentGroup;
