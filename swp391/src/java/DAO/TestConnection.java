@@ -190,5 +190,143 @@ public class TestConnection {
 //          for (Semester sem : list) {
 //            System.out.println(sem.getSemesterId()+ "," + sem.getName()+ "," + sem.getStartDate()+ "," + sem.getEndDate()+ "," + sem.getTopicId());
 //          }
+//******************************************
+//          test Project readAll()
+
+//          ArrayList<Project> list = ProjectDAO.readAll();
+//
+//          for (Project pro : list) {
+//            System.out.println(pro.getProjectId()+ ","+pro.getDescription()+","+pro.getName()+","+
+//                                pro.getSourceCode()+","+pro.getTopicId()+"," +
+//                                pro.getStatus()+","+pro.getGroupId());
+//          }
+//*****************************************
+//          test Project read()
+
+//          Project pro =  ProjectDAO.read(2);
+//          System.out.println(pro.getProjectId()+ ","+pro.getDescription()+","+pro.getName()+","+
+//                                pro.getSourceCode()+","+pro.getTopicId()+"," +
+//                                pro.getStatus()+","+pro.getGroupId());
+
+//******************************************
+//          test Project create()
+
+
+//          Project pro5= new Project(5, "abc", "pro5", "none", 0, 0, 0);
+//          ProjectDAO.create(pro);
+
+//          System.out.println(pro.getProjectId()+ ","+pro.getDescription()+","+pro.getName()+","+
+//                                pro.getSourceCode()+","+pro.getTopicId()+"," +
+//                                pro.getStatus()+","+pro.getGroupId());
+
+//******************************************
+//          test Project update()
+//
+//          Project pro5 = new Project(5, "abcd", "pro5", "not yet", 1, 1, 1);
+//          ProjectDAO.update(pro5);
+//          ArrayList<Project> list = ProjectDAO.readAll();
+//
+//          for (Project pro: list) {
+//            System.out.println(pro.getProjectId()+ ","+pro.getDescription()+","+pro.getName()+","+
+//                                pro.getSourceCode()+","+pro.getTopicId()+"," +
+//                                pro.getStatus()+","+pro.getGroupId());
+//          }
+//
+//******************************************
+//          test Project delete()
+
+//          ProjectDAO.delete(5);
+//          ArrayList<Project> list = ProjectDAO.readAll();
+//          for (Project pro : list) {
+//            System.out.println(pro.getProjectId()+ ","+pro.getDescription()+","+pro.getName()+","+
+//                                pro.getSourceCode()+","+pro.getTopicId()+"," +
+//                                pro.getStatus()+","+pro.getGroupId());
+//          }     
+//*******************************************
+//          test Lecturer readAll()
+
+//          ArrayList<Lecturer> list = LecturerDAO.readAll();
+//
+//          for (Lecturer lec : list) {
+//            System.out.println(lec.getLecturerId()+","+lec.getName()+","+lec.getPassword()+","+lec.getStatus()+","+lec.getEmail());
+//          }
+//*****************************************
+//          test Lecture read()
+
+//          Lecturer lec =  LecturerDAO.read(1);
+//          System.out.println(lec.getLecturerId()+","+lec.getName()+","+lec.getPassword()+","+lec.getStatus()+","+lec.getEmail());
+
+//******************************************
+//          test Lecturer create()
+
+//          Lecturer lec = new Lecturer(2, "Giao Lang", "12345678", 1, "giaolang@fe.edu.vn");
+//          LecturerDAO.create(lec);
+//          
+//          System.out.println(lec.getLecturerId()+","+lec.getName()+","+lec.getPassword()+","+lec.getStatus()+","+lec.getEmail());
+//          
+//******************************************
+//          test Lecturer update()
+//
+//          Lecturer lec2 = new Lecturer(2, "Giao Lang", "admin12345678", 0, "giaolang@fe.edu.vn");
+//          LecturerDAO.update(lec2);
+//          ArrayList<Lecturer> list = LecturerDAO.readAll();
+//
+//          for (Lecturer lec: list) {
+//            System.out.println(lec.getLecturerId()+","+lec.getName()+","+lec.getPassword()+","+lec.getStatus()+","+lec.getEmail());
+//          }
+//******************************************
+//          test Lecturer delete()
+//
+//          LecturerDAO.delete(2);
+//          ArrayList<Lecturer> list = LecturerDAO.readAll();
+//          for (Lecturer lec : list) {
+//            System.out.println(lec.getLecturerId()+","+lec.getName()+","+lec.getPassword()+","+lec.getStatus()+","+lec.getEmail());
+//          }
+//******************************************
+//        test ProjectLecturer readAll()
+
+//        ArrayList<ProjectLecturer> list = ProjectLecturerDAO.readAll();
+//
+//        for (ProjectLecturer proLec : list) {
+//            System.out.println(proLec.getId()+","+proLec.getProjectId()+","+proLec.getLecturerId());
+//        }
+//******************************************
+//        test ProjectLecturer read()
+
+//        ProjectLecturer proLec = ProjectLecturerDAO.read(3);
+//        System.out.println(proLec.getId()+","+proLec.getProjectId()+","+proLec.getLecturerId());
+//******************************************
+//        test ProjectLecturer create()
+
+//          Project pro5 = new Project(5, "description", "name", "sourceCode", 0, 0, 0);
+//          ProjectDAO.create(pro5);
+//          ProjectLecturer proLec = new ProjectLecturer(4, 1, 1);
+//          ProjectLecturerDAO.create(proLec);
+//          ArrayList<ProjectLecturer> list = ProjectLecturerDAO.readAll();
+//
+//          for (ProjectLecturer o : list) {
+//            System.out.println(o.getId()+","+o.getProjectId()+","+o.getLecturerId());
+//          }
+//        
+//******************************************
+//          test ProjectLecturer update()
+
+//          ProjectLecturer proLec = new ProjectLecturer(3,1,1);
+//          ProjectLecturerDAO.update(proLec);
+
+//******************************************
+//          test ProjectLecturer delete()
+//
+//          ProjectLecturerDAO.delete(3);
+//          ArrayList<ProjectLecturer> list = ProjectLecturerDAO.readAll();
+//
+//          for (ProjectLecturer o : list) {
+//            System.out.println(o.getId()+","+o.getProjectId()+","+o.getLecturerId());
+//          }
+
+
+
+
+
     }
 }
