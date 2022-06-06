@@ -67,14 +67,20 @@
     <!-- topic -->
     <section id="topic" class="container">
 
-        <div class="topic__title">
-            <h2>Topic List</h2>
-        </div>
+        <div class="teamListControl">
+            <div class="topic__title">
+                <h2>Team List</h2>
+            </div>
+            <div class="btnControl">
+                <button class="team__btn">+ Quick Join A Team</button>
+                <button class="team__btn">+ Create A New Team</button>
+            </div>
 
+        </div>
         <div class="topic__container">
 
             <h6 class="topic__text">
-                All of approved topics in semester SU2022_SWP
+                All of public and unlocked teams in semester SU2022_SWP
             </h6>
 
             <hr>
@@ -82,7 +88,7 @@
             <div class="topic__search">
                 <form action="">
                     <input placeholder=" " class="search__input" type="text">
-                    <label for="search" class="search__label">Search by name</label>
+                    <label for="search" class="search__label">Search by team name</label>
                     <button type="submit" class="search-btn ">
                         <img src="img/search-interface-symbol.png" alt="">
                     </button>
@@ -107,72 +113,56 @@
                 <thead>
                     <tr>
                         <th>DEP.</th>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Detail</th>
-                        <th>Lecturer</th>
-                        <th>Action</th>
+                        <th>TEAMNAME</th>
+                        <th>LEADER</th>
+                        <th>MEMBER(s)</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Quan tri kinh doanh</td>
-                        <td>1</td>
-                        <td>CPManagement-Review</td>
-                        <td><a href="#"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-10dohqv"
-                                    focusable="false" aria-hidden="true" viewBox="0 0 24 24"
-                                    data-testid="FileDownloadIcon">
-                                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
-                                </svg></a></td>
-                        <td>[Phuonglhk] Lam Huu Khanh Phuong</td>
+                        <td>IS</td>
+                        <td>Polycell</td>
+                        <td>[SE161502] Vũ Anh Thuyên</td>
+                        <td>
+                            <span class="tdTbl__warning"> 2/6</span>
+                        </td>
+                        <td>
+                            <span class="tdTbl__warning">Unlocked</span>
+                        </td>
                         <td><a href="#"><i class="fa fa-solid fa-eye"></i></a></td>
                     </tr>
                     <tr>
-                        <td>Cong nghe thong tin</td>
-                        <td>2</td>
-                        <td>PetCareSystem</td>
-                        <td><a href="#"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-10dohqv"
-                                    focusable="false" aria-hidden="true" viewBox="0 0 24 24"
-                                    data-testid="FileDownloadIcon">
-                                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
-                                </svg></a></td>
-                        <td>[Phuonglhk] Lam Huu Khanh Phuong</td>
+                        <td>SE</td>
+                        <td>BeakyBlinders</td>
+                        <td>[SE161497] Lê Hải Long</td>
+                        <td><span class="tdTbl__success"> 2/6</span></td>
+                        <td><span class="tdTbl__warning">Unlocked</span></td>
                         <td><a href="#"><i class="fa fa-solid fa-eye"></i></a></td>
                     </tr>
                     <tr>
-                        <td>Cong nghe thong tin</td>
-                        <td>3</td>
-                        <td>PT Tranning app</td>
-                        <td><a href="#"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-10dohqv"
-                                    focusable="false" aria-hidden="true" viewBox="0 0 24 24"
-                                    data-testid="FileDownloadIcon">
-                                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
-                                </svg></a></td>
-                        <td>[Phuonglhk] Lam Huu Khanh Phuong</td>
+                        <td>IS</td>
+                        <td>Polycell</td>
+                        <td>[SE161502] Vũ Anh Thuyên</td>
+                        <td><span class="tdTbl__warning"> 2/6</span></td>
+                        <td><span class="tdTbl__warning">Unlocked</span></td>
                         <td><a href="#"><i class="fa fa-solid fa-eye"></i></a></td>
                     </tr>
                     <tr>
-                        <td>Cong nghe thong tin</td>
-                        <td>4</td>
-                        <td>Game Animation</td>
-                        <td><a href="#"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-10dohqv"
-                                    focusable="false" aria-hidden="true" viewBox="0 0 24 24"
-                                    data-testid="FileDownloadIcon">
-                                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
-                                </svg></a></td>
-                        <td>[Phuonglhk] Lam Huu Khanh Phuong</td>
+                        <td>IS</td>
+                        <td>Polycell</td>
+                        <td>[SE161502] Vũ Anh Thuyên</td>
+                        <td><span class="tdTbl__warning"> 2/6</span></td>
+                        <td><span class="tdTbl__warning">Unlocked</span></td>
                         <td><a href="#"><i class="fa fa-solid fa-eye"></i></a></td>
                     </tr>
                     <tr>
-                        <td>Cong nghe thong tin</td>
-                        <td>5</td>
-                        <td>CPManagement-Review</td>
-                        <td><a href="#"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-10dohqv"
-                                    focusable="false" aria-hidden="true" viewBox="0 0 24 24"
-                                    data-testid="FileDownloadIcon">
-                                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
-                                </svg></a></td>
-                        <td>[Phuonglhk] Lam Huu Khanh Phuong</td>
+                        <td>IS</td>
+                        <td>Polycell</td>
+                        <td>[SE161502] Vũ Anh Thuyên</td>
+                        <td><span class="tdTbl__warning"> 2/6</span></td>
+                        <td><span class="tdTbl__warning">Unlocked</span></td>
                         <td><a href="#"><i class="fa fa-solid fa-eye"></i></a></td>
                     </tr>
                 </tbody>
