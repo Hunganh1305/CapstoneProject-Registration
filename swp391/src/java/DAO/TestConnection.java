@@ -194,10 +194,10 @@ public class TestConnection {
 //        GroupsDAO.delete(5);
 //******************************************
 //           test LectureTopic readAll()
-//           ArrayList<LectureTopic> list = LectureTopicDAO.readAll();
-//           for (LectureTopic lectureTopic : list) {
-//              System.out.println(lectureTopic.getId()+ "," + lectureTopic.getLectureId()+ "," + lectureTopic.getTopicId());
-//           }
+           ArrayList<LectureTopic> list = LectureTopicDAO.readAll();
+           for (LectureTopic lectureTopic : list) {
+              System.out.println(lectureTopic.getId()+ "," + lectureTopic.getLectureId()+ "," + lectureTopic.getTopicId());
+           }
 //******************************************
 //        test LectureTopic create()
 //        LectureTopic lectureTopic = new LectureTopic(3,1,1);
