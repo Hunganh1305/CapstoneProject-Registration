@@ -1348,5 +1348,135 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 }
 
 .profile{
-	margin-top: 40px;
+	margin-top: 1rem;
+	background-color: rgb(255, 255, 255);
+    color: rgb(33, 43, 54);
+    transition: .3s;
+    box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px,
+        rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+    ;
+    padding: 16px 32px;
+    border-radius: 16px;
+    height: 100%;
+	padding-top: 30px;
+}
+
+.head-title {
+    text-align: center;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+	margin-top: 3rem;
+}
+
+#project{
+	margin-top: 2.5rem;
+}
+
+.project-title h1{
+	text-align: center;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    line-height: 1.5;
+}
+
+.project-contents{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+}
+
+.project-content{
+    margin-bottom: 2.5rem;
+    width: 100%;
+    height: max-content;
+    background-color: white;
+    box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px, 
+                rgb(145 158 171 / 24%) 0px 16px 32px;
+    border-radius: 16px;
+    padding: 16px 24px;
+}
+
+.project-name {
+    font-weight: 700;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+
+.project-doc h6{
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.5;
+}
+
+.project-doc textarea{
+    min-height: 200px;
+    width: 100%;
+    line-height: 1.42;
+    border-radius: 8px;
+    text-align: left;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    resize: none;
+}
+
+.project-item{
+    display: flex;
+    align-items: center;
+    column-gap: 1.1rem;
+    color:  #363e49;
+    padding-bottom: 20px;
+}
+
+.project-item i{
+    font-size: 2rem;
+    
+}
+
+.project-item span:first-child{
+    font-weight: 400;
+    font-size: 1.8rem;
+}
+
+.project-item span:last-child{
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+.blue-box{
+	height: 22px;
+    min-width: 22px;
+    line-height: 0;
+    border-radius: 8px;
+    cursor: default;
+    align-items: center;
+    white-space: nowrap;
+    display: inline-flex;
+    justify-content: center;
+    padding: 0px 8px;
+    color: rgb(12, 83, 183);
+    font-size: 0.75rem;
+    font-family: "Public Sans", sans-serif;
+    background-color: rgba(24, 144, 255, 0.16);
+    font-weight: 700;
+}
+
+.green-box{
+	height: 22px;
+    min-width: 22px;
+    line-height: 0;
+    border-radius: 8px;
+    cursor: default;
+    align-items: center;
+    white-space: nowrap;
+    display: inline-flex;
+    justify-content: center;
+    padding: 0px 8px;
+    color: rgb(34, 154, 22);
+    font-size: 0.75rem;
+    font-family: "Public Sans", sans-serif;
+    background-color: rgba(84, 214, 44, 0.16);
+    font-weight: 700;
+
 }
