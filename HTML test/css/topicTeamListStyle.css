@@ -7,10 +7,46 @@
 }
 
 .topic__title {
-    text-align: center;
+    /* text-align: ; */
     font-weight: 700;
     line-height: 1.5;
     margin-bottom: 3rem;
+}
+
+.teamListControl {
+    display: flex;
+    justify-content: space-between;
+}
+
+.team__btn {
+    background: #FDA92D;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0 5px;
+    color: black;
+    font-weight: 700;
+    border: none;
+    transition: 0.2s;
+}
+
+.team__btn:hover {
+    background: #B66816;
+}
+
+.tdTbl__warning {
+    background: rgba(255, 193, 7, 0.16);
+    color: rgb(183, 129, 3);
+    padding: 5px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.tdTbl__success {
+    background: #DCF1D7;
+    color: rgb(34, 154, 22);
+    padding: 5px 8px;
+    border-radius: 10px;
+    font-weight: 600;
 }
 
 .topic__text {

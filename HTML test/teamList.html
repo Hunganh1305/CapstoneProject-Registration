@@ -67,14 +67,20 @@
     <!-- topic -->
     <section id="topic" class="container">
 
-        <div class="topic__title">
-            <h1>Topic List</h1>
-        </div>
+        <div class="teamListControl">
+            <div class="topic__title">
+                <h2>Team List</h2>
+            </div>
+            <div class="btnControl">
+                <button class="team__btn">+ Quick Join A Team</button>
+                <button class="team__btn">+ Create A New Team</button>
+            </div>
 
+        </div>
         <div class="topic__container">
 
             <h6 class="topic__text">
-                All of approved topics in semester SU2022_SWP
+                All of public and unlocked teams in semester SU2022_SWP
             </h6>
 
             <hr>
@@ -82,7 +88,7 @@
             <div class="topic__search">
                 <form action="">
                     <input placeholder=" " class="search__input" type="text">
-                    <label for="search" class="search__label">Search by name</label>
+                    <label for="search" class="search__label">Search by team name</label>
                     <button type="submit" class="search-btn ">
                         <img src="img/search-interface-symbol.png" alt="">
                     </button>
@@ -106,48 +112,58 @@
             <table class="table topic__table">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>DEP.</th>
-                        <th>Name</th>
-                        <th>Lecturer</th>
-                        <th>Detail</th>
+                        <th>TEAMNAME</th>
+                        <th>LEADER</th>
+                        <th>MEMBER(s)</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1</td>
-                        <td>Quan tri kinh doanh</td>                      
-                        <td>CPManagement-Review</td>
-                        <td>[Phuonglhk] Lam Huu Khanh Phuong</td>
-                        <td><a href="./topicdetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
+                        <td>IS</td>
+                        <td>Polycell</td>
+                        <td>[SE161502] Vũ Anh Thuyên</td>
+                        <td>
+                            <span class="tdTbl__warning"> 2/6</span>
+                        </td>
+                        <td>
+                            <span class="tdTbl__warning">Unlocked</span>
+                        </td>
+                        <td><a href="#"><i class="fa fa-solid fa-eye"></i></a></td>
                     </tr>
                     <tr>
-                        <td>2</td>
-                        <td>Cong nghe thong tin</td>         
-                        <td>PetCareSystem</td>
-                        <td>[Phuonglhk] Lam Huu Khanh Phuong</td>
-                        <td><a href="./topicdetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
+                        <td>SE</td>
+                        <td>BeakyBlinders</td>
+                        <td>[SE161497] Lê Hải Long</td>
+                        <td><span class="tdTbl__success"> 2/6</span></td>
+                        <td><span class="tdTbl__warning">Unlocked</span></td>
+                        <td><a href="#"><i class="fa fa-solid fa-eye"></i></a></td>
                     </tr>
                     <tr>
-                        <td>3</td>
-                        <td>Cong nghe thong tin</td> 
-                        <td>PT Tranning app</td>
-                        <td>[Phuonglhk] Lam Huu Khanh Phuong</td>
-                        <td><a href="./topicdetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
+                        <td>IS</td>
+                        <td>Polycell</td>
+                        <td>[SE161502] Vũ Anh Thuyên</td>
+                        <td><span class="tdTbl__warning"> 2/6</span></td>
+                        <td><span class="tdTbl__warning">Unlocked</span></td>
+                        <td><a href="#"><i class="fa fa-solid fa-eye"></i></a></td>
                     </tr>
                     <tr>
-                        <td>4</td>
-                        <td>Cong nghe thong tin</td>       
-                        <td>Game Animation</td>
-                        <td>[Phuonglhk] Lam Huu Khanh Phuong</td>
-                        <td><a href="./topicdetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
+                        <td>IS</td>
+                        <td>Polycell</td>
+                        <td>[SE161502] Vũ Anh Thuyên</td>
+                        <td><span class="tdTbl__warning"> 2/6</span></td>
+                        <td><span class="tdTbl__warning">Unlocked</span></td>
+                        <td><a href="#"><i class="fa fa-solid fa-eye"></i></a></td>
                     </tr>
                     <tr>
-                        <td>5</td>
-                        <td>Cong nghe thong tin</td>        
-                        <td>CPManagement-Review</td>
-                        <td>[Phuonglhk] Lam Huu Khanh Phuong</td>
-                        <td><a href="./topicdetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
+                        <td>IS</td>
+                        <td>Polycell</td>
+                        <td>[SE161502] Vũ Anh Thuyên</td>
+                        <td><span class="tdTbl__warning"> 2/6</span></td>
+                        <td><span class="tdTbl__warning">Unlocked</span></td>
+                        <td><a href="#"><i class="fa fa-solid fa-eye"></i></a></td>
                     </tr>
                 </tbody>
             </table>
@@ -212,9 +228,6 @@
         <!-- /container -->
 
     </footer>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
     <script src="./js/topic.js"></script>
 </body>
 
