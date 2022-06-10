@@ -35,7 +35,8 @@ CREATE TABLE Users (
 	DepartmentId INT FOREIGN KEY (DepartmentId) REFERENCES Department(DepartmentId),
     Email VARCHAR(50) UNIQUE,
 	RoleId INT,
-	FOREIGN KEY (RoleId) REFERENCES Roles(RoleId)	
+	FOREIGN KEY (RoleId) REFERENCES Roles(RoleId),
+	Cookie VARCHAR(10)	
 )
 
 CREATE TABLE Topic(

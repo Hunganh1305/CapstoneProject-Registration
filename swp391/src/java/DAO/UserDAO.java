@@ -47,15 +47,16 @@ public class UserDAO {
         return list;
     }
     
-    public static Users read(Object id) {
+    public static Users read(String email, String password) {
         Connection cn = null;
         Users user = null;
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select * from dbo.Users where UserId=?";
+                String sql = "select * from dbo.Users where Email=? and Password=? COLLATE Latin1_General_CS_AS";
                 PreparedStatement stm = cn.prepareStatement(sql);
-                stm.setString(1, id.toString());
+                stm.setString(1, email);
+                stm.setString(2, password);
                 ResultSet rs = stm.executeQuery();
                 if (rs.next()) {
                     user = new Users();
@@ -133,5 +134,34 @@ public class UserDAO {
         } catch (Exception e) {
             e.getStackTrace();
         }
+    }
+    
+    public static boolean updateUserToken(String token, String email){
+        Connection cn=null;
+        boolean up=false;
+        try {
+            cn=DBUtils.makeConnection();
+            if(cn!=null){
+                String sql="update dbo.Users\n"
+                        +"set Cookie=?\n"
+                        +"where Email=?";
+                PreparedStatement pst=cn.prepareStatement(sql);
+                pst.setString(1, token);
+                pst.setString(2, email);
+                int count=pst.executeUpdate();
+                up = count>0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            if(cn!=null){
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return up;
     }
 }
