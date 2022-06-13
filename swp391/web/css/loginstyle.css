@@ -8339,3 +8339,8 @@ textarea.form-control {
         border: 1px solid transparent;
         background: #fbceb5;
         color: #fff; }
+
+.dropdown-menu{
+  font-size: 16px;
+  text-align: center;
+}
