@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
                         }
                     }
                     if(!token.equals("")){
-                        response.sendRedirect("profile.html");
+                        response.sendRedirect("profile.jsp");
                     }
                     else
                         request.setAttribute("WARNING", "You must login to use cookie");
@@ -75,7 +75,7 @@ public class LoginServlet extends HttpServlet {
                                 cookie.setMaxAge(60*30);
                                 response.addCookie(cookie);
                             }
-                            response.sendRedirect("profile.html");
+                            response.sendRedirect("profile.jsp");
                         }
                     }
                     else if(user.getRoleId()==2){
@@ -92,7 +92,7 @@ public class LoginServlet extends HttpServlet {
                                 cookie.setMaxAge(60*30);
                                 response.addCookie(cookie);
                             }
-                            response.sendRedirect("index.jsp");
+                            response.sendRedirect("index.html");
                         }
                     }
                     else if(user.getRoleId()==3){
@@ -109,7 +109,7 @@ public class LoginServlet extends HttpServlet {
                                 cookie.setMaxAge(60*30);
                                 response.addCookie(cookie);
                             }
-                            response.sendRedirect("index.jsp");
+                            response.sendRedirect("index.html");
                         }
                     }
                 }
