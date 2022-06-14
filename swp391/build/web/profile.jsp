@@ -1,3 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,7 +59,7 @@
 			<nav id="nav">
 				<ul class="main-menu nav navbar-nav navbar-right">
 					<li><a class="align-nav" href="./project.html">Project</a></li>
-					<li><a class="align-nav" href="./topic.html" >Topic</a></li>
+                                        <li><a class="align-nav" href="<c:url value="/topic/index.do"/>" >Topic</a></li>
 					<li><a class="align-nav" href="./teamList.html">Team List</a></li>
 					<li><a class="align-nav" href="./contact.html">Contact</a></li>
 					<li class="nav-item dropdown">
@@ -130,7 +134,7 @@
 							<span class="fa-solid fa-key fa-lg"></span>
 						</div>
 						<div class="col-sm-3">
-							<p class="mb-0">ID</p>
+							<p class="mb-0">Code</p>
 						</div>
 						<div class="col-sm-8">
 							<p class="text-muted mb-0">SE161322</p>

@@ -14,8 +14,10 @@
     <!-- Bootstrap -->
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
 
+
     <!-- Font Awesome Icon -->
-	<script src="https://kit.fontawesome.com/e7ea130b87.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/e7ea130b87.js" crossorigin="anonymous"></script>
+
 
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="./css/style.css" />
@@ -46,33 +48,34 @@
             </div>
 
             <!-- Navigation -->
-			<nav id="nav">
-				<ul class="main-menu nav navbar-nav navbar-right">
-					<li><a class="align-nav" href="./project.html">Project</a></li>
-					<li><a class="align-nav" href="./topic.html">Topic</a></li>
-					<li><a class="align-nav" href="./teamList.html">Team List</a></li>
-					<li><a class="align-nav" href="./contact.html">Contact</a></li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-							<img class="avatar" src="./img/sample-avatar.jpg" alt="Avatar">
-						</a>
-						<div class="dropdown-menu">
-							<br>
-							<a class="dropdown-item" href="./profile.html">
-								<span style="margin-right: 4px;" class="fa-solid fa-user fa-md"></span>
-								<span>Profile</span>
-							</a>
-							<hr>
-							<a class="'dropdown-item" href="#">
-								<span style="margin-right: 3px;" class="fa-solid fa-right-from-bracket fa-md"></span>
-								<span>Logout</span>
-							</a> 
-							<br>
-						</div>
-					</li>
-				</ul>
-			</nav>
-			<!-- /Navigation -->
+            <nav id="nav">
+                <ul class="main-menu nav navbar-nav navbar-right">
+                    <li><a class="align-nav" href="./project.html">Project</a></li>
+                    <li><a class="align-nav" href="./topic.html">Topic</a></li>
+                    <li><a class="align-nav" href="./teamList.html">Team List</a></li>
+                    <li><a class="align-nav" href="./contact.html">Contact</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img class="avatar" src="./img/sample-avatar.jpg" alt="Avatar">
+                        </a>
+                        <div class="dropdown-menu">
+                            <br>
+                            <a class="dropdown-item" href="./profile.html">
+                                <span style="margin-right: 4px;" class="fa-solid fa-user fa-md"></span>
+                                <span>Profile</span>
+                            </a>
+                            <hr>
+                            <a class="'dropdown-item" href="#">
+                                <span style="margin-right: 3px;" class="fa-solid fa-right-from-bracket fa-md"></span>
+                                <span>Logout</span>
+                            </a>
+                            <br>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /Navigation -->
 
 
         </div>
@@ -86,104 +89,36 @@
             <h1>Topic List</h1>
         </div>
 
-        <div class="topic__container">
-
-            <h6 class="topic__text">
-                All of approved topics in semester SU2022_SWP
-            </h6>
-
-            <hr>
-
-            <div class="topic__search">
-                <form action="">
-                    <input placeholder=" " class="search__input" type="text">
-                    <label for="search" class="search__label">Search by name</label>
-                    <button type="submit" class="search-btn ">
-                        <img src="img/search-interface-symbol.png" alt="">
-                    </button>
-                </form>
-
-                <div class="topic__filter">
-                    <i class="fa fa-regular fa-filter"></i>Filters
-                    <div class="dropdown">
-                        <ul class="filter__list">
-                            <li class="filter__item">Quan tri kinh doanh</li>
-                            <li class="filter__item">Cong nghe thong tin</li>
-                            <li class="filter__item">Ngon ngu Anh</li>
-                            <li class="filter__item">Ngon ngu Han Quoc</li>
-                            <li class="filter__item">Ngon ngu Nhat</li>
-                        </ul>
+        <!-- Navigation -->
+        <nav id="nav">
+            <ul class="main-menu nav navbar-nav navbar-right">
+                <li><a class="align-nav" href="./project.html">Project</a></li>
+                <li><a class="align-nav" href="./topic.html">Topic</a></li>
+                <li><a class="align-nav" href="./teamList.html">Team List</a></li>
+                <li><a class="align-nav" href="./contact.html">Contact</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="true" aria-expanded="false">
+                        <img class="avatar" src="./img/sample-avatar.jpg" alt="Avatar">
+                    </a>
+                    <div class="dropdown-menu">
+                        <br>
+                        <a class="dropdown-item" href="./profile.html">
+                            <span style="margin-right: 4px;" class="fa-solid fa-user fa-md"></span>
+                            <span>Profile</span>
+                        </a>
+                        <hr>
+                        <a class="'dropdown-item" href="#">
+                            <span style="margin-right: 3px;" class="fa-solid fa-right-from-bracket fa-md"></span>
+                            <span>Logout</span>
+                        </a>
+                        <br>
                     </div>
-                </div>
+                </li>
+            </ul>
+        </nav>
+        <!-- /Navigation -->
 
-            </div>
-
-            <table class="table topic__table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>DEP.</th>
-                        <th>Name</th>
-                        <th>Lecturer</th>
-                        <th>Detail</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Quan tri kinh doanh</td>
-                        <td>CPManagement-Review</td>
-                        <td>[Phuonglhk] Lam Huu Khanh Phuong</td>
-                        <td><a href="./topicdetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Cong nghe thong tin</td>
-                        <td>PetCareSystem</td>
-                        <td>[Phuonglhk] Lam Huu Khanh Phuong</td>
-                        <td><a href="./topicdetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Cong nghe thong tin</td>
-                        <td>PT Tranning app</td>
-                        <td>[Phuonglhk] Lam Huu Khanh Phuong</td>
-                        <td><a href="./topicdetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Cong nghe thong tin</td>
-                        <td>Game Animation</td>
-                        <td>[Phuonglhk] Lam Huu Khanh Phuong</td>
-                        <td><a href="./topicdetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Cong nghe thong tin</td>
-                        <td>CPManagement-Review</td>
-                        <td>[Phuonglhk] Lam Huu Khanh Phuong</td>
-                        <td><a href="./topicdetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <hr>
-
-            <nav aria-label="pagination Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
-
-        </div>
 
 
     </section>
@@ -228,7 +163,7 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
-    <script src="./js/topic.js"></script>
+    <script src="js/topic.js"></script>
 </body>
 
 </html>

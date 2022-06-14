@@ -71,10 +71,15 @@ select * from StudentGroup
 
 
 insert into Lecturer values(1,'Lam Huu Khanh Phuong','12345678',1,'phuonglhk@fe.edu.vn')
+
 select * from Lecturer
 
-insert into LecturerTopic values(1,1,1)
-insert into LecturerTopic values(2,1,1)
+update LecturerTopic set TopicId=2 where ID=2
+insert into LecturerTopic values(1,6,1)
+insert into LecturerTopic values(2,6,2)
+insert into LecturerTopic values(3,6,3)
+insert into LecturerTopic values(4,6,4)
+
 select * from LecturerTopic
 
 insert into Project values(1,'Manage and review on this web','CPManagement-Review','https://github.com/phhgquang/SWP391',1,1,1)
