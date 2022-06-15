@@ -69,11 +69,12 @@ public class TopicDAO {
                     int category = rs.getInt("categoryId");
                     String description = rs.getString("description");
                     int businessId = rs.getInt("businessId");
-                    int depId = rs.getInt("DepartmentId");
+                    int depId = rs.getInt("DepartmentId");                    
                     String depName = rs.getString("DepartmentName");
+                    
                     Department department = new Department();
                     department.setName(depName);
-                    Topic topic = new Topic(topicID, name, category, description, businessId, depId);
+                    Topic topic = new Topic(topicID, name, category, description, businessId, depId);                    
                     list.put(topic, department);
                 }
                 cn.close();
@@ -169,6 +170,8 @@ public class TopicDAO {
                     String description = rs.getString("description");
                     int businessId = rs.getInt("businessId");
                     int depId = rs.getInt("DepartmentId");
+
+                    
                     String depName = rs.getString("DepartmentName");
                     Department department = new Department();
                     department.setName(depName);
