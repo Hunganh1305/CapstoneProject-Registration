@@ -1,3 +1,10 @@
+<%-- 
+    Document   : teamList
+    Created on : Jun 15, 2022, 8:45:26 AM
+    Author     : phamquang
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +13,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Dashboard - Profile</title>
+        <title>Dashboard - Team List</title>
 
         <!-- Google font -->
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
@@ -111,7 +118,7 @@
                     </form>
 
                     <div class="topic__filter">
-                        <i class="fa fa-regular fa-filter"></i>Filters
+                        <i class="fa-solid fa-filter"></i>Filters
                         <div class="dropdown1">
                             <ul class="filter__list">
                                 <li class="filter__item">Quan tri kinh doanh</li>
