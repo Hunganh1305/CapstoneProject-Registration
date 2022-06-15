@@ -38,6 +38,10 @@ public class MainController extends HttpServlet {
             switch(action){
                 case "login":
                     url="LoginServlet";
+                    break;
+                case "logout":
+                    url="LogoutServlet";
+                    break;
             }   
             RequestDispatcher rd=request.getRequestDispatcher(url);
             rd.forward(request, response);
