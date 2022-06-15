@@ -67,6 +67,8 @@ public class LoginServlet extends HttpServlet {
                         if(session!=null){
                             session.setAttribute("name", user.getName());
                             session.setAttribute("email", user.getEmail());
+                            session.setAttribute("userId", user.getUserId());
+                            session.setAttribute("department", UserDAO.readUserDep(user.getDepartmentId()));
                             //create a cookie and attach it to the response obj
                             if(save!=null){
                                 String token="ABC123";
