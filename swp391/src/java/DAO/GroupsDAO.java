@@ -6,12 +6,14 @@
 package DAO;
 
 import DTO.Groups;
+
 import Utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+
 
 /**
  *
@@ -41,7 +43,7 @@ public class GroupsDAO {
             e.getStackTrace();
         }
         return list;
-    }
+    }  
 
     public static Groups read(Object id) {
         Connection cn = null;
