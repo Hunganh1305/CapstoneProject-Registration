@@ -31,8 +31,10 @@ public class StudentGroupDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select *\n"
-                        + "from dbo.StudentGroup\n";
+                String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName,p.status as proStatus from Users u join StudentGroup sg on u.UserId = sg.StudentId\n" +
+"										join Department dep on 	u.DepartmentId = dep.DepartmentId \n" +
+"										join Project p on p.GroupId = sg.GroupId\n" +
+"										join Groups gr on gr.groupId = sg.GroupId";
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
@@ -40,130 +42,21 @@ public class StudentGroupDAO {
                     int stuID = rs.getInt("studentId");
                     int groupId = rs.getInt("groupId");
                     int LeaderStatus = rs.getInt("leaderStatus");
-                    StudentGroup stu = new StudentGroup(stuID, stuID, groupId, LeaderStatus);
-                    list.add(stu);
-                }
-                cn.close();
-            }
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return list;
-    }
-     public static Map<StudentGroup,Groups> readStudentGroupName() { //GroupName 
-        Map<StudentGroup,Groups> list = new HashMap<>();
-        Connection cn = null;
-
-        try {
-            cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = " select StudentGroup.*,gr.GroupName \n"
-                        + "  from dbo.StudentGroup, select * from dbo.Groups \n"
-                        + "  where Groups.GroupId = StudentGroup.GroupId";
-                Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {                    
-                    int id = rs.getInt("id");
-                    int studentId = rs.getInt("studentId");                    
-                    int groupId = rs.getInt("groupId");
-                    int leaderStatus = rs.getInt("leaderStatus");                                                
-                    String groupName = rs.getString("groupName");                                                            
-                    Groups groups = new Groups();
-                    groups.setGroupName(groupName);                    
-                    StudentGroup sg = new StudentGroup(id, studentId, groupId, leaderStatus);                                                          ;                    
-                    list.put(sg, groups);
-                }
-                cn.close();
-            }
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return list;
-    }
-
-    public static Map<StudentGroup, Users> readStudentGroupUser() { //Name student(Leader)
-        Map<StudentGroup, Users> list = new HashMap<>();
-        Connection cn = null;
-
-        try {
-            cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "select u.*,sg.LeaderStatus from dbo.Users u join dbo.StudentGroup sg "
-                        + "on u.UserId = sg.StudentId where sg.LeaderStatus = 1 ";
-                Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    int id = rs.getInt("id");
-                    int studentId = rs.getInt("studentId");                    
-                    int groupId = rs.getInt("groupId");
-                    int leaderStatus = rs.getInt("leaderStatus");                                                                    
-                    String StuName = rs.getString("name");
+                    String leaderName = rs.getString("leaderName");
+                    String depName = rs.getString("depName");
+                    int proStatus = rs.getInt("proStatus");
+                    String groupName = rs.getString("groupName");
                     
-                    Users user = new Users();
-                    user.setName(StuName);
-                    StudentGroup sg = new StudentGroup(id, studentId, groupId, leaderStatus);
-                    list.put(sg, user);
-                }
-                cn.close();
-            }
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return list;
-    }
-    
-    public static Map<StudentGroup, Department> readStudentGroupDepartment() { //Dep Name 
-        Map<StudentGroup, Department> list = new HashMap<>();
-        Connection cn = null;
-
-        try {
-            cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "select u.*,sg.LeaderStatus,dep.Name from Users u "
-                        + "join StudentGroup sg on u.UserId = sg.StudentId\n" +
-                            "join Department dep on u.DepartmentId = dep.DepartmentId";
-                Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    int id = rs.getInt("id");
-                    int studentId = rs.getInt("studentId");                    
-                    int groupId = rs.getInt("groupId");
-                    int leaderStatus = rs.getInt("leaderStatus");                                                                    
-                    String depName = rs.getString("name");
-                    
+                    Users u = new Users();
+                    u.setName(leaderName);
                     Department dep = new Department();
                     dep.setName(depName);
-                    StudentGroup sg = new StudentGroup(id, studentId, groupId, leaderStatus);
-                    list.put(sg, dep);
-                }
-                cn.close();
-            }
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return list;
-    }
-     public static Map<StudentGroup, Project> readStudentGroupProject() { //Project status
-        Map<StudentGroup, Project> list = new HashMap<>();
-        Connection cn = null;
-
-        try {
-            cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "select * from Project p join StudentGroup sg on p.GroupId = sg.GroupId";
-                Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    int id = rs.getInt("id");
-                    int studentId = rs.getInt("studentId");                    
-                    int groupId = rs.getInt("groupId");
-                    int leaderStatus = rs.getInt("leaderStatus");                                                                    
-                    int proStatus = rs.getInt("status");
-                    
                     Project pro = new Project();
-                    pro.setStatus(proStatus);
-                    StudentGroup sg = new StudentGroup(id, studentId, groupId, leaderStatus);
-                    list.put(sg, pro);
+                    pro.setStatus(proStatus);     
+                    Groups gr = new Groups();
+                    gr.setGroupName(groupName);
+                    StudentGroup sg = new StudentGroup(ID, stuID, groupId, LeaderStatus, u, dep, pro, gr);
+                    list.add(sg);
                 }
                 cn.close();
             }
@@ -172,65 +65,42 @@ public class StudentGroupDAO {
         }
         return list;
     }
-    
-    
-
-    public static Map<StudentGroup, Users> readStudentGroupLeaderByName(String name) {
-        Map<StudentGroup, Users> list = new HashMap<>();
+     public static ArrayList<StudentGroup> searchGroupByName(String name){
         Connection cn = null;
-
+        ArrayList<StudentGroup> list = new ArrayList<>();
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select u.*,sg.LeaderStatus from Users u join StudentGroup sg "
-                            + "on u.UserId = sg.StudentId where sg.LeaderStatus = 1 and u.Name like ?";
+                String sql = "select * "
+                        +   "from Users u join StudentGroup sg on u.UserId = sg.StudentId\n" +
+                            "join Department dep on u.DepartmentId = dep.DepartmentId \n" +
+                            "join Project p on p.GroupId = sg.GroupId\n" +
+                            "join Groups gr on gr.groupId = sg.GroupId\n" +
+                            "where gr.groupName like ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, "%" + name + "%");
                 ResultSet rs = stm.executeQuery();
                 while (rs.next()) {
-                    int id = rs.getInt("id");
-                    int studentId = rs.getInt("studentId");                    
+                    int ID = rs.getInt("id");
+                    int stuID = rs.getInt("studentId");
                     int groupId = rs.getInt("groupId");
-                    int leaderStatus = rs.getInt("leaderStatus");                                                                    
-                    String StuName = rs.getString("name");
+                    int LeaderStatus = rs.getInt("leaderStatus");
+                    String leaderName = rs.getString("leaderName");
+                    String depName = rs.getString("depName");
+                    int proStatus = rs.getInt("proStatus");                   
+                    String groupName = rs.getString("groupName");
                     
-                    Users user = new Users();
-                    user.setName(StuName);
-                    StudentGroup sg = new StudentGroup(id, studentId, groupId, leaderStatus);
-                    list.put(sg, user);
-                }
-                cn.close();
-            }
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return list;
-    }
-
-    public static Map<StudentGroup, Department> readStudentGroupDepartmentByName(String name) {
-        Map<StudentGroup, Department> list = new HashMap<>();
-        Connection cn = null;
-
-        try {
-            cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "select u.*,sg.LeaderStatus,dep.Name from Users u "
-                        + "join StudentGroup sg on u.UserId = sg.StudentId\n" +
-                        "join Department dep on u.DepartmentId = dep.DepartmentId\n" +
-                        "where dep.Name like ?";
-                PreparedStatement stm = cn.prepareStatement(sql);
-                stm.setString(1, "%" + name + "%");
-                ResultSet rs = stm.executeQuery();
-                while (rs.next()) {
-                    int id = rs.getInt("id");
-                    int studentId = rs.getInt("studentId");                    
-                    int groupId = rs.getInt("groupId");
-                    int leaderStatus = rs.getInt("leaderStatus");                                                                    
-                    String depName = rs.getString("name");                    
+                    Users u = new Users();
+                    u.setName(leaderName);
                     Department dep = new Department();
                     dep.setName(depName);
-                    StudentGroup sg = new StudentGroup(id, studentId, groupId, leaderStatus);
-                    list.put(sg, dep);
+                    Project pro = new Project();
+                    pro.setStatus(proStatus);     
+                    Groups gr = new Groups();
+                    gr.setGroupName(groupName);
+                    
+                    StudentGroup sg = new StudentGroup(ID, stuID, groupId, LeaderStatus, u, dep, pro, gr);
+                    list.add(sg);
                 }
                 cn.close();
             }
@@ -238,7 +108,8 @@ public class StudentGroupDAO {
             e.getStackTrace();
         }
         return list;
-    }
+     }
+     
 
     public static StudentGroup read(Object id) {
         Connection cn = null;
