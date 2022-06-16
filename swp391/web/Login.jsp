@@ -48,12 +48,9 @@
                                 <div class="form-group d-md-flex">
                                     <div class="w-50">
                                         <label class="checkbox-wrap checkbox-primary" value="savelogin" name="savelogin">Remember Me
-                                            <input type="checkbox" checked>
+                                            <input type="checkbox">
                                             <span class="checkmark"></span>
                                         </label>
-                                    </div>
-                                    <div class="w-50 text-md-right">
-                                        <a href="#" style="color: #fff">Forgot Password</a>
                                     </div>
                                 </div>
                             </form>

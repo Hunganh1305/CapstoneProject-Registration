@@ -58,22 +58,89 @@ public class UserDAO {
                 stm.setString(1, email);
                 stm.setString(2, password);
                 ResultSet rs = stm.executeQuery();
-                if (rs.next()) {
-                    user = new Users();
-                    user.setUserId(rs.getInt("UserId"));
-                    user.setName("Name");
-                    user.setPassword("Password");
-                    user.setStatus(rs.getInt("Status"));
-                    user.setDepartmentId(rs.getInt("DepartmentId"));
-                    user.setName("Email");
-                    user.setRoleId(rs.getInt("RoleId"));
+                if(rs!=null && rs.next()){
+                    int UserId=rs.getInt("UserId");
+                    String Name=rs.getString("Name");
+                    String Password=rs.getString("Password");
+                    int Status=rs.getInt("Status");
+                    int DepartmentId=rs.getInt("DepartmentId");
+                    String Email=rs.getString("Email");
+                    int RoleId=rs.getInt("RoleId");
+                    user = new Users(UserId, Name, Password, Status, DepartmentId, Email, RoleId);
+                }
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        finally{
+            if(cn!=null){
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return user;
+    }
+    
+    public static Users readByToken(String token){
+        Connection cn=null;
+        Users user=null;
+        try {
+            cn=DBUtils.makeConnection();
+            if(cn!=null){
+                String sql="select *\n"
+                        +"from dbo.Users\n"
+                        +"where Cookie=? COLLATE Latin1_General_CS_AS";
+                PreparedStatement pst=cn.prepareStatement(sql);
+                pst.setString(1, token);
+                ResultSet rs=pst.executeQuery();
+                if(rs!=null && rs.next()){
+                    int UserId=rs.getInt("UserId");
+                    String Name=rs.getString("Name");
+                    String Password=rs.getString("Password");
+                    int Status=rs.getInt("Status");
+                    int DepartmentId=rs.getInt("DepartmentId");
+                    String Email=rs.getString("Email");
+                    int RoleId=rs.getInt("RoleId");
+                    user = new Users(UserId, Name, Password, Status, DepartmentId, Email, RoleId);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            if(cn!=null){
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }  
+        }
+        return user;
+    }
+    
+    public static String readUserDep(int DepartmentId) {
+        Connection cn = null;
+        String Department = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select D.Name from Users U join Department D on U.DepartmentId=D.DepartmentId where U.DepartmentId=?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, DepartmentId);
+                ResultSet rs = stm.executeQuery();
+                if(rs!=null && rs.next()){
+                    String Name=rs.getString("Name");
+                    Department=Name;
                 }
                 cn.close();
             }
         } catch (Exception e) {
             e.getStackTrace();
         }
-        return user;
+        return Department;
     }
     
     public static void create(Users user) {
