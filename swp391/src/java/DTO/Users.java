@@ -31,6 +31,10 @@ public class Users {
         this.roleId = roleId;
     }
 
+    public Users(String name) {
+        this.name = name;
+    }
+
     public String getPassword() {
         return password;
     }
