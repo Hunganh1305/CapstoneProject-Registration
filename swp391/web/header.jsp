@@ -36,7 +36,7 @@
                 <!-- Navigation -->
                 <nav id="nav">
                     <ul class="main-menu nav navbar-nav navbar-right">
-                        <li><a class="align-nav" href="./project.jsp">Project</a></li>
+                        <li><a class="align-nav" href="<%=request.getContextPath()%>/project/show"">Project</a></li>
                         <li><a class="align-nav" href="<c:url value="/topic/index.do"/>">Topic</a></li>
                         <li><a class="align-nav" href="./teamList.jsp">Team List</a></li>
                         <li><a class="align-nav" href="./contact.jsp">Contact</a></li>
