@@ -1,9 +1,11 @@
 <%-- 
     Document   : project
-    Created on : Jun 15, 2022, 8:44:34 AM
+    Created on : Jun 13, 2022, 9:10:55 PM
     Author     : phamquang
 --%>
 
+<%@page import="DTO.Users"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,13 +22,13 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
 
         <!-- Bootstrap -->
-        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css" />
 
         <!-- Font Awesome Icon -->
         <script src="https://kit.fontawesome.com/e7ea130b87.js" crossorigin="anonymous"></script>
 
         <!-- Custom stlylesheet -->
-        <link type="text/css" rel="stylesheet" href="css/style.css" />
+        <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -46,7 +48,7 @@
                     <!-- Logo -->
                     <div class="navbar-brand">
                         <a class="logo" href="index.html">
-                            <img src="./img/logo.png" alt="logo">
+                            <img src="<%=request.getContextPath()%>/img/logo.png" alt="logo">
                         </a>
                     </div>
                     <!-- /Logo -->
@@ -61,13 +63,13 @@
                 <!-- Navigation -->
                 <nav id="nav">
                     <ul class="main-menu nav navbar-nav navbar-right">
-                        <li><a class="align-nav" href="./project.html">Project</a></li>
-                        <li><a class="align-nav" href="./topic.html"> Topic</a></li>
+                        <li><a class="align-nav" href="<%=request.getContextPath()%>/project/show">Project</a></li>
+                        <li><a class="align-nav" href="./topic.html">Topic</a></li>
                         <li><a class="align-nav" href="./teamList.html">Team List</a></li>
                         <li><a class="align-nav" href="./contact.html">Contact</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                <img class="avatar" src="./img/sample-avatar.jpg" alt="Avatar">
+                                <img class="avatar" src="<%=request.getContextPath()%>/img/sample-avatar.jpg" alt="Avatar">
                             </a>
                             <div class="dropdown-menu">
                                 <br>
@@ -107,18 +109,18 @@
                                 <li class="project-item">
                                     <i class="fa fa-solid fa-bars col-sm-1"></i>
                                     <span class="col-sm-4">Team name</span>
-                                    <span class="col-sm-7">ABCD</span>
+                                    <span class="col-sm-7">${Group.groupName}</span>
                                 </li>
                                 <li class="project-item">
                                     <i class="fa-solid fa-clone col-sm-1"></i>
                                     <span class="col-sm-4">Joining code</span>
-                                    <span class="col-sm-7">2xhbx</span>
+                                    <span class="col-sm-7">${Group.groupId}</span>
                                 </li>
                                 <li class="project-item">
                                     <i class="fa fa-regular fa-building col-sm-1"></i>
                                     <span class="col-sm-4">Department</span>
                                     <div class="col-sm-7">
-                                        <span class="blue-box">Information System</span>
+                                        <span class="blue-box">${DepName}</span>
                                     </div>
                                 </li>
 
@@ -142,30 +144,19 @@
                             <h6 class="project-name">Team members</h6>
                             <hr>
                             <ul class="project-list">
-                                <li class="project-item">
-                                    <div class="col-sm-2">
-                                        <img class="avatar" src="./img/sample-avatar.jpg" alt="Avatar">
-                                    </div>
-                                    <span>Nguyên Văn A</span>
-                                </li>
-                                <li class="project-item">
-                                    <div class="col-sm-2">
-                                        <img class="avatar" src="./img/sample-avatar.jpg" alt="Avatar">
-                                    </div>
-                                    <span>Nguyên Văn B</span>
-                                </li>
-                                <li class="project-item">
-                                    <div class="col-sm-2">
-                                        <img class="avatar" src="./img/sample-avatar.jpg" alt="Avatar">
-                                    </div>
-                                    <span>Phạm Văn C</span>
-                                </li>
-                                <li class="project-item">
-                                    <div class="col-sm-2">
-                                        <img class="avatar" src="./img/sample-avatar.jpg" alt="Avatar">
-                                    </div>
-                                    <span>Trần Thị D</span>
-                                </li>
+                                <%!  List<Users> list;%>
+                                <%
+                                    list = (List<Users>) request.getAttribute("list");
+                                    for (Users s : list) {
+                                        out.print("<li class='project-item'>"
+                                        + "<div class='col-sm-2'>"
+                                        + "<img class=\"avatar\" src=\"../img/sample-avatar.jpg\" alt=\"Avatar\">"
+                                        + "</div>"
+                                        + "<span>" + s.getName() + "</span>"
+                                        + "</li>");
+                                    }
+
+                                %>
                             </ul>
 
                         </div>
@@ -217,9 +208,9 @@
 
         </footer>
         <script src="./js/topic.js"></script>
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/main.js"></script>
     </body>
 
 </html>
