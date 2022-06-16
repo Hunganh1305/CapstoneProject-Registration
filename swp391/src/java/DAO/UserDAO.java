@@ -143,6 +143,32 @@ public class UserDAO {
         return Department;
     }
     
+    public Users load(String email) {
+        String sql = "SELECT * from Users WHERE Users.Email = ?";
+        Users user = null;
+        try {
+            Connection conn = DBUtils.makeConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                user = new Users();
+
+                user.setUserId(rs.getInt("UserId"));
+                user.setName(rs.getString("Name"));
+                user.setPassword(rs.getString("Password"));
+                user.setStatus(rs.getInt("Status"));
+                user.setDepartmentId(rs.getInt("DepartmentId"));
+                user.setEmail(rs.getString("Email"));
+                user.setRoleId(rs.getInt("RoleId"));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return user;
+    }
+    
     public static void create(Users user) {
         Connection cn = null;
         try {

@@ -22,6 +22,11 @@ public class Groups {
         this.groupName = groupName;
         this.semId = semId;
     }
+    
+    public Groups(int groupId, String groupName){
+        this.groupId = groupId;
+        this.groupName = groupName;
+    }
 
     public int getGroupId() {
         return groupId;
