@@ -3,7 +3,7 @@
     Created on : Jun 15, 2022, 8:45:26 AM
     Author     : phamquang
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,16 +19,16 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
 
         <!-- Bootstrap -->
-        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" />
 
         <!-- Font Awesome Icon -->
         <script src="https://kit.fontawesome.com/e7ea130b87.js" crossorigin="anonymous"></script>
 
         <!-- Custom stlylesheet -->
-        <link type="text/css" rel="stylesheet" href="./css/style.css" />
+        <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
         <!-- topic stylessheet -->
-        <link type="text/css" rel="stylesheet" href="./css/topicTeamListStyle.css" />
+        <link type="text/css" rel="stylesheet" href="../css/topicTeamListStyle.css" />
     </head>
 
     <body>
@@ -40,7 +40,7 @@
                     <!-- Logo -->
                     <div class="navbar-brand">
                         <a class="logo" href="index.html">
-                            <img src="./img/logo.png" alt="logo">
+                            <img src="../img/logo.png" alt="logo">
                         </a>
                     </div>
                     <!-- /Logo -->
@@ -56,13 +56,13 @@
                 <!-- Navigation -->
                 <nav id="nav">
                     <ul class="main-menu nav navbar-nav navbar-right">
-                        <li><a class="align-nav" href="./project.html">Project</a></li>
-                        <li><a class="align-nav" href="./topic.html"/>Topic</a></li>
-                        <li><a class="align-nav" href="./teamList.html">Team List</a></li>
-                        <li><a class="align-nav" href="./contact.html">Contact</a></li>
+                        <li><a class="align-nav" href="#">Project</a></li>
+                        <li><a class="align-nav" href="<c:url value="/topic/index.do"/>"/>Topic</a></li>
+                        <li><a class="align-nav" href="<c:url value="/group/index.do"/>">Team List</a></li>
+                        <li><a class="align-nav" href="#">Contact</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                <img class="avatar" src="./img/sample-avatar.jpg" alt="Avatar">
+                                <img class="avatar" src="../img/sample-avatar.jpg" alt="Avatar">
                             </a>
                             <div class="dropdown-menu">
                                 <br>
@@ -109,16 +109,16 @@
                 <hr>
 
                 <div class="topic__search">
-                    <form action="">
-                        <input placeholder=" " class="search__input" type="text">
-                        <label for="search" class="search__label">Search by team name</label>
+                    <form action="<c:url value="/group/search.do"/>">
+                        <input placeholder=" " value="${searchText==null?"":searchText}" name="searchText" class="search__input" type="text">
+                        <label for="search" class="search__label">Search by name</label>
                         <button type="submit" class="search-btn ">
-                            <img src="img/search-interface-symbol.png" alt="">
+                            <img src="../img/search-interface-symbol.png" alt="">
                         </button>
                     </form>
 
                     <div class="topic__filter">
-                        <i class="fa fa-regular fa-filter"></i>Filters
+                        <i class="fa fa-solid fa-sort"></i>Filters
                         <div class="dropdown1">
                             <ul class="filter__list">
                                 <li class="filter__item">Quan tri kinh doanh</li>
@@ -132,83 +132,48 @@
 
                 </div>
 
-                <table class="table topic__table">
-                    <thead>
-                        <tr>
-                            <th>DEP.</th>
-                            <th>TEAMNAME</th>
-                            <th>LEADER</th>
-                            <th>MEMBER(s)</th>
-                            <th>STATUS</th>
-                            <th>ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>IS</td>
-                            <td>Polycell</td>
-                            <td>[SE161502] Vũ Anh Thuyên</td>
-                            <td>
-                                <span class="tdTbl__warning"> 2/6</span>
-                            </td>
-                            <td>
-                                <span class="tdTbl__warning">Unlocked</span>
-                            </td>
-                            <td><a href="teamDetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>SE</td>
-                            <td>BeakyBlinders</td>
-                            <td>[SE161497] Lê Hải Long</td>
-                            <td><span class="tdTbl__success"> 2/6</span></td>
-                            <td><span class="tdTbl__warning">Unlocked</span></td>
-                            <td><a href="teamDetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>IS</td>
-                            <td>Polycell</td>
-                            <td>[SE161502] Vũ Anh Thuyên</td>
-                            <td><span class="tdTbl__warning"> 2/6</span></td>
-                            <td><span class="tdTbl__warning">Unlocked</span></td>
-                            <td><a href="teamDetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>IS</td>
-                            <td>Polycell</td>
-                            <td>[SE161502] Vũ Anh Thuyên</td>
-                            <td><span class="tdTbl__warning"> 2/6</span></td>
-                            <td><span class="tdTbl__warning">Unlocked</span></td>
-                            <td><a href="teamDetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>IS</td>
-                            <td>Polycell</td>
-                            <td>[SE161502] Vũ Anh Thuyên</td>
-                            <td><span class="tdTbl__warning"> 2/6</span></td>
-                            <td><span class="tdTbl__warning">Unlocked</span></td>
-                            <td><a href="teamDetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <c:if test="${!empty list}">
+                    <table class="table topic__table">
+                        <thead>
+                            <tr>
+                                <th>DEP.</th>
+                                <th>TeamName</th>
+                                <th>Leader</th>
+                                
+                                <th>Status</th>
+                                <th>Detail</th>                                
+                            </tr>
+                        </thead>
 
-                <hr>
+                       
+                            <c:forEach var="list" items="${list}" varStatus="loop">
+                                <c:if test="${list.leaderStatus == 1}">
+                                    <tbody>
+                                        <tr>                                     
+                                            <td>${list.depName.name}</td>
+                                            <td>${list.groupName.groupName}</td>
+                                            <td>${list.leaderName.name}</td>                                                                                        
+                                            <td>${list.proStatus.status==1?"unlocked":"locked"}</td>
+                                            <td><a href="#"><i class="fa fa-solid fa-eye"></i></a></td>
+                                        </tr>
 
-                <nav aria-label="pagination Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
+                                    </tbody>
+                                </c:if>
+                            </c:forEach>
+                       
+                    </table>
 
-            </div>
+                </c:if>
 
+
+
+            <!--    <c:if test="${empty list}">
+                    <div class="search-empty">
+                        <img src="../img/search-empty.png" class="search-empty-icon"/>
+                        <div class="search-empty-title">Cannot find any group</div>
+                        <div class="search-empty-hint">Try using more general keywords</div>
+                    </div>
+                </c:if> -->
 
         </section>
         <!-- topic -->
