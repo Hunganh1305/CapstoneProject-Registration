@@ -39,7 +39,7 @@
                         <li><a class="align-nav" href="<%=request.getContextPath()%>/project/show">Project</a></li>
                         <li><a class="align-nav" href="<c:url value="/topic/index.do"/>">Topic</a></li>
                         <li><a class="align-nav" href="<c:url value="/group/index.do"/>">Team List</a></li>
-                        <li><a class="align-nav" href="./contact.jsp">Contact</a></li>
+                        <li><a class="align-nav" href="../contact.jsp">Contact</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                 <img class="avatar" src="../img/sample-avatar.jpg" alt="Avatar">
@@ -51,7 +51,7 @@
                                     <span>Profile</span>
                                 </a>
                                 <hr>
-                                <a class="'dropdown-item" href="MainController?action=logout">
+                                <a class="dropdown-item" href="MainController?action=logout">
                                     <span style="margin-right: 3px;" class="fa-solid fa-right-from-bracket fa-md"></span>
                                     <span>Logout</span>
                                 </a> 
