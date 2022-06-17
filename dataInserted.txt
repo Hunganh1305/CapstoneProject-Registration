@@ -53,6 +53,10 @@ insert into Topic values(1,'CPManagement-Review',6,'Manage and review on this we
 insert into Topic values(2,'PetCareSystem',6,'The best solution to manage and service your pet',5,2)
 insert into Topic values(3,'PT Tranning app',6,'The way to transform to the monster',3,2)
 insert into Topic values(4,'Game Animation',10,'Like a little MCU movie',5,2)
+insert into Topic values(5,'Research And Developing Brands',2,'Make and marketing a brand to users',7,1)
+insert into Topic values(6,'Social issues',14,'Write an essay about social isues',10,3)
+insert into Topic values(7,'An analysis on cultural',16,'Write an essay analyze cultural',11,4)
+insert into Topic values(8,'Economic Policy of Japan',15,'Research and presentation',9,5)
 select * from Topic
 
 
@@ -86,9 +90,19 @@ insert into Project values(1,'Manage and review on this web','CPManagement-Revie
 insert into Project values(2,'The best solution to manage and service your pet','PetCareSystem','',2,1,2)
 insert into Project values(3,'The way to transform to the monster','PT Tranning app','',3,1,3)
 insert into Project values(4,'Like a little MCU movie','Game Animation','',4,1,4)
+insert into LecturerTopic values(5,22,5)
+insert into LecturerTopic values(6,23,6)
+insert into LecturerTopic values(7,24,7)
+insert into LecturerTopic values(8,25,8)
 select * from Project
 
 
 insert into ProjectLecturer values(1,1,1)
 insert into ProjectLecturer values(2,2,1)
 select * from ProjectLecturer
+
+select * from Users
+insert into Users values(22,'Nguyen Bich Nga','12345678',1,1,'nganb@fe.edu.vn',2,Null)
+insert into Users values(23,'Vu Hong Quan','12345678',1,3,'quanvh@fe.edu.vn',2,Null)
+insert into Users values(24,'Tran Vu Quang','12345678',1,4,'quangtv@fe.edu.vn',2,Null)
+insert into Users values(25,'Tran Thi Hong Bich','12345678',1,5,'bichtth@fe.edu.vn',2,Null)
