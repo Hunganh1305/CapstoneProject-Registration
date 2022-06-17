@@ -34,6 +34,8 @@
         </header>
         <!-- /Header -->
 
+        
+        
         <!-- topic -->
         <section id="topic" class="container">
 
@@ -95,7 +97,6 @@
                             </tr>
                         </thead>
 
-
                         <c:forEach var="list" items="${list}" varStatus="loop">
                             <c:if test="${list.leaderStatus == 1}">
                                 <tbody>
@@ -116,14 +117,13 @@
                 </c:if>
 
 
-
-                <!--    <c:if test="${empty list}">
-            <div class="search-empty">
-                <img src="../img/search-empty.png" class="search-empty-icon"/>
-                <div class="search-empty-title">Cannot find any group</div>
-                <div class="search-empty-hint">Try using more general keywords</div>
-            </div>
-                </c:if> -->
+                <c:if test="${empty list}">
+                    <!--                    <div class="search-empty">
+                                            <img src="../img/search-empty.png" class="search-empty-icon"/>
+                                            <div class="search-empty-title">Cannot find any group</div>
+                                            <div class="search-empty-hint">Try using more general keywords</div>
+                                        </div>-->
+                </c:if> 
 
         </section>
         <!-- topic -->
