@@ -36,9 +36,9 @@
                 <!-- Navigation -->
                 <nav id="nav">
                     <ul class="main-menu nav navbar-nav navbar-right">
-                        <li><a class="align-nav" href="<%=request.getContextPath()%>/project/show"">Project</a></li>
+                        <li><a class="align-nav" href="<%=request.getContextPath()%>/project/show">Project</a></li>
                         <li><a class="align-nav" href="<c:url value="/topic/index.do"/>">Topic</a></li>
-                        <li><a class="align-nav" href="./teamList.jsp">Team List</a></li>
+                        <li><a class="align-nav" href="<c:url value="/group/index.do"/>">Team List</a></li>
                         <li><a class="align-nav" href="./contact.jsp">Contact</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
