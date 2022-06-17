@@ -126,6 +126,8 @@ insert into Users values(2,'Pham Cong Minh','12345678',1,2,'phamcongminh@gmail.c
 insert into Users values(3,'Ha Anh Tu','12345678',1,2,'haanhtu@gmail.com',1)
 insert into Users values(4,'Pham Nguyen Hung Anh','12345678',1,2,'hunganh@gmail.com',1)
 insert into Users values(5,'Pham Hong Quang','12345678',1,2,'phamhongquang@gmail.com',1)
+select * from Users
+
 
 insert into Users values(6,'Lam Huu Khanh Phuong','12345678',1,2,'phuonglhk@fe.edu.vn',2)
 
@@ -134,6 +136,20 @@ insert into Users Values (8, 'FPT Software HCM','12345678',null,null,'FPTsotfwar
 insert into Users Values (9, 'Cty TNHH Job Test','12345678',null,null,'jobtest@gmail.com',3)
 insert into Users Values (10, 'Cty SmartPay','12345678',null,null,'smartpay@gmail.com',3)
 insert into Users Values (11, 'NashTech Global','12345678',null,null,'nashtech@gmail.com',3)
+
+
+--more students
+insert into Users values(12,'Nguyen Van A','12345678',1,2,'ngguyenvana@gmail.com',1,null)
+insert into Users values(13,'Pham Van B','12345678',1,2,'phamvanb@gmail.com',1,null)
+insert into Users values(14,'Ha Van C','12345678',1,2,'havanc@gmail.com',1,null)
+insert into Users values(15,'Pham Phu D','12345678',1,2,'phamphud@gmail.com',1,null)
+insert into Users values(16,'Le Van E','12345678',1,2,'levane@gmail.com',1,null)
+
+insert into Users values(17,'Vu Anh Thuyen','12345678',1,3,'vuanhthuyen@gmail.com',1,null)
+insert into Users values(18,'Vien Quoc Binh','12345678',1,3,'vienquocbinh@gmail.com',1,null)
+insert into Users values(19,'Huynh Chau Hai Trieu','12345678',1,3,'huynhchauhaitrieu@gmail.com',1,null)
+insert into Users values(20,'Tham Hoang Minh','12345678',1,3,'thamhoangminh@gmail.com',1,null)
+insert into Users values(21,'Lam Tuan Lac','12345678',1,3,'lamtuanlac@gmail.com',1,null)
 
 select * from Users
 
@@ -175,6 +191,18 @@ insert into StudentGroup values(2,2,1,0)
 insert into StudentGroup values(3,3,1,0)
 insert into StudentGroup values(4,4,1,0)
 insert into StudentGroup values(5,5,1,0)
+--more groups
+insert into StudentGroup values(6,12,2,1)
+insert into StudentGroup values(7,13,2,0)
+insert into StudentGroup values(8,14,2,0)
+insert into StudentGroup values(9,15,2,0)
+insert into StudentGroup values(10,16,2,0)
+
+insert into StudentGroup values(11,17,3,1)
+insert into StudentGroup values(12,18,3,0)
+insert into StudentGroup values(13,19,3,0)
+insert into StudentGroup values(14,20,3,0)
+insert into StudentGroup values(15,21,3,0)
 
 select * from StudentGroup
 
