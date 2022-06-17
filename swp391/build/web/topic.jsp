@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,57 +29,15 @@
     </head>
 
     <body>
+        <%
+            String name = (String) session.getAttribute("name");
+            if (name == null) { %>
+                <p><font color='red'>You must login to view this page</font></p> 
+                <p>Click <a href="Login.jsp">here</a> to login</p> 
+        <%} else {%>
         <!-- Header -->
-        <header id="header">
-            <div class="container">
-
-                <div class="navbar-header">
-                    <!-- Logo -->
-                    <div class="navbar-brand">
-                        <a class="logo" href="index.html">
-                            <img src="../img/logo.png" alt="logo">
-                        </a>
-                    </div>
-                    <!-- /Logo -->
-
-                    <!-- Mobile toggle -->
-                    <button class="navbar-toggle">
-                        <span></span>
-                    </button>
-                    <!-- /Mobile toggle -->
-                </div>
-
-                <!-- Navigation -->
-                <nav id="nav">
-                    <ul class="main-menu nav navbar-nav navbar-right">
-                        <li><a class="align-nav" href="../project.html">Project</a></li>
-                        <li><a class="align-nav" href="<c:url value="/topic/index.do"/>">Topic</a></li>
-                        <li><a class="align-nav" href="../teamList.html">Team List</a></li>
-                        <li><a class="align-nav" href="../contact.html">Contact</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                <img class="avatar" src="../img/sample-avatar.jpg" alt="Avatar">
-                            </a>
-                            <div class="dropdown-menu">
-                                <br>
-                                <a class="dropdown-item" href="./profile.html">
-                                    <span style="margin-right: 4px;" class="fa-solid fa-user fa-md"></span>
-                                    <span>Profile</span>
-                                </a>
-                                <hr>
-                                <a class="'dropdown-item" href="#">
-                                    <span style="margin-right: 3px;" class="fa-solid fa-right-from-bracket fa-md"></span>
-                                    <span>Logout</span>
-                                </a> 
-                                <br>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- /Navigation -->
-
-
-            </div>
+        <header>
+            <%@include file="header.jsp" %>
         </header>
         <!-- /Header -->
 
@@ -182,42 +141,12 @@
         </section>
         <!-- topic -->
 
-        <footer id="footer" class="section">
-
-            <!-- container -->
-            <div class="container">
-
-                <!-- row -->
-                <div id="bottom-footer" class="row">
-
-                    <!-- social -->
-                    <div class="col-md-4 col-md-push-8">
-                        <ul class="footer-social">
-                            <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
-                            <li><a href="#" class="youtube"><i class="fa fa-youtube"></i></a></li>
-                            <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
-                        </ul>
-                    </div>
-                    <!-- /social -->
-
-                    <!-- copyright -->
-                    <div class="col-md-8 col-md-pull-4">
-                        <div class="footer-copyright">
-                            <span>&copy; Copyright 2022. All Rights Reserved. | FPT University </span>
-                        </div>
-                    </div>
-                    <!-- /copyright -->
-
-                </div>
-                <!-- row -->
-
-            </div>
-            <!-- /container -->
-
+        <footer>
+            <%@include file="footer.jsp" %>
         </footer>
+        
+        <% } %>
+        
         <script type="text/javascript" src="../js/jquery.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/main.js"></script>

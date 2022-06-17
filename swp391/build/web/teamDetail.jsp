@@ -1,3 +1,10 @@
+<%-- 
+    Document   : teamDetail
+    Created on : Jun 15, 2022, 8:46:18 AM
+    Author     : phamquang
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 

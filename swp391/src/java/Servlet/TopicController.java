@@ -60,6 +60,7 @@ public class TopicController extends HttpServlet {
                 Map mapSearch2 = td.readTopicLecturerByName(searchText);
                 request.setAttribute("map1", mapSearch1);
                 request.setAttribute("map2", mapSearch2);
+                request.setAttribute("searchText", searchText);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
 
