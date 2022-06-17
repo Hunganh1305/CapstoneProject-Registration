@@ -50,7 +50,7 @@
                                 (cookie.getName().equals("selector")) { token=cookie.getValue(); Users
                                 user=UserDAO.readByToken(token); if (user !=null) { name=user.getName();
                                 email=user.getEmail(); login=true; } } } } else { login=true; } //show content if
-                                login=true; if (login) { %> 
+                                login=true; if (login) { %>
                                 <!-- Header -->
                                 <header>
                                     <%@include file="header_profile.jsp" %>
@@ -214,7 +214,6 @@
                                         <script type="text/javascript" src="js/jquery.min.js"></script>
                                         <script type="text/javascript" src="js/bootstrap.min.js"></script>
                                         <script type="text/javascript" src="js/main.js"></script>
-
                     </body>
 
                     </html>
