@@ -16,18 +16,41 @@ public class Topic {
     private String description;
     private int businessId;
     private int departmentId;
-
+    private Users user;
+    private Department department;
+    
+    
     public Topic() {
     }
 
-    public Topic(int topicId, String name, int catergoryId, String description, int businessId, int departmentId) {
+    public Topic(int topicId, String name, int catergoryId, String description, int businessId, int departmentId, Users user, Department department) {
         this.topicId = topicId;
         this.name = name;
         this.catergoryId = catergoryId;
         this.description = description;
         this.businessId = businessId;
         this.departmentId = departmentId;
+        this.user = user;
+        this.department = department;
     }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    
 
     public int getTopicId() {
         return topicId;
