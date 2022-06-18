@@ -98,6 +98,7 @@
                             </tr>
                         </thead>
 
+
                         <c:forEach var="item" items="${list}" varStatus="loop">                                       
                             <tbody>
                                 <tr>  
@@ -109,6 +110,7 @@
                                 </tr>
 
                             </tbody>                                                          
+
                         </c:forEach>
                     </table>
 

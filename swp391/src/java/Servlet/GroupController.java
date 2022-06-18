@@ -46,16 +46,21 @@ public class GroupController extends HttpServlet {
                 request.getRequestDispatcher("/teamList.jsp").forward(request, response);
                 break;
             case "search":
-//                String searchText = request.getParameter("searchText");
-//                if(searchText==null){
-//                    response.sendRedirect("/teamList.jsp");
-//                }
-//                Map mapSearch1 = sg.readStudentGroupDepartmentByName(searchText);
-//                Map mapSearch2 = sg.readStudentGroupLeaderByName(searchText);
-//                request.setAttribute("map1", mapSearch1);
-//                request.setAttribute("map2", mapSearch2);
-//                request.getRequestDispatcher("/teamList.jsp").forward(request, response);
+                String searchText = request.getParameter("searchText");
+                if(searchText==null){
+                    response.sendRedirect("/teamList.jsp");
+                }
+                ArrayList<StudentGroup> list2= sg.searchGroupByName(searchText);
+                request.setAttribute("list", list2);
+                request.setAttribute("searchText", searchText);
+                request.getRequestDispatcher("/teamList.jsp").forward(request, response);
                 break;
+            case "filter":
+                 String filter=request.getParameter("filter");
+                 ArrayList<StudentGroup> list3= sg.filterByDepartment(filter);
+                 request.setAttribute("list", list3);
+                 request.getRequestDispatcher("/teamList.jsp").forward(request, response);
+                 break;
 
         }
     }
