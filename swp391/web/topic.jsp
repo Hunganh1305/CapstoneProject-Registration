@@ -29,12 +29,14 @@
     </head>
 
     <body>
+        
         <%
             String name = (String) session.getAttribute("name");
-            if (name == null) { %>
-                <p><font color='red'>You must login to view this page</font></p> 
-                <p>Click <a href="Login.jsp">here</a> to login</p> 
-        <%} else {%>
+            if (name == null) {
+                response.sendRedirect("Login.jsp");
+            } else {
+        %>
+        
         <!-- Header -->
         <header>
             <%@include file="header.jsp" %>
@@ -93,9 +95,9 @@
                             </tr>
                         </thead>
 
-                        <c:forEach var="item" items="${list}" varStatus="loop">                                                        
+                        <c:forEach var="item" items="${list}" varStatus="loop">                                       
                                     <tbody>
-                                        <tr> 
+                                        <tr>  
                                             <td>${item.topicId}</td>
                                             <td>${item.department.name}</td>
                                             <td>${item.name}</td>
@@ -103,7 +105,7 @@
                                             <td><a href="./topicdetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
                                         </tr>
 
-                                    </tbody>                              
+                                    </tbody>                                                          
                         </c:forEach>
                     </table>
 
