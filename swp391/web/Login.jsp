@@ -45,14 +45,6 @@
                                 <div class="form-group">
                                     <button type="submit" class="form-control btn btn-primary submit px-3" value="login" name="action">Sign In</button>
                                 </div>
-                                <div class="form-group d-md-flex">
-                                    <div class="w-50">
-                                        <label class="checkbox-wrap checkbox-primary" value="savelogin" name="savelogin">Remember Me
-                                            <input type="checkbox">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
                             </form>
                         </div>
                     </div>
