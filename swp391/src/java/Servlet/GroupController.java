@@ -55,7 +55,7 @@ public class GroupController extends HttpServlet {
 //                request.setAttribute("map1", mapSearch1);
 //                request.setAttribute("map2", mapSearch2);
 //                request.getRequestDispatcher("/teamList.jsp").forward(request, response);
-                break;
+//                break;
 
         }
     }
