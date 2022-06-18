@@ -17,8 +17,10 @@
             <!-- Bootstrap -->
             <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" />
 
+
             <!--       Bootstrap Icon -->
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
 
             <!-- Font Awesome Icon -->
             <!--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
@@ -27,9 +29,11 @@
             <!-- Custom stlylesheet -->
             <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
+
             <!-- topic stylessheet -->
             <link type="text/css" rel="stylesheet" href="../css/topicTeamListStyle.css" />
         </head>
+
 
         <body>
 
@@ -37,6 +41,7 @@
 
             <% String name=(String) session.getAttribute("name"); if (name==null) { response.sendRedirect("Login.jsp");
                 } else { %>
+
 
 
 
@@ -51,6 +56,7 @@
 
                     <div class="topic__title">
                         <h1>Topic List</h1>
+
                     </div>
 
                     <div class="topic__container">
@@ -108,7 +114,7 @@
                                     </tr>
                                 </thead>
 
-                                <<<<<<< HEAD <c:forEach var="item" items="${list}" varStatus="loop">
+                                <<<<<<< HEAD <<<<<<< HEAD <c:forEach var="item" items="${list}" varStatus="loop">
                                     <tbody>
                                         <tr>
                                             <td>${item.topicId}</td>
@@ -119,6 +125,7 @@
                                         </tr>
 
                                     </tbody>
+
 
                                     </c:forEach>
                             </table>
@@ -164,12 +171,16 @@
                     </div>
 
 
+
+
                 </section>
                 <!-- topic -->
+
 
                 <footer>
                     <%@include file="footer.jsp" %>
                 </footer>
+
 
                 <% }%>
 
