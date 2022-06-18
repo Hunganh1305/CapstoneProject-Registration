@@ -29,8 +29,10 @@ public class TopicDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select *\n"
-                        + "from dbo.Topic\n";
+                String sql = "  select ltt.*,d.Name as DepartmentName,u.Name as LecturerName\n"
+                        + "  from (select t.*,lt.LecturerId from dbo.LecturerTopic lt join dbo.Topic t on lt.TopicId = t.TopicId) ltt \n"
+                        + "  join dbo.Users u on ltt.LecturerId=u.UserId \n"
+                        + "  join dbo.Department d on ltt.DepartmentId=d.DepartmentId";
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
@@ -40,7 +42,13 @@ public class TopicDAO {
                     String description = rs.getString("description");
                     int businessId = rs.getInt("businessId");
                     int depId = rs.getInt("DepartmentId");
-                    Topic topic = new Topic(topicID, name, category, description, businessId, depId);
+                    String depName = rs.getString("DepartmentName");
+                    String lecName = rs.getString("LecturerName");
+                    Users user = new Users();
+                    Department dep = new Department();
+                    dep.setName(depName);
+                    user.setName(lecName);
+                    Topic topic = new Topic(topicID, name, category, description, businessId, depId, user, dep);
                     list.add(topic);
                 }
                 cn.close();
@@ -51,96 +59,35 @@ public class TopicDAO {
         return list;
     }
 
-     public static Map<Topic, Department> readTopicDepartment() {
-        Map<Topic, Department> list = new HashMap<>();
+    public static ArrayList<Topic> searchByName(String name) {
         Connection cn = null;
-
+        ArrayList<Topic> list = new ArrayList<>();
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = " select Topic.*,Dep.name as DepartmentName \n"
-                        + "  from dbo.Topic, (select * from Department) as Dep \n"
-                        + "  where Dep.DepartmentId = Topic.DepartmentId ";
-                Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    int topicID = rs.getInt("topicId");
-                    String name = rs.getString("Name");
-                    int category = rs.getInt("categoryId");
-                    String description = rs.getString("description");
-                    int businessId = rs.getInt("businessId");
-                    int depId = rs.getInt("DepartmentId");                    
-                    String depName = rs.getString("DepartmentName");
-                    
-                    Department department = new Department();
-                    department.setName(depName);
-                    Topic topic = new Topic(topicID, name, category, description, businessId, depId);                    
-                    list.put(topic, department);
-                }
-                cn.close();
-            }
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return list;
-    }
-
-    public static Map<Topic, Users> readTopicLecturer() {
-        Map<Topic, Users> list = new HashMap<>();
-        Connection cn = null;
-
-        try {
-            cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "select t.*,u.Name as LecturerName\n"
-                        + "from dbo.LecturerTopic lt join dbo.Topic t on lt.TopicId=t.TopicId join dbo.Users u on lt.LecturerId=u.UserId ";
-                Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    int topicID = rs.getInt("topicId");
-                    String name = rs.getString("Name");
-                    int category = rs.getInt("categoryId");
-                    String description = rs.getString("description");
-                    int businessId = rs.getInt("businessId");
-                    int depId = rs.getInt("DepartmentId");
-                    String lecName = rs.getString("LecturerName");
-                    Users user = new Users();
-                    user.setName(lecName);
-                    Topic topic = new Topic(topicID, name, category, description, businessId, depId);
-                    list.put(topic, user);
-                }
-                cn.close();
-            }
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return list;
-    }
-
-    public static Map<Topic, Users> readTopicLecturerByName(String topicName) {
-        Map<Topic, Users> list = new HashMap<>();
-        Connection cn = null;
-
-        try {
-            cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = " select t.*,u.Name as LecturerName\n"
-                        + "from dbo.LecturerTopic lt join dbo.Topic t on lt.TopicId=t.TopicId join dbo.Users u on lt.LecturerId=u.UserId and t.Name like ?";
+                String sql = "   select ltt.*,d.Name as DepartmentName,u.Name as LecturerName\n"
+                        + "  from (select t.*,lt.LecturerId from dbo.LecturerTopic lt join dbo.Topic t on lt.TopicId = t.TopicId) ltt \n"
+                        + "  join dbo.Users u on ltt.LecturerId=u.UserId \n"
+                        + "  join dbo.Department d on ltt.DepartmentId=d.DepartmentId\n"
+                        + "  where ltt.name like ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
-                stm.setString(1, "%" + topicName + "%");
+                stm.setString(1, "%" + name + "%");
                 ResultSet rs = stm.executeQuery();
                 while (rs.next()) {
                     int topicID = rs.getInt("topicId");
-                    String name = rs.getString("Name");
+                    String topicName = rs.getString("Name");
                     int category = rs.getInt("categoryId");
                     String description = rs.getString("description");
                     int businessId = rs.getInt("businessId");
                     int depId = rs.getInt("DepartmentId");
+                    String depName = rs.getString("DepartmentName");
                     String lecName = rs.getString("LecturerName");
                     Users user = new Users();
+                    Department dep = new Department();
+                    dep.setName(depName);
                     user.setName(lecName);
-                    Topic topic = new Topic(topicID, name, category, description, businessId, depId);
-                    list.put(topic, user);
+                    Topic topic = new Topic(topicID, topicName, category, description, businessId, depId, user, dep);
+                    list.add(topic);
                 }
                 cn.close();
             }
@@ -149,34 +96,36 @@ public class TopicDAO {
         }
         return list;
     }
-
-    public static Map<Topic, Department> readTopicDepartmentByName(String topicName) {
-        Map<Topic, Department> list = new HashMap<>();
+    
+    public static ArrayList<Topic> filterByDepartment(String name) {
         Connection cn = null;
-
+        ArrayList<Topic> list = new ArrayList<>();
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = " select Topic.*,Dep.name as DepartmentName \n"
-                        + "  from dbo.Topic, (select * from Department) as Dep \n"
-                        + "  where Dep.DepartmentId = Topic.DepartmentId and Topic.Name like ?";
+                String sql = "   select ltt.*,d.Name as DepartmentName,u.Name as LecturerName\n"
+                        + "  from (select t.*,lt.LecturerId from dbo.LecturerTopic lt join dbo.Topic t on lt.TopicId = t.TopicId) ltt \n"
+                        + "  join dbo.Users u on ltt.LecturerId=u.UserId \n"
+                        + "  join dbo.Department d on ltt.DepartmentId=d.DepartmentId\n"
+                        + "  where d.Name like ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
-                stm.setString(1, "%" + topicName + "%");
+                stm.setString(1, "%" + name + "%");
                 ResultSet rs = stm.executeQuery();
                 while (rs.next()) {
                     int topicID = rs.getInt("topicId");
-                    String name = rs.getString("Name");
+                    String topicName = rs.getString("Name");
                     int category = rs.getInt("categoryId");
                     String description = rs.getString("description");
                     int businessId = rs.getInt("businessId");
                     int depId = rs.getInt("DepartmentId");
-
-                    
                     String depName = rs.getString("DepartmentName");
-                    Department department = new Department();
-                    department.setName(depName);
-                    Topic topic = new Topic(topicID, name, category, description, businessId, depId);
-                    list.put(topic, department);
+                    String lecName = rs.getString("LecturerName");
+                    Users user = new Users();
+                    Department dep = new Department();
+                    dep.setName(depName);
+                    user.setName(lecName);
+                    Topic topic = new Topic(topicID, topicName, category, description, businessId, depId, user, dep);
+                    list.add(topic);
                 }
                 cn.close();
             }

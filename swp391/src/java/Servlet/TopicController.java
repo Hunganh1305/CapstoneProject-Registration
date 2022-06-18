@@ -6,6 +6,7 @@
 package Servlet;
 
 import DAO.TopicDAO;
+import DTO.Topic;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -44,11 +45,8 @@ public class TopicController extends HttpServlet {
 
         switch (action) {
             case "index":
-
-                Map map1 = td.readTopicDepartment();
-                Map map2 = td.readTopicLecturer();
-                request.setAttribute("map1", map1);
-                request.setAttribute("map2", map2);
+                ArrayList<Topic> list= td.readAll();
+                request.setAttribute("list", list);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "search":
@@ -56,12 +54,18 @@ public class TopicController extends HttpServlet {
                 if(searchText==null){
                     response.sendRedirect("/topic.jsp");
                 }
-                Map mapSearch1 = td.readTopicDepartmentByName(searchText);
-                Map mapSearch2 = td.readTopicLecturerByName(searchText);
-                request.setAttribute("map1", mapSearch1);
-                request.setAttribute("map2", mapSearch2);
+                ArrayList<Topic> list2= td.searchByName(searchText);
+                request.setAttribute("list", list2);
+                request.setAttribute("searchText", searchText);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
+             case "filter":
+                 String filter=request.getParameter("filter");
+                 ArrayList<Topic> list3= td.filterByDepartment(filter);
+                 request.setAttribute("list", list3);
+                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
+                 break;
+              
 
         }
     }
