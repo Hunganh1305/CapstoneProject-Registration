@@ -17,17 +17,17 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
 
         <!-- Bootstrap -->
-        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" />
 
         <!-- Font Awesome Icon -->
         <script src="https://kit.fontawesome.com/e7ea130b87.js" crossorigin="anonymous"></script>
 
 
         <!-- Custom stlylesheet -->
-        <link type="text/css" rel="stylesheet" href="./css/style.css" />
+        <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
         <!-- topic stylessheet -->
-        <link type="text/css" rel="stylesheet" href="./css/topicdetail.css" />
+        <link type="text/css" rel="stylesheet" href="../css/topicdetail.css" />
     </head>
 
     <body>
@@ -40,55 +40,8 @@
         %>
         
         <!-- Header -->
-        <header id="header">
-            <div class="container">
-
-                <div class="navbar-header">
-                    <!-- Logo -->
-                    <div class="navbar-brand">
-                        <a class="logo" href="index.html">
-                            <img src="./img/logo.png" alt="logo">
-                        </a>
-                    </div>
-                    <!-- /Logo -->
-
-                    <!-- Mobile toggle -->
-                    <button class="navbar-toggle">
-                        <span></span>
-                    </button>
-                    <!-- /Mobile toggle -->
-                </div>
-
-                <!-- Navigation -->
-                <nav id="nav">
-                    <ul class="main-menu nav navbar-nav navbar-right">
-                        <li><a class="align-nav" href="./project.html">Project</a></li>
-                        <li><a class="align-nav" href="./topic.html">Topic</a></li>
-                        <li><a class="align-nav" href="./teamList.html">Team List</a></li>
-                        <li><a class="align-nav" href="./contact.html">Contact</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                <img class="avatar" src="./img/sample-avatar.jpg" alt="Avatar">
-                            </a>
-                            <div class="dropdown-menu">
-                                <br>
-                                <a class="dropdown-item" href="./profile.html">
-                                    <span style="margin-right: 4px;" class="fa-solid fa-user fa-md"></span>
-                                    <span>Profile</span>
-                                </a>
-                                <hr>
-                                <a class="'dropdown-item" href="#">
-                                    <span style="margin-right: 3px;" class="fa-solid fa-right-from-bracket fa-md"></span>
-                                    <span>Logout</span>
-                                </a> 
-                                <br>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- /Navigation -->
-
-            </div>
+       <header>
+            <%@include file="header.jsp" %>
         </header>
         <!-- /Header -->
 
@@ -134,37 +87,37 @@
                                 <li class="topicdetail__item">
                                     <i class="fa fa-solid fa-bars col-sm-1"></i> 
                                     <span class="col-sm-3">Topic name</span> 
-                                    <span class="col-sm-8">CPManagement-Review</span>
+                                    <span class="col-sm-8">${topic.name}</span>
                                 </li>
                                 <li class="topicdetail__item">
                                     <i class="fa fa-regular fa-id-badge col-sm-1"></i>
                                     <span class="col-sm-3">Topic ID</span>
-                                    <span class="col-sm-8">1</span>
+                                    <span class="col-sm-8">${topic.topicId}</span>
                                 </li>
                                 <li class="topicdetail__item">
                                     <i class="fa fa-regular fa-building col-sm-1"></i>
                                     <span class="col-sm-3">Department</span>
-                                    <span class="col-sm-8">Cong nghe thong tin</span>
+                                    <span class="col-sm-8">${topic.department.name}</span>
                                 </li>
                                 <li class="topicdetail__item">
                                     <i class="fa fa-solid fa-users col-sm-1"></i>
                                     <span class="col-sm-3">Members</span>
-                                    <span class="col-sm-8">From 2 to 7 student</span>
+                                    <span class="col-sm-8">From 2 to 6 student</span>
                                 </li>
                                 <li class="topicdetail__item">
                                     <i class="fa fa-solid fa-user-plus col-sm-1"></i>
                                     <span class="col-sm-3">Lecturer</span>
-                                    <span class="col-sm-8">Lam Huu Khanh Phuong</span>
+                                    <span class="col-sm-8">${topic.user.name}</span>
                                 </li>
                                 <li class="topicdetail__item">
                                     <i class="fa fa-solid fa-graduation-cap col-sm-1"></i>
                                     <span class="col-sm-3">Category:</span>
-                                    <span class="col-sm-8">Ky thuat phan mem</span>
+                                    <span class="col-sm-8">${cate.categoryName}</span>
                                 </li>
                                 <li class="topicdetail__item">
                                     <i class="fa fa-regular fa-clipboard col-sm-1"></i> 
                                     <span class="col-sm-3">Description:</span>
-                                    <span class="col-sm-8">Manage and review on this web</span>
+                                    <span class="col-sm-8">${topic.description}</span>
                                 </li>
                             </ul>
 
@@ -206,9 +159,9 @@
         <% }
         %>
 
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="../js/jquery.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/main.js"></script>
     </body>
 
 </html>

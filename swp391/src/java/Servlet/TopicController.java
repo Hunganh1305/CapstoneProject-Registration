@@ -6,6 +6,7 @@
 package Servlet;
 
 import DAO.TopicDAO;
+import DTO.Category;
 import DTO.Topic;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,29 +46,100 @@ public class TopicController extends HttpServlet {
 
         switch (action) {
             case "index":
-                ArrayList<Topic> list= td.readAll();
-                request.setAttribute("list", list);
+                ArrayList<Topic> list = td.readAll();
+                pagination(request, response, list);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "search":
                 String searchText = request.getParameter("searchText");
-                if(searchText==null){
+                if (searchText == null) {
                     response.sendRedirect("/topic.jsp");
                 }
-                ArrayList<Topic> list2= td.searchByName(searchText);
+                ArrayList<Topic> list2 = td.searchByName(searchText);
+
                 request.setAttribute("list", list2);
                 request.setAttribute("searchText", searchText);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
-             case "filter":
-                 String filter=request.getParameter("filter");
-                 ArrayList<Topic> list3= td.filterByDepartment(filter);
-                 request.setAttribute("list", list3);
-                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
-                 break;
-              
+            case "filter":
+                String filter = request.getParameter("filter");
+                ArrayList<Topic> list3 = td.filterByDepartment(filter);
+                request.setAttribute("list", list3);
+                request.getRequestDispatcher("/topic.jsp").forward(request, response);
+                break;
+            case "detail":
+                int id = Integer.parseInt(request.getParameter("id"));
+                Topic topic = td.readById(id);
+                Category cate = td.readCategoryByTopicId(id);
+                request.setAttribute("topic", topic);
+                request.setAttribute("cate", cate);
+                request.getRequestDispatcher("/topicDetail.jsp").forward(request, response);
+                break;
 
         }
+    }
+
+    private void pagination(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
+        int pageSize = 5;//Kich thuoc trang                        
+        //Xac dinh so thu tu cua trang hien tai
+        HttpSession session = request.getSession();
+        Integer page = (Integer) session.getAttribute("page");
+        if (page == null) {
+            page = 1;
+        }
+
+        //Xac dinh tong so trang
+        Integer totalPage = (Integer) session.getAttribute("totalPage");
+        if (totalPage == null) {
+            int count = list.size();//Dem so luong records
+            totalPage = (int) Math.ceil((double) count / pageSize);//Tinh tong so trang
+        }
+
+        String op = request.getParameter("op");
+        if (op == null) {
+            op = "FirstPage";
+        }
+        switch (op) {
+            case "FirstPage":
+                page = 1;
+                break;
+            case "PreviousPage":
+                if (page > 1) {
+                    page--;
+                }
+                break;
+            case "NextPage":
+                if (page < totalPage) {
+                    page++;
+                }
+                break;
+            case "LastPage":
+                page = totalPage;
+                break;
+            case "GotoPage":
+                page = Integer.parseInt(request.getParameter("gotoPage"));
+                if (page <= 0) {
+                    page = 1;
+                } else if (page > totalPage) {
+                    page = totalPage;
+                }
+                break;
+        }
+
+        //Lay trang du lieu duoc yeu cau
+        List slist;
+        int n1 = (page - 1) * pageSize;
+        int n2 = n1 + pageSize - 1;
+        try {
+            slist = list.subList(n1, n2 + 1);
+        } catch (Exception e) {
+            slist = list.subList(n1, list.size());
+        }//Doc mot trang
+
+        //Luu thong tin vao session va request
+        session.setAttribute("page", page);
+        session.setAttribute("totalPage", totalPage);
+        request.setAttribute("list", slist);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
