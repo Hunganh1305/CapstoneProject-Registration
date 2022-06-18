@@ -28,6 +28,14 @@
     </head>
 
     <body>
+        
+        <%
+            String name = (String) session.getAttribute("name");
+            if (name == null) {
+                response.sendRedirect("Login.jsp");
+            } else {
+        %>
+        
         <!-- Header -->
         <header>
             <%@include file="header.jsp" %>
@@ -131,6 +139,10 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
+        
+        <% }
+        %>
+        
         <script src="./js/topic.js"></script>
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
