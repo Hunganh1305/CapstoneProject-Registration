@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  *
- * @author SE161714 Ha Anh Tu
+
  */
 public class StudentGroupDAO {
 
@@ -71,12 +71,11 @@ public class StudentGroupDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select * "
-                        +   "from Users u join StudentGroup sg on u.UserId = sg.StudentId\n" +
-                            "join Department dep on u.DepartmentId = dep.DepartmentId \n" +
-                            "join Project p on p.GroupId = sg.GroupId\n" +
-                            "join Groups gr on gr.groupId = sg.GroupId\n" +
-                            "where gr.groupName like ?";
+                String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName,p.status as proStatus from Users u join StudentGroup sg on u.UserId = sg.StudentId			\n" +
+"										join Department dep on 	u.DepartmentId = dep.DepartmentId \n" +
+"										join Project p on p.GroupId = sg.GroupId\n" +
+"										join Groups gr on gr.groupId = sg.GroupId\n" +
+"										where gr.groupName like ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, "%" + name + "%");
                 ResultSet rs = stm.executeQuery();
@@ -109,6 +108,50 @@ public class StudentGroupDAO {
         }
         return list;
      }
+     
+     public static ArrayList<StudentGroup> filterByDepartment(String name) {
+        Connection cn = null;
+        ArrayList<StudentGroup> list = new ArrayList<>();
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName,p.status as proStatus from Users u join StudentGroup sg on u.UserId = sg.StudentId			\n" +
+"										join Department dep on 	u.DepartmentId = dep.DepartmentId \n" +
+"										join Project p on p.GroupId = sg.GroupId\n" +
+"										join Groups gr on gr.groupId = sg.GroupId\n" +
+"										where dep.Name like ?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setString(1, "%" + name + "%");
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    int ID = rs.getInt("id");
+                    int stuID = rs.getInt("studentId");
+                    int groupId = rs.getInt("groupId");
+                    int LeaderStatus = rs.getInt("leaderStatus");
+                    String leaderName = rs.getString("leaderName");
+                    String depName = rs.getString("depName");
+                    int proStatus = rs.getInt("proStatus");                   
+                    String groupName = rs.getString("groupName");
+                    
+                    Users u = new Users();
+                    u.setName(leaderName);
+                    Department dep = new Department();
+                    dep.setName(depName);
+                    Project pro = new Project();
+                    pro.setStatus(proStatus);     
+                    Groups gr = new Groups();
+                    gr.setGroupName(groupName);
+                    
+                    StudentGroup sg = new StudentGroup(ID, stuID, groupId, LeaderStatus, u, dep, pro, gr);
+                    list.add(sg);
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return list;
+    }
      
 
     public static StudentGroup read(Object id) {
