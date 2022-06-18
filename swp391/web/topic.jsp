@@ -29,12 +29,14 @@
     </head>
 
     <body>
+        
         <%
             String name = (String) session.getAttribute("name");
-            if (name == null) { %>
-                <p><font color='red'>You must login to view this page</font></p> 
-                <p>Click <a href="Login.jsp">here</a> to login</p> 
-        <%} else {%>
+            if (name == null) {
+                response.sendRedirect("Login.jsp");
+            } else {
+        %>
+        
         <!-- Header -->
         <header>
             <%@include file="header.jsp" %>
@@ -69,11 +71,11 @@
                        <i class="fa fa-solid fa-sort"></i>Filters
                         <div class="dropdown1">
                             <ul class="filter__list">
-                                <li class="filter__item" name="filter"><a href="${root}/topic/filter.do?filter=Quan tri kinh doanh">Quan tri kinh doanh</a></li>
-                                <li class="filter__item" name="filter"><a href="${root}/topic/filter.do?filter=Cong nghe thong tin">Cong nghe thong tin</a></li>
-                                <li class="filter__item" name="filter"><a href="${root}/topic/filter.do?filter=Ngon ngu Anh">Ngon ngu Anh</a></li>
-                                <li class="filter__item" name="filter"><a href="${root}/topic/filter.do?filter=Ngon ngu Han Quoc">Ngon ngu Han Quoc</a></li>
-                                <li class="filter__item" name="filter"><a href="${root}/topic/filter.do?filter=Ngon ngu Nhat">Ngon ngu Nhat</a></li>
+                                <li class="filter__item">Quan tri kinh doanh</li>
+                                <li class="filter__item">Cong nghe thong tin</li>
+                                <li class="filter__item">Ngon ngu Anh</li>
+                                <li class="filter__item">Ngon ngu Han Quoc</li>
+                                <li class="filter__item">Ngon ngu Nhat</li>
                             </ul>
                         </div>
                     </div>
@@ -81,11 +83,10 @@
                 </div>
 
 
-                <c:if test="${!empty list}">
+                <c:if test="${!empty map1}">
                     <table class="table topic__table">
                         <thead>
                             <tr>
-                                <th>Id</th>
                                 <th>DEP.</th>
                                 <th>Name</th>
                                 <th>Lecturer</th>
@@ -93,23 +94,26 @@
                             </tr>
                         </thead>
 
-                        <c:forEach var="item" items="${list}" varStatus="loop">                                                        
+                        <c:forEach var="item1" items="${map1}" varStatus="loop">
+                            <c:forEach var="item2" items="${map2}" varStatus="loop">
+                                <c:if test="${item1.key.topicId==item2.key.topicId}">
                                     <tbody>
-                                        <tr> 
-                                            <td>${item.topicId}</td>
-                                            <td>${item.department.name}</td>
-                                            <td>${item.name}</td>
-                                            <td>${item.user.name}</td>
+                                        <tr>                                     
+                                            <td>${item1.value.name}</td>
+                                            <td>${item1.key.name}</td>
+                                            <td>${item2.value.name}</td>
                                             <td><a href="./topicdetail.html"><i class="fa fa-solid fa-eye"></i></a></td>
                                         </tr>
 
-                                    </tbody>                              
+                                    </tbody>
+                                </c:if>
+                            </c:forEach>
                         </c:forEach>
                     </table>
 
                 </c:if>
 
-                <c:if test="${empty list}">
+                <c:if test="${empty map1}">
                     <div class="search-empty">
                         <img src="../img/search-empty.png" class="search-empty-icon"/>
                         <div class="search-empty-title">Cannot find any group</div>

@@ -23,19 +23,18 @@
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
-        <!-- topic stylessheet -->        
-        <link href="../css/topicTeamListStyle.css" rel="stylesheet" type="text/css"/>
-        
+        <!-- topic stylessheet -->
+        <link type="text/css" rel="stylesheet" href="../css/topicTeamListStyle.css" />
     </head>
 
     <body>
+        
         <%
             String name = (String) session.getAttribute("name");
-            if (name == null) { %>
-        <p><font color='red'>You must login to view this page</font></p> 
-        <p>Click <a href="Login.jsp">here</a> to login</p> 
-        <%} else {%>
-        
+            if (name == null) {
+                response.sendRedirect("Login.jsp");
+            } else {
+        %>
         
         <!-- Header -->
         <header>
@@ -100,6 +99,7 @@
                                 <th>DEP.</th>
                                 <th>TeamName</th>
                                 <th>Leader</th>
+
                                 <th>Status</th>
                                 <th>Detail</th>
                             </tr>
@@ -139,10 +139,13 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
-        <% }%>
+        
+        <% }
+        %>
+        
         <script src="./js/topic.js"></script>
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
     </body>
-
+</html>

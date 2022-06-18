@@ -1,8 +1,8 @@
-<%@page import="DAO.UserDAO" %>
-<%@page import="DTO.Users" %>
+<%@page import="DAO.UserDAO"%>
+<%@page import="DTO.Users"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,8 +16,7 @@
         <title>Dashboard - Profile</title>
 
         <!-- Google font -->
-        <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600"
-              rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
 
         <!-- Bootstrap -->
         <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
@@ -31,74 +30,48 @@
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+                  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+                  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+                <![endif]-->
 
     </head>
 
     <body>
-        <% String name = (String) session.getAttribute("name");
-                            if (name == null) { %>
-        <p>
-            <font color='red'>You must login to view this page</font>
-        </p>
-        <p>Click <a href="Login.jsp">here</a> to login</p>
-        <%} else {
+        
+        <%
+            String name = (String) session.getAttribute("name");
             String email = (String) session.getAttribute("email");
             int userId = (int) session.getAttribute("userId");
             String department = (String) session.getAttribute("department");
-            Cookie[] c = request.getCookies();
-            boolean login = false;
             if (name == null) {
-                String token = "";
-                for (Cookie cookie : c) {
-                    if (cookie.getName().equals("selector")) {
-                        token = cookie.getValue();
-                        Users user = UserDAO.readByToken(token);
-                        if (user != null) {
-                            name = user.getName();
-                            email = user.getEmail();
-                            login = true;
-                        }
-                    }
-                }
+                response.sendRedirect("Login.jsp");
             } else {
-                login = true;
-            } //show content if
-            login = true;
-                                if (login) {%>
+        %>
+        
         <!-- Header -->
         <header>
             <%@include file="header_profile.jsp" %>
         </header>
         <!-- /Header -->
 
-
-
-
-
-
-
-
         <div class="container head-title">
-            <h1 style="text-align: left;">Profile</h1>
+            <h1 class="col-sm-8" style="text-align: left;">Profile</h1>
+            <h4 class="col-sm-4" style="text-align: right;">
+                <a href="MainController?action=logout">
+                    <span class="fa-solid fa-right-from-bracket fa-md"></span>
+                    <span>Logout</span>
+                </a>
+            </h4>
         </div>
-
 
 
         <!--Profile-->
         <div class="container profile">
             <div class="card text-center col-12 col-sm-5">
-                <img class="profile-pic img-fluid card-image-top"
-                     src="./img/sample-avatar.jpg" alt="Profile Picture">
+                <img class="profile-pic img-fluid card-image-top" src="./img/sample-avatar.jpg" alt="Profile Picture">
                 <div class="card-body">
-                    <h2 class="card-title text-grey">
-                        <%= name%>
-                    </h2>
-                    <p>
-                        <%= email%>
-                    </p>
+                    <h2 class="card-title text-grey"><%= name %></h2>
+                    <p><%= email %></p>
                 </div>
             </div>
             <div class="col-12 col-sm-7">
@@ -112,9 +85,7 @@
                                 <p class="mb-0">Full Name</p>
                             </div>
                             <div class="col-sm-8">
-                                <p class="text-muted mb-0">
-                                    <%= name%>
-                                </p>
+                                <p class="text-muted mb-0"><%= name %></p>
                             </div>
                         </div>
                         <hr>
@@ -126,9 +97,7 @@
                                 <p class="mb-0">Email</p>
                             </div>
                             <div class="col-sm-8">
-                                <p class="text-muted mb-0">
-                                    <%= email%>
-                                </p>
+                                <p class="text-muted mb-0"><%= email %></p>
                             </div>
                         </div>
                         <hr>
@@ -140,9 +109,7 @@
                                 <p class="mb-0">Code</p>
                             </div>
                             <div class="col-sm-8">
-                                <p class="text-muted mb-0">
-                                    <%= userId%>
-                                </p>
+                                <p class="text-muted mb-0"><%= userId %></p>
                             </div>
                         </div>
                         <hr>
@@ -154,9 +121,7 @@
                                 <p class="mb-0">Department</p>
                             </div>
                             <div class="col-sm-8">
-                                <p class="text-muted mb-0">
-                                    <%= department%>
-                                </p>
+                                <p class="text-muted mb-0"><%= department %></p>
                             </div>
                         </div>
                     </div>
@@ -172,8 +137,10 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
+        
         <% }
-                                        }%>
+        %>
+        
         <!-- preloader -->
         <div id='preloader'>
             <div class='preloader'></div>
@@ -185,6 +152,7 @@
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
+
     </body>
 
 </html>
