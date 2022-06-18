@@ -148,6 +148,7 @@
     background-color: white;
     cursor: pointer;
     position: relative;
+    
 }
 
 .topic__filter:hover {
@@ -176,8 +177,9 @@
 }
 
 .filter__item {
-    padding: 16px;
+    padding: 12px;
     font-size: 1.5rem;
+    
 }
 
 .filter__item:hover {
@@ -224,3 +226,4 @@
     font-size: 1.875rem;
     color: rgba(0,0,0,.54);
 }
+
