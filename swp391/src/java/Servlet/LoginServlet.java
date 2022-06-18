@@ -10,7 +10,6 @@ import DTO.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,26 +37,8 @@ public class LoginServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String email=request.getParameter("txtemail");
             String password=request.getParameter("txtpassword");
-            String save=request.getParameter("savelogin");
             Users user=null;
             try {
-                if(email==null || email.equals("") || password==null || password.equals("")){
-                    Cookie[] c=request.getCookies();
-                    String token="";
-                    if(c!=null){
-                        for (Cookie cookie : c) {
-                            if(cookie.getName().equals("selector")){
-                                token=cookie.getValue();
-                            }
-                        }
-                    }
-                    if(!token.equals("")){
-                        response.sendRedirect("profile.jsp");
-                    }
-                    else
-                        request.setAttribute("WARNING", "You must login to use cookie");
-                        request.getRequestDispatcher("Login.jsp").forward(request, response);
-                }
                 user=UserDAO.read(email,password);
                 if(user!=null){
                     //student
@@ -69,14 +50,6 @@ public class LoginServlet extends HttpServlet {
                             session.setAttribute("email", user.getEmail());
                             session.setAttribute("userId", user.getUserId());
                             session.setAttribute("department", UserDAO.readUserDep(user.getDepartmentId()));
-                            //create a cookie and attach it to the response obj
-                            if(save!=null){
-                                String token="ABC123";
-                                UserDAO.updateUserToken(token, email);
-                                Cookie cookie=new Cookie("selector", token);
-                                cookie.setMaxAge(60*30);
-                                response.addCookie(cookie);
-                            }
                             response.sendRedirect("profile.jsp");
                         }
                     }
@@ -86,14 +59,6 @@ public class LoginServlet extends HttpServlet {
                         if(session!=null){
                             session.setAttribute("name", user.getName());
                             session.setAttribute("email", user.getEmail());
-                            //create cookie and attach it to response object
-                            if(save!=null){
-                                String token="XYZ456";  
-                                UserDAO.updateUserToken(token, email);
-                                Cookie cookie=new Cookie("selector", token);
-                                cookie.setMaxAge(60*30);
-                                response.addCookie(cookie);
-                            }
                             response.sendRedirect("index.html");
                         }
                     }
@@ -103,14 +68,6 @@ public class LoginServlet extends HttpServlet {
                         if(session!=null){
                             session.setAttribute("name", user.getName());
                             session.setAttribute("email", user.getEmail());
-                            //create cookie and attach it to response object
-                            if(save!=null){
-                                String token="CDE789";  
-                                UserDAO.updateUserToken(token, email);
-                                Cookie cookie=new Cookie("selector", token);
-                                cookie.setMaxAge(60*30);
-                                response.addCookie(cookie);
-                            }
                             response.sendRedirect("index.html");
                         }
                     }
