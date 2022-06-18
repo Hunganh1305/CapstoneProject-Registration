@@ -37,36 +37,17 @@
     </head>
 
     <body>
+        
         <%
             String name = (String) session.getAttribute("name");
-            if (name == null) { %>
-                <p><font color='red'>You must login to view this page</font></p> 
-                <p>Click <a href="Login.jsp">here</a> to login</p> 
-                <%} else {
             String email = (String) session.getAttribute("email");
             int userId = (int) session.getAttribute("userId");
             String department = (String) session.getAttribute("department");
-            Cookie[] c = request.getCookies();
-            boolean login = false;
             if (name == null) {
-                String token = "";
-                for (Cookie cookie : c) {
-                    if (cookie.getName().equals("selector")) {
-                        token = cookie.getValue();
-                        Users user = UserDAO.readByToken(token);
-                        if (user != null) {
-                            name = user.getName();
-                            email = user.getEmail();
-                            login = true;
-                        }
-                    }
-                }
+                response.sendRedirect("Login.jsp");
             } else {
-                login = true;
-            }
-            //show content if login=true
-            if (login) {
-            %>
+        %>
+        
         <!-- Header -->
         <header>
             <%@include file="header_profile.jsp" %>
@@ -74,7 +55,13 @@
         <!-- /Header -->
 
         <div class="container head-title">
-            <h1 style="text-align: left;">Profile</h1>
+            <h1 class="col-sm-8" style="text-align: left;">Profile</h1>
+            <h4 class="col-sm-4" style="text-align: right;">
+                <a href="MainController?action=logout">
+                    <span class="fa-solid fa-right-from-bracket fa-md"></span>
+                    <span>Logout</span>
+                </a>
+            </h4>
         </div>
 
 
@@ -150,9 +137,10 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
+        
         <% }
-           }
         %>
+        
         <!-- preloader -->
         <div id='preloader'>
             <div class='preloader'></div>
