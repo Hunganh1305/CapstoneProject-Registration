@@ -23,28 +23,24 @@
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
-        <!-- topic stylessheet -->        
+        <!-- topic stylessheet -->
+        <!--<link type="text/css" rel="stylesheet" href="../css/topicTeamListStyle.css" />-->
         <link href="../css/topicTeamListStyle.css" rel="stylesheet" type="text/css"/>
-        
     </head>
 
     <body>
-        <%
+         <%
             String name = (String) session.getAttribute("name");
             if (name == null) { %>
-        <p><font color='red'>You must login to view this page</font></p> 
-        <p>Click <a href="Login.jsp">here</a> to login</p> 
+                <p><font color='red'>You must login to view this page</font></p> 
+                <p>Click <a href="Login.jsp">here</a> to login</p> 
         <%} else {%>
-        
-        
         <!-- Header -->
         <header>
             <%@include file="header.jsp" %>
         </header>
         <!-- /Header -->
 
-        
-        
         <!-- topic -->
         <section id="topic" class="container">
 
@@ -105,6 +101,7 @@
                             </tr>
                         </thead>
 
+
                         <c:forEach var="list" items="${list}" varStatus="loop">
                             <c:if test="${list.leaderStatus == 1}">
                                 <tbody>
@@ -125,13 +122,14 @@
                 </c:if>
 
 
-                <c:if test="${empty list}">
-                    <!--                    <div class="search-empty">
-                                            <img src="../img/search-empty.png" class="search-empty-icon"/>
-                                            <div class="search-empty-title">Cannot find any group</div>
-                                            <div class="search-empty-hint">Try using more general keywords</div>
-                                        </div>-->
-                </c:if> 
+
+                <!--    <c:if test="${empty list}">
+            <div class="search-empty">
+                <img src="../img/search-empty.png" class="search-empty-icon"/>
+                <div class="search-empty-title">Cannot find any group</div>
+                <div class="search-empty-hint">Try using more general keywords</div>
+            </div>
+                </c:if> -->
 
         </section>
         <!-- topic -->
@@ -139,10 +137,12 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
-        <% }%>
+        <% } %>
+        </footer>
         <script src="./js/topic.js"></script>
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
     </body>
 
+</html>
