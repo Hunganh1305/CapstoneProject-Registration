@@ -33,12 +33,13 @@
 
     <body>
 
-        <%
-            String name = (String) session.getAttribute("name");
-            if (name == null) {
-                response.sendRedirect("Login.jsp");
-            } else {
-        %>
+       <% String name = (String) session.getAttribute("name");
+                    if (name == null) { %>
+        <p>
+            <font color='red'>You must login to view this page</font>
+        </p>
+        <p>Click <a href="Login.jsp">here</a> to login</p>
+        <%} else {%>
 
         <!-- Header -->
         <header>
@@ -176,8 +177,8 @@
                         </div>
                     </c:if> 
                 </c:if>
-                
-                 <c:if test="${action=='filter'}">
+
+                <c:if test="${action=='filter'}">
                     <c:if test="${filter=='Cong nghe thong tin'}">
                         <div class="row pageBtn">
                             <div class="col" style="text-align: right;">
@@ -195,8 +196,8 @@
                         </div>
                     </c:if> 
                 </c:if>
-                
-                 <c:if test="${action=='filter'}">
+
+                <c:if test="${action=='filter'}">
                     <c:if test="${filter=='Ngon ngu Anh'}">
                         <div class="row pageBtn">
                             <div class="col" style="text-align: right;">
@@ -214,8 +215,8 @@
                         </div>
                     </c:if> 
                 </c:if>
-                
-                 <c:if test="${action=='filter'}">
+
+                <c:if test="${action=='filter'}">
                     <c:if test="${filter=='Ngon ngu Han Quoc'}">
                         <div class="row pageBtn">
                             <div class="col" style="text-align: right;">
@@ -233,8 +234,8 @@
                         </div>
                     </c:if> 
                 </c:if>
-                
-                 <c:if test="${action=='filter'}">
+
+                <c:if test="${action=='filter'}">
                     <c:if test="${filter=='Ngon ngu Nhat'}">
                         <div class="row pageBtn">
                             <div class="col" style="text-align: right;">
