@@ -17,7 +17,11 @@
         <!-- Bootstrap -->
         <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" />
 
+        <!-- Bootstrap Icon -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
         <!-- Font Awesome Icon -->
+        <!--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
         <script src="https://kit.fontawesome.com/e7ea130b87.js" crossorigin="anonymous"></script>
 
         <!-- Custom stlylesheet -->
@@ -25,12 +29,11 @@
 
         <!-- topic stylessheet -->
         <link type="text/css" rel="stylesheet" href="../css/topicTeamListStyle.css" />
-
     </head>
 
     <body>
         <% String name = (String) session.getAttribute("name");
-                    if (name == null) { %>
+            if (name == null) { %>
         <p>
             <font color='red'>You must login to view this page</font>
         </p>
@@ -68,7 +71,7 @@
 
                 <div class="topic__search">
                     <form action="<c:url value="/group/search.do"/>">
-                       <input placeholder=" " value="${searchText==null?"":searchText}" name="searchText" class="search__input" type="text">
+                        <input placeholder=" " value="${searchText==null?"":searchText}" name="searchText" class="search__input" type="text">
                         <label for="search" class="search__label">Search by name</label>
                         <button type="submit" class="search-btn ">
                             <img src="../img/search-interface-symbol.png" alt="">
@@ -107,13 +110,13 @@
                                 <th>DEP.</th>
                                 <th>TeamName</th>
                                 <th>Leader</th>
-                                <th>Status</th>
+                                <th style="padding-left: 18px">Status</th>
                                 <th>Detail</th>
                             </tr>
                         </thead>
 
                         <c:forEach var="list" items="${list}" varStatus="loop">
-                            <c:if test="${list.leaderStatus == 1}">
+                            
                                 <tbody>
                                     <tr>
                                         <td>${list.depName.name}</td>
@@ -125,7 +128,7 @@
                                         <td><a href="#"><i class="fa fa-solid fa-eye"></i></a></td>
                                     </tr>
                                 </tbody>
-                            </c:if>
+                            
                         </c:forEach>
 
                     </table>
@@ -141,19 +144,24 @@
                     </div>
                 </c:if>
                 <hr>
-                <nav aria-label="pagination Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
+                <c:if test="${!empty list}">
+                    <c:if test="${action=='index'}">
+                        <div class="row pageBtn">
+                            <div class="col" style="text-align: right;">
+                                <br/>
+                                <form action="<c:url value="/group/index.do" />">
+                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${page==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
+                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${page==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
+                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${page==totalPage}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
+                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="LastPage" title="Last Page" <c:if test="${page==totalPage}">disabled</c:if>><i class="bi bi-chevron-bar-right"></i></button>
+                                    <input type="text" name="gotoPage" value="${page}" class="btn-warning btn-outline-info" style="padding:12px;text-align:left;color:#000;width:40px;" title="Enter page number"/>
+                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="GotoPage" title="Goto Page"><i class="bi bi-arrow-up-right-circle"></i></button>
+                                </form>
+                                Page ${page}/${totalPage}
+                            </div>
+                        </div>
+                    </c:if>
+                </c:if>
 
         </section>
         <!-- topic -->

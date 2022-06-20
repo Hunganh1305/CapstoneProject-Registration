@@ -9,6 +9,7 @@ import DAO.StudentGroupDAO;
 import DTO.StudentGroup;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +43,8 @@ public class GroupController extends HttpServlet {
         switch (action) {
             case "index":                              
                 ArrayList<StudentGroup> list = sg.readAll();
-                request.setAttribute("list",list );
+//                request.setAttribute("list",list );
+                pagination(request, response, list);
                 request.getRequestDispatcher("/teamList.jsp").forward(request, response);
                 break;
             case "search":
@@ -61,8 +63,78 @@ public class GroupController extends HttpServlet {
                  request.setAttribute("list", list3);
                  request.getRequestDispatcher("/teamList.jsp").forward(request, response);
                  break;
+            case "create":
+                //Hien form create de nhap du lieu (create --submit--> save)
+                create(request, response);
+                break;
 
         }
+    }
+    public void create(HttpServletRequest request, HttpServletResponse response) {
+    }
+    
+     private void pagination(HttpServletRequest request, HttpServletResponse response, ArrayList<StudentGroup> list) {
+        int pageSize = 5;//Kich thuoc trang                        
+        //Xac dinh so thu tu cua trang hien tai
+        HttpSession session = request.getSession();
+        session.setAttribute("totalPage", null);
+        Integer page = (Integer) session.getAttribute("page");
+        if (page == null) {
+            page = 1;
+        }
+
+        //Xac dinh tong so trang
+        Integer totalPage = (Integer) session.getAttribute("totalPage");
+        if (totalPage == null) {
+            int count = list.size();//Dem so luong records
+            totalPage = (int) Math.ceil((double) count / pageSize );//Tinh tong so trang
+        }
+
+        String op = request.getParameter("op");
+        if (op == null) {
+            op = "FirstPage";
+        }
+        switch (op) {
+            case "FirstPage":
+                page = 1;
+                break;
+            case "PreviousPage":
+                if (page > 1) {
+                    page--;
+                }
+                break;
+            case "NextPage":
+                if (page < totalPage) {
+                    page++;
+                }
+                break;
+            case "LastPage":
+                page = totalPage;
+                break;
+            case "GotoPage":
+                page = Integer.parseInt(request.getParameter("gotoPage"));
+                if (page <= 0) {
+                    page = 1;
+                } else if (page > totalPage) {
+                    page = totalPage;
+                }
+                break;
+        }
+
+        //Lay trang du lieu duoc yeu cau
+        List slist;
+        int n1 = (page - 1) * pageSize;
+        int n2 = n1 + pageSize - 1;
+        try {
+            slist = list.subList(n1, n2 + 1);
+        } catch (Exception e) {
+            slist = list.subList(n1, list.size());
+        }//Doc mot trang
+
+        //Luu thong tin vao session va request
+        session.setAttribute("page", page);
+        session.setAttribute("totalPage", totalPage);
+        request.setAttribute("list", slist);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
