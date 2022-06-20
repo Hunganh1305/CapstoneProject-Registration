@@ -3,42 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/teamDetail.jsp</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/header.jsp</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/src/java/DTO/Topic.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/src/java/Servlet/LoginServlet.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/blog-post.html</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/js/topic.js</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/topic.jsp</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/src/java/DTO/Users.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/blog.html</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/project.jsp</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/src/java/DAO/TopicDAO.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/createTeam.jsp</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/project.html</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/src/java/Servlet/MainController.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/teamList.html</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/contact.html</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/src/java/DTO/Department.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/topicDetail.jsp</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/src/java/DTO/Category.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/topic.html</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/teamDetail.html</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/css/loginstyle.css</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/index2.html</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/teamList.jsp</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/login.html</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/META-INF/context.xml</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/css/teamStyle.css</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/css/topicTeamListStyle.css</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/css/topicstyle.css</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/src/java/Servlet/TopicController.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/index.html</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/profile.html</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/src/java/DAO/UserDAO.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391/swp391/web/Login.jsp</file>
-
+            <file>file:/D:/SWP391/swp391/src/java/Servlet/GroupController.java</file>
+            <file>file:/D:/SWP391/swp391/web/header.jsp</file>
+            <file>file:/D:/SWP391/swp391/web/topic.jsp</file>
+            <file>file:/D:/SWP391/swp391/src/java/DAO/StudentGroupDAO.java</file>
+            <file>file:/D:/SWP391/swp391/web/teamList.jsp</file>
+            <file>file:/D:/SWP391/swp391/src/java/Servlet/TopicController.java</file>
+            <file>file:/D:/SWP391/swp391/src/java/DAO/TopicDAO.java</file>
         </group>
     </open-files>
 </project-private>

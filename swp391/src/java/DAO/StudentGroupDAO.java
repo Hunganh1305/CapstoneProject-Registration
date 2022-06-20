@@ -16,13 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-/**
- *
-
- */
 public class StudentGroupDAO {
 
     public static ArrayList<StudentGroup> readAll() {
@@ -31,10 +25,10 @@ public class StudentGroupDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName,p.status as proStatus from Users u join StudentGroup sg on u.UserId = sg.StudentId\n" +
+                String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName,p.status as proStatus from Users u join StudentGroup sg on u.UserId = sg.StudentId			\n" +
 "										join Department dep on 	u.DepartmentId = dep.DepartmentId \n" +
 "										join Project p on p.GroupId = sg.GroupId\n" +
-"										join Groups gr on gr.groupId = sg.GroupId";
+"										join Groups gr on gr.groupId = sg.GroupId where sg.LeaderStatus = 1";
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
@@ -71,11 +65,12 @@ public class StudentGroupDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName,p.status as proStatus from Users u join StudentGroup sg on u.UserId = sg.StudentId			\n" +
-"										join Department dep on 	u.DepartmentId = dep.DepartmentId \n" +
-"										join Project p on p.GroupId = sg.GroupId\n" +
-"										join Groups gr on gr.groupId = sg.GroupId\n" +
-"										where gr.groupName like ?";
+                String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName,p.status as proStatus "
+                        +       "from Users u join StudentGroup sg on u.UserId = sg.StudentId\n" +
+                                "join Department dep on u.DepartmentId = dep.DepartmentId \n" +
+                                "join Project p on p.GroupId = sg.GroupId\n" +
+                                "join Groups gr on gr.groupId = sg.GroupId\n" +
+                                "where gr.groupName like ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, "%" + name + "%");
                 ResultSet rs = stm.executeQuery();
@@ -115,11 +110,12 @@ public class StudentGroupDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName,p.status as proStatus from Users u join StudentGroup sg on u.UserId = sg.StudentId			\n" +
-"										join Department dep on 	u.DepartmentId = dep.DepartmentId \n" +
-"										join Project p on p.GroupId = sg.GroupId\n" +
-"										join Groups gr on gr.groupId = sg.GroupId\n" +
-"										where dep.Name like ?";
+                String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName,p.status as proStatus "
+                        +       "from Users u join StudentGroup sg on u.UserId = sg.StudentId\n" +
+                                "join Department dep on u.DepartmentId = dep.DepartmentId \n" +
+                                "join Project p on p.GroupId = sg.GroupId\n" +
+                                "join Groups gr on gr.groupId = sg.GroupId\n" +
+                                "where dep.Name like ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, "%" + name + "%");
                 ResultSet rs = stm.executeQuery();
@@ -151,6 +147,25 @@ public class StudentGroupDAO {
             e.getStackTrace();
         }
         return list;
+    }
+     
+     public static int count() {
+        Connection cn = null;
+        int count = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select count(GroupId) as GroupId from dbo.Groups ";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    count = rs.getInt("groups");
+                }
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return count;
     }
      
 
