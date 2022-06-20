@@ -29,6 +29,7 @@
 
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
+        <link type="text/css" rel="stylesheet" href="../css/projectStyle.css" />
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -63,8 +64,8 @@
                 <c:if test="${empty Group}">
                     <div class="search-empty">
                         <img src="../img/search-empty.png" class="search-empty-icon"/>
-                        <div class="search-empty-title">Cannot find any group</div>
-                        <div class="search-empty-hint">Try using more general keywords</div>
+                        <div class="search-empty-title">You don't have any project yet!</div>
+                        <div class="search-empty-hint">Join team and pick project</div>
                     </div>
                 </c:if>
                 <c:if test="${!empty Group}">
@@ -81,7 +82,7 @@
                                     </li>
                                     <li class="project-item">
                                         <i class="fa-solid fa-clone col-sm-1"></i>
-                                        <span class="col-sm-4">Team code</span>
+                                        <span class="col-sm-4">Team ID</span>
                                         <span class="col-sm-7">${Group.groupId}</span>
                                     </li>
                                     <li class="project-item">
