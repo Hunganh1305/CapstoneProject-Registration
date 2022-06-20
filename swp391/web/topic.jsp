@@ -160,12 +160,12 @@
                         </div>
                     </c:if>
 
-                    <c:if test="${action=='filter'}">
+                    <c:if test="${action=='filter'||action=='filter1'}">
                         <c:if test="${filter=='Quan tri kinh doanh'}">
                             <div class="row pageBtn">
                                 <div class="col" style="text-align: right;">
                                     <br/>
-                                    <form action="<c:url value="/topic/filter.do" />">
+                                    <form action="<c:url value="/topic/filter1.do" />">
                                         <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${pageQTKD==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
                                         <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${pageQTKD==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
                                         <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${pageQTKD==totalPageQTKD}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
@@ -179,16 +179,16 @@
                         </c:if> 
                     </c:if>
 
-                    <c:if test="${action=='filter'}">
+                    <c:if test="${action=='filter'||action=='filter1'}">
                         <c:if test="${filter=='Cong nghe thong tin'}">
                             <div class="row pageBtn">
                                 <div class="col" style="text-align: right;">
                                     <br/>
-                                    <form action="<c:url value="/topic/filter.do" />">
+                                    <form action="<c:url value="/topic/filter1.do" />">
                                         <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${pageCNTT==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
                                         <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${pageCNTT==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
-                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${pageQTKD==totalPageCNTT}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
-                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="LastPage" title="Last Page" <c:if test="${pageQTKD==totalPageCNTT}">disabled</c:if>><i class="bi bi-chevron-bar-right"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${pageCNTT==totalPageCNTT}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="LastPage" title="Last Page" <c:if test="${pageCNTT==totalPageCNTT}">disabled</c:if>><i class="bi bi-chevron-bar-right"></i></button>
                                         <input type="text" name="gotoPage" value="${pageCNTT}" class="btn-warning btn-outline-info" style="padding:12px;text-align:left;color:#000;width:40px;" title="Enter page number"/>
                                         <button type="submit" class="btn btn-warning  btn-info" name="op" value="GotoPage" title="Goto Page"><i class="bi bi-arrow-up-right-circle"></i></button>
                                     </form>
@@ -198,12 +198,12 @@
                         </c:if> 
                     </c:if>
 
-                    <c:if test="${action=='filter'}">
+                    <c:if test="${action=='filter'||action=='filter1'}">
                         <c:if test="${filter=='Ngon ngu Anh'}">
                             <div class="row pageBtn">
                                 <div class="col" style="text-align: right;">
                                     <br/>
-                                    <form action="<c:url value="/topic/filter.do" />">
+                                    <form action="<c:url value="/topic/filter1.do" />">
                                         <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${pageNNA==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
                                         <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${pageNNA==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
                                         <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${pageNNA==totalPageNNA}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
@@ -217,12 +217,12 @@
                         </c:if> 
                     </c:if>
 
-                    <c:if test="${action=='filter'}">
+                    <c:if test="${action=='filter'||action=='filter1'}">
                         <c:if test="${filter=='Ngon ngu Han Quoc'}">
                             <div class="row pageBtn">
                                 <div class="col" style="text-align: right;">
                                     <br/>
-                                    <form action="<c:url value="/topic/filter.do" />">
+                                    <form action="<c:url value="/topic/filter1.do" />">
                                         <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${pageNNH==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
                                         <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${pageNNH==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
                                         <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${pageNNH==totalPageNNH}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
@@ -236,12 +236,12 @@
                         </c:if> 
                     </c:if>
 
-                    <c:if test="${action=='filter'}">
+                    <c:if test="${action=='filter'||action=='filter1'}">
                         <c:if test="${filter=='Ngon ngu Nhat'}">
                             <div class="row pageBtn">
                                 <div class="col" style="text-align: right;">
                                     <br/>
-                                    <form action="<c:url value="/topic/filter.do" />">
+                                    <form action="<c:url value="/topic/filter1.do" />">
                                         <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${pageNNN==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
                                         <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${pageNNN==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
                                         <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${pageNNN==totalPageNNN}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
