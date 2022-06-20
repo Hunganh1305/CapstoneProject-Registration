@@ -68,23 +68,40 @@ public class TopicController extends HttpServlet {
                 break;
             case "filter":
                 String filter = request.getParameter("filter");
+
                 ArrayList<Topic> list3 = td.filterByDepartment(filter);
-                if(filter.equals("Quan tri kinh doanh")){
+                if (filter.equals("Quan tri kinh doanh")) {
                     paginationQTKD(request, response, list3);
-                }else if(filter.equals("Cong nghe thong tin")){
+                } else if (filter.equals("Cong nghe thong tin")) {
                     paginationCNTT(request, response, list3);
-                }
-                else if(filter.equals("Ngon ngu Anh")){
+                } else if (filter.equals("Ngon ngu Anh")) {
                     paginationNNA(request, response, list3);
-                }
-                else if(filter.equals("Ngon ngu Han Quoc")){
+                } else if (filter.equals("Ngon ngu Han Quoc")) {
                     paginationNNH(request, response, list3);
-                }
-                else if(filter.equals("Ngon ngu Nhat")){
+                } else if (filter.equals("Ngon ngu Nhat")) {
                     paginationNNN(request, response, list3);
                 }
-                
-                request.setAttribute("filter",filter);
+                request.setAttribute("filter", filter);
+                session.setAttribute("pageFilter", filter);
+                request.getRequestDispatcher("/topic.jsp").forward(request, response);
+                break;
+            case "filter1":
+                String pagefilter = (String) session.getAttribute("pageFilter");
+
+                list3 = td.filterByDepartment(pagefilter);
+                if (pagefilter.equals("Quan tri kinh doanh")) {
+                    paginationQTKD(request, response, list3);
+                } else if (pagefilter.equals("Cong nghe thong tin")) {
+                    paginationCNTT(request, response, list3);
+                } else if (pagefilter.equals("Ngon ngu Anh")) {
+                    paginationNNA(request, response, list3);
+                } else if (pagefilter.equals("Ngon ngu Han Quoc")) {
+                    paginationNNH(request, response, list3);
+                } else if (pagefilter.equals("Ngon ngu Nhat")) {
+                    paginationNNN(request, response, list3);
+                }
+
+                request.setAttribute("filter", pagefilter);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "detail":
@@ -102,7 +119,9 @@ public class TopicController extends HttpServlet {
     private void pagination(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
         int pageSize = 5;//Kich thuoc trang                        
         //Xac dinh so thu tu cua trang hien tai
+
         HttpSession session = request.getSession();
+        session.setAttribute("totalPage", null);
         Integer page = (Integer) session.getAttribute("page");
         if (page == null) {
             page = 1;
@@ -166,6 +185,7 @@ public class TopicController extends HttpServlet {
         int pageSize = 5;//Kich thuoc trang                        
         //Xac dinh so thu tu cua trang hien tai
         HttpSession session = request.getSession();
+        session.setAttribute("totalPageSearch", null);
         Integer page = (Integer) session.getAttribute("pageSearch");
         if (page == null) {
             page = 1;
@@ -211,6 +231,7 @@ public class TopicController extends HttpServlet {
 
         //Lay trang du lieu duoc yeu cau
         List slist;
+
         int n1 = (page - 1) * pageSize;
         int n2 = n1 + pageSize - 1;
         try {
@@ -224,11 +245,12 @@ public class TopicController extends HttpServlet {
         session.setAttribute("totalPageSearch", totalPage);
         request.setAttribute("list", slist);
     }
-    
-     private void paginationQTKD(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
+
+    private void paginationQTKD(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
         int pageSize = 5;//Kich thuoc trang                        
         //Xac dinh so thu tu cua trang hien tai
         HttpSession session = request.getSession();
+        session.setAttribute("totalPageQTKD", null);
         Integer page = (Integer) session.getAttribute("pageQTKD");
         if (page == null) {
             page = 1;
@@ -287,11 +309,12 @@ public class TopicController extends HttpServlet {
         session.setAttribute("totalPageQTKD", totalPage);
         request.setAttribute("list", slist);
     }
-     
-     private void paginationCNTT(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
+
+    private void paginationCNTT(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
         int pageSize = 5;//Kich thuoc trang                        
         //Xac dinh so thu tu cua trang hien tai
         HttpSession session = request.getSession();
+        session.setAttribute("totalPageCNTT", null);
         Integer page = (Integer) session.getAttribute("pageCNTT");
         if (page == null) {
             page = 1;
@@ -350,11 +373,12 @@ public class TopicController extends HttpServlet {
         session.setAttribute("totalPageCNTT", totalPage);
         request.setAttribute("list", slist);
     }
-     
-     private void paginationNNA(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
+
+    private void paginationNNA(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
         int pageSize = 5;//Kich thuoc trang                        
         //Xac dinh so thu tu cua trang hien tai
         HttpSession session = request.getSession();
+        session.setAttribute("totalPageNNA", null);
         Integer page = (Integer) session.getAttribute("pageNNA");
         if (page == null) {
             page = 1;
@@ -413,11 +437,12 @@ public class TopicController extends HttpServlet {
         session.setAttribute("totalPageNNA", totalPage);
         request.setAttribute("list", slist);
     }
-     
-     private void paginationNNH(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
+
+    private void paginationNNH(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
         int pageSize = 5;//Kich thuoc trang                        
         //Xac dinh so thu tu cua trang hien tai
         HttpSession session = request.getSession();
+        session.setAttribute("totalPageNNH", null);
         Integer page = (Integer) session.getAttribute("pageNNH");
         if (page == null) {
             page = 1;
@@ -476,10 +501,12 @@ public class TopicController extends HttpServlet {
         session.setAttribute("totalPageNNH", totalPage);
         request.setAttribute("list", slist);
     }
-     private void paginationNNN(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
+
+    private void paginationNNN(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
         int pageSize = 5;//Kich thuoc trang                        
         //Xac dinh so thu tu cua trang hien tai
         HttpSession session = request.getSession();
+        session.setAttribute("totalPageNNN", null);
         Integer page = (Integer) session.getAttribute("pageNNN");
         if (page == null) {
             page = 1;
