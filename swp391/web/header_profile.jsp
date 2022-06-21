@@ -11,6 +11,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <!-- Custom stlylesheet -->
+        <link type="text/css" rel="stylesheet" href="css/style.css" />
     </head>
     <body>
         <!-- Header -->
@@ -20,9 +22,12 @@
                 <div class="navbar-header">
                     <!-- Logo -->
                     <div class="navbar-brand">
-                        <a class="logo" href="../profile.jsp">
+                        <a class="logo" id="logo-brand" href="../profile.jsp">
                             <img src="img/logo.png" alt="logo">
                         </a>
+                        <div class="semester">
+                            Summer 2022
+                        </div>
                     </div>
                     <!-- /Logo -->
 
