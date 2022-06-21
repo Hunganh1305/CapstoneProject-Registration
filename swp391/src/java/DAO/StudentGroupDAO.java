@@ -70,7 +70,7 @@ public class StudentGroupDAO {
                                 "join Department dep on u.DepartmentId = dep.DepartmentId \n" +
                                 "join Project p on p.GroupId = sg.GroupId\n" +
                                 "join Groups gr on gr.groupId = sg.GroupId\n" +
-                                "where gr.groupName like ?";
+                                "where sg.LeaderStatus = 1 and gr.groupName like ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, "%" + name + "%");
                 ResultSet rs = stm.executeQuery();
@@ -115,7 +115,7 @@ public class StudentGroupDAO {
                                 "join Department dep on u.DepartmentId = dep.DepartmentId \n" +
                                 "join Project p on p.GroupId = sg.GroupId\n" +
                                 "join Groups gr on gr.groupId = sg.GroupId\n" +
-                                "where dep.Name like ?";
+                                "where sg.LeaderStatus = 1 and dep.Name like ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, "%" + name + "%");
                 ResultSet rs = stm.executeQuery();
