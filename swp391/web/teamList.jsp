@@ -57,7 +57,7 @@
                     <h1>Team List</h1>
                 </div>
                 <div class="btnControl">
-                    <button class="team__btn">+ Create A New Team</button>
+                    <button class="team__btn"><a href="../createTeam.jsp">+ Create A New Team</a> </button>
                 </div>
 
             </div>
@@ -116,19 +116,19 @@
                         </thead>
 
                         <c:forEach var="list" items="${list}" varStatus="loop">
-                            
-                                <tbody>
-                                    <tr>
-                                        <td>${list.depName.name}</td>
-                                        <td>${list.groupName.groupName}</td>
-                                        <td>${list.leaderName.name}</td>
-                                        <td><span
-                                                class="tdTbl__warning">${list.proStatus.status==1?"unlocked":"locked"}</span>
-                                        </td>
-                                        <td><a href="#"><i class="fa fa-solid fa-eye"></i></a></td>
-                                    </tr>
-                                </tbody>
-                            
+
+                            <tbody>
+                                <tr>
+                                    <td>${list.depName.name}</td>
+                                    <td>${list.groupName.groupName}</td>
+                                    <td>${list.leaderName.name}</td>
+                                    <td><span
+                                            class="tdTbl__warning">${list.proStatus.status==1?"unlocked":"locked"}</span>
+                                    </td>
+                                    <td><a href="#"><i class="fa fa-solid fa-eye"></i></a></td>
+                                </tr>
+                            </tbody>
+
                         </c:forEach>
 
                     </table>
@@ -161,7 +161,121 @@
                             </div>
                         </div>
                     </c:if>
+
+                    <c:if test="${action=='search'}">
+                        <div class="row pageBtn">
+                            <div class="col" style="text-align: right;">
+                                <br/>
+                                <form action="<c:url value="/group/search.do" />">
+                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${pageSearch==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
+                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${pageSearch==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
+                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${pageSearch==totalPageSearch}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
+                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="LastPage" title="Last Page" <c:if test="${pageSearch==totalPageSearch}">disabled</c:if>><i class="bi bi-chevron-bar-right"></i></button>
+                                    <input type="text" name="gotoPage" value="${pageSearch}" class="btn-warning btn-outline-info" style="padding:12px;text-align:left;color:#000;width:40px;" title="Enter page number"/>
+                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="GotoPage" title="Goto Page"><i class="bi bi-arrow-up-right-circle"></i></button>
+                                </form>
+                                Page ${pageSearch}/${totalPageSearch}
+                            </div>
+                        </div>
+                    </c:if>
+
+                    <c:if test="${action=='filter'||action=='filter1'}">
+                        <c:if test="${filter=='Quan tri kinh doanh'}">
+                            <div class="row pageBtn">
+                                <div class="col" style="text-align: right;">
+                                    <br/>
+                                    <form action="<c:url value="/group/filter1.do" />">
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${pageQTKD==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${pageQTKD==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${pageQTKD==totalPageQTKD}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="LastPage" title="Last Page" <c:if test="${pageQTKD==totalPageQTKD}">disabled</c:if>><i class="bi bi-chevron-bar-right"></i></button>
+                                        <input type="text" name="gotoPage" value="${pageQTKD}" class="btn-warning btn-outline-info" style="padding:12px;text-align:left;color:#000;width:40px;" title="Enter page number"/>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="GotoPage" title="Goto Page"><i class="bi bi-arrow-up-right-circle"></i></button>
+                                    </form>
+                                    Page ${pageQTKD}/${totalPageQTKD}
+                                </div>
+                            </div>
+                        </c:if> 
+                    </c:if>
+
+                    <c:if test="${action=='filter'||action=='filter1'}">
+                        <c:if test="${filter=='Cong nghe thong tin'}">
+                            <div class="row pageBtn">
+                                <div class="col" style="text-align: right;">
+                                    <br/>
+                                    <form action="<c:url value="/group/filter1.do" />">
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${pageCNTT==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${pageCNTT==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${pageCNTT==totalPageCNTT}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="LastPage" title="Last Page" <c:if test="${pageCNTT==totalPageCNTT}">disabled</c:if>><i class="bi bi-chevron-bar-right"></i></button>
+                                        <input type="text" name="gotoPage" value="${pageCNTT}" class="btn-warning btn-outline-info" style="padding:12px;text-align:left;color:#000;width:40px;" title="Enter page number"/>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="GotoPage" title="Goto Page"><i class="bi bi-arrow-up-right-circle"></i></button>
+                                    </form>
+                                    Page ${pageCNTT}/${totalPageCNTT}
+                                </div>
+                            </div>
+                        </c:if> 
+                    </c:if>
+
+                    <c:if test="${action=='filter'||action=='filter1'}">
+                        <c:if test="${filter=='Ngon ngu Anh'}">
+                            <div class="row pageBtn">
+                                <div class="col" style="text-align: right;">
+                                    <br/>
+                                    <form action="<c:url value="/group/filter1.do" />">
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${pageNNA==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${pageNNA==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${pageNNA==totalPageNNA}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="LastPage" title="Last Page" <c:if test="${pageNNA==totalPageNNA}">disabled</c:if>><i class="bi bi-chevron-bar-right"></i></button>
+                                        <input type="text" name="gotoPage" value="${pageNNA}" class="btn-warning btn-outline-info" style="padding:12px;text-align:left;color:#000;width:40px;" title="Enter page number"/>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="GotoPage" title="Goto Page"><i class="bi bi-arrow-up-right-circle"></i></button>
+                                    </form>
+                                    Page ${pageNNA}/${totalPageNNA}
+                                </div>
+                            </div>
+                        </c:if> 
+                    </c:if>
+
+                    <c:if test="${action=='filter'||action=='filter1'}">
+                        <c:if test="${filter=='Ngon ngu Han Quoc'}">
+                            <div class="row pageBtn">
+                                <div class="col" style="text-align: right;">
+                                    <br/>
+                                    <form action="<c:url value="/group/filter1.do" />">
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${pageNNH==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${pageNNH==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${pageNNH==totalPageNNH}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="LastPage" title="Last Page" <c:if test="${pageNNH==totalPageNNH}">disabled</c:if>><i class="bi bi-chevron-bar-right"></i></button>
+                                        <input type="text" name="gotoPage" value="${pageNNH}" class="btn-warning btn-outline-info" style="padding:12px;text-align:left;color:#000;width:40px;" title="Enter page number"/>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="GotoPage" title="Goto Page"><i class="bi bi-arrow-up-right-circle"></i></button>
+                                    </form>
+                                    Page ${pageNNH}/${totalPageNNH}
+                                </div>
+                            </div>
+                        </c:if> 
+                    </c:if>
+
+                    <c:if test="${action=='filter'||action=='filter1'}">
+                        <c:if test="${filter=='Ngon ngu Nhat'}">
+                            <div class="row pageBtn">
+                                <div class="col" style="text-align: right;">
+                                    <br/>
+                                    <form action="<c:url value="/group/filter1.do" />">
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${pageNNN==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${pageNNN==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${pageNNN==totalPageNNN}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="LastPage" title="Last Page" <c:if test="${pageNNN==totalPageNNN}">disabled</c:if>><i class="bi bi-chevron-bar-right"></i></button>
+                                        <input type="text" name="gotoPage" value="${pageNNN}" class="btn-warning btn-outline-info" style="padding:12px;text-align:left;color:#000;width:40px;" title="Enter page number"/>
+                                        <button type="submit" class="btn btn-warning  btn-info" name="op" value="GotoPage" title="Goto Page"><i class="bi bi-arrow-up-right-circle"></i></button>
+                                    </form>
+                                    Page ${pageNNN}/${totalPageNNN}
+                                </div>
+                            </div>
+                        </c:if> 
+
+                    </c:if>
                 </c:if>
+
 
         </section>
         <!-- topic -->
