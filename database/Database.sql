@@ -64,6 +64,7 @@ CREATE TABLE Semester (
 	TopicId INT FOREIGN KEY (TopicId) REFERENCES Topic(TopicId)
 )
 
+
 CREATE TABLE Groups (
 	GroupId INT PRIMARY KEY,
 	GroupName VARCHAR(30),
@@ -150,43 +151,6 @@ insert into Users values(18,'Vien Quoc Binh','12345678',1,3,'vienquocbinh@gmail.
 insert into Users values(19,'Huynh Chau Hai Trieu','12345678',1,3,'huynhchauhaitrieu@gmail.com',1,null)
 insert into Users values(20,'Tham Hoang Minh','12345678',1,3,'thamhoangminh@gmail.com',1,null)
 insert into Users values(21,'Lam Tuan Lac','12345678',1,3,'lamtuanlac@gmail.com',1,null)
---must more
-insert into Users values(27,'Vu Anh Binh','12345678',1,5,'vuanhbinh@gmail.com',1,null)
-insert into Users values(28,'Vien Quoc Ca','12345678',1,5,'vienquocca@gmail.com',1,null)
-insert into Users values(29,'Huynh Chau Hai Chien','12345678',1,5,'huynhchauhaichien@gmail.com',1,null)
-insert into Users values(30,'Tham Hoang Hau','12345678',1,5,'thamhoanghau@gmail.com',1,null)
-insert into Users values(31,'Lam Lac Loi','12345678',1,5,'lamlacloi@gmail.com',1,null)
-
-insert into Users values(32,'Lam Tuan Hung','12345678',1,2,'lamtuanhung@gmail.com',1,null)
-insert into Users values(33,'Le Van Be','12345678',1,2,'levanbe@gmail.com',1,null)
-insert into Users values(34,'Ha Van Ce','12345678',1,2,'havance@gmail.com',1,null)
-insert into Users values(35,'Pham Phu De','12345678',1,2,'phamphude@gmail.com',1,null)
-insert into Users values(36,'Le Van En','12345678',1,2,'levanen@gmail.com',1,null)
-
-insert into Users values(37,'Vu Anh Trang','12345678',1,3,'vuanhtrang@gmail.com',1,null)
-insert into Users values(38,'Vien Hoa Binh','12345678',1,3,'vienhoabinh@gmail.com',1,null)
-insert into Users values(39,'Le Van Vo','12345678',1,3,'levanvo@gmail.com',1,null)
-insert into Users values(40,'Nguyen Van Nhat','12345678',1,3,'nguyenvannhat@gmail.com',1,null)
-insert into Users values(41,'le Tuan Lac','12345678',1,3,'letuanlac@gmail.com',1,null)
-
-insert into Users values(42,'Nguyen Van An','12345678',1,1,'ngguyenvanan@gmail.com',1,null)
-insert into Users values(43,'Pham Van Bi','12345678',1,1,'phamvanbi@gmail.com',1,null)
-insert into Users values(44,'Ha Van Ci','12345678',1,1,'havanci@gmail.com',1,null)
-insert into Users values(45,'Pham Phu Di','12345678',1,1,'phamphudi@gmail.com',1,null)
-insert into Users values(46,'Le Van Em','12345678',1,1,'levanem@gmail.com',1,null)
-
-insert into Users values(47,'Vu Anh Tuyen','12345678',1,5,'vuanhtuyen@gmail.com',1,null)
-insert into Users values(48,'Vien Quoc Bin','12345678',1,5,'vienquocbin@gmail.com',1,null)
-insert into Users values(49,'Chau Hai Trieu','12345678',1,5,'chauhaitrieu@gmail.com',1,null)
-insert into Users values(50,'Tham Hoan Minh','12345678',1,5,'thamhoanminh@gmail.com',1,null)
-insert into Users values(51,'Lan Tuan Lac','12345678',1,5,'lantuanlac@gmail.com',1,null)
-
-insert into Users values(52,'binzet yeh a ho','12345678',1,3,'binzet@gmail.com',1,null)
-insert into Users values(53,'bich phuong','12345678',1,3,'bichphuong@gmail.com',1,null)
-insert into Users values(54,'Cha vit cot','12345678',1,3,'chavitcot@gmail.com',1,null)
-insert into Users values(55,'Dam Vinh Hang','12345678',1,3,'damvinhhang@gmail.com',1,null)
-insert into Users values(56,'Thong Soai Ca','12345678',1,3,'thongsoaica@gmail.com',1,null)
-
 
 select * from Users
 
@@ -217,18 +181,11 @@ delete from Topic
 insert into Groups values(1,'Beaky Blinders',1)
 insert into Groups values(2,'Group 2',1)	
 insert into Groups values(3,'Group 3',2)
-insert into Groups values(4,'Showbit team',1)
-insert into Groups values(5,'Group 5',1)
-insert into Groups values(6,'Group 6',1)
-insert into Groups values(7,'Group 7',1)
-insert into Groups values(8,'Group 8',1)
-insert into Groups values(9,'Group 9',1)
-insert into Groups values(10,'Group 10',1)
-
+insert into Groups values(4,'Group 4',4)
 
 select * from Groups
 
-delete from Groups 
+delete from Groups
 
 insert into StudentGroup values(1,1,1,1)
 insert into StudentGroup values(2,2,1,0)
@@ -247,46 +204,8 @@ insert into StudentGroup values(12,18,3,0)
 insert into StudentGroup values(13,19,3,0)
 insert into StudentGroup values(14,20,3,0)
 insert into StudentGroup values(15,21,3,0)
---must more
 
-insert into StudentGroup values(16,27,5,1)
-insert into StudentGroup values(17,28,5,0)
-insert into StudentGroup values(18,29,5,0)
-insert into StudentGroup values(19,30,5,0)
-insert into StudentGroup values(20,31,5,0)
-
-insert into StudentGroup values(26,32,6,1)
-insert into StudentGroup values(27,33,6,0)
-insert into StudentGroup values(28,34,6,0)
-insert into StudentGroup values(29,35,6,0)
-insert into StudentGroup values(30,36,6,0)
-
-insert into StudentGroup values(31,37,7,1)
-insert into StudentGroup values(32,38,7,0)
-insert into StudentGroup values(33,39,7,0)
-insert into StudentGroup values(34,40,7,0)
-insert into StudentGroup values(35,41,7,0)
-
-insert into StudentGroup values(36,42,8,1)
-insert into StudentGroup values(37,43,8,0)
-insert into StudentGroup values(38,44,8,0)
-insert into StudentGroup values(39,44,8,0)
-insert into StudentGroup values(40,46,8,0)
-
-insert into StudentGroup values(41,47,9,1)
-insert into StudentGroup values(42,48,9,0)
-insert into StudentGroup values(43,49,9,0)
-insert into StudentGroup values(44,50,9,0)
-insert into StudentGroup values(45,51,9,0)
-
-insert into StudentGroup values(46,52,4,1)
-insert into StudentGroup values(47,53,4,0)
-insert into StudentGroup values(48,54,4,0)
-insert into StudentGroup values(49,55,4,0)
-insert into StudentGroup values(50,56,4,0)
-
-
-select * from StudentGroup sg join Groups gr on sg.GroupId = gr.GroupId
+select * from StudentGroup
 
 delete from StudentGroup
 
@@ -301,15 +220,10 @@ insert into Project values(1,'Manage and review on this web','CPManagement-Revie
 insert into Project values(2,'The best solution to manage and service your pet','PetCareSystem','',2,1,2)
 insert into Project values(3,'The way to transform to the monster','PT Tranning app','',3,1,3)
 insert into Project values(4,'Like a little MCU movie','Game Animation','',4,1,4)
-insert into Project values(5,'Make and marketing a brand to users','Research And Developing Brands','',4,1,5)
-insert into Project values(6,'Write an essay about social isues','Social issues','',4,1,6)
-insert into Project values(7,'Write an essay analyze cultural','An analysis on cultural','',4,1,7)
-insert into Project values(8,'Research and presentation','Economic Policy of Japan','',4,1,8)
-
 
 select * from Project
-select * from topic
-delete from Project 
+
+delete from Project
 
 insert into ProjectLecturer values(1,1,6)
 insert into ProjectLecturer values(2,2,6)
