@@ -57,17 +57,49 @@ public class GroupController extends HttpServlet {
                 request.setAttribute("searchText", searchText);
                 request.getRequestDispatcher("/teamList.jsp").forward(request, response);
                 break;
-            case "filter":
-                 String filter=request.getParameter("filter");
-                 ArrayList<StudentGroup> list3= sg.filterByDepartment(filter);
-                 request.setAttribute("list", list3);
-                 request.getRequestDispatcher("/teamList.jsp").forward(request, response);
-                 break;
+             case "filter":
+                String filter = request.getParameter("filter");
+
+                ArrayList<StudentGroup> list3 = sg.filterByDepartment(filter);
+                if (filter.equals("Quan tri kinh doanh")) {
+                    paginationQTKD(request, response, list3);
+                } else if (filter.equals("Cong nghe thong tin")) {
+                    paginationCNTT(request, response, list3);
+                } else if (filter.equals("Ngon ngu Anh")) {
+                    paginationNNA(request, response, list3);
+                } else if (filter.equals("Ngon ngu Han Quoc")) {
+                    paginationNNH(request, response, list3);
+                } else if (filter.equals("Ngon ngu Nhat")) {
+                    paginationNNN(request, response, list3);
+                }
+                request.setAttribute("filter", filter);
+                session.setAttribute("pageFilter", filter);
+                request.getRequestDispatcher("/teamList.jsp").forward(request, response);
+                break;
+            case "filter1":
+                String pagefilter = (String) session.getAttribute("pageFilter");
+
+                list3 = sg.filterByDepartment(pagefilter);
+                if (pagefilter.equals("Quan tri kinh doanh")) {
+                    paginationQTKD(request, response, list3);
+                } else if (pagefilter.equals("Cong nghe thong tin")) {
+                    paginationCNTT(request, response, list3);
+                } else if (pagefilter.equals("Ngon ngu Anh")) {
+                    paginationNNA(request, response, list3);
+                } else if (pagefilter.equals("Ngon ngu Han Quoc")) {
+                    paginationNNH(request, response, list3);
+                } else if (pagefilter.equals("Ngon ngu Nhat")) {
+                    paginationNNN(request, response, list3);
+                }
+
+                request.setAttribute("filter", pagefilter);
+                request.getRequestDispatcher("/teamList.jsp").forward(request, response);
+                break;
             case "create":
                 //Hien form create de nhap du lieu (create --submit--> save)
                 create(request, response);
                 break;
-
+            
         }
     }
     public void create(HttpServletRequest request, HttpServletResponse response) {
@@ -134,6 +166,326 @@ public class GroupController extends HttpServlet {
         //Luu thong tin vao session va request
         session.setAttribute("page", page);
         session.setAttribute("totalPage", totalPage);
+        request.setAttribute("list", slist);
+    }
+     
+     private void paginationQTKD(HttpServletRequest request, HttpServletResponse response, ArrayList<StudentGroup> list) {
+        int pageSize = 5;//Kich thuoc trang                        
+        //Xac dinh so thu tu cua trang hien tai
+        HttpSession session = request.getSession();
+        session.setAttribute("totalPageQTKD", null);
+        Integer page = (Integer) session.getAttribute("pageQTKD");
+        if (page == null) {
+            page = 1;
+        }
+
+        //Xac dinh tong so trang
+        Integer totalPage = (Integer) session.getAttribute("totalPageQTKD");
+        if (totalPage == null) {
+            int count = list.size();//Dem so luong records
+            totalPage = (int) Math.ceil((double) count / pageSize);//Tinh tong so trang
+        }
+
+        String op = request.getParameter("op");
+        if (op == null) {
+            op = "FirstPage";
+        }
+        switch (op) {
+            case "FirstPage":
+                page = 1;
+                break;
+            case "PreviousPage":
+                if (page > 1) {
+                    page--;
+                }
+                break;
+            case "NextPage":
+                if (page < totalPage) {
+                    page++;
+                }
+                break;
+            case "LastPage":
+                page = totalPage;
+                break;
+            case "GotoPage":
+                page = Integer.parseInt(request.getParameter("gotoPage"));
+                if (page <= 0) {
+                    page = 1;
+                } else if (page > totalPage) {
+                    page = totalPage;
+                }
+                break;
+        }
+
+        //Lay trang du lieu duoc yeu cau
+        List slist;
+        int n1 = (page - 1) * pageSize;
+        int n2 = n1 + pageSize - 1;
+        try {
+            slist = list.subList(n1, n2 + 1);
+        } catch (Exception e) {
+            slist = list.subList(n1, list.size());
+        }//Doc mot trang
+
+        //Luu thong tin vao session va request
+        session.setAttribute("pageQTKD", page);
+        session.setAttribute("totalPageQTKD", totalPage);
+        request.setAttribute("list", slist);
+    }
+
+    private void paginationCNTT(HttpServletRequest request, HttpServletResponse response, ArrayList<StudentGroup> list) {
+        int pageSize = 5;//Kich thuoc trang                        
+        //Xac dinh so thu tu cua trang hien tai
+        HttpSession session = request.getSession();
+        session.setAttribute("totalPageCNTT", null);
+        Integer page = (Integer) session.getAttribute("pageCNTT");
+        if (page == null) {
+            page = 1;
+        }
+
+        //Xac dinh tong so trang
+        Integer totalPage = (Integer) session.getAttribute("totalPageCNTT");
+        if (totalPage == null) {
+            int count = list.size();//Dem so luong records
+            totalPage = (int) Math.ceil((double) count / pageSize);//Tinh tong so trang
+        }
+
+        String op = request.getParameter("op");
+        if (op == null) {
+            op = "FirstPage";
+        }
+        switch (op) {
+            case "FirstPage":
+                page = 1;
+                break;
+            case "PreviousPage":
+                if (page > 1) {
+                    page--;
+                }
+                break;
+            case "NextPage":
+                if (page < totalPage) {
+                    page++;
+                }
+                break;
+            case "LastPage":
+                page = totalPage;
+                break;
+            case "GotoPage":
+                page = Integer.parseInt(request.getParameter("gotoPage"));
+                if (page <= 0) {
+                    page = 1;
+                } else if (page > totalPage) {
+                    page = totalPage;
+                }
+                break;
+        }
+
+        //Lay trang du lieu duoc yeu cau
+        List slist;
+        int n1 = (page - 1) * pageSize;
+        int n2 = n1 + pageSize - 1;
+        try {
+            slist = list.subList(n1, n2 + 1);
+        } catch (Exception e) {
+            slist = list.subList(n1, list.size());
+        }//Doc mot trang
+
+        //Luu thong tin vao session va request
+        session.setAttribute("pageCNTT", page);
+        session.setAttribute("totalPageCNTT", totalPage);
+        request.setAttribute("list", slist);
+    }
+
+    private void paginationNNA(HttpServletRequest request, HttpServletResponse response, ArrayList<StudentGroup> list) {
+        int pageSize = 5;//Kich thuoc trang                        
+        //Xac dinh so thu tu cua trang hien tai
+        HttpSession session = request.getSession();
+        session.setAttribute("totalPageNNA", null);
+        Integer page = (Integer) session.getAttribute("pageNNA");
+        if (page == null) {
+            page = 1;
+        }
+
+        //Xac dinh tong so trang
+        Integer totalPage = (Integer) session.getAttribute("totalPageNNA");
+        if (totalPage == null) {
+            int count = list.size();//Dem so luong records
+            totalPage = (int) Math.ceil((double) count / pageSize);//Tinh tong so trang
+        }
+
+        String op = request.getParameter("op");
+        if (op == null) {
+            op = "FirstPage";
+        }
+        switch (op) {
+            case "FirstPage":
+                page = 1;
+                break;
+            case "PreviousPage":
+                if (page > 1) {
+                    page--;
+                }
+                break;
+            case "NextPage":
+                if (page < totalPage) {
+                    page++;
+                }
+                break;
+            case "LastPage":
+                page = totalPage;
+                break;
+            case "GotoPage":
+                page = Integer.parseInt(request.getParameter("gotoPage"));
+                if (page <= 0) {
+                    page = 1;
+                } else if (page > totalPage) {
+                    page = totalPage;
+                }
+                break;
+        }
+
+        //Lay trang du lieu duoc yeu cau
+        List slist;
+        int n1 = (page - 1) * pageSize;
+        int n2 = n1 + pageSize - 1;
+        try {
+            slist = list.subList(n1, n2 + 1);
+        } catch (Exception e) {
+            slist = list.subList(n1, list.size());
+        }//Doc mot trang
+
+        //Luu thong tin vao session va request
+        session.setAttribute("pageNNA", page);
+        session.setAttribute("totalPageNNA", totalPage);
+        request.setAttribute("list", slist);
+    }
+
+    private void paginationNNH(HttpServletRequest request, HttpServletResponse response, ArrayList<StudentGroup> list) {
+        int pageSize = 5;//Kich thuoc trang                        
+        //Xac dinh so thu tu cua trang hien tai
+        HttpSession session = request.getSession();
+        session.setAttribute("totalPageNNH", null);
+        Integer page = (Integer) session.getAttribute("pageNNH");
+        if (page == null) {
+            page = 1;
+        }
+
+        //Xac dinh tong so trang
+        Integer totalPage = (Integer) session.getAttribute("totalPageNNH");
+        if (totalPage == null) {
+            int count = list.size();//Dem so luong records
+            totalPage = (int) Math.ceil((double) count / pageSize);//Tinh tong so trang
+        }
+
+        String op = request.getParameter("op");
+        if (op == null) {
+            op = "FirstPage";
+        }
+        switch (op) {
+            case "FirstPage":
+                page = 1;
+                break;
+            case "PreviousPage":
+                if (page > 1) {
+                    page--;
+                }
+                break;
+            case "NextPage":
+                if (page < totalPage) {
+                    page++;
+                }
+                break;
+            case "LastPage":
+                page = totalPage;
+                break;
+            case "GotoPage":
+                page = Integer.parseInt(request.getParameter("gotoPage"));
+                if (page <= 0) {
+                    page = 1;
+                } else if (page > totalPage) {
+                    page = totalPage;
+                }
+                break;
+        }
+
+        //Lay trang du lieu duoc yeu cau
+        List slist;
+        int n1 = (page - 1) * pageSize;
+        int n2 = n1 + pageSize - 1;
+        try {
+            slist = list.subList(n1, n2 + 1);
+        } catch (Exception e) {
+            slist = list.subList(n1, list.size());
+        }//Doc mot trang
+
+        //Luu thong tin vao session va request
+        session.setAttribute("pageNNH", page);
+        session.setAttribute("totalPageNNH", totalPage);
+        request.setAttribute("list", slist);
+    }
+
+    private void paginationNNN(HttpServletRequest request, HttpServletResponse response, ArrayList<StudentGroup> list) {
+        int pageSize = 5;//Kich thuoc trang                        
+        //Xac dinh so thu tu cua trang hien tai
+        HttpSession session = request.getSession();
+        session.setAttribute("totalPageNNN", null);
+        Integer page = (Integer) session.getAttribute("pageNNN");
+        if (page == null) {
+            page = 1;
+        }
+
+        //Xac dinh tong so trang
+        Integer totalPage = (Integer) session.getAttribute("totalPageNNN");
+        if (totalPage == null) {
+            int count = list.size();//Dem so luong records
+            totalPage = (int) Math.ceil((double) count / pageSize);//Tinh tong so trang
+        }
+
+        String op = request.getParameter("op");
+        if (op == null) {
+            op = "FirstPage";
+        }
+        switch (op) {
+            case "FirstPage":
+                page = 1;
+                break;
+            case "PreviousPage":
+                if (page > 1) {
+                    page--;
+                }
+                break;
+            case "NextPage":
+                if (page < totalPage) {
+                    page++;
+                }
+                break;
+            case "LastPage":
+                page = totalPage;
+                break;
+            case "GotoPage":
+                page = Integer.parseInt(request.getParameter("gotoPage"));
+                if (page <= 0) {
+                    page = 1;
+                } else if (page > totalPage) {
+                    page = totalPage;
+                }
+                break;
+        }
+
+        //Lay trang du lieu duoc yeu cau
+        List slist;
+        int n1 = (page - 1) * pageSize;
+        int n2 = n1 + pageSize - 1;
+        try {
+            slist = list.subList(n1, n2 + 1);
+        } catch (Exception e) {
+            slist = list.subList(n1, list.size());
+        }//Doc mot trang
+
+        //Luu thong tin vao session va request
+        session.setAttribute("pageNNN", page);
+        session.setAttribute("totalPageNNN", totalPage);
         request.setAttribute("list", slist);
     }
 

@@ -29,6 +29,7 @@
 
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
+        <link type="text/css" rel="stylesheet" href="../css/projectStyle.css" />
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,14 +41,14 @@
     </head>
 
     <body>
-        
+
         <%
             String name = (String) session.getAttribute("name");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
             } else {
         %>
-        
+
         <!-- Header -->
         <header>
             <%@include file="header.jsp" %>
@@ -60,70 +61,77 @@
                 <div class="project-title">
                     <h1 style="text-align: left">Project</h1>
                 </div>
+                <c:if test="${empty Group}">
+                    <div class="search-empty">
+                        <img src="../img/search-empty.png" class="search-empty-icon"/>
+                        <div class="search-empty-title">You don't have any project yet!</div>
+                        <div class="search-empty-hint">Join team and pick project</div>
+                    </div>
+                </c:if>
+                <c:if test="${!empty Group}">
+                    <div class="project-contents">
+                        <div class="project-left">
+                            <div class="project-content">
+                                <h6 class="project-name">Team information</h6>
+                                <hr>
+                                <ul class="project-list">
+                                    <li class="project-item">
+                                        <i class="fa fa-solid fa-bars col-sm-1"></i>
+                                        <span class="col-sm-4">Team name</span>
+                                        <span class="col-sm-7">${Group.groupName}</span>
+                                    </li>
+                                    <li class="project-item">
+                                        <i class="fa-solid fa-clone col-sm-1"></i>
+                                        <span class="col-sm-4">Team ID</span>
+                                        <span class="col-sm-7">${Group.groupId}</span>
+                                    </li>
+                                    <li class="project-item">
+                                        <i class="fa fa-regular fa-building col-sm-1"></i>
+                                        <span class="col-sm-4">Department</span>
+                                        <div class="col-sm-7">
+                                            <span class="blue-box">${DepName}</span>
+                                        </div>
+                                    </li>
 
-                <div class="project-contents">
-                    <div class="project-left">
-                        <div class="project-content">
-                            <h6 class="project-name">Team information</h6>
-                            <hr>
-                            <ul class="project-list">
-                                <li class="project-item">
-                                    <i class="fa fa-solid fa-bars col-sm-1"></i>
-                                    <span class="col-sm-4">Team name</span>
-                                    <span class="col-sm-7">${Group.groupName}</span>
-                                </li>
-                                <li class="project-item">
-                                    <i class="fa-solid fa-clone col-sm-1"></i>
-                                    <span class="col-sm-4">Joining code</span>
-                                    <span class="col-sm-7">${Group.groupId}</span>
-                                </li>
-                                <li class="project-item">
-                                    <i class="fa fa-regular fa-building col-sm-1"></i>
-                                    <span class="col-sm-4">Department</span>
-                                    <div class="col-sm-7">
-                                        <span class="blue-box">${DepName}</span>
+                                </ul>
+                                <div class="project-item" style="margin-top: 5px">
+                                    <i class="fa-solid fa-lock col-sm-1"></i>
+                                    <div class="col-sm-2">
+                                        <span class="green-box">Locked</span>
                                     </div>
-                                </li>
-
-                            </ul>
-                            <div class="project-item" style="margin-top: 5px">
-                                <i class="fa-solid fa-lock col-sm-1"></i>
-                                <div class="col-sm-2">
-                                    <span class="green-box">Locked</span>
-                                </div>
-                                <span class="col-sm-2"></span>
-                                <i class="fa-solid fa-shield col-sm-1"></i>
-                                <div class="col-sm-2">
-                                    <span class="green-box">Public</span>
+                                    <span class="col-sm-2"></span>
+                                    <i class="fa-solid fa-shield col-sm-1"></i>
+                                    <div class="col-sm-2">
+                                        <span class="green-box">Public</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="project-right">
-                        <div class="project-content">
-                            <h6 class="project-name">Team members</h6>
-                            <hr>
-                            <ul class="project-list">
-                                <%!  List<Users> list;%>
-                                <%
-                                    list = (List<Users>) request.getAttribute("list");
-                                    for (Users s : list) {
-                                        out.print("<li class='project-item'>"
-                                                + "<div class='col-sm-2'>"
-                                                + "<img class=\"avatar\" src=\"../img/sample-avatar.jpg\" alt=\"Avatar\">"
-                                                + "</div>"
-                                                + "<span>" + s.getName() + "</span>"
-                                                + "</li>");
-                                    }
+                        <div class="project-right">
+                            <div class="project-content">
+                                <h6 class="project-name">Team members</h6>
+                                <hr>
+                                <ul class="project-list">
+                                    <%!  List<Users> list;%>
+                                    <%
+                                        list = (List<Users>) request.getAttribute("list");
+                                        for (Users s : list) {
+                                            out.print("<li class='project-item'>"
+                                                    + "<div class='col-sm-2'>"
+                                                    + "<img class=\"avatar\" src=\"../img/sample-avatar.jpg\" alt=\"Avatar\">"
+                                                    + "</div>"
+                                                    + "<span>" + s.getName() + "</span>"
+                                                    + "</li>");
+                                        }
 
-                                %>
-                            </ul>
+                                    %>
+                                </ul>
 
+                            </div>
                         </div>
                     </div>
-                </div>
-
+                </c:if>
 
             </div>
         </section>
@@ -135,10 +143,10 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
-        
+
         <% }
         %>
-        
+
         <script src="./js/topic.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>

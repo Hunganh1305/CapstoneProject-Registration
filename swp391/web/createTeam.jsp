@@ -38,7 +38,7 @@
 
         <!-- Header -->
         <header>
-            <%@include file="header.jsp" %>
+            <%@include file="header_profile.jsp" %>
         </header>
         <!-- /Header -->
 
