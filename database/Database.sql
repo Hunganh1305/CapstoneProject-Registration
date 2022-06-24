@@ -38,6 +38,13 @@ CREATE TABLE Users (
 	Cookie VARCHAR(10)	
 )
 
+CREATE TABLE Semester (
+    SemesterId INT PRIMARY KEY,
+    Name VARCHAR(30),
+    StartDate DATE,
+    EndDate DATE
+)
+
 CREATE TABLE Topic(
 	TopicId INT PRIMARY KEY,
 	Name VARCHAR(30),
@@ -45,6 +52,7 @@ CREATE TABLE Topic(
 	Description VARCHAR(200),
 	BusinessId INT FOREIGN KEY (BusinessId) REFERENCES Users(UserId),
 	DepartmentId INT FOREIGN KEY (DepartmentId) REFERENCES Department(DepartmentId)
+
 )
 
 CREATE TABLE LecturerTopic (
@@ -53,14 +61,6 @@ CREATE TABLE LecturerTopic (
 	FOREIGN KEY (LecturerId) REFERENCES Users(UserId),
 	TopicId INT NOT NULL,
 	FOREIGN KEY (TopicId) REFERENCES Topic(TopicId)
-)
-
-CREATE TABLE Semester (
-    SemesterId INT PRIMARY KEY,
-    Name VARCHAR(30),
-    StartDate DATE,
-    EndDate DATE,
-	TopicId INT FOREIGN KEY (TopicId) REFERENCES Topic(TopicId)
 )
 
 CREATE TABLE Groups (
@@ -214,14 +214,15 @@ insert into  Roles Values (3, 'Business')
 
 select * from Roles
 
-insert into Semester values(1,'SU2022','2022-05-29','2022-09-30',1)
-insert into Semester values(2,'FA2021','2021-07-10','2021-10-10',2)
-insert into Semester values(3,'SU2021','2021-05-28','2021-09-28',3)
-insert into Semester values(4,'SP2022','2022-01-10','2022-05-10',4)
+insert into Semester values(1,'SU2022','2022-05-29','2022-09-30')
+insert into Semester values(2,'FA2021','2021-07-10','2021-10-10')
+insert into Semester values(3,'SU2021','2021-05-28','2021-09-28')
+insert into Semester values(4,'SP2022','2022-01-10','2022-05-10')
 
 select * from Semester
 
 delete from Semester
+
 
 insert into Topic values(1,'CPManagement-Review',6,'Manage and review on this web',8,2)
 insert into Topic values(2,'PetCareSystem',6,'The best solution to manage and service your pet',9,2)
@@ -231,6 +232,7 @@ insert into Topic values(5,'Research And Developing Brands',2,'Make and marketin
 insert into Topic values(6,'Social issues',14,'Write an essay about social isues',10,3)
 insert into Topic values(7,'An analysis on cultural',16,'Write an essay analyze cultural',11,4)
 insert into Topic values(8,'Economic Policy of Japan',15,'Research and presentation',9,5)
+
 
 
 select * from Topic
@@ -345,5 +347,3 @@ insert into ProjectLecturer values(1,1,6)
 insert into ProjectLecturer values(2,2,6)
 
 select * from ProjectLecturer
-
-delete from ProjectLecturer
