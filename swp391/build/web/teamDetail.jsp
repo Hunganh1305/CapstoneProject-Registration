@@ -45,56 +45,11 @@
             } else {
         %>
         
-        <header id="header">
-            <div class="container">
-
-                <div class="navbar-header">
-                    <!-- Logo -->
-                    <div class="navbar-brand">
-                        <a class="logo" href="index.html">
-                            <img src="./img/logo.png" alt="logo">
-                        </a>
-                    </div>
-                    <!-- /Logo -->
-
-                    <!-- Mobile toggle -->
-                    <button class="navbar-toggle">
-                        <span></span>
-                    </button>
-                    <!-- /Mobile toggle -->
-                </div>
-
-                <!-- Navigation -->
-                <nav id="nav">
-                    <ul class="main-menu nav navbar-nav navbar-right">
-                        <li><a class="align-nav" href="./project.html">Project</a></li>
-                        <li><a class="align-nav" href="./topic.html" >Topic</a></li>
-                        <li><a class="align-nav" href="./teamList.html">Team List</a></li>
-                        <li><a class="align-nav" href="./contact.html">Contact</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                <img class="avatar" src="./img/sample-avatar.jpg" alt="Avatar">
-                            </a>
-                            <div class="dropdown-menu">
-                                <br>
-                                <a class="dropdown-item" href="./profile.html">
-                                    <span style="margin-right: 4px;" class="fa-solid fa-user fa-md"></span>
-                                    <span>Profile</span>
-                                </a>
-                                <hr>
-                                <a class="'dropdown-item" href="#">
-                                    <span style="margin-right: 3px;" class="fa-solid fa-right-from-bracket fa-md"></span>
-                                    <span>Logout</span>
-                                </a> 
-                                <br>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- /Navigation -->
-
-            </div>
+        <!-- Header -->
+        <header>
+            <%@include file="header_profile.jsp" %>
         </header>
+        <!-- /Header -->
 
         <!-- topic -->
         <section id="team" class="container">
@@ -104,15 +59,7 @@
                     <button class="team__btn">
                         <i class="fa-solid fa-right-to-bracket"></i> Quick Join A Team</button>
                 </div>
-            </div>
-            <!-- <div class="team__breadcrumb">
-                <ol class="col-12 breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="#">SU2022_SWP</a></li>
-                    <li class="breadcrumb-item"><a href="teamList.html">Teams</a></li>
-                    <li class="breadcrumb-item active">Team detail</li>
-                </ol>
-            </div> -->
+            </div>          
 
             <div class="teamControl">
 

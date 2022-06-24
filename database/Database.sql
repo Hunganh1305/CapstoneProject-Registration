@@ -1,7 +1,5 @@
 use master
 
-drop database SWP391
-
 CREATE DATABASE SWP391
 --DROP DATABASE SWP391
 -- SELECT * FROM Student
@@ -9,6 +7,7 @@ CREATE DATABASE SWP391
 -- SELECT * FROM Semester
 -- SELECT * FROM Users
 -- SELECT * FROM Category
+-- SELECT * FROM Roles
 
 USE  SWP391
 
@@ -44,7 +43,7 @@ CREATE TABLE Topic(
 	Name VARCHAR(30),
 	CategoryId INT FOREIGN KEY (CategoryId) REFERENCES Category(CategoryId),
 	Description VARCHAR(200),
-	BusinessId INT FOREIGN KEY (UsersId) REFERENCES Users(UserId),
+	BusinessId INT FOREIGN KEY (BusinessId) REFERENCES Users(UserId),
 	DepartmentId INT FOREIGN KEY (DepartmentId) REFERENCES Department(DepartmentId)
 )
 
@@ -67,8 +66,14 @@ CREATE TABLE Semester (
 CREATE TABLE Groups (
 	GroupId INT PRIMARY KEY,
 	GroupName VARCHAR(30),
-	SemID INT FOREIGN KEY (SemID) REFERENCES Semester(SemesterId)
+	SemID INT FOREIGN KEY (SemID) REFERENCES Semester(SemesterId),
+	groupStatus INT ,
+	members INT,
 )
+select * from groups
+
+drop table groups
+
 
 CREATE TABLE StudentGroup (
 	Id INT PRIMARY KEY,
@@ -121,21 +126,21 @@ insert into Category values(16,'Ngon ngu Han Quoc')
 select * from Category
 
 
-insert into Users values(1,'Le Hai Long','12345678',1,2,'lehailong@gmail.com',1)
-insert into Users values(2,'Pham Cong Minh','12345678',1,2,'phamcongminh@gmail.com',1)
-insert into Users values(3,'Ha Anh Tu','12345678',1,2,'haanhtu@gmail.com',1)
-insert into Users values(4,'Pham Nguyen Hung Anh','12345678',1,2,'hunganh@gmail.com',1)
-insert into Users values(5,'Pham Hong Quang','12345678',1,2,'phamhongquang@gmail.com',1)
+insert into Users values(1,'Le Hai Long','12345678',1,2,'lehailong@gmail.com',1,null)
+insert into Users values(2,'Pham Cong Minh','12345678',1,2,'phamcongminh@gmail.com',1,null)
+insert into Users values(3,'Ha Anh Tu','12345678',1,2,'haanhtu@gmail.com',1,null)
+insert into Users values(4,'Pham Nguyen Hung Anh','12345678',1,2,'hunganh@gmail.com',1,null)
+insert into Users values(5,'Pham Hong Quang','12345678',1,2,'phamhongquang@gmail.com',1,null)
 select * from Users
 
 
-insert into Users values(6,'Lam Huu Khanh Phuong','12345678',1,2,'phuonglhk@fe.edu.vn',2)
+insert into Users values(6,'Lam Huu Khanh Phuong','12345678',1,2,'phuonglhk@fe.edu.vn',2,null)
 
-insert into Users Values (7, 'FPT','12345678',null,null,'FPT@gmail.com',3)
-insert into Users Values (8, 'FPT Software HCM','12345678',null,null,'FPTsotfware@gmail.com',3)
-insert into Users Values (9, 'Cty TNHH Job Test','12345678',null,null,'jobtest@gmail.com',3)
-insert into Users Values (10, 'Cty SmartPay','12345678',null,null,'smartpay@gmail.com',3)
-insert into Users Values (11, 'NashTech Global','12345678',null,null,'nashtech@gmail.com',3)
+insert into Users Values (7, 'FPT','12345678',null,null,'FPT@gmail.com',3,null)
+insert into Users Values (8, 'FPT Software HCM','12345678',null,null,'FPTsotfware@gmail.com',3,null)
+insert into Users Values (9, 'Cty TNHH Job Test','12345678',null,null,'jobtest@gmail.com',3,null)
+insert into Users Values (10, 'Cty SmartPay','12345678',null,null,'smartpay@gmail.com',3,null)
+insert into Users Values (11, 'NashTech Global','12345678',null,null,'nashtech@gmail.com',3,null)
 
 
 --more students
@@ -150,6 +155,13 @@ insert into Users values(18,'Vien Quoc Binh','12345678',1,3,'vienquocbinh@gmail.
 insert into Users values(19,'Huynh Chau Hai Trieu','12345678',1,3,'huynhchauhaitrieu@gmail.com',1,null)
 insert into Users values(20,'Tham Hoang Minh','12345678',1,3,'thamhoangminh@gmail.com',1,null)
 insert into Users values(21,'Lam Tuan Lac','12345678',1,3,'lamtuanlac@gmail.com',1,null)
+
+
+insert into Users values(22,'Vu Anh T','12345678',1,3,'vuanht@gmail.com',1,null)
+insert into Users values(23,'Vien Quoc B','12345678',1,3,'vienquocbinh@gmail.com',1,null)
+insert into Users values(24,'Huynh Chau Hai T','12345678',1,3,'huynhchauhait@gmail.com',1,null)
+insert into Users values(25,'Tham Hoang M','12345678',1,3,'thamhoangm@gmail.com',1,null)
+insert into Users values(26,'Lam Tuan L','12345678',1,3,'lamtuanl@gmail.com',1,null)
 --must more
 insert into Users values(27,'Vu Anh Binh','12345678',1,5,'vuanhbinh@gmail.com',1,null)
 insert into Users values(28,'Vien Quoc Ca','12345678',1,5,'vienquocca@gmail.com',1,null)
@@ -188,6 +200,12 @@ insert into Users values(55,'Dam Vinh Hang','12345678',1,3,'damvinhhang@gmail.co
 insert into Users values(56,'Thong Soai Ca','12345678',1,3,'thongsoaica@gmail.com',1,null)
 
 
+--more lecturer
+insert into Users values(57,'Nguyen Bich Nga','12345678',1,1,'nganb@fe.edu.vn',2,Null)
+insert into Users values(58,'Vu Hong Quan','12345678',1,3,'quanvh@fe.edu.vn',2,Null)
+insert into Users values(59,'Tran Vu Quang','12345678',1,4,'quangtv@fe.edu.vn',2,Null)
+insert into Users values(60,'Tran Thi Hong Bich','12345678',1,5,'bichtth@fe.edu.vn',2,Null)
+
 select * from Users
 
 insert into  Roles Values (1, 'Student')
@@ -209,21 +227,27 @@ insert into Topic values(1,'CPManagement-Review',6,'Manage and review on this we
 insert into Topic values(2,'PetCareSystem',6,'The best solution to manage and service your pet',9,2)
 insert into Topic values(3,'PT Tranning app',6,'The way to transform to the monster',11,2)
 insert into Topic values(4,'Game Animation',10,'Like a little MCU movie',7,2)
+insert into Topic values(5,'Research And Developing Brands',2,'Make and marketing a brand to users',7,1)
+insert into Topic values(6,'Social issues',14,'Write an essay about social isues',10,3)
+insert into Topic values(7,'An analysis on cultural',16,'Write an essay analyze cultural',11,4)
+insert into Topic values(8,'Economic Policy of Japan',15,'Research and presentation',9,5)
+
 
 select * from Topic
 
 delete from Topic
 
-insert into Groups values(1,'Beaky Blinders',1)
-insert into Groups values(2,'Group 2',1)	
-insert into Groups values(3,'Group 3',2)
-insert into Groups values(4,'Showbit team',1)
-insert into Groups values(5,'Group 5',1)
-insert into Groups values(6,'Group 6',1)
-insert into Groups values(7,'Group 7',1)
-insert into Groups values(8,'Group 8',1)
-insert into Groups values(9,'Group 9',1)
-insert into Groups values(10,'Group 10',1)
+
+insert into Groups values(1,'Beaky Blinders',1,1,5)
+insert into Groups values(2,'Group 2',2,1,5)	
+insert into Groups values(3,'Group 3',2,1,5)
+insert into Groups values(4,'Showbit team',1,1,5)
+insert into Groups values(5,'Group 5',3,1,5)
+insert into Groups values(6,'Group 6',4,1,5)
+insert into Groups values(7,'Group 7',3,1,5)
+insert into Groups values(8,'Group 8',4,1,5)
+insert into Groups values(9,'Group 9',1,1,5)
+insert into Groups values(10,'Group 10',2,1,5)
 
 
 select * from Groups
@@ -288,10 +312,16 @@ insert into StudentGroup values(50,56,4,0)
 
 select * from StudentGroup sg join Groups gr on sg.GroupId = gr.GroupId
 
-delete from StudentGroup
+
 
 insert into LecturerTopic values(1,6,1)
 insert into LecturerTopic values(2,6,1)
+insert into LecturerTopic values(3,6,3)
+insert into LecturerTopic values(4,6,4)
+insert into LecturerTopic values(5,57,5)
+insert into LecturerTopic values(6,58,6)
+insert into LecturerTopic values(7,59,7)
+insert into LecturerTopic values(8,60,8)
 
 select * from LecturerTopic
 

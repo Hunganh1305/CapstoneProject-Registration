@@ -1492,3 +1492,36 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 .dropdown-item{
 	margin: auto;
 }
+
+.semester{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    background-color: transparent;
+    outline: 0px;
+    margin: 0px;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+    appearance: none;
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1.71429;
+    font-size: 1.6753rem;
+    text-transform: capitalize;
+    font-family: "Public Sans", sans-serif;
+    min-width: 64px;
+    padding: 7px 21px;
+    border-radius: 8px;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border: 1px solid rgba(253, 169, 45, 0.5);
+    color: rgb(253, 169, 45);
+    height: 48px;
+}
+
+#logo-brand{
+	margin-right: 30px;
+}
