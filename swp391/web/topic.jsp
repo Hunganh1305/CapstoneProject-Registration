@@ -34,7 +34,7 @@
     <body>
 
         <% String name = (String) session.getAttribute("name");
-           if (name == null) { %>
+            if (name == null) { %>
         <p>
             <font color='red'>You must login to view this page</font>
         </p>
@@ -50,8 +50,18 @@
         <!-- topic -->
         <section id="topic" class="container">
 
-            <div class="topic__title">
+            <div class="topic__title flex">
                 <h1>Topic List</h1>
+                <div class="semester">
+                    ${currentSem.name}
+                    <div class="dropdown2">
+                        <ul class="semester__list">
+                            <c:forEach var="item" items="${semList}" varStatus="loop"> 
+                                <li name="semester" class="semester__item" ><a  href="${root}/topic/semester.do?semester=${item.name}">${item.name}</a></li>             
+                                </c:forEach>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <div class="topic__container">
