@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Semester {
     private int semesterId;
-    private String name;
+    public String name;
     private Date startDate;
     private Date endDate;
    
