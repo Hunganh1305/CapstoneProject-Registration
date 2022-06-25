@@ -47,11 +47,23 @@ public class TopicController extends HttpServlet {
         Semester currSem = null;
         TopicDAO td = new TopicDAO();
 
+        String prevAction = (String) session.getAttribute("prevTopicAction");
+        if (prevAction == null) {
+            session.setAttribute("prevTopicAction", action);
+            prevAction = action;
+        }
+        session.setAttribute("currTopicAction", action);
+        String currAction = (String) session.getAttribute("currTopicAction");
         switch (action) {
             case "index":
                 currSem = (Semester) session.getAttribute("currentSem");
                 ArrayList<Topic> list = td.readAll(currSem.getName());
-                request.setAttribute("list", list);
+                if (!prevAction.equals(currAction)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                session.setAttribute("prevTopicAction", "index");
+                pagination(request, response, list);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "search":
@@ -65,19 +77,59 @@ public class TopicController extends HttpServlet {
                     session.removeAttribute("totalPageSearch");
                     list2 = td.searchByName(searchText, currSem.getName());
                 }
-
-                request.setAttribute("list", list2);
+                if (!prevAction.equals(currAction)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                session.setAttribute("prevTopicAction", "search");
+                pagination(request, response, list2);
                 request.setAttribute("searchText", searchText);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "filter":
                 currSem = (Semester) session.getAttribute("currentSem");
                 String filter = request.getParameter("filter");
-
-                ArrayList<Topic> list3 = td.filterByDepartment(filter,currSem.getName());
-                request.setAttribute("list", list3);
+                String prevFilter = (String) session.getAttribute("prevTopicFilter");
+                if (prevFilter == null) {
+                    session.setAttribute("prevTopicFilter", filter);
+                    prevFilter = filter;
+                }
+                session.setAttribute("currTopicFilter", filter);
+                String currFilter = (String) session.getAttribute("currTopicFilter");
+                ArrayList<Topic> list3 = td.filterByDepartment(filter, currSem.getName());
+                if (!prevAction.equals(currAction) || !prevFilter.equals(currFilter)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                switch (currFilter) {
+                    case "Cong nghe thong tin":
+                        session.setAttribute("prevTopicFilter", "Cong nghe thong tin");
+                        break;
+                    case "Quan tri kinh doanh":
+                        session.setAttribute("prevTopicFilter", "Quan tri kinh doanh");
+                        break;
+                    case "Ngon ngu Anh":
+                        session.setAttribute("prevTopicFilter", "Ngon ngu Anh");
+                        break;
+                    case "Ngon ngu Nhat":
+                        session.setAttribute("prevTopicFilter", "Ngon ngu Nhat");
+                        break;
+                    case "Ngon ngu Han Quoc":
+                        session.setAttribute("prevTopicFilter", "Ngon ngu Han Quoc");
+                        break;
+                }
+                pagination(request, response, list3);
                 request.setAttribute("filter", filter);
-                session.setAttribute("pageFilter", filter);
+                session.setAttribute("prevTopicAction", "filter");
+                session.setAttribute("currTopicAction", "pagefilter");
+                request.getRequestDispatcher("/topic.jsp").forward(request, response);
+                break;
+            case "pagefilter":
+                filter = (String) session.getAttribute("prevTopicFilter");
+                currSem = (Semester) session.getAttribute("currentSem");
+                list3 = td.filterByDepartment(filter, currSem.getName());
+                pagination(request, response, list3);
+                session.setAttribute("prevTopicAction", "pagefilter");
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "detail":
@@ -94,9 +146,40 @@ public class TopicController extends HttpServlet {
                 Semester currentSem = sem.read(semester);
                 session.setAttribute("currentSem", currentSem);
                 ArrayList<Topic> list4 = td.readAll(currentSem.getName());
-                request.setAttribute("list", list4);
+
+                ArrayList<Semester> semList = (ArrayList<Semester>) session.getAttribute("semList");
+
+                String prevSemName = (String) session.getAttribute("prevTopicSemester");
+                if (prevSemName == null) {
+                    session.setAttribute("prevTopicSemester", semester);
+                    prevSemName = semester;
+                }
+                session.setAttribute("currTopicSemester", semester);
+                String currSemName = (String) session.getAttribute("currTopicSemester");
+                if (!prevAction.equals(currAction) || !prevSemName.equals(currSemName)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                for (int i = 0; i < semList.size(); i++) {
+                    if (currSemName.equals(semList.get(i).name)) {
+                        session.setAttribute("prevTopicSemester", semList.get(i).name);
+                    }
+                }
+                session.setAttribute("prevTopicAction", "semester");
+                session.setAttribute("currTopicAction", "pagesemester");
+
+                pagination(request, response, list4);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
+            case "pagesemester":
+               
+                currSem = (Semester) session.getAttribute("currentSem"); 
+                list4 = td.readAll(currSem.getName());
+                pagination(request, response, list4);
+                session.setAttribute("prevTopicAction", "pagesemester");
+                request.getRequestDispatcher("/topic.jsp").forward(request, response);
+                break;
+                
 
         }
     }
