@@ -5,8 +5,10 @@
  */
 package Servlet;
 
+import DAO.SemesterDAO;
 import DAO.TopicDAO;
 import DTO.Category;
+import DTO.Semester;
 import DTO.Topic;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,66 +44,40 @@ public class TopicController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getAttribute("action").toString();
         HttpSession session = request.getSession();
-
+        Semester currSem = null;
         TopicDAO td = new TopicDAO();
 
         switch (action) {
             case "index":
-                ArrayList<Topic> list = td.readAll();
-                pagination(request, response, list);
+                currSem = (Semester) session.getAttribute("currentSem");
+                ArrayList<Topic> list = td.readAll(currSem.getName());
+                request.setAttribute("list", list);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "search":
+                currSem = (Semester) session.getAttribute("currentSem");
                 String searchText = request.getParameter("searchText");
-                ArrayList<Topic> list2 = td.searchByName(searchText);
+                ArrayList<Topic> list2 = null;
                 if (searchText == null) {
-                    list2 = td.readAll();
+                    list2 = td.readAll(currSem.getName());
                 } else {
                     session.removeAttribute("pageSearch");
                     session.removeAttribute("totalPageSearch");
-                    list2 = td.searchByName(searchText);
+                    list2 = td.searchByName(searchText, currSem.getName());
                 }
 
-                paginationSearch(request, response, list2);
+                request.setAttribute("list", list2);
                 request.setAttribute("searchText", searchText);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "filter":
+                currSem = (Semester) session.getAttribute("currentSem");
                 String filter = request.getParameter("filter");
 
-                ArrayList<Topic> list3 = td.filterByDepartment(filter);
-                if (filter.equals("Quan tri kinh doanh")) {
-                    paginationQTKD(request, response, list3);
-                } else if (filter.equals("Cong nghe thong tin")) {
-                    paginationCNTT(request, response, list3);
-                } else if (filter.equals("Ngon ngu Anh")) {
-                    paginationNNA(request, response, list3);
-                } else if (filter.equals("Ngon ngu Han Quoc")) {
-                    paginationNNH(request, response, list3);
-                } else if (filter.equals("Ngon ngu Nhat")) {
-                    paginationNNN(request, response, list3);
-                }
+                ArrayList<Topic> list3 = td.filterByDepartment(filter,currSem.getName());
+                request.setAttribute("list", list3);
                 request.setAttribute("filter", filter);
                 session.setAttribute("pageFilter", filter);
-                request.getRequestDispatcher("/topic.jsp").forward(request, response);
-                break;
-            case "filter1":
-                String pagefilter = (String) session.getAttribute("pageFilter");
-
-                list3 = td.filterByDepartment(pagefilter);
-                if (pagefilter.equals("Quan tri kinh doanh")) {
-                    paginationQTKD(request, response, list3);
-                } else if (pagefilter.equals("Cong nghe thong tin")) {
-                    paginationCNTT(request, response, list3);
-                } else if (pagefilter.equals("Ngon ngu Anh")) {
-                    paginationNNA(request, response, list3);
-                } else if (pagefilter.equals("Ngon ngu Han Quoc")) {
-                    paginationNNH(request, response, list3);
-                } else if (pagefilter.equals("Ngon ngu Nhat")) {
-                    paginationNNN(request, response, list3);
-                }
-
-                request.setAttribute("filter", pagefilter);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "detail":
@@ -111,6 +87,15 @@ public class TopicController extends HttpServlet {
                 request.setAttribute("topic", topic);
                 request.setAttribute("cate", cate);
                 request.getRequestDispatcher("/topicDetail.jsp").forward(request, response);
+                break;
+            case "semester":
+                String semester = request.getParameter("semester");
+                SemesterDAO sem = new SemesterDAO();
+                Semester currentSem = sem.read(semester);
+                session.setAttribute("currentSem", currentSem);
+                ArrayList<Topic> list4 = td.readAll(currentSem.getName());
+                request.setAttribute("list", list4);
+                request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
 
         }
