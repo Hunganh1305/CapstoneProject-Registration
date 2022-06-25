@@ -5,10 +5,13 @@
  */
 package Servlet;
 
+import DAO.SemesterDAO;
 import DAO.UserDAO;
+import DTO.Semester;
 import DTO.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +40,8 @@ public class LoginServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String email=request.getParameter("txtemail");
             String password=request.getParameter("txtpassword");
+            SemesterDAO sem= new SemesterDAO();
+            ArrayList<Semester> semList= sem.readAll();
             Users user=null;
             try {
                 user=UserDAO.read(email,password);
@@ -49,7 +54,10 @@ public class LoginServlet extends HttpServlet {
                             session.setAttribute("name", user.getName());
                             session.setAttribute("email", user.getEmail());
                             session.setAttribute("userId", user.getUserId());
+                            session.setAttribute("semList", semList);
+                            session.setAttribute("currentSem", semList.get(0));
                             session.setAttribute("department", UserDAO.readUserDep(user.getDepartmentId()));
+                            
                             response.sendRedirect("profile.jsp");
                         }
                     }
