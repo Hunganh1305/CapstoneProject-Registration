@@ -16,17 +16,16 @@ public class Semester {
     private String name;
     private Date startDate;
     private Date endDate;
-    private int topicId;
-
+   
     public Semester() {
     }
 
-    public Semester(int semesterId, String name, Date startDate, Date endDate, int topicId) {
+    public Semester(int semesterId, String name, Date startDate, Date endDate) {
         this.semesterId = semesterId;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.topicId = topicId;
+        
     }
 
     public int getSemesterId() {
@@ -61,12 +60,5 @@ public class Semester {
         this.endDate = endDate;
     }
 
-    public int getTopicId() {
-        return topicId;
-    }
-
-    public void setTopicId(int topicId) {
-        this.topicId = topicId;
-    }
-    
+   
 }
