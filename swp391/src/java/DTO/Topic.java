@@ -18,6 +18,7 @@ public class Topic {
     private int departmentId;
     private Users user;
     private Department department;
+    private Semester semester;
     
     
     public Topic() {
