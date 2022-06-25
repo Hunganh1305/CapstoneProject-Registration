@@ -47,6 +47,7 @@ public class TopicController extends HttpServlet {
         Semester currSem = null;
         TopicDAO td = new TopicDAO();
 
+//        pagination
         String prevAction = (String) session.getAttribute("prevTopicAction");
         if (prevAction == null) {
             session.setAttribute("prevTopicAction", action);
@@ -54,16 +55,21 @@ public class TopicController extends HttpServlet {
         }
         session.setAttribute("currTopicAction", action);
         String currAction = (String) session.getAttribute("currTopicAction");
+//        pagination
         switch (action) {
             case "index":
                 currSem = (Semester) session.getAttribute("currentSem");
                 ArrayList<Topic> list = td.readAll(currSem.getName());
+
+                //        pagination
                 if (!prevAction.equals(currAction)) {
                     session.setAttribute("totalPage", null);
                     session.setAttribute("page", null);
                 }
                 session.setAttribute("prevTopicAction", "index");
                 pagination(request, response, list);
+                //        pagination 
+
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "search":
@@ -73,22 +79,26 @@ public class TopicController extends HttpServlet {
                 if (searchText == null) {
                     list2 = td.readAll(currSem.getName());
                 } else {
-                    session.removeAttribute("pageSearch");
-                    session.removeAttribute("totalPageSearch");
                     list2 = td.searchByName(searchText, currSem.getName());
                 }
+                
+                //        pagination
                 if (!prevAction.equals(currAction)) {
                     session.setAttribute("totalPage", null);
                     session.setAttribute("page", null);
                 }
                 session.setAttribute("prevTopicAction", "search");
                 pagination(request, response, list2);
+                //        pagination
+                
                 request.setAttribute("searchText", searchText);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "filter":
                 currSem = (Semester) session.getAttribute("currentSem");
                 String filter = request.getParameter("filter");
+                
+                //        pagination
                 String prevFilter = (String) session.getAttribute("prevTopicFilter");
                 if (prevFilter == null) {
                     session.setAttribute("prevTopicFilter", filter);
@@ -122,13 +132,15 @@ public class TopicController extends HttpServlet {
                 request.setAttribute("filter", filter);
                 session.setAttribute("prevTopicAction", "filter");
                 session.setAttribute("currTopicAction", "pagefilter");
+                //        pagination
+                
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "pagefilter":
                 filter = (String) session.getAttribute("prevTopicFilter");
                 currSem = (Semester) session.getAttribute("currentSem");
                 list3 = td.filterByDepartment(filter, currSem.getName());
-                pagination(request, response, list3);
+                pagination(request, response, list3);                 
                 session.setAttribute("prevTopicAction", "pagefilter");
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
@@ -149,6 +161,7 @@ public class TopicController extends HttpServlet {
 
                 ArrayList<Semester> semList = (ArrayList<Semester>) session.getAttribute("semList");
 
+                //        pagination
                 String prevSemName = (String) session.getAttribute("prevTopicSemester");
                 if (prevSemName == null) {
                     session.setAttribute("prevTopicSemester", semester);
@@ -167,19 +180,18 @@ public class TopicController extends HttpServlet {
                 }
                 session.setAttribute("prevTopicAction", "semester");
                 session.setAttribute("currTopicAction", "pagesemester");
-
                 pagination(request, response, list4);
+                //        pagination
+                
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "pagesemester":
-               
-                currSem = (Semester) session.getAttribute("currentSem"); 
+                currSem = (Semester) session.getAttribute("currentSem");
                 list4 = td.readAll(currSem.getName());
                 pagination(request, response, list4);
                 session.setAttribute("prevTopicAction", "pagesemester");
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
-                
 
         }
     }
