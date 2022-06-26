@@ -39,7 +39,7 @@
     left: 10px;
     background-color: #fff;    
 }
-select#members{
+input#members{
     width: 350px;
     height: 40px;    
     border-radius: 5px   

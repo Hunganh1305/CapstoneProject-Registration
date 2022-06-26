@@ -3,7 +3,9 @@
     Created on : Jun 15, 2022, 8:46:18 AM
     Author     : phamquang
 --%>
-
+<%@page import="DTO.Users"%>
+<%@page import="java.util.List"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,16 +26,17 @@
         <!-- Font Awesome Icon -->
          <link rel="stylesheet" href="css/font-awesome.min.css"> 
 
+         
+         <!-- Bootstrap -->
+        <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" />
         <!-- cdn font awesome -->
-<!--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-              integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-              crossorigin="anonymous" referrerpolicy="no-referrer" />-->
 
+        <script src="https://kit.fontawesome.com/e7ea130b87.js" crossorigin="anonymous"></script>
         <!-- Custom stylesheet -->
-        <link type="text/css" rel="stylesheet" href="./css/style.css" />
+        <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
         <!--  stylessheet -->
-        <link type="text/css" rel="stylesheet" href="./css/teamDetail.css" />
+        <link type="text/css" rel="stylesheet" href="../css/teamDetail.css" />
     </head>
 
     <body>
@@ -47,7 +50,7 @@
         
         <!-- Header -->
         <header>
-            <%@include file="header_profile.jsp" %>
+            <%@include file="header.jsp" %>
         </header>
         <!-- /Header -->
 
@@ -63,26 +66,27 @@
 
             <div class="teamControl">
 
-                <div>
-                    <table class="table teamMember">
+                <div>                                            
+                    <table class="table teamMember mr-2">
                         <thead>
                             <tr>
                                 <th>Team members</th>
                                 <th> </th>
                                 <th> </th>
-                                <th><span class="tdTbl__success"> 6/6</span></th>
+                                <th><span class="tdTbl__success"> 5/5</span></th>
                             </tr>
                         </thead>
+                        
+                       <c:forEach var="item" items="${teamMembers}" varStatus="loop">
                         <tbody class="teamMemberBody row">
                             <tr class="col-sm-12">
                         <div>
                             <td class="">
-                                <a href="profile.html"><img class="avatar" src="./img/sample-avatar.jpg"
+                                <a href="#"><img class="avatar" src="../img/sample-avatar.jpg"
                                                             alt="Avatar"></a>
                             </td>
-                            <td>Le Hai Long <br />
-                                SE161497 <br />
-
+                            <td>${item.user.name}<br />                                
+                                <!--<span class="tdTbl__danger">Leader</span>-->
                             </td>
                         </div>
 
@@ -95,57 +99,11 @@
                             </td>
                         </div>
                         </tr>
-                        </tbody>
-                        <tbody class="teamMemberBody row">
-                            <tr class="col-sm-12">
-                        <div>
-                            <td class="">
-                                <a href="profile.html"><img class="avatar" src="./img/sample-avatar.jpg"
-                                                            alt="Avatar"></a>
-                            </td>
-                            <td>Le Hai Long <br />
-                                SE161497 <br />
-                                <span class="tdTbl__danger">Leader</span>
-                            </td>
-                        </div>
-
-                        <div>
-                            <td class="tabProgramControl">
-                                <span class="tabProgram">Java</span>
-                                <span class="tabProgram">Web</span>
-                                <span class="tabProgram">C#</span>
-                                <span class="tabProgram">Backend</span>
-                            </td>
-                        </div>
-                        </tr>
-                        </tbody>
-                        <tbody class="teamMemberBody row">
-                            <tr class="col-sm-12">
-                        <div>
-                            <td class="">
-                                <a href="profile.html"><img class="avatar" src="./img/sample-avatar.jpg"
-                                                            alt="Avatar"></a>
-                            </td>
-                            <td>Le Hai Long <br />
-                                SE161497 <br />
-
-                            </td>
-                        </div>
-
-                        <div>
-                            <td class="tabProgramControl">
-                                <span class="tabProgram">Java</span>
-                                <span class="tabProgram">Web</span>
-                                <span class="tabProgram">C#</span>
-                                <span class="tabProgram">Backend</span>
-                            </td>
-                        </div>
-                        </tr>
-                        </tbody>
-
-
-
+                        </tbody>   
+                        </c:forEach>
+                        
                     </table>
+                    
                 </div>
                 <!--  -->
                 <div>
@@ -160,18 +118,18 @@
                                 <td class="tdControl">
                                     <div>
                                         <i class="fa  fa-bars"></i>
-                                        Team name: <strong>BeakyBlinders</strong>
+                                        Team name: <strong>${teamInfor.group.groupName}</strong>
                                     </div>
                                     <div class="join">
                                         <i class="fa-regular fa-copy"></i>
-                                        Joining code: <strong>TizK52</strong>
+                                        Team ID: <strong>${teamInfor.groupId}</strong>
                                         <span class="ques_small "><i class="fa-regular fa-circle-question"></i></span>
                                         <p class="hided">Joining code for actived student in this semester to join this team
                                         </p>
                                     </div>
                                     <div>
                                         <i class="fa  fa-building"></i>
-                                        Department: <span class="tabProgram">Information System</span>
+                                        Department: <span class="tabProgram">${teamInfor.department.name}</span>
                                     </div>
                                     <div>
                                         <i class="fa-solid fa-unlock-keyhole"></i>
@@ -181,9 +139,10 @@
                                         </span>
                                         <p class="hided">This team can send application to topics in this semester</p>
 
-                                        <i class="fa-solid fa-user-shield"></i>
-                                        <span class="tdTbl__success">public</span>
+                                       <i class="fa-solid fa-shield"></i>
+                                        <span class="tdTbl__success">Public</span>
                                         <span class="ques_small public"><i class="fa-regular fa-circle-question"></i></span>
+                                        
                                         <p class="hided">This team is visible to every actived student in this semester</p>
 
                                     </div>
@@ -191,7 +150,7 @@
 
                             </tr>
                             <tr>
-                                <td>Description:</td>
+                                <td>Description: ${teamInfor.project.description}  </td>
                             </tr>
                         </tbody>
                     </table>
@@ -199,7 +158,8 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    This team have not matched any topic yet
+                                    ${teamInfor.project.name}
+                                    <!--This team have not matched any topic yet-->
                                 </td>
                             </tr>
                         </tbody>

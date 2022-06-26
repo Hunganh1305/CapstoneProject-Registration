@@ -3,20 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-
             <file>file:/D:/SWP391/swp391/src/java/Servlet/GroupController.java</file>
-            <file>file:/D:/SWP391/swp391/web/header.jsp</file>
-            <file>file:/D:/SWP391/swp391/web/topic.jsp</file>
-            <file>file:/D:/SWP391/swp391/web/header_profile.jsp</file>
+            <file>file:/D:/SWP391/swp391/src/java/DTO/Groups.java</file>
             <file>file:/D:/SWP391/swp391/web/createTeam.jsp</file>
             <file>file:/D:/SWP391/swp391/src/java/DAO/StudentGroupDAO.java</file>
-            <file>file:/D:/SWP391/swp391/web/profile.jsp</file>
             <file>file:/D:/SWP391/swp391/web/teamList.jsp</file>
-            <file>file:/D:/SWP391/swp391/src/java/Servlet/TopicController.java</file>
-            <file>file:/D:/SWP391/swp391/src/java/DAO/TopicDAO.java</file>
             <file>file:/D:/SWP391/swp391/src/java/DAO/GroupsDAO.java</file>
+            <file>file:/D:/SWP391/swp391/web/css/topicdetail.css</file>
+            <file>file:/D:/SWP391/swp391/src/java/DAO/UserDAO.java</file>
+            <file>file:/D:/SWP391/swp391/src/java/DTO/Users.java</file>
+            <file>file:/D:/SWP391/swp391/src/java/DTO/Topic.java</file>
+            <file>file:/D:/SWP391/swp391/web/css/createTeam.css</file>
+            <file>file:/D:/SWP391/swp391/src/java/DTO/StudentGroup.java</file>
+            <file>file:/D:/SWP391/swp391/web/css/teamDetail.css</file>
+            <file>file:/D:/SWP391/swp391/src/java/DAO/TopicDAO.java</file>
             <file>file:/D:/SWP391/swp391/web/teamDetail.jsp</file>
-
+            <file>file:/D:/SWP391/swp391/src/java/Servlet/ProjectController.java</file>
         </group>
     </open-files>
 </project-private>
