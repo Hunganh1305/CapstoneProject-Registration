@@ -5,11 +5,14 @@
  */
 package Servlet;
 
+import DAO.GroupsDAO;
 import DAO.StudentGroupDAO;
 import DTO.StudentGroup;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -95,14 +98,53 @@ public class GroupController extends HttpServlet {
                 request.setAttribute("filter", pagefilter);
                 request.getRequestDispatcher("/teamList.jsp").forward(request, response);
                 break;
+            
+            case "detail":
+                int id = Integer.parseInt(request.getParameter("id"));
+                
+                ArrayList<StudentGroup> teamMembers = sg.viewTeamMembers(id);
+                
+                StudentGroup teamInfor = sg.viewTeamInformation(id);                
+                request.setAttribute("teamMembers", teamMembers);
+                request.setAttribute("teamInfor", teamInfor);
+                request.getRequestDispatcher("/teamDetail.jsp").forward(request, response);
+                break;
+                
             case "create":
                 //Hien form create de nhap du lieu (create --submit--> save)
-                create(request, response);
+                int Stuid = Integer.parseInt(request.getParameter("id"));
+                StudentGroup depName = sg.readDepNameByUserId(Stuid);
+                request.setAttribute("depName", depName);
+                request.getRequestDispatcher("/createTeam.jsp").forward(request, response);
+                break;
+            case "save":
+                //Luu toy vao db
+                save(request, response);                
                 break;
             
         }
     }
-    public void create(HttpServletRequest request, HttpServletResponse response) {
+    public void save(HttpServletRequest request, HttpServletResponse response) {
+        GroupsDAO gr = new GroupsDAO();
+        try {
+            String op = request.getParameter("op");
+            if (op.equals("save")) {
+                
+                String name = request.getParameter("groupName");
+                String members = request.getParameter("members");
+                String groupStatus = request.getParameter("groupStatus");                
+                
+//                gr.create();
+            }
+            //Quay ve view index (redirect to index view)
+//            index(request, response);
+            request.setAttribute("action", "index");
+        } catch (Exception ex) {
+            Logger.getLogger(GroupController.class.getName()).log(Level.SEVERE, null, ex);
+            //Chi hien lai view create va thong bao loi
+            request.setAttribute("action", "create");
+            request.setAttribute("errorMessage", "Invalid data.");
+        }
     }
     
      private void pagination(HttpServletRequest request, HttpServletResponse response, ArrayList<StudentGroup> list) {
