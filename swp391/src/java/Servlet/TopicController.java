@@ -5,8 +5,10 @@
  */
 package Servlet;
 
+import DAO.SemesterDAO;
 import DAO.TopicDAO;
 import DTO.Category;
+import DTO.Semester;
 import DTO.Topic;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,66 +44,104 @@ public class TopicController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getAttribute("action").toString();
         HttpSession session = request.getSession();
-
+        Semester currSem = null;
         TopicDAO td = new TopicDAO();
 
+//        pagination
+        String prevAction = (String) session.getAttribute("prevTopicAction");
+        if (prevAction == null) {
+            session.setAttribute("prevTopicAction", action);
+            prevAction = action;
+        }
+        session.setAttribute("currTopicAction", action);
+        String currAction = (String) session.getAttribute("currTopicAction");
+//        pagination
         switch (action) {
             case "index":
-                ArrayList<Topic> list = td.readAll();
+                currSem = (Semester) session.getAttribute("currentSem");
+                ArrayList<Topic> list = td.readAll(currSem.getName());
+
+                //        pagination
+                if (!prevAction.equals(currAction)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                session.setAttribute("prevTopicAction", "index");
                 pagination(request, response, list);
+                //        pagination 
+
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "search":
+                currSem = (Semester) session.getAttribute("currentSem");
                 String searchText = request.getParameter("searchText");
-                ArrayList<Topic> list2 = td.searchByName(searchText);
+                ArrayList<Topic> list2 = null;
                 if (searchText == null) {
-                    list2 = td.readAll();
+                    list2 = td.readAll(currSem.getName());
                 } else {
-                    session.removeAttribute("pageSearch");
-                    session.removeAttribute("totalPageSearch");
-                    list2 = td.searchByName(searchText);
+                    list2 = td.searchByName(searchText, currSem.getName());
                 }
-
-                paginationSearch(request, response, list2);
+                
+                //        pagination
+                if (!prevAction.equals(currAction)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                session.setAttribute("prevTopicAction", "search");
+                pagination(request, response, list2);
+                //        pagination
+                
                 request.setAttribute("searchText", searchText);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "filter":
+                currSem = (Semester) session.getAttribute("currentSem");
                 String filter = request.getParameter("filter");
-
-                ArrayList<Topic> list3 = td.filterByDepartment(filter);
-                if (filter.equals("Quan tri kinh doanh")) {
-                    paginationQTKD(request, response, list3);
-                } else if (filter.equals("Cong nghe thong tin")) {
-                    paginationCNTT(request, response, list3);
-                } else if (filter.equals("Ngon ngu Anh")) {
-                    paginationNNA(request, response, list3);
-                } else if (filter.equals("Ngon ngu Han Quoc")) {
-                    paginationNNH(request, response, list3);
-                } else if (filter.equals("Ngon ngu Nhat")) {
-                    paginationNNN(request, response, list3);
+                
+                //        pagination
+                String prevFilter = (String) session.getAttribute("prevTopicFilter");
+                if (prevFilter == null) {
+                    session.setAttribute("prevTopicFilter", filter);
+                    prevFilter = filter;
                 }
+                session.setAttribute("currTopicFilter", filter);
+                String currFilter = (String) session.getAttribute("currTopicFilter");
+                ArrayList<Topic> list3 = td.filterByDepartment(filter, currSem.getName());
+                if (!prevAction.equals(currAction) || !prevFilter.equals(currFilter)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                switch (currFilter) {
+                    case "Cong nghe thong tin":
+                        session.setAttribute("prevTopicFilter", "Cong nghe thong tin");
+                        break;
+                    case "Quan tri kinh doanh":
+                        session.setAttribute("prevTopicFilter", "Quan tri kinh doanh");
+                        break;
+                    case "Ngon ngu Anh":
+                        session.setAttribute("prevTopicFilter", "Ngon ngu Anh");
+                        break;
+                    case "Ngon ngu Nhat":
+                        session.setAttribute("prevTopicFilter", "Ngon ngu Nhat");
+                        break;
+                    case "Ngon ngu Han Quoc":
+                        session.setAttribute("prevTopicFilter", "Ngon ngu Han Quoc");
+                        break;
+                }
+                pagination(request, response, list3);
                 request.setAttribute("filter", filter);
-                session.setAttribute("pageFilter", filter);
+                session.setAttribute("prevTopicAction", "filter");
+                session.setAttribute("currTopicAction", "pagefilter");
+                //        pagination
+                
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
-            case "filter1":
-                String pagefilter = (String) session.getAttribute("pageFilter");
-
-                list3 = td.filterByDepartment(pagefilter);
-                if (pagefilter.equals("Quan tri kinh doanh")) {
-                    paginationQTKD(request, response, list3);
-                } else if (pagefilter.equals("Cong nghe thong tin")) {
-                    paginationCNTT(request, response, list3);
-                } else if (pagefilter.equals("Ngon ngu Anh")) {
-                    paginationNNA(request, response, list3);
-                } else if (pagefilter.equals("Ngon ngu Han Quoc")) {
-                    paginationNNH(request, response, list3);
-                } else if (pagefilter.equals("Ngon ngu Nhat")) {
-                    paginationNNN(request, response, list3);
-                }
-
-                request.setAttribute("filter", pagefilter);
+            case "pagefilter":
+                filter = (String) session.getAttribute("prevTopicFilter");
+                currSem = (Semester) session.getAttribute("currentSem");
+                list3 = td.filterByDepartment(filter, currSem.getName());
+                pagination(request, response, list3);                 
+                session.setAttribute("prevTopicAction", "pagefilter");
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "detail":
@@ -111,6 +151,46 @@ public class TopicController extends HttpServlet {
                 request.setAttribute("topic", topic);
                 request.setAttribute("cate", cate);
                 request.getRequestDispatcher("/topicDetail.jsp").forward(request, response);
+                break;
+            case "semester":
+                String semester = request.getParameter("semester");
+                SemesterDAO sem = new SemesterDAO();
+                Semester currentSem = sem.read(semester);
+                session.setAttribute("currentSem", currentSem);
+                ArrayList<Topic> list4 = td.readAll(currentSem.getName());
+
+                ArrayList<Semester> semList = (ArrayList<Semester>) session.getAttribute("semList");
+
+                //        pagination
+                String prevSemName = (String) session.getAttribute("prevTopicSemester");
+                if (prevSemName == null) {
+                    session.setAttribute("prevTopicSemester", semester);
+                    prevSemName = semester;
+                }
+                session.setAttribute("currTopicSemester", semester);
+                String currSemName = (String) session.getAttribute("currTopicSemester");
+                if (!prevAction.equals(currAction) || !prevSemName.equals(currSemName)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                for (int i = 0; i < semList.size(); i++) {
+                    if (currSemName.equals(semList.get(i).name)) {
+                        session.setAttribute("prevTopicSemester", semList.get(i).name);
+                    }
+                }
+                session.setAttribute("prevTopicAction", "semester");
+                session.setAttribute("currTopicAction", "pagesemester");
+                pagination(request, response, list4);
+                //        pagination
+                
+                request.getRequestDispatcher("/topic.jsp").forward(request, response);
+                break;
+            case "pagesemester":
+                currSem = (Semester) session.getAttribute("currentSem");
+                list4 = td.readAll(currSem.getName());
+                pagination(request, response, list4);
+                session.setAttribute("prevTopicAction", "pagesemester");
+                request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
 
         }

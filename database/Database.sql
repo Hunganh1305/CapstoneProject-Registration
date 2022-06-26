@@ -51,8 +51,8 @@ CREATE TABLE Topic(
 	CategoryId INT FOREIGN KEY (CategoryId) REFERENCES Category(CategoryId),
 	Description VARCHAR(200),
 	BusinessId INT FOREIGN KEY (BusinessId) REFERENCES Users(UserId),
-	DepartmentId INT FOREIGN KEY (DepartmentId) REFERENCES Department(DepartmentId)
-
+	DepartmentId INT FOREIGN KEY (DepartmentId) REFERENCES Department(DepartmentId),
+	SemesterId INT FOREIGN KEY (SemesterId) REFERENCES Semester(SemesterId)
 )
 
 CREATE TABLE LecturerTopic (
@@ -224,14 +224,16 @@ select * from Semester
 delete from Semester
 
 
-insert into Topic values(1,'CPManagement-Review',6,'Manage and review on this web',8,2)
-insert into Topic values(2,'PetCareSystem',6,'The best solution to manage and service your pet',9,2)
-insert into Topic values(3,'PT Tranning app',6,'The way to transform to the monster',11,2)
-insert into Topic values(4,'Game Animation',10,'Like a little MCU movie',7,2)
-insert into Topic values(5,'Research And Developing Brands',2,'Make and marketing a brand to users',7,1)
-insert into Topic values(6,'Social issues',14,'Write an essay about social isues',10,3)
-insert into Topic values(7,'An analysis on cultural',16,'Write an essay analyze cultural',11,4)
-insert into Topic values(8,'Economic Policy of Japan',15,'Research and presentation',9,5)
+insert into Topic values(1,'CPManagement-Review',6,'Manage and review on this web',8,2,1)
+insert into Topic values(2,'PetCareSystem',6,'The best solution to manage and service your pet',9,2,1)
+insert into Topic values(3,'PT Tranning app',6,'The way to transform to the monster',11,2,1)
+insert into Topic values(4,'Game Animation',10,'Like a little MCU movie',7,2,1)
+insert into Topic values(5,'Research And Developing Brands',2,'Make and marketing a brand to users',7,1,1)
+insert into Topic values(6,'Social issues',14,'Write an essay about social isues',10,3,1)
+insert into Topic values(7,'An analysis on cultural',16,'Write an essay analyze cultural',11,4,1)
+insert into Topic values(8,'Economic Policy of Japan',15,'Research and presentation',9,5,1)
+insert into Topic values(9,'Restaurant researching',2,'Manage a restaurant',7,1,2)
+insert into Topic values(10,'Cycle of whales',14,'Study about whales',10,3,2)
 
 
 
@@ -323,7 +325,9 @@ insert into LecturerTopic values(4,6,4)
 insert into LecturerTopic values(5,57,5)
 insert into LecturerTopic values(6,58,6)
 insert into LecturerTopic values(7,59,7)
-insert into LecturerTopic values(8,60,8)
+insert into LecturerTopic values(8,60,8
+insert into LecturerTopic values(9,57,9)
+insert into LecturerTopic values(10,58,10)
 
 select * from LecturerTopic
 

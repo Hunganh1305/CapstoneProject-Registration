@@ -24,18 +24,21 @@ import java.util.Map;
  */
 public class TopicDAO {
 
-    public static ArrayList<Topic> readAll() {
+    public static ArrayList<Topic> readAll(String currentSem) {
         Connection cn = null;
         ArrayList<Topic> list = new ArrayList<>();
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
                 String sql = "  select ltt.*,d.Name as DepartmentName,u.Name as LecturerName\n"
-                        + "  from (select t.*,lt.LecturerId from dbo.LecturerTopic lt join dbo.Topic t on lt.TopicId = t.TopicId) ltt \n"
-                        + "  join dbo.Users u on ltt.LecturerId=u.UserId \n"
-                        + "  join dbo.Department d on ltt.DepartmentId=d.DepartmentId";
-                Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql);
+                        + "                         from (select t.*,lt.LecturerId from dbo.LecturerTopic lt join dbo.Topic t on lt.TopicId = t.TopicId) ltt \n"
+                        + "                         join dbo.Users u on ltt.LecturerId=u.UserId \n"
+                        + "                         join dbo.Department d on ltt.DepartmentId=d.DepartmentId\n"
+                        + "			    join dbo.Semester s on ltt.SemesterId=s.SemesterId\n"
+                        + "			    where s.Name like ?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setString(1, "%" + currentSem + "%");
+                ResultSet rs = stm.executeQuery();
                 while (rs.next()) {
                     int topicID = rs.getInt("topicId");
                     String name = rs.getString("Name");
@@ -60,19 +63,21 @@ public class TopicDAO {
         return list;
     }
 
-    public static ArrayList<Topic> searchByName(String name) {
+    public static ArrayList<Topic> searchByName(String name, String currentSem) {
         Connection cn = null;
         ArrayList<Topic> list = new ArrayList<>();
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "   select ltt.*,d.Name as DepartmentName,u.Name as LecturerName\n"
-                        + "  from (select t.*,lt.LecturerId from dbo.LecturerTopic lt join dbo.Topic t on lt.TopicId = t.TopicId) ltt \n"
-                        + "  join dbo.Users u on ltt.LecturerId=u.UserId \n"
-                        + "  join dbo.Department d on ltt.DepartmentId=d.DepartmentId\n"
-                        + "  where ltt.name like ?";
+                String sql = "  select ltt.*,d.Name as DepartmentName,u.Name as LecturerName\n"
+                        + "                         from (select t.*,lt.LecturerId from dbo.LecturerTopic lt join dbo.Topic t on lt.TopicId = t.TopicId) ltt \n"
+                        + "                         join dbo.Users u on ltt.LecturerId=u.UserId \n"
+                        + "                         join dbo.Department d on ltt.DepartmentId=d.DepartmentId\n"
+                        + "			    join dbo.Semester s on ltt.SemesterId=s.SemesterId\n"
+                        + "                         where ltt.name like ? and s.Name like ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, "%" + name + "%");
+                stm.setString(2, "%" + currentSem + "%");
                 ResultSet rs = stm.executeQuery();
                 while (rs.next()) {
                     int topicID = rs.getInt("topicId");
@@ -98,7 +103,7 @@ public class TopicDAO {
         return list;
     }
 
-    public static ArrayList<Topic> filterByDepartment(String name) {
+    public static ArrayList<Topic> filterByDepartment(String name,String currentSem) {
         Connection cn = null;
         ArrayList<Topic> list = new ArrayList<>();
         try {
@@ -108,9 +113,11 @@ public class TopicDAO {
                         + "  from (select t.*,lt.LecturerId from dbo.LecturerTopic lt join dbo.Topic t on lt.TopicId = t.TopicId) ltt \n"
                         + "  join dbo.Users u on ltt.LecturerId=u.UserId \n"
                         + "  join dbo.Department d on ltt.DepartmentId=d.DepartmentId\n"
-                        + "  where d.Name like ?";
+                        + "  join dbo.Semester s on ltt.SemesterId=s.SemesterId\n"
+                        + "  where d.Name like ? and s.Name like ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, "%" + name + "%");
+                stm.setString(2, "%" + currentSem + "%");
                 ResultSet rs = stm.executeQuery();
                 while (rs.next()) {
                     int topicID = rs.getInt("topicId");

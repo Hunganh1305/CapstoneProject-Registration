@@ -13,6 +13,7 @@
         <title>JSP Page</title>
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="css/style.css" />
+        
     </head>
     <body>
         <!-- Header -->
@@ -25,10 +26,9 @@
                         <a class="logo" id="logo-brand" href="../profile.jsp">
                             <img src="../img/logo.png" alt="logo">
                         </a>
-                        <div class="semester">
-                            Summer 2022
-                        </div>
+                       
                     </div>
+                    
                     <!-- /Logo -->
 
                     <!-- Mobile toggle -->
@@ -57,5 +57,7 @@
             </div>
         </header>
         <!-- /Header -->
+        
+       
     </body>
 </html>

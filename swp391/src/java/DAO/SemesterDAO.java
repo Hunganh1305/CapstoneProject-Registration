@@ -36,8 +36,8 @@ public class SemesterDAO {
                     String name = rs.getString("name");
                     Date startDate = rs.getDate("startDate");
                     Date endDate = rs.getDate("endDate");
-                    int topicId = rs.getInt("topicId");
-                    Semester sem = new Semester(semID, name, startDate, endDate, topicId);
+                    
+                    Semester sem = new Semester(semID, name, startDate, endDate);
                     list.add(sem);
                 }
                 cn.close();
@@ -48,23 +48,22 @@ public class SemesterDAO {
         return list;
     }
 
-    public static Semester read(Object id) {
+    public static Semester read(String name) {
         Connection cn = null;
         Semester sem = null;
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select * from dbo.Semester where SemesterId=?";
+                String sql = "select * from dbo.Semester where name like ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
-                stm.setString(1, id.toString());
+                stm.setString(1,"%" + name + "%");
                 ResultSet rs = stm.executeQuery();
-                if (rs.next()) {
+                while (rs.next()) {
                     sem = new Semester();
                     sem.setSemesterId(rs.getInt("semesterId"));
                     sem.setName(rs.getString("name"));
                     sem.setStartDate(rs.getDate("startDate"));
                     sem.setEndDate(rs.getDate("endDate"));
-                    sem.setTopicId(rs.getInt("topicId"));
 
                 }
                 cn.close();
@@ -87,7 +86,6 @@ public class SemesterDAO {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 stm.setString(3, df.format(sem.getStartDate()));
                 stm.setString(4, df.format(sem.getEndDate()));
-                stm.setInt(5, sem.getTopicId());
                 stm.executeUpdate();
                 cn.close();
             }
@@ -107,7 +105,6 @@ public class SemesterDAO {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 stm.setString(2, df.format(sem.getStartDate()));
                 stm.setString(3, df.format(sem.getEndDate()));
-                stm.setInt(4, sem.getTopicId());
                 stm.setInt(5, sem.getSemesterId());
                 stm.executeUpdate();
                 cn.close();
