@@ -7,7 +7,10 @@ package Servlet;
 
 import DAO.GroupsDAO;
 import DAO.StudentGroupDAO;
+import DAO.UserDAO;
+import DTO.Groups;
 import DTO.StudentGroup;
+import DTO.Users;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,15 +129,25 @@ public class GroupController extends HttpServlet {
     }
     public void save(HttpServletRequest request, HttpServletResponse response) {
         GroupsDAO gr = new GroupsDAO();
+        UserDAO u = new UserDAO();
+        StudentGroupDAO sg = new StudentGroupDAO();
+        Users user = null;
+        HttpSession session = request.getSession();
         try {
             String op = request.getParameter("op");
             if (op.equals("save")) {
                 
                 String name = request.getParameter("groupName");
-                String members = request.getParameter("members");
-                String groupStatus = request.getParameter("groupStatus");                
+                int members = Integer.parseInt(request.getParameter("members"));
+                int groupStatus = Integer.parseInt(request.getParameter("groupStatus"));                
+                Groups groups = new Groups(1, name, members, groupStatus, members);
+                gr.create(groups);
                 
-//                gr.create();
+//                session.getAttribute("userId");   studentID
+//           group.groupId());    groupID
+//             StudentGroup stugru = new StudentGroup("id", "studentID", "groupID", "leaderStatus");
+//             sg.create(studentGroup);
+
             }
             //Quay ve view index (redirect to index view)
 //            index(request, response);
