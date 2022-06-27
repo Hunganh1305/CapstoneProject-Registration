@@ -337,10 +337,11 @@ insert into Project values(1,'Manage and review on this web','CPManagement-Revie
 insert into Project values(2,'The best solution to manage and service your pet','PetCareSystem','',2,1,2)
 insert into Project values(3,'The way to transform to the monster','PT Tranning app','',3,1,3)
 insert into Project values(4,'Like a little MCU movie','Game Animation','',4,1,4)
-insert into Project values(5,'Make and marketing a brand to users','Research And Developing Brands','',4,1,5)
-insert into Project values(6,'Write an essay about social isues','Social issues','',4,1,6)
-insert into Project values(7,'Write an essay analyze cultural','An analysis on cultural','',4,1,7)
-insert into Project values(8,'Research and presentation','Economic Policy of Japan','',4,1,8)
+insert into Project values(5,'Make and marketing a brand to users','Research And Developing Brands','',5,1,5)
+insert into Project values(6,'Write an essay about social isues','Social issues','',6,1,6)
+insert into Project values(7,'Write an essay analyze cultural','An analysis on cultural','',7,1,7)
+insert into Project values(8,'Research and presentation','Economic Policy of Japan','',8,1,8)
+
 
 
 select * from Project

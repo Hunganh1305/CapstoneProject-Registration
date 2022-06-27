@@ -15,16 +15,16 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
 
         <!-- Bootstrap -->
-        <link type="text/css" rel="stylesheet" href="./css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" />
 
         <!-- Font Awesome Icon -->
         <script src="https://kit.fontawesome.com/e7ea130b87.js" crossorigin="anonymous"></script>
 
         <!-- Custom stlylesheet -->
-        <link type="text/css" rel="stylesheet" href="./css/style.css" />
+        <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
         <!--CreateTeam css-->
-        <link href="./css/createTeam.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/createTeam.css" rel="stylesheet" type="text/css"/>
 
     </head>
     <body>
@@ -38,7 +38,7 @@
 
         <!-- Header -->
         <header>
-            <%@include file="header_profile.jsp" %>
+            <%@include file="header.jsp" %>
         </header>
         <!-- /Header -->
 
@@ -53,40 +53,34 @@
                     <form action="save.do" class="form__control">
                         <div class="team__dep">
                             <label class="label_dep">Department</label>
-                            <input class="" type="text" disabled  placeholder="IS-Information System" >
+                            <input class="" type="text"  disabled  value="${depName.department.name}" required/>
                         </div>
                         <div class="col">
                             
-                            <input type="text" placeholder="Team name">
+                            <input type="text" placeholder="Team name" id="groupName" name="groupName">
                         </div>
                         <div class="col">
                             <div class="selection">
                                 <div class="selection--left">
                                     <label for="members" class="label_member">Members</label>
-                                    <select id="members" name="membersList">
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                    </select>
+                                    <input type="number" id="members" name="members" min="3" max="5" placeholder="4"/>
                                 </div>
 
 
                                 <div class="selection--right">
                                     <label for="status" class="label_status">Status</label>
                                     <select id="status" name="statusList">
-                                        <option value="Public">Public</option>
-                                        <option value="Private">Private</option>                            
+                                        <option value="0" name="groupStatus">Public</option>
+                                        <option value="1" name="groupStatus">Private</option>                            
                                     </select>
                                 </div>
                             </div>
 
                         </div>                    
-                        <div class="col ">
+<!--                        <div class="col ">
 
-                            <textarea placeholder="Description" cols="30" rows="10"></textarea>
-                        </div>
+                            <textarea placeholder="Description" cols="30" rows="10" name="description"></textarea>
+                        </div>-->
                 </div>
                 <button type="submit" class="btn btn-Close"><i class="bi bi-x-circle"></i>Close</button>
                 <button type="submit" class="btn btn-Create"><i class="bi bi-box-arrow-down"></i>Create</button>

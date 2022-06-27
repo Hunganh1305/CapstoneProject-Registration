@@ -1,4 +1,5 @@
 <%-- Document : teamList Created on : Jun 15, 2022, 8:45:26 AM Author : phamquang --%>
+<%@page import="DTO.Users"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -57,7 +58,7 @@
                     <h1>Team List</h1>
                 </div>
                 <div class="btnControl">
-                    <button class="team__btn"><a href="../createTeam.jsp">+ Create A New Team</a> </button>
+                    <button class="team__btn"><a href="${root}/group/create.do?id=${userId}">+ Create A New Team</a> </button>
                 </div>
 
             </div>
@@ -119,13 +120,13 @@
 
                             <tbody>
                                 <tr>
-                                    <td>${list.depName.name}</td>
-                                    <td>${list.groupName.groupName}</td>
-                                    <td>${list.leaderName.name}</td>
+                                    <td>${list.department.name}</td>
+                                    <td>${list.group.groupName}</td>
+                                    <td>${list.user.name}</td>
                                     <td><span
-                                            class="tdTbl__warning">${list.proStatus.status==1?"unlocked":"locked"}</span>
+                                            class="tdTbl__warning">${list.project.status==1?"unlocked":"locked"}</span>
                                     </td>
-                                    <td><a href="#"><i class="fa fa-solid fa-eye"></i></a></td>
+                                    <td><a href="${root}/group/detail.do?id=${list.groupId}"><i class="fa fa-solid fa-eye"></i></a></td>
                                 </tr>
                             </tbody>
 

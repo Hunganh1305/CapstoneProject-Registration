@@ -13,24 +13,25 @@ public class StudentGroup {
     private int id;
     private int studentId;
     private int groupId;
-    private int leaderStatus;
-    private Users leaderName;
-    private Department depName;
-    private Project proStatus;
-    private Groups groupName;
+    private int leaderStatus;    
+    private Users user;
+    private Department department;
+    private Project project;
+    private Groups group;
+    
 
     public StudentGroup() {
     }
 
-    public StudentGroup(int id, int studentId, int groupId, int leaderStatus, Users leaderName, Department depName, Project proStatus, Groups groupName) {
+    public StudentGroup(int id, int studentId, int groupId, int leaderStatus, Users user, Department department, Project project, Groups group) {
         this.id = id;
         this.studentId = studentId;
         this.groupId = groupId;
         this.leaderStatus = leaderStatus;
-        this.leaderName = leaderName;
-        this.depName = depName;
-        this.proStatus = proStatus;
-        this.groupName = groupName;
+        this.user = user;
+        this.department = department;
+        this.project = project;
+        this.group = group;
     }
 
     public int getId() {
@@ -65,37 +66,47 @@ public class StudentGroup {
         this.leaderStatus = leaderStatus;
     }
 
-    public Users getLeaderName() {
-        return leaderName;
+    public Users getUser() {
+        return user;
     }
 
-    public void setLeaderName(Users leaderName) {
-        this.leaderName = leaderName;
+    public void setUser(Users user) {
+        this.user = user;
     }
 
-    public Department getDepName() {
-        return depName;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepName(Department depName) {
-        this.depName = depName;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
-    public Project getProStatus() {
-        return proStatus;
+    public Project getProject() {
+        return project;
     }
 
-    public void setProStatus(Project proStatus) {
-        this.proStatus = proStatus;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
-    public Groups getGroupName() {
-        return groupName;
+    public Groups getGroup() {
+        return group;
     }
 
-    public void setGroupName(Groups groupName) {
-        this.groupName = groupName;
+    public void setGroup(Groups group) {
+        this.group = group;
     }
+
+    
+
+    
+
+    
+
+   
+
+    
     
 }
 
