@@ -78,13 +78,13 @@ public class StudentGroupDAO {
             cn = DBUtils.makeConnection();
             if (cn != null) {
                 String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName,p.status as proStatus "
-                        + "from Users u join StudentGroup sg on u.UserId = sg.StudentId\n"
-                        + "join Department dep on u.DepartmentId = dep.DepartmentId \n"
-                        + "join Project p on p.GroupId = sg.GroupId\n"
-                        + "join Groups gr on gr.groupId = sg.GroupId\n"
-                        + "join Semester s on s.SemesterId = gr.SemID\n"
-                        + "where sg.LeaderStatus = 1 and gr.groupName like ?"
-                        + "and s.Name like ?";
+                        + " from Users u join StudentGroup sg on u.UserId = sg.StudentId\n"
+                        + " join Department dep on u.DepartmentId = dep.DepartmentId \n"
+                        + " join Project p on p.GroupId = sg.GroupId\n"
+                        + " join Groups gr on gr.groupId = sg.GroupId\n"
+                        + " join Semester s on s.SemesterId = gr.SemID\n"
+                        + " where sg.LeaderStatus = 1 and gr.groupName like ?"
+                        + " and s.Name like ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, "%" + name + "%");
                 stm.setString(2, "%" + currentSem + "%");
@@ -126,13 +126,13 @@ public class StudentGroupDAO {
             cn = DBUtils.makeConnection();
             if (cn != null) {
                 String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName,p.status as proStatus "
-                        + "from Users u join StudentGroup sg on u.UserId = sg.StudentId\n"
-                        + "join Department dep on u.DepartmentId = dep.DepartmentId \n"
-                        + "join Project p on p.GroupId = sg.GroupId\n"
-                        + "join Groups gr on gr.groupId = sg.GroupId\n"
-                        + "join Semester s on s.SemesterId = gr.SemID\n"
-                        + "where sg.LeaderStatus = 1 and dep.Name like ?"
-                        + "and s.Name like ?";
+                        + " from Users u join StudentGroup sg on u.UserId = sg.StudentId\n"
+                        + " join Department dep on u.DepartmentId = dep.DepartmentId \n"
+                        + " join Project p on p.GroupId = sg.GroupId\n"
+                        + " join Groups gr on gr.groupId = sg.GroupId\n"
+                        + " join Semester s on s.SemesterId = gr.SemID\n"
+                        + " where sg.LeaderStatus = 1 and dep.Name like ? \n"
+                        + " and s.Name like ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, "%" + name + "%");
                 stm.setString(2, "%" + currentSem + "%");
