@@ -25,9 +25,7 @@
                         <a class="logo" id="logo-brand" href="../profile.jsp">
                             <img src="img/logo.png" alt="logo">
                         </a>
-                        <div class="semester">
-                            Summer 2022
-                        </div>
+                        
                     </div>
                     <!-- /Logo -->
 

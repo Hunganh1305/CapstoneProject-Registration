@@ -159,7 +159,8 @@
     font-size: 1.8rem;
 }
 
-.dropdown1 {
+.dropdown2,
+.dropdown1{
     width: max-content;
     height: auto;
     z-index: 2;
@@ -172,8 +173,24 @@
     border-radius: 4px;
 }
 
-.toggle {
+.dropdown2{
+    min-width: 64px;
+    
+    display: none;
+    padding: 0;
+    
+}
+
+
+.toggle{
     display: block;
+}
+
+.semester__item{
+    line-height: 1;
+    font-size: 1.5rem;
+    font-weight: 400;
+    padding: 12px 21px;
 }
 
 .filter__item {
@@ -182,9 +199,12 @@
     
 }
 
+.semester__item:hover,
 .filter__item:hover {
     background-color: rgb(228, 223, 223);
 }
+
+
 
 
 
@@ -227,3 +247,8 @@
     color: rgba(0,0,0,.54);
 }
 
+.flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

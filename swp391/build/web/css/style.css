@@ -1522,6 +1522,11 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
     height: 48px;
 }
 
+.semester:hover{
+    background-color: rgba(253, 169, 45, 0.08);
+    border: 1px solid rgb(253, 169, 45);
+}
+
 #logo-brand{
 	margin-right: 30px;
 }
