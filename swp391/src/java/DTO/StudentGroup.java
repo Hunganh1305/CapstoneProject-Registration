@@ -18,6 +18,7 @@ public class StudentGroup {
     private Department department;
     private Project project;
     private Groups group;
+    private Semester semester; 
     
 
     public StudentGroup() {
