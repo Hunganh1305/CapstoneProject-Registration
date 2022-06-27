@@ -23,6 +23,13 @@ public class StudentGroup {
     public StudentGroup() {
     }
 
+    public StudentGroup(int id, int studentId, int groupId, int leaderStatus) {
+        this.id = id;
+        this.studentId = studentId;
+        this.groupId = groupId;
+        this.leaderStatus = leaderStatus;
+    }
+
     public StudentGroup(int id, int studentId, int groupId, int leaderStatus, Users user, Department department, Project project, Groups group) {
         this.id = id;
         this.studentId = studentId;
