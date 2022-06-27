@@ -57,16 +57,29 @@
                 <div class="topic__title">
                     <h1>Team List</h1>
                 </div>
-                <div class="btnControl">
-                    <button class="team__btn"><a href="${root}/group/create.do?id=${userId}">+ Create A New Team</a> </button>
+                <div class="semester">
+                    ${currentSem.name}
+                    <div class="dropdown2">
+                        <ul class="semester__list">
+                            <c:forEach var="item" items="${semList}" varStatus="loop"> 
+                                <li name="semester" class="semester__item" ><a  href="${root}/group/semester.do?semester=${item.name}">${item.name}</a></li>             
+                                </c:forEach>
+                        </ul>
+                    </div>
                 </div>
+
 
             </div>
             <div class="topic__container">
 
-                <h6 class="topic__text">
-                    All of public and unlocked teams in semester SU2022_SWP
-                </h6>
+                <div class="teamListControl">
+                    <h6 class="topic__text ">
+                        All of public and unlocked teams in semester ${currentSem.name}_SWP
+                    </h6>
+                    <div class="btnControl">
+                        <button class="team__btn"><a href="${root}/group/create.do?id=${userId}">+ Create A New Team</a> </button>
+                    </div>
+                </div>
 
                 <hr>
 
