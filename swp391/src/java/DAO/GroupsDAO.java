@@ -110,7 +110,7 @@ public class GroupsDAO {
         }
     }
 
-    public static void create(Groups groups) {
+    public void create(Groups groups) {
         Connection cn = null;
         try {
             cn = DBUtils.makeConnection();
