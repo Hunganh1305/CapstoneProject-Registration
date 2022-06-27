@@ -18,9 +18,17 @@ public class StudentGroup {
     private Department department;
     private Project project;
     private Groups group;
+    private Semester semester; 
     
 
     public StudentGroup() {
+    }
+
+    public StudentGroup(int id, int studentId, int groupId, int leaderStatus) {
+        this.id = id;
+        this.studentId = studentId;
+        this.groupId = groupId;
+        this.leaderStatus = leaderStatus;
     }
 
     public StudentGroup(int id, int studentId, int groupId, int leaderStatus, Users user, Department department, Project project, Groups group) {

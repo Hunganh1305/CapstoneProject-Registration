@@ -82,6 +82,7 @@ CREATE TABLE StudentGroup (
 	LeaderStatus INT,
 )
 
+
 CREATE TABLE Project(
 	ProjectId INT PRIMARY KEY,
 	Description VARCHAR(200),
@@ -205,6 +206,9 @@ insert into Users values(57,'Nguyen Bich Nga','12345678',1,1,'nganb@fe.edu.vn',2
 insert into Users values(58,'Vu Hong Quan','12345678',1,3,'quanvh@fe.edu.vn',2,Null)
 insert into Users values(59,'Tran Vu Quang','12345678',1,4,'quangtv@fe.edu.vn',2,Null)
 insert into Users values(60,'Tran Thi Hong Bich','12345678',1,5,'bichtth@fe.edu.vn',2,Null)
+
+
+--more new student
 
 select * from Users
 

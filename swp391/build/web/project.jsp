@@ -30,7 +30,8 @@
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
         <link type="text/css" rel="stylesheet" href="../css/projectStyle.css" />
-
+        <link type="text/css" rel="stylesheet" href="../css/ProSem.css" />
+        
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -58,8 +59,18 @@
         <!--content-->
         <section id="project">
             <div class="container">
-                <div class="project-title">
+                <div class="project-title flex">
                     <h1 style="text-align: left">Project</h1>
+                    <div class="semester">
+                        ${currentSem.name}
+                        <div class="dropdown2">
+                            <ul class="semester__list">
+                                <c:forEach var="item" items="${semList}" varStatus="loop"> 
+                                    <li name="semester" class="semester__item" ><a  href="${root}/topic/semester.do?semester=${item.name}">${item.name}</a></li>             
+                                    </c:forEach>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <c:if test="${empty Group}">
                     <div class="search-empty">
@@ -147,10 +158,10 @@
         <% }
         %>
 
-        <script src="./js/topic.js"></script>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/js/main.js"></script>
+        <script type="text/javascript" src="../js/jquery.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/main.js"></script>
+        <script src="../js/topic.js"></script>
     </body>
 
 </html>
