@@ -7,6 +7,7 @@ package Servlet;
 import DAO.ProjectDAO;
 import DAO.UserDAO;
 import DTO.Groups;
+import DTO.Topic;
 import DTO.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -49,11 +50,14 @@ public class ProjectController extends HttpServlet {
             Users user = manager.load(UserEmail);
             ProjectDAO proDao = new ProjectDAO();
             Groups group = proDao.readGroup(user.getUserId());
-            int GroupId = proDao.readId(UserEmail);
+            int GroupId = proDao.readGroupId(UserEmail);
+            int TopicId = proDao.readTopicId(GroupId);
+            Topic topic = proDao.readTopic(TopicId);
             List<Users> list = proDao.listUser(GroupId);
             request.setAttribute("list", list);
             request.setAttribute("DepName", UserDepartment);
             request.setAttribute("Group", group);
+            request.setAttribute("Topic", topic);
             request.getRequestDispatcher("/project.jsp").forward(request, response);
         }
     }
