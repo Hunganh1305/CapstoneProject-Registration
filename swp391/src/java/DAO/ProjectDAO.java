@@ -7,6 +7,7 @@ package DAO;
 
 import DTO.Groups;
 import DTO.Project;
+import DTO.Topic;
 import DTO.Users;
 import Utils.DBUtils;
 import java.sql.Connection;
@@ -21,7 +22,7 @@ import java.util.List;
  * @author SE161740 Pham Nguyen Hung Anh
  */
 public class ProjectDAO {
-    
+
     public Groups readGroup(int id) {
         Groups group = null;
         Connection conn = null;
@@ -48,7 +49,7 @@ public class ProjectDAO {
         return group;
     }
 
-    public int readId(String email) {
+    public int readGroupId(String email) {
         int Id = 0;
         Connection conn = null;
         try {
@@ -92,4 +93,51 @@ public class ProjectDAO {
         return list;
     }
 
+    public int readTopicId(int grpId) {
+        int Id = 0;
+        Connection conn = null;
+        try {
+            conn = DBUtils.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT Project.TopicId\n"
+                        + "  from Project WHERE Project.GroupId = ?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, grpId);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Id = rs.getInt("TopicId");
+                }
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return Id;
+    }
+    
+    public Topic readTopic(int id) {
+        Topic topic = null;
+        Connection conn = null;
+        try {
+            conn = DBUtils.makeConnection();
+            if (conn != null) {
+                String sql = "select * from Topic WHERE Topic.TopicId = ?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    topic = new Topic();
+                    topic.setTopicId(rs.getInt("TopicId"));
+                    topic.setName(rs.getString("Name"));
+                    topic.setCatergoryId(rs.getInt("CategoryId"));
+                    topic.setDescription(rs.getString("Description"));
+                    topic.setBusinessId(rs.getInt("BusinessId"));
+                    topic.setDepartmentId(rs.getInt("DepartmentId"));
+                }
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+
+        return topic;
+    }
 }
