@@ -7,6 +7,7 @@ package DAO;
 
 import DTO.Groups;
 import DTO.Project;
+import DTO.Topic;
 import DTO.Users;
 import Utils.DBUtils;
 import java.sql.Connection;
@@ -21,7 +22,7 @@ import java.util.List;
  * @author SE161740 Pham Nguyen Hung Anh
  */
 public class ProjectDAO {
-    
+
     public Groups readGroup(int id) {
         Groups group = null;
         Connection conn = null;
@@ -48,7 +49,7 @@ public class ProjectDAO {
         return group;
     }
 
-    public int readId(String email) {
+    public int readGroupId(String email) {
         int Id = 0;
         Connection conn = null;
         try {
@@ -92,120 +93,51 @@ public class ProjectDAO {
         return list;
     }
 
-    public static ArrayList<Project> readAll() {
-        Connection cn = null;
-        ArrayList<Project> list = new ArrayList<>();
+    public int readTopicId(int grpId) {
+        int Id = 0;
+        Connection conn = null;
         try {
-            cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "select *\n"
-                        + "from dbo.Project\n";
-                Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql);
+            conn = DBUtils.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT Project.TopicId\n"
+                        + "  from Project WHERE Project.GroupId = ?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, grpId);
+                ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    int projectId = rs.getInt("projectId");
-                    String description = rs.getString("description");
-                    String name = rs.getString("name");
-                    String sourceCode = rs.getString("sourceCode");
-                    int topicId = rs.getInt("topicId");
-                    int status = rs.getInt("status");
-                    int groupId = rs.getInt("groupId");
-                    Project project = new Project(projectId, description, name, sourceCode, topicId, status, groupId);
-                    list.add(project);
+                    Id = rs.getInt("TopicId");
                 }
-                cn.close();
             }
         } catch (Exception e) {
             e.getStackTrace();
         }
-        return list;
+        return Id;
     }
-
-    public static Project read(Object id) {
-        Connection cn = null;
-        Project project = null;
+    
+    public Topic readTopic(int id) {
+        Topic topic = null;
+        Connection conn = null;
         try {
-            cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "select * from dbo.Project where ProjectId=?";
-                PreparedStatement stm = cn.prepareStatement(sql);
-                stm.setString(1, id.toString());
-                ResultSet rs = stm.executeQuery();
-                if (rs.next()) {
-                    project = new Project();
-                    project.setProjectId(rs.getInt("projectId"));
-                    project.setDescription(rs.getString("description"));
-                    project.setName(rs.getString("name"));
-                    project.setSourceCode(rs.getString("sourceCode"));
-                    project.setTopicId(rs.getInt("topicId"));
-                    project.setStatus(rs.getInt("status"));
-                    project.setGroupId(rs.getInt("groupId"));
+            conn = DBUtils.makeConnection();
+            if (conn != null) {
+                String sql = "select * from Topic WHERE Topic.TopicId = ?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    topic = new Topic();
+                    topic.setTopicId(rs.getInt("TopicId"));
+                    topic.setName(rs.getString("Name"));
+                    topic.setCatergoryId(rs.getInt("CategoryId"));
+                    topic.setDescription(rs.getString("Description"));
+                    topic.setBusinessId(rs.getInt("BusinessId"));
+                    topic.setDepartmentId(rs.getInt("DepartmentId"));
                 }
-                cn.close();
             }
         } catch (Exception e) {
             e.getStackTrace();
         }
-        return project;
-    }
 
-    public static void create(Project project) {
-        Connection cn = null;
-        try {
-            cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "insert into dbo.Project values(?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement stm = cn.prepareStatement(sql);
-                stm.setInt(1, project.getProjectId());
-                stm.setString(2, project.getDescription());
-                stm.setString(3, project.getName());
-                stm.setString(4, project.getSourceCode());
-                stm.setInt(5, project.getTopicId());
-                stm.setInt(6, project.getStatus());
-                stm.setInt(7, project.getGroupId());
-                stm.executeUpdate();
-                cn.close();
-            }
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-    }
-
-    public static void update(Project project) {
-        Connection cn = null;
-        try {
-            cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "update dbo.Project set Description=?,Name=?,SourceCode=?,TopicId=?,Status=?,GroupId=? where ProjectId=?";
-                PreparedStatement stm = cn.prepareStatement(sql);
-                stm.setString(1, project.getDescription());
-                stm.setString(2, project.getName());
-                stm.setString(3, project.getSourceCode());
-                stm.setInt(4, project.getTopicId());
-                stm.setInt(5, project.getStatus());
-                stm.setInt(6, project.getGroupId());
-                stm.setInt(7, project.getProjectId());
-                stm.executeUpdate();
-                cn.close();
-            }
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-    }
-
-    public static void delete(Object id) {
-        Connection cn = null;
-        try {
-            cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "delete dbo.Project where ProjectId=?";
-                PreparedStatement stm = cn.prepareStatement(sql);
-                stm.setString(1, id.toString());
-                stm.executeUpdate();
-                cn.close();
-            }
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
+        return topic;
     }
 }

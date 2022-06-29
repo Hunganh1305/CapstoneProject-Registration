@@ -143,6 +143,7 @@ public class UserDAO {
         return Department;
     }
     
+    // phan Quang
     public Users load(String email) {
         String sql = "SELECT * from Users WHERE Users.Email = ?";
         Users user = null;

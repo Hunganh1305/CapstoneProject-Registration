@@ -69,7 +69,7 @@
             <div class="topic__container">
 
                 <h6 class="topic__text">
-                    All of approved topics in semester SU2022_SWP
+                    All of approved topics in semester ${currentSem.name}
                 </h6>
 
                 <hr>
@@ -103,7 +103,7 @@
                     <table class="tablemanager table topic__table">
                         <thead>
                             <tr>
-                                <th>Id</th>
+                                
                                 <th>DEP.</th>
                                 <th>Name</th>
                                 <th>Lecturer</th>
@@ -114,7 +114,7 @@
                         <c:forEach var="item" items="${list}" varStatus="loop">                                       
                             <tbody>
                                 <tr>  
-                                    <td>${item.topicId}</td>
+                                    
                                     <td>${item.department.name}</td>
                                     <td>${item.name}</td>
                                     <td>${item.user.name}</td>

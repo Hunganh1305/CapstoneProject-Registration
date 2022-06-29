@@ -97,6 +97,11 @@
                                         <span class="col-sm-7">${Group.groupId}</span>
                                     </li>
                                     <li class="project-item">
+                                        <i class="fa-solid fa-file-signature col-sm-1"></i>
+                                        <span class="col-sm-4">Topic Name</span>
+                                        <span class="col-sm-7">${Topic.name}</span>
+                                    </li>
+                                    <li class="project-item">
                                         <i class="fa fa-regular fa-building col-sm-1"></i>
                                         <span class="col-sm-4">Department</span>
                                         <div class="col-sm-7">
