@@ -60,17 +60,7 @@
         <section id="project">
             <div class="container">
                 <div class="project-title flex">
-                    <h1 style="text-align: left">Project</h1>
-                    <div class="semester">
-                        ${currentSem.name}
-                        <div class="dropdown2">
-                            <ul class="semester__list">
-                                <c:forEach var="item" items="${semList}" varStatus="loop"> 
-                                    <li name="semester" class="semester__item" ><a  href="${root}/topic/semester.do?semester=${item.name}">${item.name}</a></li>             
-                                    </c:forEach>
-                            </ul>
-                        </div>
-                    </div>
+                    <h1 style="text-align: left">Project</h1>                  
                 </div>
                 <c:if test="${empty Group}">
                     <div class="search-empty">
@@ -100,6 +90,11 @@
                                         <i class="fa-solid fa-file-signature col-sm-1"></i>
                                         <span class="col-sm-4">Topic Name</span>
                                         <span class="col-sm-7">${Topic.name}</span>
+                                    </li>
+                                    <li class="project-item">
+                                        <i class="fa-solid fa-calendar col-sm-1"></i>
+                                        <span class="col-sm-4">Semester</span>
+                                        <span class="col-sm-7">${Sem.name}</span>
                                     </li>
                                     <li class="project-item">
                                         <i class="fa fa-regular fa-building col-sm-1"></i>
