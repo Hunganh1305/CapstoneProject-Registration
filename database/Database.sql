@@ -323,7 +323,7 @@ select * from StudentGroup sg join Groups gr on sg.GroupId = gr.GroupId
 
 
 insert into LecturerTopic values(1,6,1)
-insert into LecturerTopic values(2,6,1)
+insert into LecturerTopic values(2,6,2)
 insert into LecturerTopic values(3,6,3)
 insert into LecturerTopic values(4,6,4)
 insert into LecturerTopic values(5,57,5)
@@ -332,6 +332,8 @@ insert into LecturerTopic values(7,59,7)
 insert into LecturerTopic values(8,60,8
 insert into LecturerTopic values(9,57,9)
 insert into LecturerTopic values(10,58,10)
+
+
 
 select * from LecturerTopic
 
