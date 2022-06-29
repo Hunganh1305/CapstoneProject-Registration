@@ -108,12 +108,12 @@
                                 <div class="project-item" style="margin-top: 5px">
                                     <i class="fa-solid fa-lock col-sm-1"></i>
                                     <div class="col-sm-2">
-                                        <span class="green-box">Locked</span>
+                                        <span class="green-box">${Pro.status ==1?"Unlock":"Lock"}</span>
                                     </div>
                                     <span class="col-sm-2"></span>
                                     <i class="fa-solid fa-shield col-sm-1"></i>
                                     <div class="col-sm-2">
-                                        <span class="green-box">Public</span>
+                                        <span class="green-box">${Group.groupStatus ==1?"Private":"Public"}</span>
                                     </div>
                                 </div>
                             </div>
