@@ -30,7 +30,7 @@ public class ProjectDAO {
         try {
             conn = DBUtils.makeConnection();
             if (conn != null) {
-                String sql = "SELECT Groups.GroupId ,Groups.GroupName\n"
+                String sql = "SELECT Groups.GroupId ,Groups.GroupName, Groups.groupStatus\n"
                         + "from Users, StudentGroup AS StuGro, Groups\n"
                         + "WHERE Users.UserId = StuGro.StudentId and \n"
                         + "StuGro.GroupId = Groups.GroupId and Users.UserId = ?";
@@ -41,6 +41,7 @@ public class ProjectDAO {
                     group = new Groups();
                     group.setGroupId(rs.getInt("GroupId"));
                     group.setGroupName(rs.getString("GroupName"));
+                    group.setGroupStatus(rs.getInt("groupStatus"));
                 }
             }
         } catch (Exception e) {
@@ -170,5 +171,34 @@ public class ProjectDAO {
         }
 
         return semester;
+    }
+
+    public Project readProject(int id) {
+        Project project = null;
+        Connection conn = null;
+        try {
+            conn = DBUtils.makeConnection();
+            if (conn != null) {
+                String sql = "select * from Project \n"
+                        + "  WHERE Project.GroupId = ?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    project = new Project();
+                    project.setProjectId(rs.getInt("ProjectId"));
+                    project.setDescription(rs.getString("Description"));
+                    project.setName(rs.getString("Name"));
+                    project.setSourceCode(rs.getString("SourceCode"));
+                    project.setTopicId(rs.getInt("TopicId"));
+                    project.setStatus(rs.getInt("Status"));
+                    project.setGroupId(rs.getInt("GroupId"));
+                }
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+
+        return project;
     }
 }
