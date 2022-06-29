@@ -88,13 +88,18 @@
                                 <ul class="project-list">
                                     <li class="project-item">
                                         <i class="fa fa-solid fa-bars col-sm-1"></i>
-                                        <span class="col-sm-4">Team name</span>
+                                        <span class="col-sm-4">Team Name</span>
                                         <span class="col-sm-7">${Group.groupName}</span>
                                     </li>
                                     <li class="project-item">
                                         <i class="fa-solid fa-clone col-sm-1"></i>
                                         <span class="col-sm-4">Team ID</span>
                                         <span class="col-sm-7">${Group.groupId}</span>
+                                    </li>
+                                    <li class="project-item">
+                                        <i class="fa-solid fa-file-signature col-sm-1"></i>
+                                        <span class="col-sm-4">Topic Name</span>
+                                        <span class="col-sm-7">${Topic.name}</span>
                                     </li>
                                     <li class="project-item">
                                         <i class="fa fa-regular fa-building col-sm-1"></i>
