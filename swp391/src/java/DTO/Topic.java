@@ -19,7 +19,14 @@ public class Topic {
     private Users user;
     private Department department;
     private Semester semester;
-    
+
+    public Semester getSemester() {
+        return semester;
+    }
+
+    public void setSemester(Semester semester) {
+        this.semester = semester;
+    }    
     
     public Topic() {
     }
