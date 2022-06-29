@@ -340,6 +340,8 @@ insert into LecturerTopic values(8,60,8)
 insert into LecturerTopic values(9,57,9)
 insert into LecturerTopic values(10,58,10)
 
+
+
 select * from LecturerTopic
 
 delete from LecturerTopic
