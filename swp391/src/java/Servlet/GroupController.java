@@ -55,8 +55,8 @@ public class GroupController extends HttpServlet {
             session.setAttribute("prevGroupAction", action);
             prevAction = action;
         }
-        session.setAttribute("currTGroupAction", action);
-        String currAction = (String) session.getAttribute("currTGroupAction");
+        session.setAttribute("currGroupAction", action);
+        String currAction = (String) session.getAttribute("currGroupAction");
 //        pagination
         switch (action) {
             case "index":
