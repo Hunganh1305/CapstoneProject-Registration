@@ -88,7 +88,7 @@
                                 <ul class="project-list">
                                     <li class="project-item">
                                         <i class="fa fa-solid fa-bars col-sm-1"></i>
-                                        <span class="col-sm-4">Team name</span>
+                                        <span class="col-sm-4">Team Name</span>
                                         <span class="col-sm-7">${Group.groupName}</span>
                                     </li>
                                     <li class="project-item">
