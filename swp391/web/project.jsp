@@ -29,9 +29,8 @@
 
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
-        <link type="text/css" rel="stylesheet" href="../css/projectStyle.css" />
-        <link type="text/css" rel="stylesheet" href="../css/ProSem.css" />
-        
+        <link type="text/css" rel="stylesheet" href="../css/ProjectButton.css" />
+
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -62,14 +61,27 @@
                 <div class="project-title flex">
                     <h1 style="text-align: left">Project</h1>                  
                 </div>
-                <c:if test="${empty Group}">
+                <c:if test="${empty Group || empty Topic}">
                     <div class="search-empty">
                         <img src="../img/search-empty.png" class="search-empty-icon"/>
                         <div class="search-empty-title">You don't have any project yet!</div>
-                        <div class="search-empty-hint">Join team and pick project</div>
+                        <c:if test="${empty Topic}">
+                            <div class="search-empty-hint">${error}</div>
+                            <div class="btnControl">
+                                <button class="project-button"><a href="<c:url value="/topic/index.do"/>">Topic list</a> </button>
+                            </div>
+
+                        </c:if>
+                        <c:if test="${empty Group}">
+                            <div class="search-empty-hint">You don't have a team!</div>
+                            <div class="btnControl">
+                                <button class="project-button"><a href="<c:url value="/group/index.do"/>">Team list</a> </button>
+                            </div>
+                        </c:if>
+                        
                     </div>
                 </c:if>
-                <c:if test="${!empty Group}">
+                <c:if test="${!empty Group && !empty Topic}">
                     <div class="project-contents">
                         <div class="project-left">
                             <div class="project-content">
@@ -161,7 +173,6 @@
         <script type="text/javascript" src="../js/jquery.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/main.js"></script>
-        <script src="../js/topic.js"></script>
     </body>
 
 </html>
