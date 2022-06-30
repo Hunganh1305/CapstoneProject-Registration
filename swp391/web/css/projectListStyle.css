@@ -13,11 +13,6 @@
     margin-bottom: 3rem;
 }
 
-.topicListControl {
-    display: flex;
-    justify-content: space-between;
-}
-
 .teamListControl {
     display: flex;
     justify-content: space-between;
@@ -83,7 +78,7 @@
 }
 
 .topic__search form {
-    width: 85%;
+    width: 100%;
     position: relative;
 }
 
@@ -258,6 +253,10 @@
     align-items: center;
 }
 
+.topicListControl {
+    display: flex;
+    justify-content: space-between;
+}
 
 .topic__btn {
     background: #FDA92D;
