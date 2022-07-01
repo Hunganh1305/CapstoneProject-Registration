@@ -19,6 +19,28 @@ public class Topic {
     private Users user;
     private Department department;
     private Semester semester;
+    private int status;
+
+    public Topic(int topicId, String name, int catergoryId, String description, int businessId, int departmentId,Users user, Department department, Semester semester, int status) {
+        this.topicId = topicId;
+        this.name = name;
+        this.catergoryId = catergoryId;
+        this.description = description;
+        this.businessId = businessId;
+        this.departmentId = departmentId;
+        this.user = user;
+        this.department = department;
+        this.semester = semester;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public Semester getSemester() {
         return semester;
