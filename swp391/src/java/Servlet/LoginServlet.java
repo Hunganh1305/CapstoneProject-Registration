@@ -6,8 +6,10 @@
 package Servlet;
 
 import DAO.SemesterDAO;
+
 import DAO.UserDAO;
 import DTO.Semester;
+
 import DTO.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,8 +43,11 @@ public class LoginServlet extends HttpServlet {
             String email=request.getParameter("txtemail");
             String password=request.getParameter("txtpassword");
             SemesterDAO sem= new SemesterDAO();
+            
+     
             ArrayList<Semester> semList= sem.readAll();
             Users user=null;
+           
             try {
                 user=UserDAO.read(email,password);
                 if(user!=null){
@@ -51,6 +56,8 @@ public class LoginServlet extends HttpServlet {
                         //chuyen sang trang cho student
                         HttpSession session=request.getSession(true);
                         if(session!=null){
+                            
+                            session.setAttribute("depId", user.getDepartmentId());
                             session.setAttribute("name", user.getName());
                             session.setAttribute("email", user.getEmail());
                             session.setAttribute("userId", user.getUserId());
@@ -89,6 +96,8 @@ public class LoginServlet extends HttpServlet {
             }
         }
     }
+    
+      
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
