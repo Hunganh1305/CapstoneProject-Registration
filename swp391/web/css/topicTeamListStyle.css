@@ -252,3 +252,14 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.btn__control{
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+modal-header{
+    display: flex;
+    justify-content: space-between;
+}
