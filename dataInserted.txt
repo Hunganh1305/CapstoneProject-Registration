@@ -111,6 +111,18 @@ insert into Users values(60,'Tran Thi Hong Bich','12345678',1,5,'bichtth@fe.edu.
 insert into Users values(61,'Le Quang Khai','12345678',1,4,'lequangkhai@gmail.com',1,null)
 insert into Users values(62,'Tuan Soai Ca','12345678',1,4,'tuansoaica@gmail.com',1,null)
 
+insert into Users values(63,'Nguyen Vo Minh Trung','12345678',1,2,'trungnvm@gmail.com',1,null)
+insert into Users values(64,'Nguyen Le Nghia Hiep','12345678',1,2,'hiepnln@gmail.com',1,null)
+insert into Users values(65,'Le Huu Trung Tin','12345678',1,2,'tinlht@gmail.com',1,null)
+insert into Users values(66,'Nguyen Trung Hieu','12345678',1,2,'hieunt@gmail.com',1,null)
+insert into Users values(67,'Le Tat Huy','12345678',1,2,'huylt@gmail.com',1,null)
+
+insert into Users values(68,'Nguyen Minh Khang','12345678',1,2,'khangnm@gmail.com',1,null)
+insert into Users values(69,'Phan Hong Ha','12345678',1,2,'haph@gmail.com',1,null)
+insert into Users values(70,'Mai Thanh Phong','12345678',1,2,'phongmt@gmail.com',1,null)
+insert into Users values(71,'Dao Hong Tin','12345678',1,2,'tindh@gmail.com',1,null)
+insert into Users values(72,'Vu Duong Tuong Vi','12345678',1,2,'vivdt@gmail.com',1,null)
+
 select * from Users
 
 insert into  Roles Values (1, 'Student')
@@ -139,6 +151,8 @@ insert into Topic values(7,'An analysis on cultural',16,'Write an essay analyze 
 insert into Topic values(8,'Economic Policy of Japan',15,'Research and presentation',9,5,1,2)
 insert into Topic values(9,'Restaurant researching',2,'Manage a restaurant',7,1,2,2)
 insert into Topic values(10,'Cycle of whales',14,'Study about whales',10,3,2,2)
+insert into Topic values(11,'Jewelry System',6,'Ecommerce jewelry selling website',8,2,1,2)
+insert into Topic values(12,'Online CV builder',6,'Generate CV automatically',9,2,1,2)
 
 
 
@@ -148,20 +162,22 @@ delete from Topic
 
 
 
-insert into Groups(GroupName,SemID,groupStatus,members) values('Beaky Blinders',1,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 2',1,1,5)	
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 3',1,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Showbit team',1,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 5',1,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 6',1,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 7',1,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 8',1,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 9',2,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 10',2,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group ABC',3,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('No name',3,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Gr 15',4,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('G63',4,1,5)
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Beaky Blinders',1,1,5,2,1)
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 2',1,1,5,2,2)	
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 3',1,1,5,2,3)
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Showbit team',1,1,5,2,4)
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 5',1,1,5,2,5)
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 6',1,1,5,2,6)
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 7',1,1,5,2,7)
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 8',1,1,5,2,8)
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 9',2,1,5,0,null)
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 10',2,1,5,0,null)
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group ABC',3,1,5,0,null)
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('No name',3,1,5,0,null)
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Gr 15',4,1,5,0,null)
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('G63',4,1,5,0,null)
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Eagles',1,1,5,0,null)
+insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Tigers',1,1,5,0,null)
 
 
 select * from Groups
@@ -226,6 +242,18 @@ insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(54,4,0)
 insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(55,4,0)
 insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(56,4,0)
 
+insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(63,15,1)
+insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(64,15,0)
+insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(65,15,0)
+insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(66,15,0)
+insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(67,15,0)
+
+insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(68,16,1)
+insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(69,16,0)
+insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(70,16,0)
+insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(71,16,0)
+insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(72,16,0)
+
 
 insert into LecturerTopic values(1,6,1)
 insert into LecturerTopic values(2,6,2)
@@ -237,6 +265,10 @@ insert into LecturerTopic values(7,59,7)
 insert into LecturerTopic values(8,60,8)
 insert into LecturerTopic values(9,57,9)
 insert into LecturerTopic values(10,58,10)
+insert into LecturerTopic values(11,6,11)
+insert into LecturerTopic values(12,6,12)
+
+
 
 select * from LecturerTopic
 
