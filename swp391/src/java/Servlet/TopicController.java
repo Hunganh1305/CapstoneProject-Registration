@@ -52,6 +52,8 @@ public class TopicController extends HttpServlet {
         if (prevAction == null) {
             session.setAttribute("prevTopicAction", action);
             prevAction = action;
+            ArrayList<Topic> appliableTopicList = checkValid(request, response);
+            session.setAttribute("appliableTopicList", appliableTopicList);
         }
         session.setAttribute("currTopicAction", action);
         String currAction = (String) session.getAttribute("currTopicAction");
@@ -81,7 +83,7 @@ public class TopicController extends HttpServlet {
                 } else {
                     list2 = td.searchByName(searchText, currSem.getName());
                 }
-                
+
                 //        pagination
                 if (!prevAction.equals(currAction)) {
                     session.setAttribute("totalPage", null);
@@ -90,14 +92,14 @@ public class TopicController extends HttpServlet {
                 session.setAttribute("prevTopicAction", "search");
                 pagination(request, response, list2);
                 //        pagination
-                
+
                 request.setAttribute("searchText", searchText);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "filter":
                 currSem = (Semester) session.getAttribute("currentSem");
                 String filter = request.getParameter("filter");
-                
+
                 //        pagination
                 String prevFilter = (String) session.getAttribute("prevTopicFilter");
                 if (prevFilter == null) {
@@ -133,15 +135,16 @@ public class TopicController extends HttpServlet {
                 session.setAttribute("prevTopicAction", "filter");
                 session.setAttribute("currTopicAction", "pagefilter");
                 //        pagination
-                
+
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "pagefilter":
                 filter = (String) session.getAttribute("prevTopicFilter");
                 currSem = (Semester) session.getAttribute("currentSem");
                 list3 = td.filterByDepartment(filter, currSem.getName());
-                pagination(request, response, list3);                 
+                pagination(request, response, list3);
                 session.setAttribute("prevTopicAction", "pagefilter");
+
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "detail":
@@ -180,9 +183,10 @@ public class TopicController extends HttpServlet {
                 }
                 session.setAttribute("prevTopicAction", "semester");
                 session.setAttribute("currTopicAction", "pagesemester");
+
                 pagination(request, response, list4);
                 //        pagination
-                
+
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
             case "pagesemester":
@@ -190,6 +194,32 @@ public class TopicController extends HttpServlet {
                 list4 = td.readAll(currSem.getName());
                 pagination(request, response, list4);
                 session.setAttribute("prevTopicAction", "pagesemester");
+
+                request.getRequestDispatcher("/topic.jsp").forward(request, response);
+                break;
+            case "apply":
+                currSem = (Semester) session.getAttribute("currentSem");
+                int topicId = Integer.parseInt(request.getParameter("id"));
+                int userId = (int) session.getAttribute("userId");
+                int depId = (int) session.getAttribute("depId");
+                int groupId = td.getGroupIdByUser(userId);
+                td.updatePendingTopic(topicId);
+                td.updatePendingTopicGroup(groupId);
+                td.addPendingTable(groupId, topicId, depId);
+                ArrayList<Topic> appliableTopicList2 = checkValid(request, response);
+                session.setAttribute("appliableTopicList", appliableTopicList2);
+                ArrayList<Topic> list5 = td.readAll(currSem.getName());
+
+                if (!prevAction.equals(currAction)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                session.setAttribute("currTopicAction", "index");
+                session.setAttribute("prevTopicAction", "index");
+
+                pagination(request, response, list5);
+
+                checkValid(request, response);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 break;
 
@@ -261,389 +291,30 @@ public class TopicController extends HttpServlet {
         request.setAttribute("list", slist);
     }
 
-    private void paginationSearch(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
-        int pageSize = 5;//Kich thuoc trang                        
-        //Xac dinh so thu tu cua trang hien tai
+    private ArrayList<Topic> checkValid(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        session.setAttribute("totalPageSearch", null);
-        Integer page = (Integer) session.getAttribute("pageSearch");
-        if (page == null) {
-            page = 1;
+        int userId = (int) session.getAttribute("userId");
+        TopicDAO td = new TopicDAO();
+        Semester currSem = (Semester) session.getAttribute("currentSem");
+
+        int groupId = td.getGroupIdByUser(userId);
+        int leaderStatus = td.checkLeader(userId);
+        int depId = td.checkDepartment(userId);
+        int semId = td.checkSemester(userId);
+        int topicStatus = td.checkHaveTopic(userId);
+
+        ArrayList<Topic> list = td.readAll(currSem.getName());
+        ArrayList<Topic> appliableTopicList = new ArrayList();
+
+        for (Topic item : list) {
+            boolean check = td.checkHaveApplied(item.getTopicId(), groupId);
+            if (leaderStatus == 1 && depId == item.getDepartmentId() && semId == item.getSemester().getSemesterId() && topicStatus != 2 && item.getStatus() != 2 && check == false) {
+                appliableTopicList.add(item);
+            }
         }
 
-        //Xac dinh tong so trang
-        Integer totalPage = (Integer) session.getAttribute("totalPageSearch");
-        if (totalPage == null) {
-            int count = list.size();//Dem so luong records
-            totalPage = (int) Math.ceil((double) count / pageSize);//Tinh tong so trang
-        }
+        return appliableTopicList;
 
-        String op = request.getParameter("op");
-        if (op == null) {
-            op = "FirstPage";
-        }
-        switch (op) {
-            case "FirstPage":
-                page = 1;
-                break;
-            case "PreviousPage":
-                if (page > 1) {
-                    page--;
-                }
-                break;
-            case "NextPage":
-                if (page < totalPage) {
-                    page++;
-                }
-                break;
-            case "LastPage":
-                page = totalPage;
-                break;
-            case "GotoPage":
-                page = Integer.parseInt(request.getParameter("gotoPage"));
-                if (page <= 0) {
-                    page = 1;
-                } else if (page > totalPage) {
-                    page = totalPage;
-                }
-                break;
-        }
-
-        //Lay trang du lieu duoc yeu cau
-        List slist;
-
-        int n1 = (page - 1) * pageSize;
-        int n2 = n1 + pageSize - 1;
-        try {
-            slist = list.subList(n1, n2 + 1);
-        } catch (Exception e) {
-            slist = list.subList(n1, list.size());
-        }//Doc mot trang
-
-        //Luu thong tin vao session va request
-        session.setAttribute("pageSearch", page);
-        session.setAttribute("totalPageSearch", totalPage);
-        request.setAttribute("list", slist);
-    }
-
-    private void paginationQTKD(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
-        int pageSize = 5;//Kich thuoc trang                        
-        //Xac dinh so thu tu cua trang hien tai
-        HttpSession session = request.getSession();
-        session.setAttribute("totalPageQTKD", null);
-        Integer page = (Integer) session.getAttribute("pageQTKD");
-        if (page == null) {
-            page = 1;
-        }
-
-        //Xac dinh tong so trang
-        Integer totalPage = (Integer) session.getAttribute("totalPageQTKD");
-        if (totalPage == null) {
-            int count = list.size();//Dem so luong records
-            totalPage = (int) Math.ceil((double) count / pageSize);//Tinh tong so trang
-        }
-
-        String op = request.getParameter("op");
-        if (op == null) {
-            op = "FirstPage";
-        }
-        switch (op) {
-            case "FirstPage":
-                page = 1;
-                break;
-            case "PreviousPage":
-                if (page > 1) {
-                    page--;
-                }
-                break;
-            case "NextPage":
-                if (page < totalPage) {
-                    page++;
-                }
-                break;
-            case "LastPage":
-                page = totalPage;
-                break;
-            case "GotoPage":
-                page = Integer.parseInt(request.getParameter("gotoPage"));
-                if (page <= 0) {
-                    page = 1;
-                } else if (page > totalPage) {
-                    page = totalPage;
-                }
-                break;
-        }
-
-        //Lay trang du lieu duoc yeu cau
-        List slist;
-        int n1 = (page - 1) * pageSize;
-        int n2 = n1 + pageSize - 1;
-        try {
-            slist = list.subList(n1, n2 + 1);
-        } catch (Exception e) {
-            slist = list.subList(n1, list.size());
-        }//Doc mot trang
-
-        //Luu thong tin vao session va request
-        session.setAttribute("pageQTKD", page);
-        session.setAttribute("totalPageQTKD", totalPage);
-        request.setAttribute("list", slist);
-    }
-
-    private void paginationCNTT(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
-        int pageSize = 5;//Kich thuoc trang                        
-        //Xac dinh so thu tu cua trang hien tai
-        HttpSession session = request.getSession();
-        session.setAttribute("totalPageCNTT", null);
-        Integer page = (Integer) session.getAttribute("pageCNTT");
-        if (page == null) {
-            page = 1;
-        }
-
-        //Xac dinh tong so trang
-        Integer totalPage = (Integer) session.getAttribute("totalPageCNTT");
-        if (totalPage == null) {
-            int count = list.size();//Dem so luong records
-            totalPage = (int) Math.ceil((double) count / pageSize);//Tinh tong so trang
-        }
-
-        String op = request.getParameter("op");
-        if (op == null) {
-            op = "FirstPage";
-        }
-        switch (op) {
-            case "FirstPage":
-                page = 1;
-                break;
-            case "PreviousPage":
-                if (page > 1) {
-                    page--;
-                }
-                break;
-            case "NextPage":
-                if (page < totalPage) {
-                    page++;
-                }
-                break;
-            case "LastPage":
-                page = totalPage;
-                break;
-            case "GotoPage":
-                page = Integer.parseInt(request.getParameter("gotoPage"));
-                if (page <= 0) {
-                    page = 1;
-                } else if (page > totalPage) {
-                    page = totalPage;
-                }
-                break;
-        }
-
-        //Lay trang du lieu duoc yeu cau
-        List slist;
-        int n1 = (page - 1) * pageSize;
-        int n2 = n1 + pageSize - 1;
-        try {
-            slist = list.subList(n1, n2 + 1);
-        } catch (Exception e) {
-            slist = list.subList(n1, list.size());
-        }//Doc mot trang
-
-        //Luu thong tin vao session va request
-        session.setAttribute("pageCNTT", page);
-        session.setAttribute("totalPageCNTT", totalPage);
-        request.setAttribute("list", slist);
-    }
-
-    private void paginationNNA(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
-        int pageSize = 5;//Kich thuoc trang                        
-        //Xac dinh so thu tu cua trang hien tai
-        HttpSession session = request.getSession();
-        session.setAttribute("totalPageNNA", null);
-        Integer page = (Integer) session.getAttribute("pageNNA");
-        if (page == null) {
-            page = 1;
-        }
-
-        //Xac dinh tong so trang
-        Integer totalPage = (Integer) session.getAttribute("totalPageNNA");
-        if (totalPage == null) {
-            int count = list.size();//Dem so luong records
-            totalPage = (int) Math.ceil((double) count / pageSize);//Tinh tong so trang
-        }
-
-        String op = request.getParameter("op");
-        if (op == null) {
-            op = "FirstPage";
-        }
-        switch (op) {
-            case "FirstPage":
-                page = 1;
-                break;
-            case "PreviousPage":
-                if (page > 1) {
-                    page--;
-                }
-                break;
-            case "NextPage":
-                if (page < totalPage) {
-                    page++;
-                }
-                break;
-            case "LastPage":
-                page = totalPage;
-                break;
-            case "GotoPage":
-                page = Integer.parseInt(request.getParameter("gotoPage"));
-                if (page <= 0) {
-                    page = 1;
-                } else if (page > totalPage) {
-                    page = totalPage;
-                }
-                break;
-        }
-
-        //Lay trang du lieu duoc yeu cau
-        List slist;
-        int n1 = (page - 1) * pageSize;
-        int n2 = n1 + pageSize - 1;
-        try {
-            slist = list.subList(n1, n2 + 1);
-        } catch (Exception e) {
-            slist = list.subList(n1, list.size());
-        }//Doc mot trang
-
-        //Luu thong tin vao session va request
-        session.setAttribute("pageNNA", page);
-        session.setAttribute("totalPageNNA", totalPage);
-        request.setAttribute("list", slist);
-    }
-
-    private void paginationNNH(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
-        int pageSize = 5;//Kich thuoc trang                        
-        //Xac dinh so thu tu cua trang hien tai
-        HttpSession session = request.getSession();
-        session.setAttribute("totalPageNNH", null);
-        Integer page = (Integer) session.getAttribute("pageNNH");
-        if (page == null) {
-            page = 1;
-        }
-
-        //Xac dinh tong so trang
-        Integer totalPage = (Integer) session.getAttribute("totalPageNNH");
-        if (totalPage == null) {
-            int count = list.size();//Dem so luong records
-            totalPage = (int) Math.ceil((double) count / pageSize);//Tinh tong so trang
-        }
-
-        String op = request.getParameter("op");
-        if (op == null) {
-            op = "FirstPage";
-        }
-        switch (op) {
-            case "FirstPage":
-                page = 1;
-                break;
-            case "PreviousPage":
-                if (page > 1) {
-                    page--;
-                }
-                break;
-            case "NextPage":
-                if (page < totalPage) {
-                    page++;
-                }
-                break;
-            case "LastPage":
-                page = totalPage;
-                break;
-            case "GotoPage":
-                page = Integer.parseInt(request.getParameter("gotoPage"));
-                if (page <= 0) {
-                    page = 1;
-                } else if (page > totalPage) {
-                    page = totalPage;
-                }
-                break;
-        }
-
-        //Lay trang du lieu duoc yeu cau
-        List slist;
-        int n1 = (page - 1) * pageSize;
-        int n2 = n1 + pageSize - 1;
-        try {
-            slist = list.subList(n1, n2 + 1);
-        } catch (Exception e) {
-            slist = list.subList(n1, list.size());
-        }//Doc mot trang
-
-        //Luu thong tin vao session va request
-        session.setAttribute("pageNNH", page);
-        session.setAttribute("totalPageNNH", totalPage);
-        request.setAttribute("list", slist);
-    }
-
-    private void paginationNNN(HttpServletRequest request, HttpServletResponse response, ArrayList<Topic> list) {
-        int pageSize = 5;//Kich thuoc trang                        
-        //Xac dinh so thu tu cua trang hien tai
-        HttpSession session = request.getSession();
-        session.setAttribute("totalPageNNN", null);
-        Integer page = (Integer) session.getAttribute("pageNNN");
-        if (page == null) {
-            page = 1;
-        }
-
-        //Xac dinh tong so trang
-        Integer totalPage = (Integer) session.getAttribute("totalPageNNN");
-        if (totalPage == null) {
-            int count = list.size();//Dem so luong records
-            totalPage = (int) Math.ceil((double) count / pageSize);//Tinh tong so trang
-        }
-
-        String op = request.getParameter("op");
-        if (op == null) {
-            op = "FirstPage";
-        }
-        switch (op) {
-            case "FirstPage":
-                page = 1;
-                break;
-            case "PreviousPage":
-                if (page > 1) {
-                    page--;
-                }
-                break;
-            case "NextPage":
-                if (page < totalPage) {
-                    page++;
-                }
-                break;
-            case "LastPage":
-                page = totalPage;
-                break;
-            case "GotoPage":
-                page = Integer.parseInt(request.getParameter("gotoPage"));
-                if (page <= 0) {
-                    page = 1;
-                } else if (page > totalPage) {
-                    page = totalPage;
-                }
-                break;
-        }
-
-        //Lay trang du lieu duoc yeu cau
-        List slist;
-        int n1 = (page - 1) * pageSize;
-        int n2 = n1 + pageSize - 1;
-        try {
-            slist = list.subList(n1, n2 + 1);
-        } catch (Exception e) {
-            slist = list.subList(n1, list.size());
-        }//Doc mot trang
-
-        //Luu thong tin vao session va request
-        session.setAttribute("pageNNN", page);
-        session.setAttribute("totalPageNNN", totalPage);
-        request.setAttribute("list", slist);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

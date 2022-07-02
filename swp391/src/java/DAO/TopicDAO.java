@@ -7,6 +7,7 @@ package DAO;
 
 import DTO.Category;
 import DTO.Department;
+import DTO.Semester;
 import DTO.Topic;
 import DTO.Users;
 import Utils.DBUtils;
@@ -48,11 +49,15 @@ public class TopicDAO {
                     int depId = rs.getInt("DepartmentId");
                     String depName = rs.getString("DepartmentName");
                     String lecName = rs.getString("LecturerName");
+                    int status = rs.getInt("status");
+                    int semesterId = rs.getInt("semesterId");
+                    Semester sem = new Semester();
+                    sem.setSemesterId(semesterId);
                     Users user = new Users();
                     Department dep = new Department();
                     dep.setName(depName);
                     user.setName(lecName);
-                    Topic topic = new Topic(topicID, name, category, description, businessId, depId, user, dep);
+                    Topic topic = new Topic(topicID, name, category, description, businessId, depId, user, dep, sem, status);
                     list.add(topic);
                 }
                 cn.close();
@@ -88,11 +93,15 @@ public class TopicDAO {
                     int depId = rs.getInt("DepartmentId");
                     String depName = rs.getString("DepartmentName");
                     String lecName = rs.getString("LecturerName");
+                    int semesterId = rs.getInt("semesterId");
+                    int status = rs.getInt("status");
                     Users user = new Users();
+                    Semester sem = new Semester();
+                    sem.setSemesterId(semesterId);
                     Department dep = new Department();
                     dep.setName(depName);
                     user.setName(lecName);
-                    Topic topic = new Topic(topicID, topicName, category, description, businessId, depId, user, dep);
+                    Topic topic = new Topic(topicID, topicName, category, description, businessId, depId, user, dep, sem, status);
                     list.add(topic);
                 }
                 cn.close();
@@ -103,7 +112,7 @@ public class TopicDAO {
         return list;
     }
 
-    public static ArrayList<Topic> filterByDepartment(String name,String currentSem) {
+    public static ArrayList<Topic> filterByDepartment(String name, String currentSem) {
         Connection cn = null;
         ArrayList<Topic> list = new ArrayList<>();
         try {
@@ -128,11 +137,15 @@ public class TopicDAO {
                     int depId = rs.getInt("DepartmentId");
                     String depName = rs.getString("DepartmentName");
                     String lecName = rs.getString("LecturerName");
+                    int status = rs.getInt("status");
+                    int semesterId = rs.getInt("semesterId");
+                    Semester sem = new Semester();
+                    sem.setSemesterId(semesterId);
                     Users user = new Users();
                     Department dep = new Department();
                     dep.setName(depName);
                     user.setName(lecName);
-                    Topic topic = new Topic(topicID, topicName, category, description, businessId, depId, user, dep);
+                    Topic topic = new Topic(topicID, topicName, category, description, businessId, depId, user, dep, sem, status);
                     list.add(topic);
                 }
                 cn.close();
@@ -290,6 +303,206 @@ public class TopicDAO {
             e.getStackTrace();
         }
         return topic;
+    }
+
+    public static int checkDepartment(int id) {
+        Connection cn = null;
+        int depId = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select DepartmentId from dbo.Users where UserId=?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) {
+                    depId = rs.getInt("DepartmentId");
+
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return depId;
+
+    }
+
+    public static int checkHaveTopic(int id) {
+        Connection cn = null;
+        int status = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select g.TopicStatus\n"
+                        + "  from dbo.StudentGroup sg join dbo.Users u on sg.StudentId=u.UserId join dbo.Groups g on sg.GroupId=g.GroupId \n"
+                        + "  where u.UserId=?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) {
+                    status = rs.getInt("TopicStatus");
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return status;
+    }
+
+    public static boolean checkHaveApplied(int topicId, int groupId) {
+        Connection cn = null;
+        ArrayList<Integer> topicList = new ArrayList();
+
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "  select pgt.TopicId\n"
+                        + "                            from dbo.PendingGroupTopic pgt \n"
+                        + "                             where pgt.TopicId=? and pgt.groupId=?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, topicId);
+                stm.setInt(2, groupId);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) {
+                    int Id = rs.getInt("TopicId");
+                    topicList.add(Id);
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+            
+        }
+        if(topicList.size()==0){
+            return false;
+        }
+        return true;
+    }
+
+    public static int checkLeader(int id) {
+        Connection cn = null;
+        int status = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select sg.LeaderStatus from dbo.Users u join dbo.StudentGroup sg on u.UserId=sg.StudentId where u.UserId =?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) {
+                    status = rs.getInt("LeaderStatus");
+
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return status;
+    }
+
+    public static int checkSemester(int id) {
+        Connection cn = null;
+        int semId = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = " select g.SemID\n"
+                        + "  from dbo.StudentGroup sg join dbo.Users u on sg.StudentId=u.UserId join dbo.Groups g on sg.GroupId=g.GroupId \n"
+                        + "  where u.UserId=?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) {
+                    semId = rs.getInt("SemID");
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return semId;
+    }
+
+    public static void updatePendingTopic(int id) {
+        Connection cn = null;
+        int status = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update dbo.Topic set Status=1 where TopicId=?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
+    
+    
+
+    public static void updatePendingTopicGroup(int groupId) {
+        Connection cn = null;
+        int status = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update dbo.Groups set TopicStatus=1 where GroupId=?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, groupId);
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
+
+    public static void addPendingTable(int groupId, int topicId, int depId) {
+        Connection cn = null;
+        int status = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "insert into dbo.PendingGroupTopic(GroupId,TopicId,DepartmentId) values(?,?,?)";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, groupId);
+                stm.setInt(2, topicId);
+                stm.setInt(3, depId);
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
+
+    public static int getGroupIdByUser(int userId) {
+        Connection cn = null;
+        int groupId = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select g.GroupId\n"
+                        + "  from dbo.StudentGroup sg join dbo.Users u on sg.StudentId=u.UserId join dbo.Groups g on sg.GroupId=g.GroupId \n"
+                        + "  where u.UserId=?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, userId);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) {
+                    groupId = rs.getInt("GroupId");
+                }
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return groupId;
     }
 
     public static void create(Topic topic) {

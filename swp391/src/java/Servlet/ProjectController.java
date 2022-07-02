@@ -7,6 +7,8 @@ package Servlet;
 import DAO.ProjectDAO;
 import DAO.UserDAO;
 import DTO.Groups;
+import DTO.Project;
+import DTO.Semester;
 import DTO.Topic;
 import DTO.Users;
 import java.io.IOException;
@@ -39,9 +41,9 @@ public class ProjectController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String path = request.getPathInfo();
-        
+
         if (path.equals("/show")) {
             HttpSession ss = request.getSession();
             String UserEmail = (String) ss.getAttribute("email");
@@ -52,9 +54,19 @@ public class ProjectController extends HttpServlet {
             Groups group = proDao.readGroup(user.getUserId());
             int GroupId = proDao.readGroupId(UserEmail);
             int TopicId = proDao.readTopicId(GroupId);
+            String error = "Your group hasn't chosen a topic yet!";
             Topic topic = proDao.readTopic(TopicId);
+            if (topic == null) {
+                request.setAttribute("error", error);
+            } else {
+                int SemId = topic.getSemester().getSemesterId();
+                Semester sem = proDao.readSemester(SemId);
+                request.setAttribute("Sem", sem);
+            }
+            Project pro = proDao.readProject(GroupId);
             List<Users> list = proDao.listUser(GroupId);
             request.setAttribute("list", list);
+            request.setAttribute("Pro", pro);
             request.setAttribute("DepName", UserDepartment);
             request.setAttribute("Group", group);
             request.setAttribute("Topic", topic);
