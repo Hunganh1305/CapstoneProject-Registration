@@ -51,12 +51,10 @@ public class LoginServlet extends HttpServlet {
             try {
                 user=UserDAO.read(email,password);
                 if(user!=null){
-                    //student
                     if(user.getRoleId()==1){
                         //chuyen sang trang cho student
                         HttpSession session=request.getSession(true);
                         if(session!=null){
-                            
                             session.setAttribute("depId", user.getDepartmentId());
                             session.setAttribute("name", user.getName());
                             session.setAttribute("email", user.getEmail());
@@ -64,7 +62,6 @@ public class LoginServlet extends HttpServlet {
                             session.setAttribute("semList", semList);
                             session.setAttribute("currentSem", semList.get(0));
                             session.setAttribute("department", UserDAO.readUserDep(user.getDepartmentId()));
-                            
                             response.sendRedirect("profile.jsp");
                         }
                     }
@@ -72,18 +69,14 @@ public class LoginServlet extends HttpServlet {
                         //chuyen sang trang cho lecture
                         HttpSession session=request.getSession(true);
                         if(session!=null){
+                            session.setAttribute("depId", user.getDepartmentId());
                             session.setAttribute("name", user.getName());
                             session.setAttribute("email", user.getEmail());
-                            response.sendRedirect("index.html");
-                        }
-                    }
-                    else if(user.getRoleId()==3){
-                        //chuyen sang trang cho lecture
-                        HttpSession session=request.getSession(true);
-                        if(session!=null){
-                            session.setAttribute("name", user.getName());
-                            session.setAttribute("email", user.getEmail());
-                            response.sendRedirect("index.html");
+                            session.setAttribute("userId", user.getUserId());
+                            session.setAttribute("semList", semList);
+                            session.setAttribute("currentSem", semList.get(0));
+                            session.setAttribute("department", UserDAO.readUserDep(user.getDepartmentId()));
+                            response.sendRedirect("profileLecturer.jsp");
                         }
                     }
                 }
