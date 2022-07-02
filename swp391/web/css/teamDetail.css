@@ -60,6 +60,7 @@
     color: rgb(34, 154, 22);
     padding: 5px 8px;
     border-radius: 10px;
+    font-weight: 600;
 }
 
 .tdTbl__danger {
@@ -70,7 +71,13 @@
     background-color: rgba(255, 72, 66, 0.16);
     font-weight: 700;
 }
-
+.tdTbl__warning {
+    background: rgba(255, 193, 7, 0.16);
+    color: rgb(183, 129, 3);
+    padding: 5px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+}
 .tabProgram {
     padding: 5px 8px;
     border-radius: 10px;
