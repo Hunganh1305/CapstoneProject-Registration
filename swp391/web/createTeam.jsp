@@ -50,20 +50,20 @@
             <hr/>
             <div class ="form__createTeam">
                 <div class="">
-                    <form action="save.do" class="form__control">
+                    <form action="<c:url value="/group/save.do"/>" class="form__control">
                         <div class="team__dep">
                             <label class="label_dep">Department</label>
-                            <input class="" type="text"  disabled  value="${depName.department.name}" required/>
+                            <input class="" type="text"  disabled  value="${depName}" required/>
                         </div>
                         <div class="col">
-                            
+
                             <input type="text" placeholder="Team name" id="groupName" name="groupName">
                         </div>
                         <div class="col">
                             <div class="selection">
                                 <div class="selection--left">
                                     <label for="members" class="label_member">Members</label>
-                                    <input type="number" id="members" name="members" min="3" max="5" placeholder="4"/>
+                                    <input type="number" name="members" min="3" max="7" value="${members==null?5:members}"/>
                                 </div>
 
 
@@ -77,15 +77,16 @@
                             </div>
 
                         </div>                    
-<!--                        <div class="col ">
-
-                            <textarea placeholder="Description" cols="30" rows="10" name="description"></textarea>
-                        </div>-->
+                        <!--                        <div class="col ">
+                        
+                                                    <textarea placeholder="Description" cols="30" rows="10" name="description"></textarea>
+                                                </div>-->
                 </div>
-                <button type="submit" class="btn btn-Close"><i class="bi bi-x-circle"></i>Close</button>
-                <button type="submit" class="btn btn-Create"><i class="bi bi-box-arrow-down"></i>Create</button>
+                <button type="submit" value="close" name="op" class="btn btn-Close"><i class="bi bi-x-circle"></i>Close</button>
+                <button type="submit" value="create" name="op" class="btn btn-Create"><i class="bi bi-box-arrow-down"></i>Create</button>
 
                 </form>
+                <div class="text-danger" style="font-style: italic;">${errorMessage}</div>
             </div>
 
 
