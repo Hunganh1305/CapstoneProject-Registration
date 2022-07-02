@@ -143,6 +143,27 @@ public class UserDAO {
         return Department;
     }
     
+    public static String readDepartmentByUserID(int DepartmentId) {
+        Connection cn = null;
+        String Department = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select D.Name from Users U join Department D on U.DepartmentId=D.DepartmentId where U.UserID=?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, DepartmentId);
+                ResultSet rs = stm.executeQuery();
+                if(rs!=null && rs.next()){
+                    String Name=rs.getString("Name");
+                    Department=Name;
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return Department;
+    }
     // phan Quang
     public Users load(String email) {
         String sql = "SELECT * from Users WHERE Users.Email = ?";
