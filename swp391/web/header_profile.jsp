@@ -22,7 +22,7 @@
                 <div class="navbar-header">
                     <!-- Logo -->
                     <div class="navbar-brand">
-                        <a class="logo" id="logo-brand" href="../profile.jsp">
+                        <a class="logo" id="logo-brand" href="./profile.jsp">
                             <img src="img/logo.png" alt="logo">
                         </a>
                         
