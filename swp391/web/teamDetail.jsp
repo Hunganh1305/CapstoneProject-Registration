@@ -24,10 +24,10 @@
         <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
 
         <!-- Font Awesome Icon -->
-         <link rel="stylesheet" href="css/font-awesome.min.css"> 
+        <link rel="stylesheet" href="css/font-awesome.min.css"> 
 
-         
-         <!-- Bootstrap -->
+
+        <!-- Bootstrap -->
         <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" />
         <!-- cdn font awesome -->
 
@@ -37,17 +37,23 @@
 
         <!--  stylessheet -->
         <link type="text/css" rel="stylesheet" href="../css/teamDetail.css" />
+
+        <!--cdn-->
+<!--        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>-->
     </head>
 
     <body>
-        
+
         <%
             String name = (String) session.getAttribute("name");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
             } else {
         %>
-        
+
         <!-- Header -->
         <header>
             <%@include file="header.jsp" %>
@@ -60,7 +66,8 @@
                 <h2>Team detail</h2>
                 <div class="btnControl">
                     <button class="team__btn">
-                        <i class="fa-solid fa-right-to-bracket"></i> Quick Join A Team</button>
+                        <a href="${root}/group/join.do?id=${userId}"><i class="fa-solid fa-right-to-bracket"></i> Quick Join A Team</a>
+                        </button>
                 </div>
             </div>          
 
@@ -76,34 +83,34 @@
                                 <th><span class="tdTbl__success"> 5/5</span></th>
                             </tr>
                         </thead>
-                        
-                       <c:forEach var="item" items="${teamMembers}" varStatus="loop">
-                        <tbody class="teamMemberBody row">
-                            <tr class="col-sm-12">
-                        <div>
-                            <td class="">
-                                <a href="#"><img class="avatar" src="../img/sample-avatar.jpg"
-                                                            alt="Avatar"></a>
-                            </td>
-                            <td>${item.user.name}<br />                                
-                                <!--<span class="tdTbl__danger">Leader</span>-->
-                            </td>
-                        </div>
 
-                        <div>
-                            <td class="tabProgramControl">
-                                <span class="tabProgram">Java</span>
-                                <span class="tabProgram">Web</span>
-                                <span class="tabProgram">C#</span>
-                                <span class="tabProgram">Backend</span>
-                            </td>
-                        </div>
-                        </tr>
-                        </tbody>   
+                        <c:forEach var="item" items="${teamMembers}" varStatus="loop">
+                            <tbody class="teamMemberBody row">
+                                <tr class="col-sm-12">
+                            <div>
+                                <td class="">
+                                    <a href="#"><img class="avatar" src="../img/sample-avatar.jpg"
+                                                     alt="Avatar"></a>
+                                </td>
+                                <td>${item.user.name}<br />                                
+                                    <span class="tdTbl__danger">${item.leaderStatus == 1?"Leader":"Member" }</span>
+                                </td>
+                            </div>
+
+                            <div class="tabProgramContainer">
+                                <td class="tabProgramControl">
+                                    <span class="tabProgram">Java</span>
+                                    <span class="tabProgram">Web</span>
+                                    <span class="tabProgram">C#</span>
+                                    <span class="tabProgram">Backend</span>
+                                </td>
+                            </div>
+                            </tr>
+                            </tbody>   
                         </c:forEach>
-                        
+
                     </table>
-                    
+
                 </div>
                 <!--  -->
                 <div>
@@ -123,9 +130,11 @@
                                     <div class="join">
                                         <i class="fa-regular fa-copy"></i>
                                         Team ID: <strong>${teamInfor.groupId}</strong>
-                                        <span class="ques_small "><i class="fa-regular fa-circle-question"></i></span>
-                                        <p class="hided">Joining code for actived student in this semester to join this team
-                                        </p>
+                                        <span class="ques_small ">
+                                             <a  href="#" 
+                                                data-placement="bottom"  data-toggle="tooltip" title="Joining code for actived student in this semester to join this team">
+                                                <i class="fa-regular fa-circle-question"></i>
+                                            </a>                                         
                                     </div>
                                     <div>
                                         <i class="fa  fa-building"></i>
@@ -133,18 +142,23 @@
                                     </div>
                                     <div>
                                         <i class="fa-solid fa-unlock-keyhole"></i>
-                                        <span class="tdTbl__success">Locked</span>
+                                        <span class="tdTbl__warning">${list.project.status==1?"Locked":"Unlocked"}</span>
                                         <span class="ques_small locked">
-                                            <i class="fa-regular fa-circle-question"></i>
-                                        </span>
-                                        <p class="hided">This team can send application to topics in this semester</p>
+                                             <a  href="#" 
+                                                data-placement="bottom"  data-toggle="tooltip" title="This team can send application to topics in this semester">
+                                                <i class="fa-regular fa-circle-question"></i>
+                                            </a>
+                                            
+                                        </span>                                       
+                                        <i class="fa-solid fa-shield"></i>
+                                        <span class="tdTbl__success">${list.group.groupStatus==1?"Private":"Public"}</span>
+                                        <span class="ques_small public">
+                                            <a  href="#" 
+                                                data-placement="bottom"  data-toggle="tooltip" title="This team is visible to every actived student in this semester">
+                                                <i class="fa-regular fa-circle-question"></i>
+                                            </a>
 
-                                       <i class="fa-solid fa-shield"></i>
-                                        <span class="tdTbl__success">Public</span>
-                                        <span class="ques_small public"><i class="fa-regular fa-circle-question"></i></span>
-                                        
-                                        <p class="hided">This team is visible to every actived student in this semester</p>
-
+                                        </span>                                       
                                     </div>
                                 </td>
 
@@ -156,14 +170,11 @@
                     </table>
                     <table class="table teamTopic">
                         <tbody>
-                            <tr>
-                                <td>
-                                    ${teamInfor.project.name}
-                                    <!--This team have not matched any topic yet-->
-                                </td>
+                            <tr>                               
+                                <td>${teamInfor.project.name == null?"This team have not matched any topic yet":""}${teamInfor.project.name}</td>
                             </tr>
                         </tbody>
-
+                        
                     </table>
                 </div>
 
@@ -174,10 +185,14 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
-        
+
         <% }
         %>
-        
+        <script>
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
         <script src="./js/topic.js"></script>
     </body>
 
