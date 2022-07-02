@@ -15,16 +15,18 @@ public class Groups {
     private int semId;
     private int groupStatus;
     private int members;
+    private int TopicStatus;
 
-    public Groups() {
-    }
-
-    public Groups(int groupId, String groupName, int semId, int groupStatus, int members) {
+    public Groups(int groupId, String groupName, int semId, int groupStatus, int members, int TopicStatus) {
         this.groupId = groupId;
         this.groupName = groupName;
         this.semId = semId;
         this.groupStatus = groupStatus;
         this.members = members;
+        this.TopicStatus = TopicStatus;
+    }
+
+    public Groups() {
     }
 
     public int getGroupId() {
@@ -67,6 +69,17 @@ public class Groups {
         this.members = members;
     }
 
+    public int getTopicStatus() {
+        return TopicStatus;
+    }
+
+    public void setTopicStatus(int TopicStatus) {
+        this.TopicStatus = TopicStatus;
+    }
+    
+    
+
+   
    
     
 }
