@@ -73,7 +73,7 @@
                         All of approved topics in semester ${currentSem.name}
                     </h6>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                    <button type="button" class="btn team__btn" data-toggle="modal" data-target="#myModal">
                         Appliable list
                     </button>
 
@@ -241,10 +241,10 @@
                                 </table>
                             </div>
                             <div class="modal-footer ">
-                                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                                <button class='btn btn-primary' href="#" title="Conditions to apply:" data-html="true" data-toggle="popover" data-placement="top" data-content="+ You must be leader to apply.<br>+ Your department must be the same with topic's.<br>+ Your semester must be the same with topic's.<br>+ You can only apply 1 topic once<br>+ Topic status can not be locked.">
+                                <button class='btn btn-warning' href="#" title="Conditions to apply:" data-html="true" data-toggle="popover" data-placement="top" data-content="+ You must be leader to apply.<br>+ Your department must be the same with topic's.<br>+ Your semester must be the same with topic's.<br>+ You can only apply 1 topic once<br>+ Topic status can not be locked.">
                                     Conditions
                                 </button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
