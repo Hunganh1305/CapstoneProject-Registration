@@ -120,3 +120,12 @@
 .team__btn:hover {
     background: #B66816;
 }
+
+.quesIcon-control{
+    position: relative;    
+}
+.quesIcon{
+    position: absolute;
+    transform: translateX(500%) translateY(-100%);
+    padding-left: 4px;
+}
