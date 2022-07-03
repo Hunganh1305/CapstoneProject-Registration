@@ -68,9 +68,9 @@ CREATE TABLE Groups (
 	GroupId INT PRIMARY KEY not null,
 	GroupName VARCHAR(30),
 	SemID INT FOREIGN KEY (SemID) REFERENCES Semester(SemesterId),
-	groupStatus VARCHAR(10),
-	members INT,
-	TopicStatus INT,	
+	groupStatus INT ,
+	members INT
+
 )
 
 CREATE TABLE StudentGroup (
@@ -95,14 +95,11 @@ CREATE TABLE Project(
 	SourceCode VARCHAR(200),
 	TopicId INT FOREIGN KEY(TopicId) REFERENCES Topic(TopicId),
 	Status INT,
-	GroupId INT NOT NULL FOREIGN KEY(GroupId) REFERENCES Groups(GroupId)
-)
-
-CREATE TABLE ProjectLecturer(
-	Id INT PRIMARY KEY,
-	ProjectId INT NOT NULL FOREIGN KEY (ProjectId) REFERENCES Project(ProjectId),
+	GroupId INT NOT NULL FOREIGN KEY(GroupId) REFERENCES Groups(GroupId),
 	LecturerId INT NOT NULL FOREIGN KEY (LecturerId) REFERENCES Users(UserId)
 )
+
+
 
 insert into Department values(1,'Quan tri kinh doanh')
 insert into Department values(2,'Cong nghe thong tin')
@@ -131,9 +128,6 @@ insert into Category values(16,'Ngon ngu Han Quoc')
 
 select * from Category
 
-insert into  Roles Values (1, 'Student')
-insert into  Roles Values (2, 'Lecturer')
-insert into  Roles Values (3, 'Business')
 
 select * from Roles
 
@@ -237,6 +231,12 @@ insert into Users values(72,'Vu Duong Tuong Vi','12345678',1,2,'vivdt@gmail.com'
 select * from Users
 
 
+insert into  Roles Values (1, 'Student')
+insert into  Roles Values (2, 'Lecturer')
+insert into  Roles Values (3, 'Business')
+insert into  Roles Values (4, 'Admin')
+
+
 
 insert into Semester values(1,'SU2022','2022-05-29','2022-09-30')
 insert into Semester values(2,'FA2021','2021-07-10','2021-10-10')
@@ -258,14 +258,15 @@ insert into Topic values(7,'An analysis on cultural',16,'Write an essay analyze 
 insert into Topic values(8,'Economic Policy of Japan',15,'Research and presentation',9,5,1,2)
 insert into Topic values(9,'Restaurant researching',2,'Manage a restaurant',7,1,2,2)
 insert into Topic values(10,'Cycle of whales',14,'Study about whales',10,3,2,2)
-insert into Topic values(11,'Jewelry System',6,'Ecommerce jewelry selling website',8,2,1,2)
-insert into Topic values(12,'Online CV builder',6,'Generate CV automatically',9,2,1,2)
+insert into Topic values(11,'Jewelry System',6,'Ecommerce jewelry selling website',8,2,1,0)
+insert into Topic values(12,'Online CV builder',6,'Generate CV automatically',9,2,1,0)
 
 
 
 select * from Topic
 
 delete from Topic
+
 
 
 
@@ -285,6 +286,7 @@ insert into Groups values(13,'Gr 15',4,'Public',5,0)
 insert into Groups values(14,'G63',4,'Public',5,0)
 insert into Groups values(15,'Eagles',1,'Public',5,0)
 insert into Groups values(16,'Tigers',1,'Public',5,0)
+
 
 
 select * from Groups
@@ -389,14 +391,14 @@ select * from LecturerTopic
 
 delete from LecturerTopic
 
-insert into Project values(1,'Manage and review on this web','CPManagement-Review','https://github.com/phhgquang/SWP391',1,1,1)
-insert into Project values(2,'The best solution to manage and service your pet','PetCareSystem','',2,1,2)
-insert into Project values(3,'The way to transform to the monster','PT Tranning app','',3,1,3)
-insert into Project values(4,'Like a little MCU movie','Game Animation','',4,1,4)
-insert into Project values(5,'Make and marketing a brand to users','Research And Developing Brands','',5,1,5)
-insert into Project values(6,'Write an essay about social isues','Social issues','',6,1,6)
-insert into Project values(7,'Write an essay analyze cultural','An analysis on cultural','',7,1,7)
-insert into Project values(8,'Research and presentation','Economic Policy of Japan','',8,1,8)
+insert into Project values(1,'Manage and review on this web','CPManagement-Review','https://github.com/phhgquang/SWP391',1,1,1,6)
+insert into Project values(2,'The best solution to manage and service your pet','PetCareSystem','',2,1,2,6)
+insert into Project values(3,'The way to transform to the monster','PT Tranning app','',3,1,3,6)
+insert into Project values(4,'Like a little MCU movie','Game Animation','',4,1,4,6)
+insert into Project values(5,'Make and marketing a brand to users','Research And Developing Brands','',5,1,5,57)
+insert into Project values(6,'Write an essay about social isues','Social issues','',6,1,6,58)
+insert into Project values(7,'Write an essay analyze cultural','An analysis on cultural','',7,1,7,59)
+insert into Project values(8,'Research and presentation','Economic Policy of Japan','',8,1,8,60)
 
 
 
@@ -404,7 +406,6 @@ select * from Project
 select * from topic
 delete from Project 
 
-insert into ProjectLecturer values(1,1,6)
-insert into ProjectLecturer values(2,2,6)
 
 select * from ProjectLecturer 
+
