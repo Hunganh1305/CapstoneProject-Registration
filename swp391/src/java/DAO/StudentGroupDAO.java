@@ -204,6 +204,25 @@ public class StudentGroupDAO {
         }
         return count;
     }
+    
+    public static int countProjectId() {
+        Connection cn = null;
+        int count = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select count(ProjectId) as ProjectId from dbo.Project ";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    count = rs.getInt("ProjectId");
+                }
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return count;
+    }
 
     public static StudentGroup viewTeamInformation(int id) {
         Connection cn = null;
