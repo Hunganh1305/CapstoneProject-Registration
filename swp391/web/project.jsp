@@ -125,7 +125,7 @@
                                     <span class="col-sm-2"></span>
                                     <i class="fa-solid fa-shield col-sm-1"></i>
                                     <div class="col-sm-2">
-                                        <span class="green-box">${Group.groupStatus ==1?"Private":"Public"}</span>
+                                        <span class="green-box">${Group.groupStatus}</span>
                                     </div>
                                 </div>
                             </div>
