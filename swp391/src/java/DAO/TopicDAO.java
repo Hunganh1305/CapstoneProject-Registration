@@ -334,14 +334,14 @@ public class TopicDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select g.TopicStatus\n"
-                        + "  from dbo.StudentGroup sg join dbo.Users u on sg.StudentId=u.UserId join dbo.Groups g on sg.GroupId=g.GroupId \n"
-                        + "  where u.UserId=?";
+                String sql = "select g.GroupId\n"
+                        + "  from dbo.Groups g join dbo.Project p on g.GroupId=p.GroupId\n"
+                        + "  where g.GroupId=?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setInt(1, id);
                 ResultSet rs = stm.executeQuery();
                 if (rs.next()) {
-                    status = rs.getInt("TopicStatus");
+                    status = rs.getInt("GroupId");
                 }
                 cn.close();
             }
@@ -373,9 +373,9 @@ public class TopicDAO {
             }
         } catch (Exception e) {
             e.getStackTrace();
-            
+
         }
-        if(topicList.size()==0){
+        if (topicList.size() == 0) {
             return false;
         }
         return true;
@@ -442,8 +442,6 @@ public class TopicDAO {
             e.getStackTrace();
         }
     }
-    
-    
 
     public static void updatePendingTopicGroup(int groupId) {
         Connection cn = null;
