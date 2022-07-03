@@ -41,7 +41,7 @@ public class ProjectDAO {
                     group = new Groups();
                     group.setGroupId(rs.getInt("GroupId"));
                     group.setGroupName(rs.getString("GroupName"));
-                    group.setGroupStatus(rs.getInt("groupStatus"));
+                    group.setGroupStatus(rs.getString("groupStatus"));
                 }
             }
         } catch (Exception e) {
