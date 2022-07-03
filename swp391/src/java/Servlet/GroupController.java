@@ -64,7 +64,7 @@ public class GroupController extends HttpServlet {
                 ArrayList<StudentGroup> list = sg.readAll(currSem.getName());
                 //check
                 int studentId = (int) session.getAttribute("userId");
-                int check = sg.checkStudentHaveGroupByUserId(studentId);                                
+                int checkUserId = sg.checkStudentHaveGroupByUserId(studentId);                                
                 //        pagination
                 if (!prevAction.equals(currAction)) {
                     session.setAttribute("totalPage", null);
@@ -73,7 +73,7 @@ public class GroupController extends HttpServlet {
                 session.setAttribute("prevGroupAction", "index");
                 pagination(request, response, list);
                 //        pagination 
-                request.setAttribute("check", check);
+                request.setAttribute("checkUserId", checkUserId);
                 request.getRequestDispatcher("/teamList.jsp").forward(request, response);
                 break;
             case "search":
