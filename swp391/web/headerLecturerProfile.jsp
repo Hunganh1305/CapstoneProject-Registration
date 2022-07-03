@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- 
     Document   : headerLecturerProfile
     Created on : 03/07/2022, 12:46:16 PM
@@ -11,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <!-- Custom stlylesheet -->
-        <link type="text/css" rel="stylesheet" href="css/style.css" />
+        <link type="text/css" rel="stylesheet" href="./css/style.css" />
     </head>
     <body>
         <!-- Header -->
@@ -39,7 +40,7 @@
                     <ul class="main-menu nav navbar-nav navbar-right">
                         <li><a class="align-nav" href="./profileLecturer.jsp">Profile</a></li>
                         <li><a class="align-nav" href="./projectListLecturer.jsp">Project List</a></li>
-                        <li><a class="align-nav" href="./topicListLecturer.jsp">Topic List</a></li>
+                        <li><a class="align-nav" href="<c:url value="/topic/index.do"/>">Topic List</a></li>
                         <li class="nav-item dropdown">
                             <a href="./profileLecturer.jsp" role="button" aria-haspopup="true" aria-expanded="false">
                                 <img class="avatar" src="./img/sample-avatar.jpg" alt="Avatar">
