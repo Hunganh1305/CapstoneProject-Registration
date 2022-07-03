@@ -201,4 +201,22 @@ public class ProjectDAO {
 
         return project;
     }
+    
+    public List<Project> readAllProject() {
+        ArrayList<Project> list = new ArrayList<>();
+        String sql = "SELECT ProjectId, Description, Name, SourceCode, TopicId, [Status], GroupId,  from Project";
+
+        try {
+            Connection conn = DBUtils.makeConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Project(rs.getInt("ProjectId"), rs.getString("Description"), rs.getString("Name"), rs.getString("SourceCode"), rs.getInt("TopicId"), rs.getInt("Status"), rs.getInt("GroupId"), rs.getInt("LecturerId")));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+
 }

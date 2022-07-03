@@ -37,7 +37,7 @@
                 <nav id="nav">
                     <ul class="main-menu nav navbar-nav navbar-right">
                         <li><a class="align-nav" href="./profileLecturer.jsp">Profile</a></li>
-                        <li><a class="align-nav" href="./projectListLecturer.jsp">Project List</a></li>
+                        <li><a class="align-nav" href="<%=request.getContextPath()%>/project/LecView">Project List</a></li>
                         <li><a class="align-nav" href="./topicListLecturer.jsp">Topic List</a></li>
                         <li class="nav-item dropdown">
                             <a href="./profileLecturer.jsp" role="button" aria-haspopup="true" aria-expanded="false">

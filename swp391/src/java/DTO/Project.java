@@ -17,6 +17,7 @@ public class Project {
     private int topicId;
     private int status;
     private int groupId;
+    private int lecturerId;
 
     public Project() {
     }
@@ -29,6 +30,25 @@ public class Project {
         this.topicId = topicId;
         this.status = status;
         this.groupId = groupId;
+    }
+
+    public Project(int projectId, String description, String name, String sourceCode, int topicId, int status, int groupId, int lecturerId) {
+        this.projectId = projectId;
+        this.description = description;
+        this.name = name;
+        this.sourceCode = sourceCode;
+        this.topicId = topicId;
+        this.status = status;
+        this.groupId = groupId;
+        this.lecturerId = lecturerId;
+    }
+
+    public int getLecturerId() {
+        return lecturerId;
+    }
+
+    public void setLecturerId(int lecturerId) {
+        this.lecturerId = lecturerId;
     }
 
     public int getProjectId() {
