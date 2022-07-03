@@ -55,6 +55,7 @@ public class LoginServlet extends HttpServlet {
                         //chuyen sang trang cho student
                         HttpSession session=request.getSession(true);
                         if(session!=null){
+                            session.setAttribute("user", user);
                             session.setAttribute("depId", user.getDepartmentId());
                             session.setAttribute("name", user.getName());
                             session.setAttribute("email", user.getEmail());
@@ -69,6 +70,7 @@ public class LoginServlet extends HttpServlet {
                         //chuyen sang trang cho lecture
                         HttpSession session=request.getSession(true);
                         if(session!=null){
+                            session.setAttribute("user", user);
                             session.setAttribute("depId", user.getDepartmentId());
                             session.setAttribute("name", user.getName());
                             session.setAttribute("email", user.getEmail());

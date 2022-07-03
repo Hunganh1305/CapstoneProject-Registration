@@ -7,6 +7,7 @@ package DAO;
 
 import DTO.Category;
 import DTO.Department;
+import DTO.Groups;
 import DTO.Semester;
 import DTO.Topic;
 import DTO.Users;
@@ -443,6 +444,40 @@ public class TopicDAO {
         }
     }
 
+    public static void updateLockTopic(int id) {
+        Connection cn = null;
+        int status = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update dbo.Topic set Status=2 where TopicId=?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
+
+    public static void updateWaitingTopic(int id) {
+        Connection cn = null;
+        int status = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update dbo.Topic set Status=0 where TopicId=?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
+    
     public static void updatePendingTopicGroup(int groupId) {
         Connection cn = null;
         int status = 0;
@@ -516,6 +551,51 @@ public class TopicDAO {
                 stm.setString(4, topic.getDescription());
                 stm.setInt(5, topic.getBusinessId());
                 stm.setInt(6, topic.getDepartmentId());
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
+
+    public static int countProject() {
+        Connection cn = null;
+        int count = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select ProjectId as projects from dbo.Project";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                ResultSet rs = stm.executeQuery();
+               while (rs.next()) {
+                   count++;
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return count;
+    }
+
+    public static void createProject(Topic topic, Groups group, int userId) {
+        Connection cn = null;
+        int count = countProject();
+        count += 1;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "insert into dbo.Project values(?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, count);
+                stm.setString(2, topic.getDescription());
+                stm.setString(3, topic.getName());
+                stm.setString(4, "");
+                stm.setInt(5, topic.getTopicId());
+                stm.setInt(6, 1);
+                stm.setInt(7, group.getGroupId());
+                stm.setInt(8, userId);
                 stm.executeUpdate();
                 cn.close();
             }
