@@ -29,9 +29,8 @@
 
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
-        <link type="text/css" rel="stylesheet" href="../css/projectStyle.css" />
-        <link type="text/css" rel="stylesheet" href="../css/ProSem.css" />
-        
+        <link type="text/css" rel="stylesheet" href="../css/ProjectButton.css" />
+
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -60,26 +59,29 @@
         <section id="project">
             <div class="container">
                 <div class="project-title flex">
-                    <h1 style="text-align: left">Project</h1>
-                    <div class="semester">
-                        ${currentSem.name}
-                        <div class="dropdown2">
-                            <ul class="semester__list">
-                                <c:forEach var="item" items="${semList}" varStatus="loop"> 
-                                    <li name="semester" class="semester__item" ><a  href="${root}/topic/semester.do?semester=${item.name}">${item.name}</a></li>             
-                                    </c:forEach>
-                            </ul>
-                        </div>
-                    </div>
+                    <h1 style="text-align: left">Project</h1>                  
                 </div>
-                <c:if test="${empty Group}">
+                <c:if test="${empty Group || empty Topic}">
                     <div class="search-empty">
                         <img src="../img/search-empty.png" class="search-empty-icon"/>
                         <div class="search-empty-title">You don't have any project yet!</div>
-                        <div class="search-empty-hint">Join team and pick project</div>
+                        <c:if test="${empty Topic}">
+                            <div class="search-empty-hint">${error}</div>
+                            <div class="btnControl">
+                                <button class="project-button"><a href="<c:url value="/topic/index.do"/>">Topic list</a> </button>
+                            </div>
+
+                        </c:if>
+                        <c:if test="${empty Group}">
+                            <div class="search-empty-hint">You don't have a team!</div>
+                            <div class="btnControl">
+                                <button class="project-button"><a href="<c:url value="/group/index.do"/>">Team list</a> </button>
+                            </div>
+                        </c:if>
+                        
                     </div>
                 </c:if>
-                <c:if test="${!empty Group}">
+                <c:if test="${!empty Group && !empty Topic}">
                     <div class="project-contents">
                         <div class="project-left">
                             <div class="project-content">
@@ -102,6 +104,11 @@
                                         <span class="col-sm-7">${Topic.name}</span>
                                     </li>
                                     <li class="project-item">
+                                        <i class="fa-solid fa-calendar col-sm-1"></i>
+                                        <span class="col-sm-4">Semester</span>
+                                        <span class="col-sm-7">${Sem.name}</span>
+                                    </li>
+                                    <li class="project-item">
                                         <i class="fa fa-regular fa-building col-sm-1"></i>
                                         <span class="col-sm-4">Department</span>
                                         <div class="col-sm-7">
@@ -113,12 +120,12 @@
                                 <div class="project-item" style="margin-top: 5px">
                                     <i class="fa-solid fa-lock col-sm-1"></i>
                                     <div class="col-sm-2">
-                                        <span class="green-box">Locked</span>
+                                        <span class="green-box">${Pro.status ==1?"Lock":"Unlock"}</span>
                                     </div>
                                     <span class="col-sm-2"></span>
                                     <i class="fa-solid fa-shield col-sm-1"></i>
                                     <div class="col-sm-2">
-                                        <span class="green-box">Public</span>
+                                        <span class="green-box">${Group.groupStatus}</span>
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +173,6 @@
         <script type="text/javascript" src="../js/jquery.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/main.js"></script>
-        <script src="../js/topic.js"></script>
     </body>
 
 </html>

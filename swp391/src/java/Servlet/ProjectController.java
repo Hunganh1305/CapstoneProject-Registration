@@ -71,6 +71,10 @@ public class ProjectController extends HttpServlet {
             request.setAttribute("Group", group);
             request.setAttribute("Topic", topic);
             request.getRequestDispatcher("/project.jsp").forward(request, response);
+        } else if (path.equals("LecView")) {
+            ProjectDAO proDao = new ProjectDAO();
+            List<Project> proList = proDao.readAllProject();
+            request.setAttribute("proList", proList);
         }
     }
 

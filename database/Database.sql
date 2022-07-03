@@ -65,15 +65,16 @@ CREATE TABLE LecturerTopic (
 )
 
 CREATE TABLE Groups (
-	GroupId INT Identity(1,1) PRIMARY KEY not null,
+	GroupId INT PRIMARY KEY not null,
 	GroupName VARCHAR(30),
 	SemID INT FOREIGN KEY (SemID) REFERENCES Semester(SemesterId),
-	groupStatus INT ,
+	groupStatus VARCHAR(10),
 	members INT
+
 )
 
 CREATE TABLE StudentGroup (
-	Id INT identity(1,1) PRIMARY KEY not null,
+	Id INT PRIMARY KEY not null,
 	StudentId INT NOT NULL FOREIGN KEY (StudentId) REFERENCES Users(UserId),
 	GroupId INT NOT NULL FOREIGN KEY (GroupId) REFERENCES Groups(GroupId),
 	LeaderStatus INT,
@@ -127,6 +128,12 @@ insert into Category values(16,'Ngon ngu Han Quoc')
 
 select * from Category
 
+
+insert into  Roles Values (1, 'Student')
+insert into  Roles Values (2, 'Lecturer')
+insert into  Roles Values (3, 'Business')
+insert into  Roles Values (4, 'Admin')
+select * from Roles
 
 insert into Users values(1,'Le Hai Long','12345678',1,2,'lehailong@gmail.com',1,null)
 insert into Users values(2,'Pham Cong Minh','12345678',1,2,'phamcongminh@gmail.com',1,null)
@@ -227,12 +234,9 @@ insert into Users values(72,'Vu Duong Tuong Vi','12345678',1,2,'vivdt@gmail.com'
 
 select * from Users
 
-insert into  Roles Values (1, 'Student')
-insert into  Roles Values (2, 'Lecturer')
-insert into  Roles Values (3, 'Business')
-insert into  Roles Values (4, 'Admin')
 
-select * from Roles
+
+
 
 insert into Semester values(1,'SU2022','2022-05-29','2022-09-30')
 insert into Semester values(2,'FA2021','2021-07-10','2021-10-10')
@@ -265,22 +269,24 @@ delete from Topic
 
 
 
-insert into Groups(GroupName,SemID,groupStatus,members) values('Beaky Blinders',1,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 2',1,1,5)	
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 3',1,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Showbit team',1,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 5',1,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 6',1,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 7',1,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 8',1,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 9',2,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group 10',2,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Group ABC',3,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('No name',3,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Gr 15',4,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('G63',4,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Eagles',1,1,5)
-insert into Groups(GroupName,SemID,groupStatus,members) values('Tigers',1,1,5)
+
+insert into Groups values(1,'Beaky Blinders',1,'Public',5)
+insert into Groups values(2,'Group 2',1,'Public',5)	
+insert into Groups values(3,'Group 3',1,'Private',5)
+insert into Groups values(4,'Showbit team',1,'Public',5)
+insert into Groups values(5,'Group 5',1,'Public',5)
+insert into Groups values(6,'Group 6',1,'Private',5)
+insert into Groups values(7,'Group 7',1,'Public',6)
+insert into Groups values(8,'Group 8',1,'Public',5)
+insert into Groups values(9,'Group 9',2,'Public',7)
+insert into Groups values(10,'Group 10',2,'Public',5)
+insert into Groups values(11,'Group ABC',3,'Private',5)
+insert into Groups values(12,'No name',3,'Private',5)
+insert into Groups values(13,'Gr 15',4,'Public',5)
+insert into Groups values(14,'G63',4,'Public',5)
+insert into Groups values(15,'Eagles',1,'Public',5)
+insert into Groups values(16,'Tigers',1,'Public',5)
+
 
 
 select * from Groups
@@ -290,73 +296,81 @@ delete from Groups
 
 
 
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(1,1,1)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(2,1,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(3,1,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(4,1,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(5,1,0)
+insert into StudentGroup values(1,1,1,1)
+insert into StudentGroup values(2,2,1,0)
+insert into StudentGroup values(3,3,1,0)
+insert into StudentGroup values(4,4,1,0)
+insert into StudentGroup values(5,5,1,0)
 --more groups
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(12,2,1)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(13,2,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(14,2,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(15,2,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(16,2,0)
+insert into StudentGroup values(6,12,2,1)
+insert into StudentGroup values(7,13,2,0)
+insert into StudentGroup values(8,14,2,0)
+insert into StudentGroup values(9,15,2,0)
+insert into StudentGroup values(10,16,2,0)
 
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(17,3,1)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(18,3,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(19,3,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(20,3,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(21,3,0)
+insert into StudentGroup values(11,17,3,1)
+insert into StudentGroup values(12,18,3,0)
+insert into StudentGroup values(13,19,3,0)
+insert into StudentGroup values(14,20,3,0)
+insert into StudentGroup values(15,21,3,0)
 --must more
 
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(27,5,1)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(28,5,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(29,5,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(30,5,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(31,5,0)
+insert into StudentGroup values(16,27,5,1)
+insert into StudentGroup values(17,28,5,0)
+insert into StudentGroup values(18,29,5,0)
+insert into StudentGroup values(19,30,5,0)
+insert into StudentGroup values(20,31,5,0)
 
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(32,6,1)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(33,6,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(34,6,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(35,6,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(36,6,0)
+insert into StudentGroup values(21,22,12,1)
+insert into StudentGroup values(22,23,12,0)
+insert into StudentGroup values(23,24,12,0)
+insert into StudentGroup values(24,25,12,0)
+insert into StudentGroup values(25,26,12,0)
 
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(37,7,1)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(38,7,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(39,7,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(40,7,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(41,7,0)
 
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(42,8,1)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(43,8,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(44,8,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(44,8,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(46,8,0)
+insert into StudentGroup values(26,32,6,1)
+insert into StudentGroup values(27,33,6,0)
+insert into StudentGroup values(28,34,6,0)
+insert into StudentGroup values(29,35,6,0)
+insert into StudentGroup values(30,36,6,0)
 
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(47,9,1)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(48,9,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(49,9,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(50,9,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(51,9,0)
+insert into StudentGroup values(31,37,7,1)
+insert into StudentGroup values(32,38,7,0)
+insert into StudentGroup values(33,39,7,0)
+insert into StudentGroup values(34,40,7,0)
+insert into StudentGroup values(35,41,7,0)
 
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(52,4,1)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(53,4,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(54,4,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(55,4,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(56,4,0)
+insert into StudentGroup values(36,42,8,1)
+insert into StudentGroup values(37,43,8,0)
+insert into StudentGroup values(38,44,8,0)
+insert into StudentGroup values(39,44,8,0)
+insert into StudentGroup values(40,46,8,0)
 
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(63,15,1)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(64,15,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(65,15,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(66,15,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(67,15,0)
+insert into StudentGroup values(41,47,9,1)
+insert into StudentGroup values(42,48,9,0)
+insert into StudentGroup values(43,49,9,0)
+insert into StudentGroup values(44,50,9,0)
+insert into StudentGroup values(45,51,9,0)
 
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(68,16,1)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(69,16,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(70,16,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(71,16,0)
-insert into StudentGroup(StudentId,GroupId,LeaderStatus) values(72,16,0)
+insert into StudentGroup values(46,52,4,1)
+insert into StudentGroup values(47,53,4,0)
+insert into StudentGroup values(48,54,4,0)
+insert into StudentGroup values(49,55,4,0)
+insert into StudentGroup values(50,56,4,0)
 
+
+insert into StudentGroup values(51,63,15,1)
+insert into StudentGroup values(52,64,15,0)
+insert into StudentGroup values(53,65,15,0)
+insert into StudentGroup values(54,66,15,0)
+insert into StudentGroup values(55,67,15,0)
+
+insert into StudentGroup values(56,68,16,1)
+insert into StudentGroup values(57,69,16,0)
+insert into StudentGroup values(58,70,16,0)
+insert into StudentGroup values(59,71,16,0)
+insert into StudentGroup values(60,72,16,0)
+select * from StudentGroup
 
 insert into LecturerTopic values(1,6,1)
 insert into LecturerTopic values(2,6,2)
@@ -391,5 +405,6 @@ insert into Project values(8,'Research and presentation','Economic Policy of Jap
 select * from Project
 select * from topic
 delete from Project 
+
 
 

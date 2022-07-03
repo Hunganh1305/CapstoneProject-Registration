@@ -30,11 +30,10 @@
     <body>
         <%
             String name = (String) session.getAttribute("name");
-            if (name == null) { %>
-        <p><font color='red'>You must login to view this page</font></p> 
-        <p>Click <a href="Login.jsp">here</a> to login</p> 
-        <%} else {%>
-
+            if (name == null) {
+                response.sendRedirect("Login.jsp");
+            } else {
+        %>
 
         <!-- Header -->
         <header>
@@ -50,42 +49,40 @@
             <hr/>
             <div class ="form__createTeam">
                 <div class="">
-                    <form action="save.do" class="form__control">
+                    <form action="<c:url value="/group/save.do"/>" class="form__control">
                         <div class="team__dep">
                             <label class="label_dep">Department</label>
-                            <input class="" type="text"  disabled  value="${depName.department.name}" required/>
+                            <input class="" type="text"  disabled  value="${depName}" required/>
                         </div>
-                        <div class="col">
-                            
+                        <div class="col teamAndMembers">
+
                             <input type="text" placeholder="Team name" id="groupName" name="groupName">
+                            <div class="selection--members">
+                                    <label for="members" class="label_member">Members</label>
+                                    <input type="number" id="members" name="members" min="3" max="7" value="${members==null?5:members}"/>
+                            </div>
                         </div>
                         <div class="col">
-                            <div class="selection">
-                                <div class="selection--left">
-                                    <label for="members" class="label_member">Members</label>
-                                    <input type="number" id="members" name="members" min="3" max="5" placeholder="4"/>
-                                </div>
-
-
-                                <div class="selection--right">
+                                <div class="selection--status">
                                     <label for="status" class="label_status">Status</label>
-                                    <select id="status" name="statusList">
-                                        <option value="0" name="groupStatus">Public</option>
-                                        <option value="1" name="groupStatus">Private</option>                            
-                                    </select>
+                                    <div id="status">
+                                        <input type="radio" name="groupStatus" value="Public" /> Public <br/>
+                                        <input type="radio" name="groupStatus" value="Private" /> Private
+                                    </div>
                                 </div>
                             </div>
 
-                        </div>                    
-<!--                        <div class="col ">
-
-                            <textarea placeholder="Description" cols="30" rows="10" name="description"></textarea>
-                        </div>-->
+                                          
+                        <!--                        <div class="col ">
+                        
+                                                    <textarea placeholder="Description" cols="30" rows="10" name="description"></textarea>
+                                                </div>-->
                 </div>
-                <button type="submit" class="btn btn-Close"><i class="bi bi-x-circle"></i>Close</button>
-                <button type="submit" class="btn btn-Create"><i class="bi bi-box-arrow-down"></i>Create</button>
+                <button type="submit" value="close" name="op" class="btn btn-Close"><i class="bi bi-x-circle"></i>Close</button>
+                <button type="submit" value="create" name="op" class="btn btn-Create"><i class="bi bi-box-arrow-down"></i>Create</button>
 
                 </form>
+                <div class="text-danger" style="font-style: italic;">${errorMessage}</div>
             </div>
 
 
@@ -93,7 +90,9 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
+
         <% }%>
+
         <script type="text/javascript" src="../js/jquery.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/main.js"></script>
