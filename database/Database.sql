@@ -68,7 +68,7 @@ CREATE TABLE Groups (
 	GroupId INT PRIMARY KEY not null,
 	GroupName VARCHAR(30),
 	SemID INT FOREIGN KEY (SemID) REFERENCES Semester(SemesterId),
-	groupStatus INT ,
+	groupStatus VARCHAR(10),
 	members INT
 
 )
@@ -129,6 +129,10 @@ insert into Category values(16,'Ngon ngu Han Quoc')
 select * from Category
 
 
+insert into  Roles Values (1, 'Student')
+insert into  Roles Values (2, 'Lecturer')
+insert into  Roles Values (3, 'Business')
+insert into  Roles Values (4, 'Admin')
 select * from Roles
 
 insert into Users values(1,'Le Hai Long','12345678',1,2,'lehailong@gmail.com',1,null)
@@ -231,10 +235,6 @@ insert into Users values(72,'Vu Duong Tuong Vi','12345678',1,2,'vivdt@gmail.com'
 select * from Users
 
 
-insert into  Roles Values (1, 'Student')
-insert into  Roles Values (2, 'Lecturer')
-insert into  Roles Values (3, 'Business')
-insert into  Roles Values (4, 'Admin')
 
 
 
@@ -270,22 +270,22 @@ delete from Topic
 
 
 
-insert into Groups values(1,'Beaky Blinders',1,'Public',5,2)
-insert into Groups values(2,'Group 2',1,'Public',5,2)	
-insert into Groups values(3,'Group 3',1,'Private',5,2)
-insert into Groups values(4,'Showbit team',1,'Public',5,2)
-insert into Groups values(5,'Group 5',1,'Public',5,2)
-insert into Groups values(6,'Group 6',1,'Private',5,2)
-insert into Groups values(7,'Group 7',1,'Public',5,2)
-insert into Groups values(8,'Group 8',1,'Public',5,2)
-insert into Groups values(9,'Group 9',2,'Public',5,0)
-insert into Groups values(10,'Group 10',2,'Public',5,0)
-insert into Groups values(11,'Group ABC',3,'Private',5,0)
-insert into Groups values(12,'No name',3,'Private',5,0)
-insert into Groups values(13,'Gr 15',4,'Public',5,0)
-insert into Groups values(14,'G63',4,'Public',5,0)
-insert into Groups values(15,'Eagles',1,'Public',5,0)
-insert into Groups values(16,'Tigers',1,'Public',5,0)
+insert into Groups values(1,'Beaky Blinders',1,'Public',5)
+insert into Groups values(2,'Group 2',1,'Public',5)	
+insert into Groups values(3,'Group 3',1,'Private',5)
+insert into Groups values(4,'Showbit team',1,'Public',5)
+insert into Groups values(5,'Group 5',1,'Public',5)
+insert into Groups values(6,'Group 6',1,'Private',5)
+insert into Groups values(7,'Group 7',1,'Public',6)
+insert into Groups values(8,'Group 8',1,'Public',5)
+insert into Groups values(9,'Group 9',2,'Public',7)
+insert into Groups values(10,'Group 10',2,'Public',5)
+insert into Groups values(11,'Group ABC',3,'Private',5)
+insert into Groups values(12,'No name',3,'Private',5)
+insert into Groups values(13,'Gr 15',4,'Public',5)
+insert into Groups values(14,'G63',4,'Public',5)
+insert into Groups values(15,'Eagles',1,'Public',5)
+insert into Groups values(16,'Tigers',1,'Public',5)
 
 
 
@@ -407,5 +407,4 @@ select * from topic
 delete from Project 
 
 
-select * from ProjectLecturer 
 

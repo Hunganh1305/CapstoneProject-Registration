@@ -73,15 +73,18 @@
                 <div class="teamMember-content">
                     <div class="teamMember-content_header">
                         <h4>Team members</h4>
-                        <div class="tdTbl__success"> <p>${countMembers}/${teamInfor.group.members}</p> </div>                                                            
-                        <hr/>
+                        <div class="tdTbl__success"> <p class="membersCount">${countMembers}/${teamInfor.group.members}</p> </div>                                                                                    
                     </div>
+                    <hr/>
                     <c:forEach var="item" items="${teamMembers}" varStatus="loop">
 
                         <ul class="teamMembers-list">
                             <li class="teamMember-item">
-                                ${item.user.name}
-                                <span <c:if test="${item.leaderStatus == 1}">class="tdTbl__danger"</c:if> >${item.leaderStatus == 1?"Leader":"" }</span>
+                                <div>
+                                    <img class="avatar" src="../img/sample-avatar.jpg" />
+                                    ${item.user.name} <br/>
+                                    <span <c:if test="${item.leaderStatus == 1}">class="tdTbl__danger tab-leader"</c:if> >${item.leaderStatus == 1?"Leader":"" }</span>
+                                    </div>
                                 </li>
                                 <div class="tabProgramContainer">
                                     <td class="tabProgramControl">
@@ -92,7 +95,7 @@
                                     </td>
                                 </div>
                             </ul>
-
+                            <hr/>
                     </c:forEach>
                 </div>
                 <div class="teamInfor-content">
@@ -101,17 +104,17 @@
                         <ul class="teamInfor-list">
                             <li class="teamInfor-item">
                                 <i class="fa fa-solid fa-bars col-sm-1"></i>
-                                <span class="col-sm-4">Team Name</span>
-                                <span class="col-sm-7">${teamInfor.group.groupName}</span>
+                                <span class="col-sm-4">Team Name:</span>
+                                <strong><span class="col-sm-12">${teamInfor.group.groupName}</span></strong>
                             </li>
                             <li class="teamInfor-item">
                                 <i class="fa-solid fa-clone col-sm-1"></i>
-                                <span class="col-sm-4">Team ID</span>
+                                <span class="col-sm-4">Team ID:</span>
                                 <span class="col-sm-7">${teamInfor.groupId}</span>
                             </li>                        
                             <li class="teamInfor-item">
                                 <i class="fa fa-regular fa-building col-sm-1"></i>
-                                <span class="col-sm-4">Department</span>
+                                <span class="col-sm-4">Department:</span>
                                 <div class="col-sm-7">
                                     <span class="tabProgram">${teamInfor.department.name}</span>
                                 </div>
@@ -128,23 +131,25 @@
                             <div class="col-sm-2">
                                 <span class="tdTbl__success">${groupStatus}</span>
                             </div>
+                        </div> 
+                            <hr/>
+                        <div class="teamInfor-item">
+                            <strong><span class="col-sm-4">Description:</span></strong>
+                            <span class="col-sm-12">${teamInfor.project.description}</span>
+                        </div>    
+                            <hr/>
+                        <div class="teamInfor-topic">
+                            <div class="teamInfor-item">                                
+                                <p class="center-block" style="font-weight: 700">${teamInfor.project.name == null?"This team have not matched any topic yet":""}${teamInfor.project.name}</p>                                
+                            </div>
                         </div>
-                        
                 </div>
             </div>                
 
 
 
-            <!--                <table class="table teamTopic">
-                                <tbody>
-                                    <tr>                               
-                                        <td>${teamInfor.project.name == null?"This team have not matched any topic yet":""}${teamInfor.project.name}</td>
-                                    </tr>
-                                </tbody>
-            
-                            </table>-->
         </section>
-        <!-- topic -->
+
 
         <footer>
             <%@include file="footer.jsp" %>
