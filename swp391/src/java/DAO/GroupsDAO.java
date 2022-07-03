@@ -117,14 +117,13 @@ public class GroupsDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "insert into dbo.Groups values(?, ?, ?, ?, ?, ?)";
+                String sql = "insert into dbo.Groups values(?, ?, ?, ?, ?)";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setInt(1, groups.getGroupId());
                 stm.setString(2, groups.getGroupName());
                 stm.setInt(3, groups.getSemId());
                 stm.setString(4, groups.getGroupStatus());
-                stm.setInt(5, groups.getMembers());
-                stm.setInt(6, groups.getTopicStatus());
+                stm.setInt(5, groups.getMembers());                
                 stm.executeUpdate();
                 cn.close();
             }
@@ -133,24 +132,6 @@ public class GroupsDAO {
         }
     }
     
-    public void createWithIdentityId(Groups groups) {
-        Connection cn = null;
-        try {
-            cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "insert into dbo.Groups(GroupName,SemID,groupStatus,members,TopicStatus) values(?, ?, ?, ?, ?)";
-                PreparedStatement stm = cn.prepareStatement(sql);                
-                stm.setString(1, groups.getGroupName());
-                stm.setInt(2, groups.getSemId());
-                stm.setString(3, groups.getGroupStatus());
-                stm.setInt(4, groups.getMembers());
-                stm.setInt(5, groups.getTopicStatus());
-                stm.executeUpdate();
-                cn.close();
-            }
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-    }
+
     
 }
