@@ -104,17 +104,17 @@
                         <ul class="teamInfor-list">
                             <li class="teamInfor-item">
                                 <i class="fa fa-solid fa-bars col-sm-1"></i>
-                                <span class="col-sm-4">Team Name</span>
-                                <span class="col-sm-7">${teamInfor.group.groupName}</span>
+                                <span class="col-sm-4">Team Name:</span>
+                                <strong><span class="col-sm-12">${teamInfor.group.groupName}</span></strong>
                             </li>
                             <li class="teamInfor-item">
                                 <i class="fa-solid fa-clone col-sm-1"></i>
-                                <span class="col-sm-4">Team ID</span>
+                                <span class="col-sm-4">Team ID:</span>
                                 <span class="col-sm-7">${teamInfor.groupId}</span>
                             </li>                        
                             <li class="teamInfor-item">
                                 <i class="fa fa-regular fa-building col-sm-1"></i>
-                                <span class="col-sm-4">Department</span>
+                                <span class="col-sm-4">Department:</span>
                                 <div class="col-sm-7">
                                     <span class="tabProgram">${teamInfor.department.name}</span>
                                 </div>
@@ -132,20 +132,24 @@
                                 <span class="tdTbl__success">${groupStatus}</span>
                             </div>
                         </div> 
-                            <div class="teamInfor-topic">
-                            <div class="teamInfor-item">
-                                <div class="teamInfor-topic_content">
-                                    <p>${teamInfor.project.name == null?"This team have not matched any topic yet":""}${teamInfor.project.name}</p>
-                                </div>
+                            <hr/>
+                        <div class="teamInfor-item">
+                            <strong><span class="col-sm-4">Description:</span></strong>
+                            <span class="col-sm-12">${teamInfor.project.description}</span>
+                        </div>    
+                            <hr/>
+                        <div class="teamInfor-topic">
+                            <div class="teamInfor-item">                                
+                                <p class="center-block" style="font-weight: 700">${teamInfor.project.name == null?"This team have not matched any topic yet":""}${teamInfor.project.name}</p>                                
                             </div>
                         </div>
                 </div>
             </div>                
 
-           
+
 
         </section>
-       
+
 
         <footer>
             <%@include file="footer.jsp" %>
