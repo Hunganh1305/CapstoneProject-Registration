@@ -54,28 +54,25 @@
                             <label class="label_dep">Department</label>
                             <input class="" type="text"  disabled  value="${depName}" required/>
                         </div>
-                        <div class="col">
+                        <div class="col teamAndMembers">
 
                             <input type="text" placeholder="Team name" id="groupName" name="groupName">
+                            <div class="selection--members">
+                                    <label for="members" class="label_member">Members</label>
+                                    <input type="number" id="members" name="members" min="3" max="7" value="${members==null?5:members}"/>
+                            </div>
                         </div>
                         <div class="col">
-                            <div class="selection">
-                                <div class="selection--left">
-                                    <label for="members" class="label_member">Members</label>
-                                    <input type="number" name="members" min="3" max="7" value="${members==null?5:members}"/>
-                                </div>
-
-
-                                <div class="selection--right">
+                                <div class="selection--status">
                                     <label for="status" class="label_status">Status</label>
-                                    <select id="status" name="statusList">
-                                        <option value="0" name="groupStatus">Public</option>
-                                        <option value="1" name="groupStatus">Private</option>                            
-                                    </select>
+                                    <div id="status">
+                                        <input type="radio" name="groupStatus" value="Public" /> Public <br/>
+                                        <input type="radio" name="groupStatus" value="Private" /> Private
+                                    </div>
                                 </div>
                             </div>
 
-                        </div>                    
+                                          
                         <!--                        <div class="col ">
                         
                                                     <textarea placeholder="Description" cols="30" rows="10" name="description"></textarea>
@@ -93,9 +90,9 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
-        
+
         <% }%>
-        
+
         <script type="text/javascript" src="../js/jquery.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/main.js"></script>
