@@ -77,14 +77,16 @@
                         All of public and unlocked teams in semester ${currentSem.name}_SWP
                     </h6>
                     <div class="btnControl">
-                        <button class="team__btn"><a  <c:if test="${check == 1}">disabled</c:if> href="${root}/group/create.do?id=${userId}">+ Create A New Team</a> </button>
+                        <c:if test="${checkUserId != 0}"><button class="team__btn-disabled"><a href="#" data-toggle="tooltip" title="You are already have team! You can not create any team.">+ Create A New Team</a></c:if>
+                            <c:if test="${checkUserId == 0}"><button class="team__btn"><a href="${root}/group/create.do?id=${userId}">+ Create A New Team</a> </button></c:if>
+
+                        </div>
                     </div>
-                </div>
 
-                <hr>
+                    <hr>
 
-                <div class="topic__search">
-                    <form action="<c:url value="/group/search.do"/>">
+                    <div class="topic__search">
+                        <form action="<c:url value="/group/search.do"/>">
                         <input placeholder=" " value="${searchText==null?"":searchText}" name="searchText" class="search__input" type="text">
                         <label for="search" class="search__label">Search by name</label>
                         <button type="submit" class="search-btn ">
@@ -124,7 +126,7 @@
                                 <th>DEP.</th>
                                 <th>TeamName</th>
                                 <th>Leader</th>
-                                <th style="padding-left: 18px">Status</th>
+                                <th>Member(s)</th>
                                 <th>Detail</th>
                             </tr>
                         </thead>
@@ -136,9 +138,17 @@
                                     <td>${list.department.name}</td>
                                     <td>${list.group.groupName}</td>
                                     <td>${list.user.name}</td>
-                                    <td><span
-                                            class="tdTbl__warning">${list.project.status==1?"unlocked":"locked"}</span>
-                                    </td>
+
+                                    <c:choose >
+                                        <c:when test="${countMembers == list.group.members}">
+                                            <td><span class="tdTbl__success">${countMembers}/${list.group.members}</span> </td>    
+                                        </c:when>
+                                        <c:when test="${countMembers <= list.group.members}">
+                                            <td><span class="tdTbl__warning">${countMembers}/${list.group.members}</span> </td>
+                                        </c:when>
+                                    </c:choose>
+
+
                                     <td><a href="${root}/group/detail.do?id=${list.groupId}"><i class="fa fa-solid fa-eye"></i></a></td>
                                 </tr>
                             </tbody>
@@ -185,8 +195,14 @@
             <%@include file="footer.jsp" %>
         </footer>
         <% }%>
+
         <script type="text/javascript" src="../js/jquery.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/main.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
         <script src="../js/topic.js"></script>
     </body>
