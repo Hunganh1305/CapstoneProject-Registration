@@ -62,7 +62,7 @@
                     <div class="dropdown2">
                         <ul class="semester__list">
                             <c:forEach var="item" items="${semList}" varStatus="loop"> 
-                                <li name="semester" class="semester__item" ><a  href="${root}/group/semester.do?semester=${item.name}">${item.name}</a></li>             
+                                <li name="semester" class="semester__item" ><a href="${root}/group/semester.do?semester=${item.name}">${item.name}</a></li>             
                                 </c:forEach>
                         </ul>
                     </div>
@@ -77,7 +77,7 @@
                         All of public and unlocked teams in semester ${currentSem.name}_SWP
                     </h6>
                     <div class="btnControl">
-                        <button class="team__btn"><a href="${root}/group/create.do?id=${userId}">+ Create A New Team</a> </button>
+                        <button class="team__btn"><a  <c:if test="${check == 1}">disabled</c:if> href="${root}/group/create.do?id=${userId}">+ Create A New Team</a> </button>
                     </div>
                 </div>
 
@@ -159,22 +159,22 @@
                 </c:if>
                 <hr>
                 <c:if test="${!empty list}">
-                 
-                        <div class="row pageBtn">
-                            <div class="col" style="text-align: right;">
-                                <br/>
-                                <form action="<c:url value="/group/${currGroupAction}.do" />">
-                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${page==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
-                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${page==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
-                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${page==totalPage}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
-                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="LastPage" title="Last Page" <c:if test="${page==totalPage}">disabled</c:if>><i class="bi bi-chevron-bar-right"></i></button>
-                                    <input type="text" name="gotoPage" value="${page}" class="btn-warning btn-outline-info" style="padding:12px;text-align:left;color:#000;width:40px;" title="Enter page number"/>
-                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="GotoPage" title="Goto Page"><i class="bi bi-arrow-up-right-circle"></i></button>
-                                </form>
-                                Page ${page}/${totalPage}
-                            </div>
+
+                    <div class="row pageBtn">
+                        <div class="col" style="text-align: right;">
+                            <br/>
+                            <form action="<c:url value="/group/${currGroupAction}.do" />">
+                                <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${page==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
+                                <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${page==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
+                                <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${page==totalPage}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
+                                <button type="submit" class="btn btn-warning  btn-info" name="op" value="LastPage" title="Last Page" <c:if test="${page==totalPage}">disabled</c:if>><i class="bi bi-chevron-bar-right"></i></button>
+                                <input type="text" name="gotoPage" value="${page}" class="btn-warning btn-outline-info" style="padding:12px;text-align:left;color:#000;width:40px;" title="Enter page number"/>
+                                <button type="submit" class="btn btn-warning  btn-info" name="op" value="GotoPage" title="Goto Page"><i class="bi bi-arrow-up-right-circle"></i></button>
+                            </form>
+                            Page ${page}/${totalPage}
                         </div>
-                   
+                    </div>
+
                 </c:if>
 
 
