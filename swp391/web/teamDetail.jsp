@@ -73,15 +73,18 @@
                 <div class="teamMember-content">
                     <div class="teamMember-content_header">
                         <h4>Team members</h4>
-                        <div class="tdTbl__success"> <p>${countMembers}/${teamInfor.group.members}</p> </div>                                                            
-                        <hr/>
+                        <div class="tdTbl__success"> <p class="membersCount">${countMembers}/${teamInfor.group.members}</p> </div>                                                                                    
                     </div>
+                    <hr/>
                     <c:forEach var="item" items="${teamMembers}" varStatus="loop">
 
                         <ul class="teamMembers-list">
                             <li class="teamMember-item">
-                                ${item.user.name}
-                                <span <c:if test="${item.leaderStatus == 1}">class="tdTbl__danger"</c:if> >${item.leaderStatus == 1?"Leader":"" }</span>
+                                <div>
+                                    <img class="avatar" src="../img/sample-avatar.jpg" />
+                                    ${item.user.name} <br/>
+                                    <span <c:if test="${item.leaderStatus == 1}">class="tdTbl__danger tab-leader"</c:if> >${item.leaderStatus == 1?"Leader":"" }</span>
+                                    </div>
                                 </li>
                                 <div class="tabProgramContainer">
                                     <td class="tabProgramControl">
@@ -92,7 +95,7 @@
                                     </td>
                                 </div>
                             </ul>
-
+                            <hr/>
                     </c:forEach>
                 </div>
                 <div class="teamInfor-content">
@@ -128,23 +131,21 @@
                             <div class="col-sm-2">
                                 <span class="tdTbl__success">${groupStatus}</span>
                             </div>
+                        </div> 
+                            <div class="teamInfor-topic">
+                            <div class="teamInfor-item">
+                                <div class="teamInfor-topic_content">
+                                    <p>${teamInfor.project.name == null?"This team have not matched any topic yet":""}${teamInfor.project.name}</p>
+                                </div>
+                            </div>
                         </div>
-                        
                 </div>
             </div>                
 
+           
 
-
-            <!--                <table class="table teamTopic">
-                                <tbody>
-                                    <tr>                               
-                                        <td>${teamInfor.project.name == null?"This team have not matched any topic yet":""}${teamInfor.project.name}</td>
-                                    </tr>
-                                </tbody>
-            
-                            </table>-->
         </section>
-        <!-- topic -->
+       
 
         <footer>
             <%@include file="footer.jsp" %>
