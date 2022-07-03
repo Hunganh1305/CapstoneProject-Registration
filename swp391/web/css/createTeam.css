@@ -23,14 +23,12 @@
 .col{
     margin-top:  1rem;
 }
-.col .selection{    
-    padding: 1em 0em;    
+.teamAndMembers{
     display: flex;
-    justify-content: space-between;
-    
 }
-.selection--left{    
+.selection--members{    
     position: relative;
+    padding-left: 8px;
 }
 .label_member{
     position: absolute;
@@ -39,7 +37,7 @@
     left: 10px;
     background-color: #fff;    
 }
-input#members{
+input#members{    
     width: 350px;
     height: 40px;    
     border-radius: 5px   
@@ -47,7 +45,7 @@ input#members{
 #members {
     padding-left: 1em;
 }
-.selection--right{    
+.selection--status{    
     position: relative;
 }
 .label_status{
@@ -58,10 +56,13 @@ input#members{
     background-color: #fff;    
 }
 
-select#status{
+#status{
+    /*border: 1px solid red;*/
+    padding-top: 5px;
     width: 550px;
-     height: 40px;    
-    border-radius: 5px
+    height: 80px;    
+    border-radius: 5px;
+    
 }
 
 .col textarea{
