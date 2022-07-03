@@ -69,9 +69,7 @@ CREATE TABLE Groups (
 	GroupName VARCHAR(30),
 	SemID INT FOREIGN KEY (SemID) REFERENCES Semester(SemesterId),
 	groupStatus INT ,
-	members INT,
-	TopicStatus INT,
-	TopicId INT FOREIGN KEY (TopicId) REFERENCES Topic(TopicId)
+	members INT
 )
 
 CREATE TABLE StudentGroup (
@@ -79,6 +77,13 @@ CREATE TABLE StudentGroup (
 	StudentId INT NOT NULL FOREIGN KEY (StudentId) REFERENCES Users(UserId),
 	GroupId INT NOT NULL FOREIGN KEY (GroupId) REFERENCES Groups(GroupId),
 	LeaderStatus INT,
+)
+
+CREATE TABLE PendingGroupTopic (
+	Id INT identity(1,1) PRIMARY KEY not null,
+	GroupId INT NOT NULL FOREIGN KEY (GroupId) REFERENCES Groups(GroupId),
+	TopicId INT NOT NULL FOREIGN KEY (TopicId) REFERENCES Topic(TopicId),	
+	DepartmentId INT FOREIGN KEY (DepartmentId) REFERENCES Department(DepartmentId)
 )
 
 
@@ -89,14 +94,11 @@ CREATE TABLE Project(
 	SourceCode VARCHAR(200),
 	TopicId INT FOREIGN KEY(TopicId) REFERENCES Topic(TopicId),
 	Status INT,
-	GroupId INT NOT NULL FOREIGN KEY(GroupId) REFERENCES Groups(GroupId)
-)
-
-CREATE TABLE ProjectLecturer(
-	Id INT PRIMARY KEY,
-	ProjectId INT NOT NULL FOREIGN KEY (ProjectId) REFERENCES Project(ProjectId),
+	GroupId INT NOT NULL FOREIGN KEY(GroupId) REFERENCES Groups(GroupId),
 	LecturerId INT NOT NULL FOREIGN KEY (LecturerId) REFERENCES Users(UserId)
 )
+
+
 
 insert into Department values(1,'Quan tri kinh doanh')
 insert into Department values(2,'Cong nghe thong tin')
@@ -228,6 +230,7 @@ select * from Users
 insert into  Roles Values (1, 'Student')
 insert into  Roles Values (2, 'Lecturer')
 insert into  Roles Values (3, 'Business')
+insert into  Roles Values (4, 'Admin')
 
 select * from Roles
 
@@ -251,8 +254,8 @@ insert into Topic values(7,'An analysis on cultural',16,'Write an essay analyze 
 insert into Topic values(8,'Economic Policy of Japan',15,'Research and presentation',9,5,1,2)
 insert into Topic values(9,'Restaurant researching',2,'Manage a restaurant',7,1,2,2)
 insert into Topic values(10,'Cycle of whales',14,'Study about whales',10,3,2,2)
-insert into Topic values(11,'Jewelry System',6,'Ecommerce jewelry selling website',8,2,1,2)
-insert into Topic values(12,'Online CV builder',6,'Generate CV automatically',9,2,1,2)
+insert into Topic values(11,'Jewelry System',6,'Ecommerce jewelry selling website',8,2,1,0)
+insert into Topic values(12,'Online CV builder',6,'Generate CV automatically',9,2,1,0)
 
 
 
@@ -262,22 +265,22 @@ delete from Topic
 
 
 
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Beaky Blinders',1,1,5,2,1)
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 2',1,1,5,2,2)	
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 3',1,1,5,2,3)
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Showbit team',1,1,5,2,4)
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 5',1,1,5,2,5)
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 6',1,1,5,2,6)
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 7',1,1,5,2,7)
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 8',1,1,5,2,8)
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 9',2,1,5,0,null)
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group 10',2,1,5,0,null)
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Group ABC',3,1,5,0,null)
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('No name',3,1,5,0,null)
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Gr 15',4,1,5,0,null)
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('G63',4,1,5,0,null)
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Eagles',1,1,5,0,null)
-insert into Groups(GroupName,SemID,groupStatus,members,TopicStatus,TopicId) values('Tigers',1,1,5,0,null)
+insert into Groups(GroupName,SemID,groupStatus,members) values('Beaky Blinders',1,1,5)
+insert into Groups(GroupName,SemID,groupStatus,members) values('Group 2',1,1,5)	
+insert into Groups(GroupName,SemID,groupStatus,members) values('Group 3',1,1,5)
+insert into Groups(GroupName,SemID,groupStatus,members) values('Showbit team',1,1,5)
+insert into Groups(GroupName,SemID,groupStatus,members) values('Group 5',1,1,5)
+insert into Groups(GroupName,SemID,groupStatus,members) values('Group 6',1,1,5)
+insert into Groups(GroupName,SemID,groupStatus,members) values('Group 7',1,1,5)
+insert into Groups(GroupName,SemID,groupStatus,members) values('Group 8',1,1,5)
+insert into Groups(GroupName,SemID,groupStatus,members) values('Group 9',2,1,5)
+insert into Groups(GroupName,SemID,groupStatus,members) values('Group 10',2,1,5)
+insert into Groups(GroupName,SemID,groupStatus,members) values('Group ABC',3,1,5)
+insert into Groups(GroupName,SemID,groupStatus,members) values('No name',3,1,5)
+insert into Groups(GroupName,SemID,groupStatus,members) values('Gr 15',4,1,5)
+insert into Groups(GroupName,SemID,groupStatus,members) values('G63',4,1,5)
+insert into Groups(GroupName,SemID,groupStatus,members) values('Eagles',1,1,5)
+insert into Groups(GroupName,SemID,groupStatus,members) values('Tigers',1,1,5)
 
 
 select * from Groups
@@ -374,14 +377,14 @@ select * from LecturerTopic
 
 delete from LecturerTopic
 
-insert into Project values(1,'Manage and review on this web','CPManagement-Review','https://github.com/phhgquang/SWP391',1,1,1)
-insert into Project values(2,'The best solution to manage and service your pet','PetCareSystem','',2,1,2)
-insert into Project values(3,'The way to transform to the monster','PT Tranning app','',3,1,3)
-insert into Project values(4,'Like a little MCU movie','Game Animation','',4,1,4)
-insert into Project values(5,'Make and marketing a brand to users','Research And Developing Brands','',5,1,5)
-insert into Project values(6,'Write an essay about social isues','Social issues','',6,1,6)
-insert into Project values(7,'Write an essay analyze cultural','An analysis on cultural','',7,1,7)
-insert into Project values(8,'Research and presentation','Economic Policy of Japan','',8,1,8)
+insert into Project values(1,'Manage and review on this web','CPManagement-Review','https://github.com/phhgquang/SWP391',1,1,1,6)
+insert into Project values(2,'The best solution to manage and service your pet','PetCareSystem','',2,1,2,6)
+insert into Project values(3,'The way to transform to the monster','PT Tranning app','',3,1,3,6)
+insert into Project values(4,'Like a little MCU movie','Game Animation','',4,1,4,6)
+insert into Project values(5,'Make and marketing a brand to users','Research And Developing Brands','',5,1,5,57)
+insert into Project values(6,'Write an essay about social isues','Social issues','',6,1,6,58)
+insert into Project values(7,'Write an essay analyze cultural','An analysis on cultural','',7,1,7,59)
+insert into Project values(8,'Research and presentation','Economic Policy of Japan','',8,1,8,60)
 
 
 
@@ -389,7 +392,4 @@ select * from Project
 select * from topic
 delete from Project 
 
-insert into ProjectLecturer values(1,1,6)
-insert into ProjectLecturer values(2,2,6)
 
-select * from ProjectLecturer
