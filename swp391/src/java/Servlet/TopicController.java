@@ -301,14 +301,14 @@ public class TopicController extends HttpServlet {
         int leaderStatus = td.checkLeader(userId);
         int depId = td.checkDepartment(userId);
         int semId = td.checkSemester(userId);
-        int topicStatus = td.checkHaveTopic(userId);
+        int topicStatus = td.checkHaveTopic(groupId);
 
         ArrayList<Topic> list = td.readAll(currSem.getName());
         ArrayList<Topic> appliableTopicList = new ArrayList();
 
         for (Topic item : list) {
             boolean check = td.checkHaveApplied(item.getTopicId(), groupId);
-            if (leaderStatus == 1 && depId == item.getDepartmentId() && semId == item.getSemester().getSemesterId() && topicStatus != 2 && item.getStatus() != 2 && check == false) {
+            if (leaderStatus == 1 && depId == item.getDepartmentId() && semId == item.getSemester().getSemesterId() && topicStatus == 0 && item.getStatus() != 2 && check == false) {
                 appliableTopicList.add(item);
             }
         }
