@@ -34,7 +34,7 @@ public class GroupsDAO {
                     int groupID = rs.getInt("GroupId");
                     String name = rs.getString("GroupName");
                     int semID = rs.getInt("SemID");
-                    int groupStatus = rs.getInt("groupStatus");
+                    String groupStatus = rs.getString("groupStatus");
                     int members = rs.getInt("members");
                     int TopicStatus = rs.getInt("TopicStatus");
                     Groups group = new Groups(groupID, name, semID, groupStatus, members,TopicStatus);
@@ -83,7 +83,7 @@ public class GroupsDAO {
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, groups.getGroupName());
                 stm.setInt(2, groups.getSemId());
-                stm.setInt(3, groups.getGroupStatus());
+                stm.setString(3, groups.getGroupStatus());
                 stm.setInt(4, groups.getMembers());
                 stm.setInt(5, groups.getTopicStatus());
                 stm.setInt(6, groups.getGroupId());
@@ -122,7 +122,7 @@ public class GroupsDAO {
                 stm.setInt(1, groups.getGroupId());
                 stm.setString(2, groups.getGroupName());
                 stm.setInt(3, groups.getSemId());
-                stm.setInt(4, groups.getGroupStatus());
+                stm.setString(4, groups.getGroupStatus());
                 stm.setInt(5, groups.getMembers());
                 stm.setInt(6, groups.getTopicStatus());
                 stm.executeUpdate();
@@ -142,7 +142,7 @@ public class GroupsDAO {
                 PreparedStatement stm = cn.prepareStatement(sql);                
                 stm.setString(1, groups.getGroupName());
                 stm.setInt(2, groups.getSemId());
-                stm.setInt(3, groups.getGroupStatus());
+                stm.setString(3, groups.getGroupStatus());
                 stm.setInt(4, groups.getMembers());
                 stm.setInt(5, groups.getTopicStatus());
                 stm.executeUpdate();
