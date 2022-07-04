@@ -44,6 +44,9 @@
     transition: 0.2s;
     cursor: default;
 }
+.team__btn-disabled a{
+    padding-top: 8px;
+}
 
 .team__btn:hover {
     background: #B66816;
