@@ -125,7 +125,14 @@
                                     <span class="col-sm-2"></span>
                                     <i class="fa-solid fa-shield col-sm-1"></i>
                                     <div class="col-sm-2">
-                                        <span class="green-box">${Group.groupStatus}</span>
+                                        <c:choose >
+                                        <c:when test="${Group.groupStatus == 1}">
+                                            <span class="green-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                     
+                                        </c:when>
+                                        <c:when test="${Group.groupStatus == 0}">
+                                            <span class="orange-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                  
+                                        </c:when>
+                                    </c:choose>
                                     </div>
                                 </div>
                             </div>
