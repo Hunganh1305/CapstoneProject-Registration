@@ -60,9 +60,10 @@
             <div class="team__header">
                 <h2>Team detail</h2>
                 <div class="btnControl">
-                    <button class="team__btn">
-                        <a href="${root}/group/join.do?id=${userId}"><i class="fa-solid fa-right-to-bracket"></i> Quick Join A Team</a>
-                    </button>
+                    <c:choose>
+                        <c:when test="${checkUserId != 0}"><button class="team__btn-disabled"><a href="#" data-toggle="tooltip" title="You are already have team! You can not join this team."><span class="fa-solid fa-right-from-bracket fa-md"></span>Quick Join A Team</a></c:when>
+                            <c:when test="${checkUserId == 0}"><button class="team__btn"><a href="${root}/group/join.do?id=${userId}">Quick Join A Team</a> </button></c:when>
+                        </c:choose>
                 </div>
             </div>          
 
@@ -138,13 +139,13 @@
                                         <c:when test="${groupStatus == 1}">
                                             <span class="tdTbl__success">${groupStatus == 1?"Public":"Private"}</span>  
                                             <span class="quesIcon"><a href="#" data-placement="right" data-toggle="tooltip" title="This team is visible to every actived student in this semester"><i class="fa-regular fa-circle-question"></i></a></span>
-                                        </c:when>
-                                        <c:when test="${groupStatus == 0}">
+                                                </c:when>
+                                                <c:when test="${groupStatus == 0}">
                                             <span class="tdTbl__warning">${groupStatus == 1?"Public":"Private"}</span>   
                                             <span class="quesIcon"><a href="#" data-placement="right" data-toggle="tooltip" title="This team is invisible to every actived student in this semester"><i class="fa-regular fa-circle-question"></i></a></span>
-                                        </c:when>
-                                    </c:choose>
-                                    
+                                                </c:when>
+                                            </c:choose>
+
                                 </div>                                                                                                                                                                    
                             </div>
                         </div> 
@@ -162,7 +163,7 @@
                                     </div>
                                 </div>
                             </c:when>
-                                
+
                             <c:when test="${checkProjectId == 0}">
                                 <div class="teamInfor-item">
                                     <strong><span class="col-sm-4">Description:</span></strong>
