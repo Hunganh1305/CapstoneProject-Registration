@@ -97,22 +97,50 @@ public class TopicController extends HttpServlet {
                 currSem = (Semester) session.getAttribute("currentSem");
                 String searchText = request.getParameter("searchText");
                 ArrayList<Topic> list2 = null;
+                
+                 //        pagination
+                String prevSearch = (String) session.getAttribute("prevTopicSearch");
+                if (prevSearch == null) {
+                    session.setAttribute("prevTopicSearch", searchText);
+                    prevSearch = searchText;
+                }
+                session.setAttribute("currTopicSearch", searchText);
+                String currSearch = (String) session.getAttribute("currTopicSearch");
+               
                 if (searchText == null) {
                     list2 = td.readAll(currSem.getName());
                 } else {
                     list2 = td.searchByName(searchText, currSem.getName());
                 }
 
-                //        pagination
+               
                 if (!prevAction.equals(currAction)) {
                     session.setAttribute("totalPage", null);
                     session.setAttribute("page", null);
                 }
                 session.setAttribute("prevTopicAction", "search");
+                pagination(request, response, list2);           
+                session.setAttribute("searchText", searchText);
+                session.setAttribute("currTopicAction", "pagesearch");
+                  //        pagination
+                
+                if (user.getRoleId() == 1) {
+                    request.getRequestDispatcher("/topic.jsp").forward(request, response);
+                } else if (user.getRoleId() == 2) {
+                    request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+                }
+                break;
+            case "pagesearch":
+                searchText = (String) session.getAttribute("searchText");
+                currSem = (Semester) session.getAttribute("currentSem");
+                if (searchText == null) {
+                    list2 = td.readAll(currSem.getName());
+                } else {
+                    list2 = td.searchByName(searchText, currSem.getName());
+                }
                 pagination(request, response, list2);
-                //        pagination
+                session.setAttribute("prevTopicAction", "pagesearch");
 
-                request.setAttribute("searchText", searchText);
                 if (user.getRoleId() == 1) {
                     request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 } else if (user.getRoleId() == 2) {
