@@ -126,7 +126,7 @@
                                 <th>DEP.</th>
                                 <th>TeamName</th>
                                 <th>Leader</th>
-                                <th>Member(s)</th>
+                                <th>Status</th>
                                 <th>Detail</th>
                             </tr>
                         </thead>
@@ -137,17 +137,18 @@
                                 <tr>
                                     <td>${list.department.name}</td>
                                     <td>${list.group.groupName}</td>
-                                    <td>${list.user.name}</td>
-
+                                    <td>${list.user.name}</td>                             
                                     <c:choose >
-                                        <c:when test="${countMembers == list.group.members}">
-                                            <td><span class="tdTbl__success">${countMembers}/${list.group.members}</span> </td>    
+                                        <c:when test="${list.group.groupStatus == 1}">
+                                            <td><span class="tdTbl__success">${list.group.groupStatus == 1?"Public":"Private"}</span></td>                                        
                                         </c:when>
-                                        <c:when test="${countMembers <= list.group.members}">
-                                            <td><span class="tdTbl__warning">${countMembers}/${list.group.members}</span> </td>
+                                        <c:when test="${list.group.groupStatus == 0}">
+                                            <td><span class="tdTbl__warning">${list.group.groupStatus == 1?"Public":"Private"}</span></td>                                    
                                         </c:when>
                                     </c:choose>
 
+
+<!--                                    <td><span class="tdTbl__success">${list.group.groupStatus == 1?"Public":"Private"}</span></td>                                    -->
 
                                     <td><a href="${root}/group/detail.do?id=${list.groupId}"><i class="fa fa-solid fa-eye"></i></a></td>
                                 </tr>
