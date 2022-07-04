@@ -71,11 +71,18 @@ public class ProjectController extends HttpServlet {
             request.setAttribute("Group", group);
             request.setAttribute("Topic", topic);
             request.getRequestDispatcher("/project.jsp").forward(request, response);
-        } else if (path.equals("LecView")) {
-            ProjectDAO proDao = new ProjectDAO();
-            List<Project> proList = proDao.readAllProject();
-            request.setAttribute("proList", proList);
-        }
+        }//else 
+//        if (path.equals("/lecView")) {
+//            ProjectDAO proDao = new ProjectDAO();
+//            List<Project> proList = proDao.readAllProject();
+//            request.setAttribute("proList", proList);
+//            request.getRequestDispatcher("/projectListLecturer.jsp").forward(request, response);
+//        } else
+//        if (path.equals("/detail")) {
+//            int id = (int) request.getAttribute("id");
+//            
+//            request.getRequestDispatcher("/projectDetailLecturer.jsp").forward(request, response);
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
