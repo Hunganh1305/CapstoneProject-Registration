@@ -73,7 +73,7 @@ public class GroupController extends HttpServlet {
                 session.setAttribute("prevGroupAction", "index");
                 pagination(request, response, list);
                 //        pagination 
-                request.setAttribute("checkUserId", checkUserId);
+                session.setAttribute("checkUserId", checkUserId);
                 request.getRequestDispatcher("/teamList.jsp").forward(request, response);
                 break;
             case "search":
@@ -145,7 +145,7 @@ public class GroupController extends HttpServlet {
 
             case "detail":
                 int id = Integer.parseInt(request.getParameter("id"));
-
+                
                 int checkProjectId = sg.checkGroupHaveProject(id);
 
                 if (checkProjectId != 0) {
