@@ -64,7 +64,7 @@ public class GroupController extends HttpServlet {
                 ArrayList<StudentGroup> list = sg.readAll(currSem.getName());
                 //check
                 int studentId = (int) session.getAttribute("userId");
-                int checkUserId = sg.checkStudentHaveGroupByUserId(studentId);                                
+                int checkUserId = sg.checkStudentHaveGroupByUserId(studentId);
                 //        pagination
                 if (!prevAction.equals(currAction)) {
                     session.setAttribute("totalPage", null);
@@ -146,17 +146,33 @@ public class GroupController extends HttpServlet {
             case "detail":
                 int id = Integer.parseInt(request.getParameter("id"));
 
-                ArrayList<StudentGroup> teamMembers = sg.viewTeamMembers(id);
-                StudentGroup teamInfor = sg.viewTeamInformation(id);
-                int countMembers = sg.countMembersByGroupId(id);
-                int groupId = teamInfor.getGroupId();
-                String groupStatus = teamInfor.getGroup().getGroupStatus();
+                int checkProjectId = sg.checkGroupHaveProject(id);
+
+                if (checkProjectId != 0) {
+                    ArrayList<StudentGroup> teamMembers = sg.viewTeamMembers(id);
+                    StudentGroup teamInfor = sg.viewTeamInformation(id);
+                    int countMembers = sg.countMembersByGroupId(id);
+                    int groupId = teamInfor.getGroupId();
+                    int groupStatus = teamInfor.getGroup().getGroupStatus();
+                    request.setAttribute("teamMembers", teamMembers);
+                    request.setAttribute("teamInfor", teamInfor);
+                    session.setAttribute("countMembers", countMembers);
+                    request.setAttribute("groupStatus", groupStatus);
+                    session.setAttribute("groupId", groupId);
+                }else{
+                    ArrayList<StudentGroup> teamMembers = sg.viewTeamMembers(id);
+                    StudentGroup teamInfor = sg.viewTeamInformationNoProject(id);
+                    int countMembers = sg.countMembersByGroupId(id);
+                    int groupId = teamInfor.getGroupId();
+                    int groupStatus = teamInfor.getGroup().getGroupStatus();
+                    request.setAttribute("teamMembers", teamMembers);
+                    request.setAttribute("teamInfor", teamInfor);
+                    session.setAttribute("countMembers", countMembers);
+                    request.setAttribute("groupStatus", groupStatus);
+                    session.setAttribute("groupId", groupId);
+                }
                 
-                request.setAttribute("teamMembers", teamMembers);
-                request.setAttribute("teamInfor", teamInfor);
-                session.setAttribute("countMembers", countMembers);
-                request.setAttribute("groupStatus", groupStatus);                
-                session.setAttribute("groupId", groupId);
+                request.setAttribute("checkProjectId", checkProjectId);
                 request.getRequestDispatcher("/teamDetail.jsp").forward(request, response);
                 break;
             case "semester":
@@ -223,7 +239,7 @@ public class GroupController extends HttpServlet {
         GroupsDAO gr = new GroupsDAO();
         UserDAO u = new UserDAO();
         StudentGroupDAO sg = new StudentGroupDAO();
-        Users user = null;                
+        Users user = null;
         Semester currSem = null;
         HttpSession session = request.getSession();
         String prevAction = (String) session.getAttribute("prevGroupAction");
@@ -237,10 +253,10 @@ public class GroupController extends HttpServlet {
                 String name = request.getParameter("groupName");
                 int semId = currSem.getSemesterId();
 
-                String groupStatus = request.getParameter("groupStatus");
+                int groupStatus = Integer.parseInt(request.getParameter("groupStatus"));
                 int members = Integer.parseInt(request.getParameter("members"));
 
-                Groups groups = new Groups(groupId, name, semId, groupStatus, members, 0);
+                Groups groups = new Groups(groupId, name, semId, groupStatus, members);
                 gr.create(groups);
 
                 int studentID = (int) session.getAttribute("userId");
@@ -252,21 +268,18 @@ public class GroupController extends HttpServlet {
                 StudentGroup stuGr = new StudentGroup(sgId, studentID, groupId, 1);
 
                 sg.create(stuGr);
-                
-                
-                
             }
-            
-                ArrayList<StudentGroup> list = sg.readAll(currSem.getName());
 
-                if (!prevAction.equals(currAction)) {
-                    session.setAttribute("totalPage", null);
-                    session.setAttribute("page", null);
-                }
-                session.setAttribute("currGroupAction", "index");
-                session.setAttribute("prevGroupAction", "index");
+            ArrayList<StudentGroup> list = sg.readAll(currSem.getName());
 
-                pagination(request, response, list);
+            if (!prevAction.equals(currAction)) {
+                session.setAttribute("totalPage", null);
+                session.setAttribute("page", null);
+            }
+            session.setAttribute("currGroupAction", "index");
+            session.setAttribute("prevGroupAction", "index");
+
+            pagination(request, response, list);
             request.getRequestDispatcher("/teamList.jsp").forward(request, response);
 
         } catch (Exception ex) {
@@ -284,6 +297,8 @@ public class GroupController extends HttpServlet {
         Users user = null;
         Semester currSem = null;
         HttpSession session = request.getSession();
+        String prevAction = (String) session.getAttribute("prevGroupAction");
+        String currAction = (String) session.getAttribute("currGroupAction");
         try {
             currSem = (Semester) session.getAttribute("currentSem");
             int semId = currSem.getSemesterId();
@@ -297,7 +312,18 @@ public class GroupController extends HttpServlet {
 
             sg.create(stuGr);
 
-            response.sendRedirect("/teamList.jsp");
+            //
+            ArrayList<StudentGroup> list = sg.readAll(currSem.getName());
+
+            if (!prevAction.equals(currAction)) {
+                session.setAttribute("totalPage", null);
+                session.setAttribute("page", null);
+            }
+            session.setAttribute("currGroupAction", "index");
+            session.setAttribute("prevGroupAction", "index");
+
+            pagination(request, response, list);
+            request.getRequestDispatcher("/teamList.jsp").forward(request, response);
 
         } catch (Exception ex) {
             Logger.getLogger(GroupController.class.getName()).log(Level.SEVERE, null, ex);
