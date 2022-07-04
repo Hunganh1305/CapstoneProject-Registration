@@ -39,7 +39,7 @@
                     <ul class="main-menu nav navbar-nav navbar-right">
 
                         <li><a class="align-nav" href="../profileLecturer.jsp">Profile</a></li>
-                        <li><a class="align-nav" href="../projectListLecturer.jsp">Project List</a></li>
+                        <li><a class="align-nav" href="<c:url value="/projectlecturer/lecView.do"/>">Project List</a></li>
                         <li><a class="align-nav" href="<c:url value="/topic/index.do"/>">Topic List</a></li>
 
                         <li class="nav-item dropdown">

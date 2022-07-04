@@ -62,7 +62,7 @@
                     <div class="dropdown2">
                         <ul class="semester__list">
                             <c:forEach var="item" items="${semList}" varStatus="loop"> 
-                                <li name="semester" class="semester__item" ><a  href="${root}/group/semester.do?semester=${item.name}">${item.name}</a></li>             
+                                <li name="semester" class="semester__item" ><a href="${root}/group/semester.do?semester=${item.name}">${item.name}</a></li>             
                                 </c:forEach>
                         </ul>
                     </div>
@@ -77,14 +77,16 @@
                         All of public and unlocked teams in semester ${currentSem.name}_SWP
                     </h6>
                     <div class="btnControl">
-                        <button class="team__btn"><a href="${root}/group/create.do?id=${userId}">+ Create A New Team</a> </button>
+                        <c:if test="${checkUserId != 0}"><button class="team__btn-disabled"><a href="#" data-toggle="tooltip" title="You are already have team! You can not create any team.">+ Create A New Team</a></c:if>
+                            <c:if test="${checkUserId == 0}"><button class="team__btn"><a href="${root}/group/create.do?id=${userId}">+ Create A New Team</a> </button></c:if>
+
+                        </div>
                     </div>
-                </div>
 
-                <hr>
+                    <hr>
 
-                <div class="topic__search">
-                    <form action="<c:url value="/group/search.do"/>">
+                    <div class="topic__search">
+                        <form action="<c:url value="/group/search.do"/>">
                         <input placeholder=" " value="${searchText==null?"":searchText}" name="searchText" class="search__input" type="text">
                         <label for="search" class="search__label">Search by name</label>
                         <button type="submit" class="search-btn ">
@@ -124,7 +126,7 @@
                                 <th>DEP.</th>
                                 <th>TeamName</th>
                                 <th>Leader</th>
-                                <th style="padding-left: 18px">Status</th>
+                                <th>Member(s)</th>
                                 <th>Detail</th>
                             </tr>
                         </thead>
@@ -136,9 +138,17 @@
                                     <td>${list.department.name}</td>
                                     <td>${list.group.groupName}</td>
                                     <td>${list.user.name}</td>
-                                    <td><span
-                                            class="tdTbl__warning">${list.project.status==1?"unlocked":"locked"}</span>
-                                    </td>
+
+                                    <c:choose >
+                                        <c:when test="${countMembers == list.group.members}">
+                                            <td><span class="tdTbl__success">${countMembers}/${list.group.members}</span> </td>    
+                                        </c:when>
+                                        <c:when test="${countMembers <= list.group.members}">
+                                            <td><span class="tdTbl__warning">${countMembers}/${list.group.members}</span> </td>
+                                        </c:when>
+                                    </c:choose>
+
+
                                     <td><a href="${root}/group/detail.do?id=${list.groupId}"><i class="fa fa-solid fa-eye"></i></a></td>
                                 </tr>
                             </tbody>
@@ -159,22 +169,22 @@
                 </c:if>
                 <hr>
                 <c:if test="${!empty list}">
-                 
-                        <div class="row pageBtn">
-                            <div class="col" style="text-align: right;">
-                                <br/>
-                                <form action="<c:url value="/group/${currGroupAction}.do" />">
-                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${page==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
-                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${page==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
-                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${page==totalPage}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
-                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="LastPage" title="Last Page" <c:if test="${page==totalPage}">disabled</c:if>><i class="bi bi-chevron-bar-right"></i></button>
-                                    <input type="text" name="gotoPage" value="${page}" class="btn-warning btn-outline-info" style="padding:12px;text-align:left;color:#000;width:40px;" title="Enter page number"/>
-                                    <button type="submit" class="btn btn-warning  btn-info" name="op" value="GotoPage" title="Goto Page"><i class="bi bi-arrow-up-right-circle"></i></button>
-                                </form>
-                                Page ${page}/${totalPage}
-                            </div>
+
+                    <div class="row pageBtn">
+                        <div class="col" style="text-align: right;">
+                            <br/>
+                            <form action="<c:url value="/group/${currGroupAction}.do" />">
+                                <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${page==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
+                                <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${page==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
+                                <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${page==totalPage}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
+                                <button type="submit" class="btn btn-warning  btn-info" name="op" value="LastPage" title="Last Page" <c:if test="${page==totalPage}">disabled</c:if>><i class="bi bi-chevron-bar-right"></i></button>
+                                <input type="text" name="gotoPage" value="${page}" class="btn-warning btn-outline-info" style="padding:12px;text-align:left;color:#000;width:40px;" title="Enter page number"/>
+                                <button type="submit" class="btn btn-warning  btn-info" name="op" value="GotoPage" title="Goto Page"><i class="bi bi-arrow-up-right-circle"></i></button>
+                            </form>
+                            Page ${page}/${totalPage}
                         </div>
-                   
+                    </div>
+
                 </c:if>
 
 
@@ -185,8 +195,14 @@
             <%@include file="footer.jsp" %>
         </footer>
         <% }%>
+
         <script type="text/javascript" src="../js/jquery.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/main.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
         <script src="../js/topic.js"></script>
     </body>
