@@ -12,6 +12,7 @@ package DTO;
 public class Topic {
     private int topicId;
     private String name;
+    private int approveStatus;
     private int catergoryId;
     private String description;
     private int businessId;
@@ -21,6 +22,43 @@ public class Topic {
     private Semester semester;
     private int status;
 
+    public Topic(int topicId, String name, int catergoryId, String description, int businessId, int departmentId, Semester semester) {
+        this.topicId = topicId;
+        this.name = name;
+        this.catergoryId = catergoryId;
+        this.description = description;
+        this.businessId = businessId;
+        this.departmentId = departmentId;
+        this.semester = semester;
+    }
+
+    public Topic(int topicId, String name, int approveStatus, Department department, Semester semester) {
+        this.topicId = topicId;
+        this.name = name;
+        this.approveStatus = approveStatus;
+        this.department = department;
+        this.semester = semester;
+    }
+
+    
+    
+    
+
+    public Topic(int topicId, String name, int approveStatus, int catergoryId, String description, int businessId, int departmentId, Users user, Department department, Semester semester, int status) {
+        this.topicId = topicId;
+        this.name = name;
+        this.approveStatus = approveStatus;
+        this.catergoryId = catergoryId;
+        this.description = description;
+        this.businessId = businessId;
+        this.departmentId = departmentId;
+        this.user = user;
+        this.department = department;
+        this.semester = semester;
+        this.status = status;
+    }
+
+    
     public Topic(int topicId, String name, int catergoryId, String description, int businessId, int departmentId,Users user, Department department, Semester semester, int status) {
         this.topicId = topicId;
         this.name = name;
