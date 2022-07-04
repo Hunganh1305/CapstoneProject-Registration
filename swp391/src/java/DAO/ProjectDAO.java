@@ -201,17 +201,30 @@ public class ProjectDAO {
 
         return project;
     }
-    
+
     public List<Project> readAllProject() {
         ArrayList<Project> list = new ArrayList<>();
-        String sql = "SELECT ProjectId, Description, Name, SourceCode, TopicId, [Status], GroupId,  from Project";
+        String sql = "SELECT ProjectId, Description, Project.Name AS proName, SourceCode, TopicId, Project.[Status] AS Sta, GroupId, Users.Name AS lecName "
+                + "from Project, Users "
+                + "WHERE Project.LecturerId = Users.UserId";
 
         try {
             Connection conn = DBUtils.makeConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Project(rs.getInt("ProjectId"), rs.getString("Description"), rs.getString("Name"), rs.getString("SourceCode"), rs.getInt("TopicId"), rs.getInt("Status"), rs.getInt("GroupId"), rs.getInt("LecturerId")));
+                int ProjectId = rs.getInt("ProjectId");
+                String Description = rs.getString("Description");
+                String SourceCode = rs.getString("SourceCode");
+                String Name = rs.getString("proName");
+                int TopicId = rs.getInt("TopicId");
+                int Status = rs.getInt("Sta");
+                int GroupId = rs.getInt("GroupId");
+                String lecName = rs.getString("lecName");
+                Users user = new Users();
+                user.setName(lecName);
+                Project project = new Project(ProjectId, Description, Name, SourceCode, TopicId, Status, GroupId, user);
+                list.add(project);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
