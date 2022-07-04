@@ -117,6 +117,30 @@
     transition: 0.2s;
 }
 
+
+.team__btn-disabled{
+    background: #FDA;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0 5px;
+    color: grey;
+    font-weight: 700;
+    border: none;
+    transition: 0.2s;
+    cursor: default;
+}
+.team__btn-disabled a{
+    padding-top: 8px;
+}
 .team__btn:hover {
     background: #B66816;
+}
+
+.quesIcon-control{
+    position: relative;    
+}
+.quesIcon{
+    position: absolute;
+    transform: translateX(500%) translateY(-100%);
+    padding-left: 4px;
 }

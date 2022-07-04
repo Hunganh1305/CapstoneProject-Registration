@@ -48,6 +48,7 @@ CREATE TABLE Semester (
 CREATE TABLE Topic(
 	TopicId INT PRIMARY KEY,
 	Name VARCHAR(30),
+	ApproveStatus INT,
 	CategoryId INT FOREIGN KEY (CategoryId) REFERENCES Category(CategoryId),
 	Description VARCHAR(200),
 	BusinessId INT FOREIGN KEY (BusinessId) REFERENCES Users(UserId),
@@ -68,7 +69,7 @@ CREATE TABLE Groups (
 	GroupId INT PRIMARY KEY not null,
 	GroupName VARCHAR(30),
 	SemID INT FOREIGN KEY (SemID) REFERENCES Semester(SemesterId),
-	groupStatus VARCHAR(10),
+	groupStatus INT,
 	members INT
 
 )
@@ -248,18 +249,18 @@ select * from Semester
 delete from Semester
 
 
-insert into Topic values(1,'CPManagement-Review',6,'Manage and review on this web',8,2,1,2)
-insert into Topic values(2,'PetCareSystem',6,'The best solution to manage and service your pet',9,2,1,2)
-insert into Topic values(3,'PT Tranning app',6,'The way to transform to the monster',11,2,1,2)
-insert into Topic values(4,'Game Animation',10,'Like a little MCU movie',7,2,1,2)
-insert into Topic values(5,'Research And Developing Brands',2,'Make and marketing a brand to users',7,1,1,2)
-insert into Topic values(6,'Social issues',14,'Write an essay about social isues',10,3,1,2)
-insert into Topic values(7,'An analysis on cultural',16,'Write an essay analyze cultural',11,4,1,2)
-insert into Topic values(8,'Economic Policy of Japan',15,'Research and presentation',9,5,1,2)
-insert into Topic values(9,'Restaurant researching',2,'Manage a restaurant',7,1,2,2)
-insert into Topic values(10,'Cycle of whales',14,'Study about whales',10,3,2,2)
-insert into Topic values(11,'Jewelry System',6,'Ecommerce jewelry selling website',8,2,1,0)
-insert into Topic values(12,'Online CV builder',6,'Generate CV automatically',9,2,1,0)
+insert into Topic values(1,'CPManagement-Review',1,6,'Manage and review on this web',8,2,1,2)
+insert into Topic values(2,'PetCareSystem',1,6,'The best solution to manage and service your pet',9,2,1,2)
+insert into Topic values(3,'PT Tranning app',1,6,'The way to transform to the monster',11,2,1,2)
+insert into Topic values(4,'Game Animation',1,10,'Like a little MCU movie',7,2,1,2)
+insert into Topic values(5,'Research And Developing Brands',1,2,'Make and marketing a brand to users',7,1,1,2)
+insert into Topic values(6,'Social issues',1,14,'Write an essay about social isues',10,3,1,2)
+insert into Topic values(7,'An analysis on cultural',1,16,'Write an essay analyze cultural',11,4,1,2)
+insert into Topic values(8,'Economic Policy of Japan',1,15,'Research and presentation',9,5,1,2)
+insert into Topic values(9,'Restaurant researching',1,2,'Manage a restaurant',7,1,2,2)
+insert into Topic values(10,'Cycle of whales',1,14,'Study about whales',10,3,2,2)
+insert into Topic values(11,'Jewelry System',1,6,'Ecommerce jewelry selling website',8,2,1,0)
+insert into Topic values(12,'Online CV builder',1,6,'Generate CV automatically',9,2,1,0)
 
 
 
@@ -270,22 +271,22 @@ delete from Topic
 
 
 
-insert into Groups values(1,'Beaky Blinders',1,'Public',5)
-insert into Groups values(2,'Group 2',1,'Public',5)	
-insert into Groups values(3,'Group 3',1,'Private',5)
-insert into Groups values(4,'Showbit team',1,'Public',5)
-insert into Groups values(5,'Group 5',1,'Public',5)
-insert into Groups values(6,'Group 6',1,'Private',5)
-insert into Groups values(7,'Group 7',1,'Public',6)
-insert into Groups values(8,'Group 8',1,'Public',5)
-insert into Groups values(9,'Group 9',2,'Public',7)
-insert into Groups values(10,'Group 10',2,'Public',5)
-insert into Groups values(11,'Group ABC',3,'Private',5)
-insert into Groups values(12,'No name',3,'Private',5)
-insert into Groups values(13,'Gr 15',4,'Public',5)
-insert into Groups values(14,'G63',4,'Public',5)
-insert into Groups values(15,'Eagles',1,'Public',5)
-insert into Groups values(16,'Tigers',1,'Public',5)
+insert into Groups values(1,'Beaky Blinders',1,1,5)
+insert into Groups values(2,'Group 2',1,1,5)	
+insert into Groups values(3,'Group 3',1,0,5)
+insert into Groups values(4,'Showbit team',1,1,5)
+insert into Groups values(5,'Group 5',1,0,5)
+insert into Groups values(6,'Group 6',1,0,5)
+insert into Groups values(7,'Group 7',1,1,6)
+insert into Groups values(8,'Group 8',1,1,5)
+insert into Groups values(9,'Group 9',2,1,7)
+insert into Groups values(10,'Group 10',2,1,5)
+insert into Groups values(11,'Group ABC',3,0,5)
+insert into Groups values(12,'No name',3,0,5)
+insert into Groups values(13,'Gr 15',4,1,5)
+insert into Groups values(14,'G63',4,1,5)
+insert into Groups values(15,'Eagles',1,1,5)
+insert into Groups values(16,'Tigers',1,1,5)
 
 
 
@@ -404,7 +405,4 @@ insert into Project values(8,'Research and presentation','Economic Policy of Jap
 
 select * from Project
 select * from topic
-delete from Project 
-
-
-
+delete from Project

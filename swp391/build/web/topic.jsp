@@ -40,7 +40,7 @@
         <p>
             <font color='red'>You must login to view this page</font>
         </p>
-        <p>Click <a href="Login.jsp">here</a> to login</p>
+        <p>Click <a href="../Login.jsp">here</a> to login</p>
         <%} else {%>
 
         <!-- Header -->
@@ -189,7 +189,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h2 class="modal-title" id="exampleModalLongTitle">Appliable topic list</h2>
-                                
+
                             </div>
                             <div class="modal-body">
 
@@ -229,16 +229,17 @@
 
                                             </tbody>    
                                         </c:forEach>
-                                    </c:if>
+                                    </table>
+                                </c:if>
 
-                                    <c:if test="${empty appliableTopicList}">
-                                        <div class="search-empty">
-                                            <img src="../img/search-empty.png" class="search-empty-icon"/>
-                                            <div class="search-empty-title">You don't have any appliable topic</div>
+                                <c:if test="${empty appliableTopicList}">
+                                    <div class="search-empty">
+                                        <img src="../img/search-empty.png" class="search-empty-icon"/>
+                                        <div class="search-empty-title">You don't have any appliable topic</div>
 
-                                        </div>
-                                    </c:if>
-                                </table>
+                                    </div>
+                                </c:if>
+
                             </div>
                             <div class="modal-footer ">
                                 <button class='btn btn-warning' href="#" title="Conditions to apply:" data-html="true" data-toggle="popover" data-placement="top" data-content="+ You must be leader to apply.<br>+ Your department must be the same with topic's.<br>+ Your semester must be the same with topic's.<br>+ You can only apply 1 topic once<br>+ Topic status can not be locked.">
