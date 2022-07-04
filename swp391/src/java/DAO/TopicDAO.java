@@ -37,7 +37,7 @@ public class TopicDAO {
                         + "                         join dbo.Users u on ltt.LecturerId=u.UserId \n"
                         + "                         join dbo.Department d on ltt.DepartmentId=d.DepartmentId\n"
                         + "			    join dbo.Semester s on ltt.SemesterId=s.SemesterId\n"
-                        + "			    where s.Name like ?";
+                        + "			    where s.Name like ? and ltt.ApproveStatus=1 ";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, "%" + currentSem + "%");
                 ResultSet rs = stm.executeQuery();
@@ -69,6 +69,39 @@ public class TopicDAO {
         return list;
     }
 
+    public static ArrayList<Topic> readAllAproveTopic() {
+        Connection cn = null;
+        ArrayList<Topic> list = new ArrayList<>();
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "   select ltt.TopicId,ltt.Name,ltt.SemesterId,d.Name as DepartmentName,u.Name as LecturerName\n"
+                        + "                                                 from (select t.*,lt.LecturerId from dbo.LecturerTopic lt join dbo.Topic t on lt.TopicId = t.TopicId) ltt \n"
+                        + "                                                join dbo.Users u on ltt.LecturerId=u.UserId \n"
+                        + "                                                 join dbo.Department d on ltt.DepartmentId=d.DepartmentId                       			  \n"
+                        + "                        			    where ltt.ApproveStatus=0";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    int topicID = rs.getInt("topicId");
+                    String name = rs.getString("Name");                     
+                    String depName = rs.getString("DepartmentName");                                 
+                    int semesterId = rs.getInt("semesterId");
+                    SemesterDAO sd= new SemesterDAO();
+                    Semester sem = sd.readById(semesterId);                     
+                    Department dep = new Department();
+                    dep.setName(depName);                 
+                    Topic topic = new Topic(topicID, name, 0, dep,sem);
+                    list.add(topic);
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return list;
+    }
+
     public static ArrayList<Topic> searchByName(String name, String currentSem) {
         Connection cn = null;
         ArrayList<Topic> list = new ArrayList<>();
@@ -80,7 +113,7 @@ public class TopicDAO {
                         + "                         join dbo.Users u on ltt.LecturerId=u.UserId \n"
                         + "                         join dbo.Department d on ltt.DepartmentId=d.DepartmentId\n"
                         + "			    join dbo.Semester s on ltt.SemesterId=s.SemesterId\n"
-                        + "                         where ltt.name like ? and s.Name like ?";
+                        + "                         where ltt.name like ? and ltt.ApproveStatus=1 and s.Name like ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, "%" + name + "%");
                 stm.setString(2, "%" + currentSem + "%");
@@ -124,7 +157,7 @@ public class TopicDAO {
                         + "  join dbo.Users u on ltt.LecturerId=u.UserId \n"
                         + "  join dbo.Department d on ltt.DepartmentId=d.DepartmentId\n"
                         + "  join dbo.Semester s on ltt.SemesterId=s.SemesterId\n"
-                        + "  where d.Name like ? and s.Name like ?";
+                        + "  where d.Name like ? and ltt.ApproveStatus=1 and s.Name like ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, "%" + name + "%");
                 stm.setString(2, "%" + currentSem + "%");
@@ -477,7 +510,7 @@ public class TopicDAO {
             e.getStackTrace();
         }
     }
-    
+
     public static void updatePendingTopicGroup(int groupId) {
         Connection cn = null;
         int status = 0;
@@ -538,19 +571,87 @@ public class TopicDAO {
         return groupId;
     }
 
-    public static void create(Topic topic) {
+    public static int countLecturerTopic() {
         Connection cn = null;
+        int count = 0;
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "insert into dbo.Topic values(?, ?, ?, ?, ?, ?)";
+                String sql = "select ID from dbo.LecturerTopic";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    count++;
+                }
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return count;
+    }
+
+    public static int countTopic() {
+        Connection cn = null;
+        int count = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select TopicId from dbo.Topic";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    count++;
+                }
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return count;
+    }
+
+    public static void create(Topic topic) {
+        Connection cn = null;
+
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "insert into dbo.Topic values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setInt(1, topic.getTopicId());
                 stm.setString(2, topic.getName());
-                stm.setInt(3, topic.getCatergoryId());
-                stm.setString(4, topic.getDescription());
-                stm.setInt(5, topic.getBusinessId());
-                stm.setInt(6, topic.getDepartmentId());
+                stm.setInt(3, 0);
+                stm.setInt(4, topic.getCatergoryId());
+                stm.setString(5, topic.getDescription());
+                stm.setInt(6, topic.getBusinessId());
+                stm.setInt(7, topic.getDepartmentId());
+                stm.setInt(8, topic.getSemester().getSemesterId());
+                stm.setInt(9, 0);
+
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
+
+    public static void createTopicLecturer(int lecId, int topicId) {
+        Connection cn = null;
+        int count = countLecturerTopic();
+        count += 1;
+
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "insert into dbo.LecturerTopic values(?, ?, ?)";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, count);
+                stm.setInt(2, lecId);
+                stm.setInt(3, topicId);
                 stm.executeUpdate();
                 cn.close();
             }
@@ -568,8 +669,8 @@ public class TopicDAO {
                 String sql = "select ProjectId as projects from dbo.Project";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 ResultSet rs = stm.executeQuery();
-               while (rs.next()) {
-                   count++;
+                while (rs.next()) {
+                    count++;
                 }
                 cn.close();
             }
@@ -630,7 +731,7 @@ public class TopicDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "delete dbo.Topic where TopicId=?";
+                String sql = "delete from dbo.Topic where TopicId=?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, id.toString());
                 stm.executeUpdate();

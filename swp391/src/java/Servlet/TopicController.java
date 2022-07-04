@@ -5,11 +5,15 @@
  */
 package Servlet;
 
+import DAO.DepartmentDAO;
 import DAO.GroupsDAO;
+import DAO.LectureTopicDAO;
 import DAO.PendingTopicGroupDAO;
 import DAO.SemesterDAO;
 import DAO.TopicDAO;
+import DAO.UserDAO;
 import DTO.Category;
+import DTO.Department;
 import DTO.Groups;
 import DTO.PendingTopicGroup;
 import DTO.Semester;
@@ -21,6 +25,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -66,6 +72,8 @@ public class TopicController extends HttpServlet {
             else if (user.getRoleId() == 2) {
                 int depId = (int) session.getAttribute("depId");
                 ArrayList<PendingTopicGroup> pendingTopicList = ptg.readAll(depId,user.getUserId());
+                ArrayList<Topic> approvingTopicList=td.readAllAproveTopic();
+                session.setAttribute("approvingTopicList", approvingTopicList);
                 session.setAttribute("pendingTopicList", pendingTopicList);
             }
         }
@@ -344,7 +352,108 @@ public class TopicController extends HttpServlet {
                 
                 request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
                 break;
+            case "create":
+                UserDAO ud=new UserDAO();
+                int departmentId=user.getDepartmentId();
+                DepartmentDAO dd=new DepartmentDAO();
+                Department dep =dd.read(departmentId);
+                request.setAttribute("depName", dep.getName());
+                ArrayList<Users> bussinessList=ud.readAllBusiness();
+                request.setAttribute("bList", bussinessList);
+                request.getRequestDispatcher("/createTopic.jsp").forward(request, response);
+                break;
+            case "save":
+                save( request,  response);
+                break;
+            case "delete":
+                currSem = (Semester) session.getAttribute("currentSem");
+                LectureTopicDAO ltd=new LectureTopicDAO();
+                topicId=Integer.parseInt(request.getParameter("topicId"));
+                ltd.delete(topicId);
+                
+                td.delete(topicId);
+                
+                ArrayList<Topic> approvingTopicList=td.readAllAproveTopic();
+                session.setAttribute("approvingTopicList", approvingTopicList);
+                
+               
+                 list = td.readAll(currSem.getName());
 
+                if (!prevAction.equals(currAction)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                session.setAttribute("currTopicAction", "index");
+                session.setAttribute("prevTopicAction", "index");
+
+                pagination(request, response, list);
+                request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+                break;
+        }
+    }
+    
+     public void save(HttpServletRequest request, HttpServletResponse response) {
+        TopicDAO td = new TopicDAO();
+       
+                      
+        
+        HttpSession session = request.getSession();
+        Semester currSem =  (Semester) session.getAttribute("currentSem");
+        String prevAction = (String) session.getAttribute("prevTopicAction");
+        String currAction = (String) session.getAttribute("currTopicAction");
+        try {
+            String op = request.getParameter("op");
+            if (op.equals("create")) {
+                int category=0;
+                currSem = (Semester) session.getAttribute("currentSem");
+                int depId=  (int) session.getAttribute("depId");
+                int lecId=  (int) session.getAttribute("userId");
+                String topicName=request.getParameter("topicName");
+                String topicDetail=request.getParameter("topicDetail");
+                Semester sem = new Semester();
+                int semId=Integer.parseInt(request.getParameter("semester"));
+                sem.setSemesterId(semId);
+                int bussinessId=Integer.parseInt(request.getParameter("business"));
+                if(depId==2){
+                    category=6;
+                }else if(depId==1){
+                    category=2;
+                }else if (depId==3){
+                    category=14;
+                }else if (depId==4){
+                    category=16;
+                }else if (depId==5){
+                    category=15;
+                }
+                
+                int count=td.countTopic();
+                count=count+1;
+                Topic topic = new Topic(count,topicName,category,topicDetail,bussinessId,depId,sem);
+                td.create(topic);
+                td.createTopicLecturer(lecId, topic.getTopicId());
+                ArrayList<Topic> approvingTopicList=td.readAllAproveTopic();
+                session.setAttribute("approvingTopicList", approvingTopicList);
+                
+                
+            }
+            
+                ArrayList<Topic> list = td.readAll(currSem.getName());
+
+                if (!prevAction.equals(currAction)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                session.setAttribute("currTopicAction", "index");
+                session.setAttribute("prevTopicAction", "index");
+
+                pagination(request, response, list);
+            request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+
+        } catch (Exception ex) {
+            Logger.getLogger(GroupController.class.getName()).log(Level.SEVERE, null, ex);
+            //Chi hien lai view create va thong bao loi
+            request.getRequestDispatcher("/createTeam.jsp");
+            request.setAttribute("errorMessage", "Invalid data.");
         }
     }
 

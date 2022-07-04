@@ -91,7 +91,7 @@ public class LectureTopicDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "delete dbo.LecturerTopic where ID=?";
+                String sql = "delete dbo.LecturerTopic where TopicId=?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, id.toString());
                 stm.executeUpdate();
