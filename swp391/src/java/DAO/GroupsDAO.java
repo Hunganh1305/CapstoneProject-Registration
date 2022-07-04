@@ -34,10 +34,9 @@ public class GroupsDAO {
                     int groupID = rs.getInt("GroupId");
                     String name = rs.getString("GroupName");
                     int semID = rs.getInt("SemID");
-                    String groupStatus = rs.getString("groupStatus");
-                    int members = rs.getInt("members");
-                    int TopicStatus = rs.getInt("TopicStatus");
-                    Groups group = new Groups(groupID, name, semID, groupStatus, members,TopicStatus);
+                    int groupStatus = rs.getInt("groupStatus");
+                    int members = rs.getInt("members");                    
+                    Groups group = new Groups(groupID, name, semID, groupStatus, members);
                     list.add(group);
                 }
                 cn.close();
@@ -79,14 +78,13 @@ public class GroupsDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "update dbo.Groups set groupName=?,semId=?,groupStatus=?,members=?,TopicStatus=? where GroupId=?";
+                String sql = "update dbo.Groups set groupName=?,semId=?,groupStatus=?,members=? where GroupId=?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, groups.getGroupName());
                 stm.setInt(2, groups.getSemId());
-                stm.setString(3, groups.getGroupStatus());
-                stm.setInt(4, groups.getMembers());
-                stm.setInt(5, groups.getTopicStatus());
-                stm.setInt(6, groups.getGroupId());
+                stm.setInt(3, groups.getGroupStatus());
+                stm.setInt(4, groups.getMembers());                
+                stm.setInt(5, groups.getGroupId());
                 stm.executeUpdate();
                 cn.close();
             }
@@ -122,7 +120,7 @@ public class GroupsDAO {
                 stm.setInt(1, groups.getGroupId());
                 stm.setString(2, groups.getGroupName());
                 stm.setInt(3, groups.getSemId());
-                stm.setString(4, groups.getGroupStatus());
+                stm.setInt(4, groups.getGroupStatus());
                 stm.setInt(5, groups.getMembers());                
                 stm.executeUpdate();
                 cn.close();
