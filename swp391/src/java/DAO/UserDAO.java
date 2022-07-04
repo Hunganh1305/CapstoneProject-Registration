@@ -18,6 +18,7 @@ import java.util.ArrayList;
  * @author HLong
  */
 public class UserDAO {
+
     public static ArrayList<Users> readAll() {
         Connection cn = null;
         ArrayList<Users> list = new ArrayList<>();
@@ -46,7 +47,36 @@ public class UserDAO {
         }
         return list;
     }
-    
+
+    public static ArrayList<Users> readAllBusiness() {
+        Connection cn = null;
+        ArrayList<Users> list = new ArrayList<>();
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select *\n"
+                        + " from dbo.Users  where roleId=3\n";
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    int userID = rs.getInt("UserId");
+                    String name = rs.getString("Name");
+                    String password = rs.getString("Password");
+                    int status = rs.getInt("Status");
+                    int departmentId = rs.getInt("DepartmentId");
+                    String email = rs.getString("Email");
+                    int roleId = rs.getInt("RoleId");
+                    Users user = new Users(userID, name, password, status, departmentId, email, roleId);
+                    list.add(user);
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return list;
+    }
+
     public static Users read(String email, String password) {
         Connection cn = null;
         Users user = null;
@@ -58,22 +88,21 @@ public class UserDAO {
                 stm.setString(1, email);
                 stm.setString(2, password);
                 ResultSet rs = stm.executeQuery();
-                if(rs!=null && rs.next()){
-                    int UserId=rs.getInt("UserId");
-                    String Name=rs.getString("Name");
-                    String Password=rs.getString("Password");
-                    int Status=rs.getInt("Status");
-                    int DepartmentId=rs.getInt("DepartmentId");
-                    String Email=rs.getString("Email");
-                    int RoleId=rs.getInt("RoleId");
+                if (rs != null && rs.next()) {
+                    int UserId = rs.getInt("UserId");
+                    String Name = rs.getString("Name");
+                    String Password = rs.getString("Password");
+                    int Status = rs.getInt("Status");
+                    int DepartmentId = rs.getInt("DepartmentId");
+                    String Email = rs.getString("Email");
+                    int RoleId = rs.getInt("RoleId");
                     user = new Users(UserId, Name, Password, Status, DepartmentId, Email, RoleId);
                 }
             }
         } catch (Exception e) {
             e.getStackTrace();
-        }
-        finally{
-            if(cn!=null){
+        } finally {
+            if (cn != null) {
                 try {
                     cn.close();
                 } catch (Exception e) {
@@ -83,44 +112,44 @@ public class UserDAO {
         }
         return user;
     }
-    
-    public static Users readByToken(String token){
-        Connection cn=null;
-        Users user=null;
+
+    public static Users readByToken(String token) {
+        Connection cn = null;
+        Users user = null;
         try {
-            cn=DBUtils.makeConnection();
-            if(cn!=null){
-                String sql="select *\n"
-                        +"from dbo.Users\n"
-                        +"where Cookie=? COLLATE Latin1_General_CS_AS";
-                PreparedStatement pst=cn.prepareStatement(sql);
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select *\n"
+                        + "from dbo.Users\n"
+                        + "where Cookie=? COLLATE Latin1_General_CS_AS";
+                PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setString(1, token);
-                ResultSet rs=pst.executeQuery();
-                if(rs!=null && rs.next()){
-                    int UserId=rs.getInt("UserId");
-                    String Name=rs.getString("Name");
-                    String Password=rs.getString("Password");
-                    int Status=rs.getInt("Status");
-                    int DepartmentId=rs.getInt("DepartmentId");
-                    String Email=rs.getString("Email");
-                    int RoleId=rs.getInt("RoleId");
+                ResultSet rs = pst.executeQuery();
+                if (rs != null && rs.next()) {
+                    int UserId = rs.getInt("UserId");
+                    String Name = rs.getString("Name");
+                    String Password = rs.getString("Password");
+                    int Status = rs.getInt("Status");
+                    int DepartmentId = rs.getInt("DepartmentId");
+                    String Email = rs.getString("Email");
+                    int RoleId = rs.getInt("RoleId");
                     user = new Users(UserId, Name, Password, Status, DepartmentId, Email, RoleId);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(cn!=null){
+        } finally {
+            if (cn != null) {
                 try {
                     cn.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }  
+            }
         }
         return user;
     }
-    
+
     public static String readUserDep(int DepartmentId) {
         Connection cn = null;
         String Department = null;
@@ -131,9 +160,9 @@ public class UserDAO {
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setInt(1, DepartmentId);
                 ResultSet rs = stm.executeQuery();
-                if(rs!=null && rs.next()){
-                    String Name=rs.getString("Name");
-                    Department=Name;
+                if (rs != null && rs.next()) {
+                    String Name = rs.getString("Name");
+                    Department = Name;
                 }
                 cn.close();
             }
@@ -142,7 +171,7 @@ public class UserDAO {
         }
         return Department;
     }
-    
+
     public static String readDepartmentByUserID(int DepartmentId) {
         Connection cn = null;
         String Department = null;
@@ -153,9 +182,9 @@ public class UserDAO {
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setInt(1, DepartmentId);
                 ResultSet rs = stm.executeQuery();
-                if(rs!=null && rs.next()){
-                    String Name=rs.getString("Name");
-                    Department=Name;
+                if (rs != null && rs.next()) {
+                    String Name = rs.getString("Name");
+                    Department = Name;
                 }
                 cn.close();
             }
@@ -164,6 +193,7 @@ public class UserDAO {
         }
         return Department;
     }
+
     // phan Quang
     public Users load(String email) {
         String sql = "SELECT * from Users WHERE Users.Email = ?";
@@ -190,7 +220,7 @@ public class UserDAO {
         }
         return user;
     }
-    
+
     public static void create(Users user) {
         Connection cn = null;
         try {
@@ -212,7 +242,7 @@ public class UserDAO {
             e.getStackTrace();
         }
     }
-    
+
     public static void update(Users user) {
         Connection cn = null;
         try {
@@ -234,7 +264,7 @@ public class UserDAO {
             e.getStackTrace();
         }
     }
-    
+
     public static void delete(Object id) {
         Connection cn = null;
         try {
@@ -250,26 +280,26 @@ public class UserDAO {
             e.getStackTrace();
         }
     }
-    
-    public static boolean updateUserToken(String token, String email){
-        Connection cn=null;
-        boolean up=false;
+
+    public static boolean updateUserToken(String token, String email) {
+        Connection cn = null;
+        boolean up = false;
         try {
-            cn=DBUtils.makeConnection();
-            if(cn!=null){
-                String sql="update dbo.Users\n"
-                        +"set Cookie=?\n"
-                        +"where Email=?";
-                PreparedStatement pst=cn.prepareStatement(sql);
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update dbo.Users\n"
+                        + "set Cookie=?\n"
+                        + "where Email=?";
+                PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setString(1, token);
                 pst.setString(2, email);
-                int count=pst.executeUpdate();
-                up = count>0;
+                int count = pst.executeUpdate();
+                up = count > 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(cn!=null){
+        } finally {
+            if (cn != null) {
                 try {
                     cn.close();
                 } catch (Exception e) {
