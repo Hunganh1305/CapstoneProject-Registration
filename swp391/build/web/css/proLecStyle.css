@@ -1,3 +1,11 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Jul 4, 2022, 8:53:23 AM
+    Author     : phamquang
+*/
 #topic {
     margin-top: 3rem;
 }
@@ -11,11 +19,6 @@
     font-weight: 700;
     line-height: 1.5;
     margin-bottom: 3rem;
-}
-
-.topicListControl {
-    display: flex;
-    justify-content: space-between;
 }
 
 .teamListControl {
@@ -32,20 +35,6 @@
     font-weight: 700;
     border: none;
     transition: 0.2s;
-}
-.team__btn-disabled{
-    background: #FDA;
-    padding: 10px;
-    border-radius: 10px;
-    margin: 0 5px;
-    color: grey;
-    font-weight: 700;
-    border: none;
-    transition: 0.2s;
-    cursor: default;
-}
-.team__btn-disabled a{
-    padding-top: 8px;
 }
 
 .team__btn:hover {
@@ -97,7 +86,7 @@
 }
 
 .topic__search form {
-    width: 85%;
+    width: 100%;
     position: relative;
 }
 
@@ -167,7 +156,7 @@
     background-color: white;
     cursor: pointer;
     position: relative;
-
+    
 }
 
 .topic__filter:hover {
@@ -194,10 +183,10 @@
 
 .dropdown2{
     min-width: 64px;
-
+    
     display: none;
     padding: 0;
-
+    
 }
 
 
@@ -215,7 +204,7 @@
 .filter__item {
     padding: 12px;
     font-size: 1.5rem;
-
+    
 }
 
 .semester__item:hover,
@@ -272,18 +261,10 @@
     align-items: center;
 }
 
-
-.btn__control{
-    display: flex;
-    justify-content: space-between;
-
-}
-
-modal-header{
+.topicListControl {
     display: flex;
     justify-content: space-between;
 }
-
 
 .topic__btn {
     background: #FDA92D;
@@ -295,4 +276,3 @@ modal-header{
     border: none;
     transition: 0.2s;
 }
-

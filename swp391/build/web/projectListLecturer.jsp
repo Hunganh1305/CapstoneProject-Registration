@@ -18,7 +18,7 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
 
         <!-- Bootstrap -->
-        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="./css/bootstrap.min.css" />
 
         <!-- Font Awesome Icon -->
         <script src="https://kit.fontawesome.com/e7ea130b87.js" crossorigin="anonymous"></script>
@@ -40,7 +40,7 @@
 
         <!-- Header -->
          <header>
-            <%@include file="headerLecturer.jsp" %>
+            <%@include file="headerLecturerProfile.jsp" %>
         </header>
         <!-- /Header -->
 

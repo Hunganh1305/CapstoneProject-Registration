@@ -69,7 +69,7 @@ CREATE TABLE Groups (
 	GroupId INT PRIMARY KEY not null,
 	GroupName VARCHAR(30),
 	SemID INT FOREIGN KEY (SemID) REFERENCES Semester(SemesterId),
-	groupStatus VARCHAR(10),
+	groupStatus INT,
 	members INT
 
 )
@@ -271,22 +271,22 @@ delete from Topic
 
 
 
-insert into Groups values(1,'Beaky Blinders',1,'Public',5)
-insert into Groups values(2,'Group 2',1,'Public',5)	
-insert into Groups values(3,'Group 3',1,'Private',5)
-insert into Groups values(4,'Showbit team',1,'Public',5)
-insert into Groups values(5,'Group 5',1,'Public',5)
-insert into Groups values(6,'Group 6',1,'Private',5)
-insert into Groups values(7,'Group 7',1,'Public',6)
-insert into Groups values(8,'Group 8',1,'Public',5)
-insert into Groups values(9,'Group 9',2,'Public',7)
-insert into Groups values(10,'Group 10',2,'Public',5)
-insert into Groups values(11,'Group ABC',3,'Private',5)
-insert into Groups values(12,'No name',3,'Private',5)
-insert into Groups values(13,'Gr 15',4,'Public',5)
-insert into Groups values(14,'G63',4,'Public',5)
-insert into Groups values(15,'Eagles',1,'Public',5)
-insert into Groups values(16,'Tigers',1,'Public',5)
+insert into Groups values(1,'Beaky Blinders',1,1,5)
+insert into Groups values(2,'Group 2',1,1,5)	
+insert into Groups values(3,'Group 3',1,0,5)
+insert into Groups values(4,'Showbit team',1,1,5)
+insert into Groups values(5,'Group 5',1,0,5)
+insert into Groups values(6,'Group 6',1,0,5)
+insert into Groups values(7,'Group 7',1,1,6)
+insert into Groups values(8,'Group 8',1,1,5)
+insert into Groups values(9,'Group 9',2,1,7)
+insert into Groups values(10,'Group 10',2,1,5)
+insert into Groups values(11,'Group ABC',3,0,5)
+insert into Groups values(12,'No name',3,0,5)
+insert into Groups values(13,'Gr 15',4,1,5)
+insert into Groups values(14,'G63',4,1,5)
+insert into Groups values(15,'Eagles',1,1,5)
+insert into Groups values(16,'Tigers',1,1,5)
 
 
 
@@ -405,7 +405,4 @@ insert into Project values(8,'Research and presentation','Economic Policy of Jap
 
 select * from Project
 select * from topic
-delete from Project 
-
-
-
+delete from Project

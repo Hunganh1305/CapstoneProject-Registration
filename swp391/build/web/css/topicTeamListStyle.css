@@ -33,6 +33,20 @@
     border: none;
     transition: 0.2s;
 }
+.team__btn-disabled{
+    background: #FDA;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0 5px;
+    color: grey;
+    font-weight: 700;
+    border: none;
+    transition: 0.2s;
+    cursor: default;
+}
+.team__btn-disabled a{
+    padding-top: 8px;
+}
 
 .team__btn:hover {
     background: #B66816;
@@ -153,7 +167,7 @@
     background-color: white;
     cursor: pointer;
     position: relative;
-    
+
 }
 
 .topic__filter:hover {
@@ -180,10 +194,10 @@
 
 .dropdown2{
     min-width: 64px;
-    
+
     display: none;
     padding: 0;
-    
+
 }
 
 
@@ -201,7 +215,7 @@
 .filter__item {
     padding: 12px;
     font-size: 1.5rem;
-    
+
 }
 
 .semester__item:hover,
@@ -262,7 +276,7 @@
 .btn__control{
     display: flex;
     justify-content: space-between;
-    
+
 }
 
 modal-header{

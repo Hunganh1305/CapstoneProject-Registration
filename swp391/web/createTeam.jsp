@@ -66,8 +66,8 @@
                                 <div class="selection--status">
                                     <label for="status" class="label_status">Status</label>
                                     <div id="status">
-                                        <input type="radio" name="groupStatus" value="Public" /> Public <br/>
-                                        <input type="radio" name="groupStatus" value="Private" /> Private
+                                        <input type="radio" name="groupStatus" value="0" /> Public <br/>
+                                        <input type="radio" name="groupStatus" value="1" /> Private
                                     </div>
                                 </div>
                             </div>

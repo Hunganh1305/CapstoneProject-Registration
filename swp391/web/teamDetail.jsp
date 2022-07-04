@@ -60,16 +60,16 @@
             <div class="team__header">
                 <h2>Team detail</h2>
                 <div class="btnControl">
-                    <button class="team__btn">
-                        <a href="${root}/group/join.do?id=${userId}"><i class="fa-solid fa-right-to-bracket"></i> Quick Join A Team</a>
-                    </button>
+                    <c:choose>
+                        <c:when test="${checkUserId != 0}"><button class="team__btn-disabled"><a href="#" data-toggle="tooltip" title="You are already have team! You can not join this team."><span class="fa-solid fa-right-from-bracket fa-md"></span>Quick Join A Team</a></c:when>
+                            <c:when test="${checkUserId == 0}"><button class="team__btn"><a href="${root}/group/join.do?id=${userId}">Quick Join A Team</a> </button></c:when>
+                        </c:choose>
                 </div>
             </div>          
 
 
 
             <div class="teamDetail-body">
-
                 <div class="teamMember-content">
                     <div class="teamMember-content_header">
                         <h4>Team members</h4>
@@ -131,36 +131,53 @@
                             </li>
 
                         </ul>
-                        <div class="teamInfor-item" style="margin-top: 5px">
-                            <i class="fa-solid fa-lock col-sm-1"></i>
-                            <div class="col-sm-2">
-                                <div class="quesIcon-control">
-                                <span class="tdTbl__warning">${list.project.status==1?"Locked":"Unlocked"}</span>    
-                                <span class="quesIcon"><a href="#" data-placement="top" data-toggle="tooltip" title="This team can  send application to topics in this semester"><i class="fa-regular fa-circle-question"></i></a></span>
-                                </div>
-                                    
-                                
-                            </div>
-                            <span class="col-sm-2"></span>
+                        <div class="teamInfor-item" style="margin-top: 5px">                                                        
                             <i class="fa-solid fa-shield col-sm-1"></i>
                             <div class="col-sm-2">                                
                                 <div class="quesIcon-control">
-                                    <span class="tdTbl__success">${groupStatus}</span>
-                                    <span class="quesIcon"><a href="#" data-placement="right" data-toggle="tooltip" title="This team is visible to every actived student in this semester"><i class="fa-regular fa-circle-question"></i></a></span>
+                                    <c:choose >
+                                        <c:when test="${groupStatus == 1}">
+                                            <span class="tdTbl__success">${groupStatus == 1?"Public":"Private"}</span>  
+                                            <span class="quesIcon"><a href="#" data-placement="right" data-toggle="tooltip" title="This team is visible to every actived student in this semester"><i class="fa-regular fa-circle-question"></i></a></span>
+                                                </c:when>
+                                                <c:when test="${groupStatus == 0}">
+                                            <span class="tdTbl__warning">${groupStatus == 1?"Public":"Private"}</span>   
+                                            <span class="quesIcon"><a href="#" data-placement="right" data-toggle="tooltip" title="This team is invisible to every actived student in this semester"><i class="fa-regular fa-circle-question"></i></a></span>
+                                                </c:when>
+                                            </c:choose>
+
                                 </div>                                                                                                                                                                    
                             </div>
                         </div> 
                         <hr/>
-                        <div class="teamInfor-item">
-                            <strong><span class="col-sm-4">Description:</span></strong>
-                            <span class="col-sm-12">${teamInfor.project.description}</span>
-                        </div>    
-                        <hr/>
-                        <div class="teamInfor-topic">
-                            <div class="teamInfor-item">                                
-                                <p class="center-block" style="font-weight: 700">${teamInfor.project.name == null?"This team have not matched any topic yet":""}${teamInfor.project.name}</p>                                
-                            </div>
-                        </div>
+                        <c:choose>
+                            <c:when test="${checkProjectId != 0}">
+                                <div class="teamInfor-item">
+                                    <strong><span class="col-sm-4">Description:</span></strong>
+                                    <span class="col-sm-12">${teamInfor.project.description}</span>
+                                </div>    
+                                <hr/>
+                                <div class="teamInfor-topic">
+                                    <div class="teamInfor-item">                                
+                                        <p class="center-block" style="font-weight: 700">${teamInfor.project.name == null?"This team have not matched any topic yet":""}${teamInfor.project.name}</p>                                
+                                    </div>
+                                </div>
+                            </c:when>
+
+                            <c:when test="${checkProjectId == 0}">
+                                <div class="teamInfor-item">
+                                    <strong><span class="col-sm-4">Description:</span></strong>
+                                    <span class="col-sm-12"></span>
+                                </div>    
+                                <hr/>
+                                <div class="teamInfor-topic">
+                                    <div class="teamInfor-item">                                
+                                        <p class="center-block" style="font-weight: 700">This team have not matched any topic yet</p>                                
+                                    </div>
+                                </div>
+                            </c:when>    
+                        </c:choose>
+
                 </div>
             </div>                
 
