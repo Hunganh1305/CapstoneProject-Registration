@@ -41,7 +41,7 @@ public class ProjectDAO {
                     group = new Groups();
                     group.setGroupId(rs.getInt("GroupId"));
                     group.setGroupName(rs.getString("GroupName"));
-                    group.setGroupStatus(rs.getString("groupStatus"));
+                    group.setGroupStatus(rs.getInt("groupStatus"));
                 }
             }
         } catch (Exception e) {
@@ -211,7 +211,7 @@ public class ProjectDAO {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Project(rs.getInt("ProjectId"), rs.getString("Description"), rs.getString("Name"), rs.getString("SourceCode"), rs.getInt("TopicId"), rs.getInt("Status"), rs.getInt("GroupId"), rs.getInt("LecturerId")));
+//                list.add(new Project(rs.getInt("ProjectId"), rs.getString("Description"), rs.getString("Name"), rs.getString("SourceCode"), rs.getInt("TopicId"), rs.getInt("Status"), rs.getInt("GroupId"), rs.getInt("LecturerId")));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
