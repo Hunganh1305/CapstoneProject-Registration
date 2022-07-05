@@ -84,7 +84,7 @@
                         <input placeholder=" " value="${searchText==null?"":searchText}" name="searchText" class="search__input" type="text">
                         <label for="search" class="search__label">Search by project's name</label>
                         <button type="submit" class="search-btn ">
-                            <img src="img/search-interface-symbol.png" alt="">
+                            <img src="../img/search-interface-symbol.png" alt="">
                         </button>
                     </form>
 
@@ -93,11 +93,11 @@
                         <i class="fa-solid fa-filter"></i>Filters
                         <div class="dropdown1">
                             <ul class="filter__list">
-                                <li class="filter__item">Quan tri kinh doanh</li>
-                                <li class="filter__item">Cong nghe thong tin</li>
-                                <li class="filter__item">Ngon ngu Anh</li>
-                                <li class="filter__item">Ngon ngu Han Quoc</li>
-                                <li class="filter__item">Ngon ngu Nhat</li>
+                                <li class="filter__item"><a href="${root}/projectlecturer/filter.do?filter=Quan tri kinh doanh">Quan tri kinh doanh</a></li>
+                                <li class="filter__item"><a href="${root}/projectlecturer/filter.do?filter=Cong nghe thong tin">Cong nghe thong tin</a></li>
+                                <li class="filter__item"><a href="${root}/projectlecturer/filter.do?filter=Ngon ngu Anh">Ngon ngu Anh</a></li>
+                                <li class="filter__item"><a href="${root}/projectlecturer/filter.do?filter=Ngon ngu Han Quoc">Ngon ngu Han Quoc</a></li>
+                                <li class="filter__item"><a href="${root}/projectlecturer/filter.do?filter=Ngon ngu Nhat">Ngon ngu Nhat</a></li>
                             </ul>
                         </div>
                     </div>
