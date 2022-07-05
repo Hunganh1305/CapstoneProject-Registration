@@ -52,7 +52,7 @@ public class ProjectLecturerController extends HttpServlet {
             case "lecView":
                 currSem = (Semester) session.getAttribute("currentSem");
                 ProjectDAO proDao = new ProjectDAO();
-                List<Project> proList = proDao.readAllProject();
+                List<Project> proList = proDao.readAllProject(currSem.getSemesterId());
 
                 //        pagination
                 if (!prevAction.equals(currAction)) {
@@ -64,6 +64,53 @@ public class ProjectLecturerController extends HttpServlet {
                 //        pagination 
 
                 request.getRequestDispatcher("/projectListLecturer.jsp").forward(request, response);
+                break;
+            case "search":
+                currSem = (Semester) session.getAttribute("currentSem");
+                proDao = new ProjectDAO();
+                String searchText = request.getParameter("searchText");
+                List<Project> proList1 = null;
+
+                //        pagination
+                String prevSearch = (String) session.getAttribute("prevProjectSearch");
+                if (prevSearch == null) {
+                    session.setAttribute("prevProjectSearch", searchText);
+                    prevSearch = searchText;
+                }
+                session.setAttribute("currProjectSearch", searchText);
+                String currSearch = (String) session.getAttribute("currProjectSearch");
+
+                if (searchText == null) {
+                    proList1 = proDao.readAllProject(currSem.getSemesterId());
+                } else {
+                    proList1 = proDao.searchByName(searchText, currSem.getSemesterId());
+                }
+                if (!prevAction.equals(currAction)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                session.setAttribute("prevProjectAction", "search");
+                pagination(request, response, proList1);
+                session.setAttribute("searchText", searchText);
+                session.setAttribute("currProjectAction", "pagesearch");
+                //        pagination
+
+                request.getRequestDispatcher("/projectListLecturer.jsp").forward(request, response);
+                break;
+            case "pagesearch":
+                searchText = (String) session.getAttribute("searchText");
+                proDao = new ProjectDAO();
+                currSem = (Semester) session.getAttribute("currentSem");
+                if (searchText == null) {
+                    proList1 = proDao.readAllProject(currSem.getSemesterId());
+                } else {
+                    proList1 = proDao.searchByName(searchText, currSem.getSemesterId());
+                }
+                pagination(request, response, proList1);
+                session.setAttribute("prevProjectAction", "pagesearch");
+
+                request.getRequestDispatcher("/projectListLecturer.jsp").forward(request, response);
+
                 break;
         }
 
