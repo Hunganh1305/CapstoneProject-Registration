@@ -93,6 +93,24 @@ public class GroupsDAO {
         }
 
     }
+    
+    public static void updateGroupStatus(Groups groups) {
+        Connection cn = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update dbo.Groups set groupStatus=? where GroupId=?";
+                PreparedStatement stm = cn.prepareStatement(sql);                                
+                stm.setInt(1, groups.getGroupStatus());                
+                stm.setInt(2, groups.getGroupId());
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+
+    }
 
     public static void delete(Object id) {
         Connection cn = null;
