@@ -92,7 +92,60 @@
                             <c:if test="${empty pendingTopicList}">
                                 <div class="search-empty">
                                     <img src="../img/search-empty.png" class="search-empty-icon"/>
-                                    <div class="search-empty-title">You don't have any appliable topic</div>
+                                    <div class="search-empty-title">No pending topic available</div>
+                                </div>
+                            </c:if>
+
+                        </div>
+                        <div class="modal-footer ">
+
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title" id="exampleModalLongTitle">Being approved topic list</h2>
+
+                        </div>
+                        <div class="modal-body">
+
+                            <c:if test="${!empty approvingTopicList}">
+                                <table class=" table ">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>                             
+                                            <th>Department</th>
+                                            <th>Semester</th>
+                                            <th></th>
+                                        </tr>
+
+                                    </thead>
+
+                                    <c:forEach var="item2" items="${approvingTopicList}" varStatus="loop">
+                                        <tbody>
+                                            <tr>  
+                                                <td>${item2.name}</td> 
+                                                <td>${item2.department.name}</td>
+                                                <td>${item2.semester.name}</td>
+                                                <td>
+                                                    <a  href="${root}/topic/delete.do?topicId=${item2.topicId}" class="btn btn-danger">Delete</a>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>    
+                                    </c:forEach>
+                                </table>
+                            </c:if>
+
+                            <c:if test="${empty approvingTopicList}">
+                                <div class="search-empty">
+                                    <img src="../img/search-empty.png" class="search-empty-icon"/>
+                                    <div class="search-empty-title">No under review topic available</div>
                                 </div>
                             </c:if>
 
@@ -128,7 +181,10 @@
                         <button type="button" class="btn team__btn" data-toggle="modal" data-target="#myModal">
                             Pending topics
                         </button>
-                        <button class="btn team__btn"><a href="./createTopic.jsp">+ Create New Topic</a></button>
+                        <button type="button" class="btn team__btn" data-toggle="modal" data-target="#myModal1">
+                            Delete topics
+                        </button>
+                        <button class="btn team__btn"><a href="<c:url value="/topic/create.do"/>">+ Create New Topic</a></button>
                     </div>
 
                 </div>
@@ -140,7 +196,7 @@
                         <input placeholder=" " value="${searchText==null?"":searchText}" name="searchText" class="search__input" type="text">
                         <label for="search" class="search__label">Search by name</label>
                         <button type="submit" class="search-btn ">
-                            <img src="img/search-interface-symbol.png" alt="">
+                            <img src="../img/search-interface-symbol.png" alt="">
                         </button>
                     </form>
 
