@@ -144,3 +144,7 @@
     transform: translateX(500%) translateY(-100%);
     padding-left: 4px;
 }
+.flex{
+    display: flex;
+    justify-content: space-between;
+}
