@@ -1,19 +1,15 @@
-<%-- 
-    Document   : topicListLecturer
-    Created on : 02/07/2022, 2:01:20 PM
-    Author     : HLong
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Dashboard - Topic List</title>
+        <title>Dashboard - Topic</title>
 
         <!-- Google font -->
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
@@ -25,6 +21,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
         <!-- Font Awesome Icon -->
+        <!--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
         <script src="https://kit.fontawesome.com/e7ea130b87.js" crossorigin="anonymous"></script>
 
         <!-- Custom stlylesheet -->
@@ -32,7 +29,10 @@
 
         <!-- topic stylessheet -->
         <link type="text/css" rel="stylesheet" href="../css/topicTeamListStyle.css" />
+
+
     </head>
+
     <body>
 
         <% String name = (String) session.getAttribute("name");
@@ -60,9 +60,9 @@
                         <ul class="semester__list">
                             <c:forEach var="item" items="${semList}" varStatus="loop"> 
                                 <li name="semester" class="semester__item" >
-                                    <!--<a  href="${root}/topic/semester.do?semester=${item.name}">-->
+                                    <a  href="${root}/projectlecturer/semester.do?semester=${item.name}">
                                     ${item.name}
-                                    <!--</a>-->
+                                    </a>
                                 </li>             
                                 </c:forEach>
                         </ul>
@@ -80,9 +80,9 @@
                 <hr>
 
                 <div class="topic__search">
-                    <form action="">
-                        <input placeholder=" " class="search__input" type="text">
-                        <label for="search" class="search__label">Search by name</label>
+                    <form action="<c:url value="/projectlecturer/search.do"/>">
+                        <input placeholder=" " value="${searchText==null?"":searchText}" name="searchText" class="search__input" type="text">
+                        <label for="search" class="search__label">Search by project's name</label>
                         <button type="submit" class="search-btn ">
                             <img src="img/search-interface-symbol.png" alt="">
                         </button>
@@ -118,7 +118,7 @@
                     <tbody>
                         <c:forEach var="item" items="${proList}" varStatus="loop">
                             <tr>
-                                <td style="text-align: center">${item.groupId}</td>
+                                <td style="text-align: center">${item.group.groupName}</td>
                                 <td>${item.name}</td>
                                 <td>${item.lecturer.name}</td>
                                 <td style="text-align: center">${item.status==1 ? "Approved" : "Waiting"}</td>
