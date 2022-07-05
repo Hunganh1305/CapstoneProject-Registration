@@ -107,7 +107,10 @@
                     </c:forEach>
                 </div>
                 <div class="teamInfor-content">
-                    <h4 class="teamInfor-tittle">Team Information</h6>
+                    <div class="flex">
+                        <h4 class="teamInfor-tittle">Team Information</h6>
+                        <button class="team__btn"><a href="${root}/group/switch.do?id=${userId}">Switch to Private</a></button>
+                    </div>
                         <hr/>
                         <ul class="teamInfor-list">
                             <li class="teamInfor-item">
