@@ -202,15 +202,19 @@ public class ProjectDAO {
         return project;
     }
 
-    public List<Project> readAllProject() {
+    public List<Project> readAllProject(int semesterId) {
         ArrayList<Project> list = new ArrayList<>();
-        String sql = "SELECT ProjectId, Description, Project.Name AS proName, SourceCode, TopicId, Project.[Status] AS Sta, GroupId, Users.Name AS lecName "
-                + "from Project, Users "
-                + "WHERE Project.LecturerId = Users.UserId";
 
         try {
             Connection conn = DBUtils.makeConnection();
+            String sql = "SELECT ProjectId, Description, Project.Name AS proName, SourceCode, TopicId, Project.[Status] AS Sta, "
+                    + "Project.GroupId, Groups.GroupName AS grpName, "
+                    + "LecturerId , Users.Name AS lecName, Groups.SemID AS semID, Semester.SemesterId "
+                    + "from Project, Users, Groups, Semester "
+                    + "WHERE Project.LecturerId = Users.UserId AND Project.GroupId = Groups.GroupId And "
+                    + "Semester.SemesterId = semID AND Semester.SemesterId = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, semesterId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int ProjectId = rs.getInt("ProjectId");
@@ -221,9 +225,50 @@ public class ProjectDAO {
                 int Status = rs.getInt("Sta");
                 int GroupId = rs.getInt("GroupId");
                 String lecName = rs.getString("lecName");
+                String grpName = rs.getString("grpName");
+                Groups group = new Groups();
+                group.setGroupName(grpName);
                 Users user = new Users();
                 user.setName(lecName);
-                Project project = new Project(ProjectId, Description, Name, SourceCode, TopicId, Status, GroupId, user);
+                Project project = new Project(ProjectId, Description, Name, SourceCode, TopicId, Status, GroupId, group, user);
+                list.add(project);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+    
+    public List<Project> searchByName(String name,int semesterId) {
+        ArrayList<Project> list = new ArrayList<>();
+
+        try {
+            Connection conn = DBUtils.makeConnection();
+            String sql = "SELECT ProjectId, Description, Project.Name AS proName, SourceCode, TopicId, Project.[Status] AS Sta, "
+                    + "Project.GroupId, Groups.GroupName AS grpName, "
+                    + "LecturerId , Users.Name AS lecName, Groups.SemID AS semID, Semester.SemesterId "
+                    + "from Project, Users, Groups, Semester "
+                    + "WHERE Project.LecturerId = Users.UserId AND Project.GroupId = Groups.GroupId And "
+                    + "Semester.SemesterId = semID AND Semester.SemesterId = ? AND Project.Name LIKE ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, semesterId);
+            ps.setString(2, "%" + name + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int ProjectId = rs.getInt("ProjectId");
+                String Description = rs.getString("Description");
+                String SourceCode = rs.getString("SourceCode");
+                String Name = rs.getString("proName");
+                int TopicId = rs.getInt("TopicId");
+                int Status = rs.getInt("Sta");
+                int GroupId = rs.getInt("GroupId");
+                String lecName = rs.getString("lecName");
+                String grpName = rs.getString("grpName");
+                Groups group = new Groups();
+                group.setGroupName(grpName);
+                Users user = new Users();
+                user.setName(lecName);
+                Project project = new Project(ProjectId, Description, Name, SourceCode, TopicId, Status, GroupId, group, user);
                 list.add(project);
             }
         } catch (Exception ex) {
