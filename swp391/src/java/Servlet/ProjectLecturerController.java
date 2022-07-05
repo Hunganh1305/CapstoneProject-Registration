@@ -72,13 +72,6 @@ public class ProjectLecturerController extends HttpServlet {
                 List<Project> proList1 = null;
 
                 //        pagination
-                String prevSearch = (String) session.getAttribute("prevProjectSearch");
-                if (prevSearch == null) {
-                    session.setAttribute("prevProjectSearch", searchText);
-                    prevSearch = searchText;
-                }
-                session.setAttribute("currProjectSearch", searchText);
-                String currSearch = (String) session.getAttribute("currProjectSearch");
 
                 if (searchText == null) {
                     proList1 = proDao.readAllProject(currSem.getSemesterId());
