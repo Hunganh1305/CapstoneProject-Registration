@@ -105,6 +105,48 @@ public class ProjectLecturerController extends HttpServlet {
                 request.getRequestDispatcher("/projectListLecturer.jsp").forward(request, response);
 
                 break;
+            case "filter":
+                currSem = (Semester) session.getAttribute("currentSem");
+                proDao = new ProjectDAO();
+                String filter = request.getParameter("filter");
+                //        pagination
+                String prevFilter = (String) session.getAttribute("prevProjectFilter");
+                if (prevFilter == null) {
+                    session.setAttribute("prevProjectFilter", filter);
+                    prevFilter = filter;
+                }
+                session.setAttribute("currProjectFilter", filter);
+                String currFilter = (String) session.getAttribute("currProjectFilter");
+                
+                List<Project> proList2 = proDao.filterByDepartment(filter, currSem.getSemesterId());
+                if (!prevAction.equals(currAction) || !prevFilter.equals(currFilter)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                switch (currFilter) {
+                    case "Cong nghe thong tin":
+                        session.setAttribute("prevProjectFilter", "Cong nghe thong tin");
+                        break;
+                    case "Quan tri kinh doanh":
+                        session.setAttribute("prevProjectFilter", "Quan tri kinh doanh");
+                        break;
+                    case "Ngon ngu Anh":
+                        session.setAttribute("prevProjectFilter", "Ngon ngu Anh");
+                        break;
+                    case "Ngon ngu Nhat":
+                        session.setAttribute("prevProjectFilter", "Ngon ngu Nhat");
+                        break;
+                    case "Ngon ngu Han Quoc":
+                        session.setAttribute("prevProjectFilter", "Ngon ngu Han Quoc");
+                        break;
+                }
+                pagination(request, response, proList2);
+                request.setAttribute("filter", filter);
+                session.setAttribute("prevProjectAction", "filter");
+                session.setAttribute("currProjectAction", "pagefilter");
+                //        pagination
+                request.getRequestDispatcher("/projectListLecturer.jsp").forward(request, response);
+                break;
         }
 
     }
