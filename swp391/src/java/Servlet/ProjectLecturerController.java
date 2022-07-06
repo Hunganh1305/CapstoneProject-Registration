@@ -87,14 +87,14 @@ public class ProjectLecturerController extends HttpServlet {
                 }
                 session.setAttribute("prevProjectAction", "search");
                 pagination(request, response, proList1);
-                session.setAttribute("searchText", searchText);
+                session.setAttribute("searchTextProject", searchText);
                 session.setAttribute("currProjectAction", "pagesearch");
                 //        pagination
 
                 request.getRequestDispatcher("/projectListLecturer.jsp").forward(request, response);
                 break;
             case "pagesearch":
-                searchText = (String) session.getAttribute("searchText");
+                searchText = (String) session.getAttribute("searchTextProject");
                 proDao = new ProjectDAO();
                 currSem = (Semester) session.getAttribute("currentSem");
                 if (searchText == null) {
