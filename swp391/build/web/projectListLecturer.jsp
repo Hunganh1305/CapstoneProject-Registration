@@ -35,13 +35,12 @@
 
     <body>
 
-        <% String name = (String) session.getAttribute("name");
-            if (name == null) { %>
-        <p>
-            <font color='red'>You must login to view this page</font>
-        </p>
-        <p>Click <a href="../Login.jsp">here</a> to login</p>
-        <%} else {%>
+        <%
+            String name = (String) session.getAttribute("name");
+            if (name == null) {
+                response.sendRedirect("Login.jsp");
+            } else {
+        %>
 
         <!-- Header -->
         <header>
@@ -81,7 +80,7 @@
 
                 <div class="topic__search">
                     <form action="<c:url value="/projectlecturer/search.do"/>">
-                        <input placeholder=" " value="${searchText==null?"":searchText}" name="searchText" class="search__input" type="text">
+                        <input placeholder=" " value="${searchTextProject==null?"":searchTextProject}" name="searchText" class="search__input" type="text">
                         <label for="search" class="search__label">Search by project's name</label>
                         <button type="submit" class="search-btn ">
                             <img src="../img/search-interface-symbol.png" alt="">
@@ -122,7 +121,7 @@
                                 <td>${item.name}</td>
                                 <td>${item.lecturer.name}</td>
                                 <td style="text-align: center">${item.status==1 ? "Approved" : "Waiting"}</td>
-                                <td style="text-align: center"><a href="<%=request.getContextPath()%>/project/detail?id=${item.projectId}"><i class="fa-solid fa-eye"></i></a></td>
+                                <td style="text-align: center"><a href="${root}/projectlecturer/detail.do?id=${item.projectId}"><i class="fa-solid fa-eye"></i></a></td>
                             </tr>
                         </c:forEach>
                     </tbody>
