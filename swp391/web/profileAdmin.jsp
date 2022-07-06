@@ -39,6 +39,9 @@
         
         <%
             String name = (String) session.getAttribute("name");
+            String email = (String) session.getAttribute("email");
+            int userId = (int) session.getAttribute("userId");
+            String department = (String) session.getAttribute("department");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
             } else {
@@ -60,8 +63,8 @@
             <div class="card text-center col-12 col-sm-5">
                 <img class="profile-pic img-fluid card-image-top" src="./img/sample-avatar.jpg" alt="Profile Picture">
                 <div class="card-body">
-                    <h2 class="card-title text-grey">Nguyễn Văn A</h2>
-                    <p>anvse161322@fpt.edu.vn</p>
+                    <h2 class="card-title text-grey"><%= name%></h2>
+                    <p><%= email%></p>
                 </div>
             </div>
             <div class="col-12 col-sm-7">
@@ -75,7 +78,7 @@
                                 <p class="mb-0">Full Name</p>
                             </div>
                             <div class="col-sm-8">
-                                <p class="text-muted mb-0">Nguyễn Văn A</p>
+                                <p class="text-muted mb-0"><%= name%></p>
                             </div>
                         </div>
                         <hr>
@@ -87,7 +90,7 @@
                                 <p class="mb-0">Email</p>
                             </div>
                             <div class="col-sm-8">
-                                <p class="text-muted mb-0">anvse161322@fpt.edu.vn</p>
+                                <p class="text-muted mb-0"><%= email%></p>
                             </div>
                         </div>
                         <hr>
@@ -99,45 +102,10 @@
                                 <p class="mb-0">ID</p>
                             </div>
                             <div class="col-sm-8">
-                                <p class="text-muted mb-0">SE161322</p>
+                                <p class="text-muted mb-0"><%= userId%></p>
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <span class="fa-solid fa-mobile-button fa-lg"></span>
-                            </div>
-                            <div class="col-sm-3">
-                                <p class="mb-0"> Mobile</p>
-                            </div>
-                            <div class="col-sm-8">
-                                <p class="text-muted mb-0">(098) 765-4321</p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <span class="fa-solid fa-building-columns fa-lg"></span>
-                            </div>
-                            <div class="col-sm-3">
-                                <p class="mb-0">Department</p>
-                            </div>
-                            <div class="col-sm-8">
-                                <p class="text-muted mb-0">Software Engineering</p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <span class="fa-brands fa-facebook fa-lg"></span>
-                            </div>
-                            <div class="col-sm-3">
-                                <p class="mb-0">Facebook</p>
-                            </div>
-                            <div class="col-sm-8">
-                                <p class="text-muted mb-0"></p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
