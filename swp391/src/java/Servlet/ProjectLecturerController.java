@@ -147,6 +147,18 @@ public class ProjectLecturerController extends HttpServlet {
                 //        pagination
                 request.getRequestDispatcher("/projectListLecturer.jsp").forward(request, response);
                 break;
+            case "pagefilter":
+                filter = (String) session.getAttribute("prevProjectFilter");
+                proDao = new ProjectDAO();
+                currSem = (Semester) session.getAttribute("currentSem");
+                proList2 = proDao.filterByDepartment(filter, currSem.getSemesterId());
+                pagination(request, response, proList2);
+                session.setAttribute("prevProjectAction", "pagefilter");
+                request.getRequestDispatcher("/projectListLecturer.jsp").forward(request, response);
+                break;
+            case "detail":
+                request.getRequestDispatcher("/projectDetailLecturer.jsp").forward(request, response);
+                break;
         }
 
     }
