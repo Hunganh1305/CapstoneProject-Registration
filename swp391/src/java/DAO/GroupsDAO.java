@@ -93,23 +93,40 @@ public class GroupsDAO {
         }
 
     }
+         
     
-    public static void updateGroupStatus(Groups groups) {
+    public static void updatePublicGroup(int id) {
         Connection cn = null;
+        int status = 0;
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "update dbo.Groups set groupStatus=? where GroupId=?";
-                PreparedStatement stm = cn.prepareStatement(sql);                                
-                stm.setInt(1, groups.getGroupStatus());                
-                stm.setInt(2, groups.getGroupId());
+                String sql = "update dbo.Groups set groupStatus = 1 where GroupId = ?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
                 stm.executeUpdate();
                 cn.close();
             }
         } catch (Exception e) {
             e.getStackTrace();
         }
-
+    }
+    
+    public static void updatePrivateGroup(int id) {
+        Connection cn = null;
+        int status = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update dbo.Groups set groupStatus = 0 where GroupId = ?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
     }
 
     public static void delete(Object id) {
