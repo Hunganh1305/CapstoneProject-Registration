@@ -52,6 +52,26 @@
 
         <!-- topic -->
         <section id="topic" class="container">
+            <c:choose>
+                <c:when test="${noti == true}">
+                    <div id="toasts">
+                        <div class="toast success">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span class="message">Joining team successful</span>
+                            <span class="countdown"></span>                    
+                        </div>
+                    </div>
+                </c:when>
+                <c:when test="${noti == false}">
+                    <div id="toasts">
+                        <div class="toast error">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span class="message">Fail to join</span>
+                            <span class="countdown"></span>
+                        </div>
+                    </div>
+                </c:when>
+            </c:choose>
 
             <div class="teamListControl">
                 <div class="topic__title">
@@ -141,11 +161,11 @@
                                     <c:choose >
                                         <c:when test="${list.group.groupStatus == 1}">
                                             <td><span class="tdTbl__success">${list.group.groupStatus == 1?"Public":"Private"}</span></td>                                        
-                                        </c:when>
-                                        <c:when test="${list.group.groupStatus == 0}">
+                                            </c:when>
+                                            <c:when test="${list.group.groupStatus == 0}">
                                             <td><span class="tdTbl__warning">${list.group.groupStatus == 1?"Public":"Private"}</span></td>                                    
-                                        </c:when>
-                                    </c:choose>
+                                            </c:when>
+                                        </c:choose>
 
 
 <!--                                    <td><span class="tdTbl__success">${list.group.groupStatus == 1?"Public":"Private"}</span></td>                                    -->
@@ -206,4 +226,5 @@
             });
         </script>
         <script src="../js/topic.js"></script>
+        <script src="../js/teamNoti.js"></script>
     </body>

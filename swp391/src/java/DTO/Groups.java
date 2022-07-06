@@ -19,6 +19,15 @@ public class Groups {
     public Groups() {
     }
 
+    public Groups(int groupId, int groupStatus) {
+        this.groupId = groupId;
+        this.groupStatus = groupStatus;
+    }
+
+    public Groups(int groupStatus) {
+        this.groupStatus = groupStatus;
+    }
+    
     public Groups(int groupId, String groupName, int semId, int groupStatus, int members) {
         this.groupId = groupId;
         this.groupName = groupName;

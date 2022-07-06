@@ -78,6 +78,7 @@ input#members{
 .btn-Close{
     font-weight: 700;    
     color: black;
+    border: 2px solid grey;
 }
 .btn-Create{
     font-weight: 700;   

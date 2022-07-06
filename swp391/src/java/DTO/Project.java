@@ -24,6 +24,18 @@ public class Project {
     public Project() {
     }
 
+    public Project(int projectId, String description, String name, String sourceCode, int topicId, int status, int groupId, Users lecturer) {
+        this.projectId = projectId;
+        this.description = description;
+        this.name = name;
+        this.sourceCode = sourceCode;
+        this.topicId = topicId;
+        this.status = status;
+        this.groupId = groupId;
+        this.lecturer = lecturer;
+    }
+    
+
     public Project(int projectId, String description, String name, String sourceCode, int topicId, int status, int groupId) {
         this.projectId = projectId;
         this.description = description;

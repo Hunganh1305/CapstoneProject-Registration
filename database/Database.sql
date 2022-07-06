@@ -1,7 +1,7 @@
 use master
 
 CREATE DATABASE SWP391
-DROP DATABASE SWP391
+
 -- SELECT * FROM Student
 -- SELECT * FROM Lecturer
 -- SELECT * FROM Semester
@@ -238,6 +238,11 @@ insert into Users values(80,'Sang Vlog','12345678',1,1,'sangvl@gmail.com',1,null
 insert into Users values(76,'NTN vlog','12345678',1,1,'ntnvl@gmail.com',1,null)
 insert into Users values(77,'Giang Oi','12345678',1,1,'giangoi@gmail.com',1,null)
 insert into Users values(78,'Khoai Lang Thang','12345678',1,1,'klt@gmail.com',1,null)
+--more student 
+insert into Users values(73,'Duong Qua','12345678',1,5,'duongqua@gmail.com',1,null)
+insert into Users values(74,'Bat Cai','12345678',1,4,'batcai@gmail.com',1,null)
+insert into Users values(75,'Anh Hung Xa Dieu','12345678',1,4,'anhhungxadieu@gmail.com',1,null)
+
 select * from Users
 
 
