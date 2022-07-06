@@ -81,6 +81,21 @@ public class LoginServlet extends HttpServlet {
                             response.sendRedirect("profileLecturer.jsp");
                         }
                     }
+                    else if(user.getRoleId()==3){
+                        //chuyen sang trang cho admin
+                        HttpSession session=request.getSession(true);
+                        if(session!=null){
+                            session.setAttribute("user", user);
+                            session.setAttribute("depId", user.getDepartmentId());
+                            session.setAttribute("name", user.getName());
+                            session.setAttribute("email", user.getEmail());
+                            session.setAttribute("userId", user.getUserId());
+                            session.setAttribute("semList", semList);
+                            session.setAttribute("currentSem", semList.get(0));
+                            session.setAttribute("department", UserDAO.readUserDep(user.getDepartmentId()));
+                            response.sendRedirect("profileAdmin.jsp");
+                        }
+                    }
                 }
                 else{
                     request.setAttribute("WARNING", "Invalid email or password");

@@ -35,13 +35,12 @@
     </head>
     <body>
 
-        <% String name = (String) session.getAttribute("name");
-            if (name == null) { %>
-        <p>
-            <font color='red'>You must login to view this page</font>
-        </p>
-        <p>Click <a href="../Login.jsp">here</a> to login</p>
-        <%} else {%>
+        <%
+            String name = (String) session.getAttribute("name");
+            if (name == null) {
+                response.sendRedirect("Login.jsp");
+            } else {
+        %>
 
         <!-- Header -->
         <header>
