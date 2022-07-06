@@ -73,7 +73,15 @@
                 <div class="teamMember-content">
                     <div class="teamMember-content_header">
                         <h4>Team members</h4>
-                        <div class="tdTbl__success"> <p class="membersCount">${countMembers}/${teamInfor.group.members}</p> </div>                                                                                    
+                        <c:choose >
+                            <c:when test="${countMembers == teamInfor.group.members}">
+                                <div class="tdTbl__success"> <p class="membersCount">${countMembers}/${teamInfor.group.members}</p> </div>  
+                            </c:when>
+                            <c:when test="${countMembers <= teamInfor.group.members}">
+                                <div class="tdTbl__warning"> <p class="membersCount">${countMembers}/${teamInfor.group.members}</p> </div>  
+                            </c:when>
+                        </c:choose>
+
                     </div>
                     <hr/>
                     <c:forEach var="item" items="${teamMembers}" varStatus="loop">
@@ -110,7 +118,9 @@
                             <li class="teamInfor-item">
                                 <i class="fa-solid fa-clone col-sm-1"></i>
                                 <span class="col-sm-4">Team ID:</span>
-                                <span class="col-sm-7">${teamInfor.groupId}</span>
+                                <div>
+                                    <span class="col-sm-7">${teamInfor.groupId}</span>
+                                </div>
                             </li>                        
                             <li class="teamInfor-item">
                                 <i class="fa fa-regular fa-building col-sm-1"></i>
@@ -124,20 +134,28 @@
                         <div class="teamInfor-item" style="margin-top: 5px">
                             <i class="fa-solid fa-lock col-sm-1"></i>
                             <div class="col-sm-2">
-                                <span class="tdTbl__warning">${list.project.status==1?"Locked":"Unlocked"}</span>
+                                <div class="quesIcon-control">
+                                <span class="tdTbl__warning">${list.project.status==1?"Locked":"Unlocked"}</span>    
+                                <span class="quesIcon"><a href="#" data-placement="top" data-toggle="tooltip" title="This team can  send application to topics in this semester"><i class="fa-regular fa-circle-question"></i></a></span>
+                                </div>
+                                    
+                                
                             </div>
                             <span class="col-sm-2"></span>
                             <i class="fa-solid fa-shield col-sm-1"></i>
-                            <div class="col-sm-2">
-                                <span class="tdTbl__success">${groupStatus}</span>
+                            <div class="col-sm-2">                                
+                                <div class="quesIcon-control">
+                                    <span class="tdTbl__success">${groupStatus}</span>
+                                    <span class="quesIcon"><a href="#" data-placement="right" data-toggle="tooltip" title="This team is visible to every actived student in this semester"><i class="fa-regular fa-circle-question"></i></a></span>
+                                </div>                                                                                                                                                                    
                             </div>
                         </div> 
-                            <hr/>
+                        <hr/>
                         <div class="teamInfor-item">
                             <strong><span class="col-sm-4">Description:</span></strong>
                             <span class="col-sm-12">${teamInfor.project.description}</span>
                         </div>    
-                            <hr/>
+                        <hr/>
                         <div class="teamInfor-topic">
                             <div class="teamInfor-item">                                
                                 <p class="center-block" style="font-weight: 700">${teamInfor.project.name == null?"This team have not matched any topic yet":""}${teamInfor.project.name}</p>                                
