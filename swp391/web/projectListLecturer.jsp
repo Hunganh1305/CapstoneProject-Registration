@@ -122,7 +122,7 @@
                                 <td>${item.name}</td>
                                 <td>${item.lecturer.name}</td>
                                 <td style="text-align: center">${item.status==1 ? "Approved" : "Waiting"}</td>
-                                <td style="text-align: center"><a href="<%=request.getContextPath()%>/project/detail?id=${item.projectId}"><i class="fa-solid fa-eye"></i></a></td>
+                                <td style="text-align: center"><a href="${root}/projectlecturer/detail.do?id=${item.projectId}"><i class="fa-solid fa-eye"></i></a></td>
                             </tr>
                         </c:forEach>
                     </tbody>
