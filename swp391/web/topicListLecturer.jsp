@@ -35,13 +35,12 @@
     </head>
     <body>
 
-        <% String name = (String) session.getAttribute("name");
-            if (name == null) { %>
-        <p>
-            <font color='red'>You must login to view this page</font>
-        </p>
-        <p>Click <a href="../Login.jsp">here</a> to login</p>
-        <%} else {%>
+        <%
+            String name = (String) session.getAttribute("name");
+            if (name == null) {
+                response.sendRedirect("Login.jsp");
+            } else {
+        %>
 
         <!-- Header -->
         <header>
@@ -196,7 +195,7 @@
                         <input placeholder=" " value="${searchText==null?"":searchText}" name="searchText" class="search__input" type="text">
                         <label for="search" class="search__label">Search by name</label>
                         <button type="submit" class="search-btn ">
-                            <img src="img/search-interface-symbol.png" alt="">
+                            <img src="../img/search-interface-symbol.png" alt="">
                         </button>
                     </form>
 

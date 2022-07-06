@@ -196,7 +196,7 @@
                         <input placeholder=" " value="${searchText==null?"":searchText}" name="searchText" class="search__input" type="text">
                         <label for="search" class="search__label">Search by name</label>
                         <button type="submit" class="search-btn ">
-                            <img src="img/search-interface-symbol.png" alt="">
+                            <img src="../img/search-interface-symbol.png" alt="">
                         </button>
                     </form>
 

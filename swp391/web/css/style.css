@@ -1480,6 +1480,24 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
     font-weight: 700;
 
 }
+.orange-box{
+	height: 22px;
+    min-width: 22px;
+    line-height: 0;
+    border-radius: 8px;
+    cursor: default;
+    align-items: center;
+    white-space: nowrap;
+    display: inline-flex;
+    justify-content: center;
+    padding: 0px 8px;
+    color: rgb(183, 129, 3);
+    font-size: 0.75rem;
+    font-family: "Public Sans", sans-serif;
+    background: rgba(255, 193, 7, 0.16);
+    font-weight: 700;
+
+}
 
 .dropdown-menu{
 	border-radius: 4px;

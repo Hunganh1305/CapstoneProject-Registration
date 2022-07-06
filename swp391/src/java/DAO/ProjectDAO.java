@@ -41,7 +41,7 @@ public class ProjectDAO {
                     group = new Groups();
                     group.setGroupId(rs.getInt("GroupId"));
                     group.setGroupName(rs.getString("GroupName"));
-                    group.setGroupStatus(rs.getString("groupStatus"));
+                    group.setGroupStatus(rs.getInt("groupStatus"));
                 }
             }
         } catch (Exception e) {
@@ -201,17 +201,37 @@ public class ProjectDAO {
 
         return project;
     }
-    
-    public List<Project> readAllProject() {
+
+    public List<Project> readAllProject(int semesterId) {
         ArrayList<Project> list = new ArrayList<>();
-        String sql = "SELECT ProjectId, Description, Name, SourceCode, TopicId, [Status], GroupId,  from Project";
 
         try {
             Connection conn = DBUtils.makeConnection();
+            String sql = "SELECT ProjectId, Description, Project.Name AS proName, SourceCode, TopicId, Project.[Status] AS Sta, "
+                    + "Project.GroupId, Groups.GroupName AS grpName, "
+                    + "LecturerId , Users.Name AS lecName, Groups.SemID AS semID, Semester.SemesterId "
+                    + "from Project, Users, Groups, Semester "
+                    + "WHERE Project.LecturerId = Users.UserId AND Project.GroupId = Groups.GroupId And "
+                    + "Semester.SemesterId = semID AND Semester.SemesterId = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, semesterId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Project(rs.getInt("ProjectId"), rs.getString("Description"), rs.getString("Name"), rs.getString("SourceCode"), rs.getInt("TopicId"), rs.getInt("Status"), rs.getInt("GroupId"), rs.getInt("LecturerId")));
+                int ProjectId = rs.getInt("ProjectId");
+                String Description = rs.getString("Description");
+                String SourceCode = rs.getString("SourceCode");
+                String Name = rs.getString("proName");
+                int TopicId = rs.getInt("TopicId");
+                int Status = rs.getInt("Sta");
+                int GroupId = rs.getInt("GroupId");
+                String lecName = rs.getString("lecName");
+                String grpName = rs.getString("grpName");
+                Groups group = new Groups();
+                group.setGroupName(grpName);
+                Users user = new Users();
+                user.setName(lecName);
+                Project project = new Project(ProjectId, Description, Name, SourceCode, TopicId, Status, GroupId, group, user);
+                list.add(project);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -219,4 +239,172 @@ public class ProjectDAO {
         return list;
     }
 
+    public List<Project> searchByName(String name, int semesterId) {
+        ArrayList<Project> list = new ArrayList<>();
+
+        try {
+            Connection conn = DBUtils.makeConnection();
+            String sql = "SELECT ProjectId, Description, Project.Name AS proName, SourceCode, TopicId, Project.[Status] AS Sta, "
+                    + "Project.GroupId, Groups.GroupName AS grpName, "
+                    + "LecturerId , Users.Name AS lecName, Groups.SemID AS semID, Semester.SemesterId "
+                    + "from Project, Users, Groups, Semester "
+                    + "WHERE Project.LecturerId = Users.UserId AND Project.GroupId = Groups.GroupId And "
+                    + "Semester.SemesterId = semID AND Semester.SemesterId = ? AND Project.Name LIKE ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, semesterId);
+            ps.setString(2, "%" + name + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int ProjectId = rs.getInt("ProjectId");
+                String Description = rs.getString("Description");
+                String SourceCode = rs.getString("SourceCode");
+                String Name = rs.getString("proName");
+                int TopicId = rs.getInt("TopicId");
+                int Status = rs.getInt("Sta");
+                int GroupId = rs.getInt("GroupId");
+                String lecName = rs.getString("lecName");
+                String grpName = rs.getString("grpName");
+                Groups group = new Groups();
+                group.setGroupName(grpName);
+                Users user = new Users();
+                user.setName(lecName);
+                Project project = new Project(ProjectId, Description, Name, SourceCode, TopicId, Status, GroupId, group, user);
+                list.add(project);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Project> filterByDepartment(String DepName, int semesterId) {
+        ArrayList<Project> list = new ArrayList<>();
+
+        try {
+            Connection conn = DBUtils.makeConnection();
+            String sql = "SELECT ProjectId, Description, Project.Name AS proName, SourceCode, TopicId, Project.[Status] AS Sta, "
+                    + "Project.GroupId, Groups.GroupName AS grpName, "
+                    + "LecturerId , Users.Name AS lecName, Groups.SemID AS semID, Semester.SemesterId, Department.Name "
+                    + "from Project, Users, Groups, Semester, Department "
+                    + "WHERE Project.LecturerId = Users.UserId AND Project.GroupId = Groups.GroupId And "
+                    + "Semester.SemesterId = semID AND Semester.SemesterId = ? AND Department.DepartmentId = Users.DepartmentId "
+                    + "AND Department.Name LIKE ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, semesterId);
+            ps.setString(2, "%" + DepName + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int ProjectId = rs.getInt("ProjectId");
+                String Description = rs.getString("Description");
+                String SourceCode = rs.getString("SourceCode");
+                String Name = rs.getString("proName");
+                int TopicId = rs.getInt("TopicId");
+                int Status = rs.getInt("Sta");
+                int GroupId = rs.getInt("GroupId");
+                String lecName = rs.getString("lecName");
+                String grpName = rs.getString("grpName");
+                Groups group = new Groups();
+                group.setGroupName(grpName);
+                Users user = new Users();
+                user.setName(lecName);
+                Project project = new Project(ProjectId, Description, Name, SourceCode, TopicId, Status, GroupId, group, user);
+                list.add(project);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+
+    public Groups readGroupByProjectId(int id) {
+        Groups group = null;
+        Connection conn = null;
+        try {
+            conn = DBUtils.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT Groups.GroupId ,Groups.GroupName, Groups.groupStatus\n"
+                        + "from Groups, Project "
+                        + "where Project.GroupId = Groups.GroupId AND Project.ProjectId = ?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    group = new Groups();
+                    group.setGroupId(rs.getInt("GroupId"));
+                    group.setGroupName(rs.getString("GroupName"));
+                    group.setGroupStatus(rs.getInt("groupStatus"));
+                }
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+
+        return group;
+    }
+
+    public int readStudentIdByGrpId(int id) {
+        int StuId = 0;
+        Connection conn = null;
+        try {
+            conn = DBUtils.makeConnection();
+            if (conn != null) {
+                String sql = "select top 1 StudentGroup.StudentId\n"
+                        + "from StudentGroup WHERE StudentGroup.GroupId = ?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    StuId = rs.getInt("StudentId");
+                }
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+
+        return StuId;
+    }
+
+    public int readDepId(int id) {
+        int DepId = 0;
+        Connection conn = null;
+        try {
+            conn = DBUtils.makeConnection();
+            if (conn != null) {
+                String sql = "select Users.DepartmentId\n"
+                        + "from Users WHERE Users.UserId = ?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    DepId = rs.getInt("DepartmentId");
+                }
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+
+        return DepId;
+    }
+
+    public String readDepName(int id) {
+        String DepName = null;
+        Connection conn = null;
+        try {
+            conn = DBUtils.makeConnection();
+            if (conn != null) {
+                String sql = "select Department.Name\n"
+                        + "from Department WHERE Department.DepartmentId = ?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    DepName = rs.getString("Name");
+                }
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+
+        return DepName;
+    }
 }

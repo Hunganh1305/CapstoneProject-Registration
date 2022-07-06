@@ -24,7 +24,7 @@ public class StudentGroupDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName,gr.members \n"
+                String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName,gr.members,gr.groupStatus \n"
                         + "		from Users u join StudentGroup sg on u.UserId = sg.StudentId		\n"
                         + "		join Department dep on 	u.DepartmentId = dep.DepartmentId \n"                        
                         + "		join Groups gr on gr.groupId = sg.GroupId \n"
@@ -37,12 +37,12 @@ public class StudentGroupDAO {
                     int ID = rs.getInt("id");
                     int stuID = rs.getInt("studentId");
                     int groupId = rs.getInt("groupId");
-                    int LeaderStatus = rs.getInt("leaderStatus");
-
+                    int LeaderStatus = rs.getInt("leaderStatus");                    
                     String leaderName = rs.getString("leaderName");
                     String depName = rs.getString("depName");                    
                     String groupName = rs.getString("groupName");
                     int members = rs.getInt("members");
+                    int groupStatus = rs.getInt("groupStatus");
                     
                     Users u = new Users();
                     u.setName(leaderName);
@@ -55,6 +55,7 @@ public class StudentGroupDAO {
                     Groups gr = new Groups();
                     gr.setGroupName(groupName);
                     gr.setMembers(members);
+                    gr.setGroupStatus(groupStatus);
                     StudentGroup sg = new StudentGroup(ID, stuID, groupId, LeaderStatus, u, dep, pro, gr);
 
                     list.add(sg);
@@ -198,7 +199,31 @@ public class StudentGroupDAO {
         return count;
     }
     
-
+    
+    public static int checkGroupHaveProject(int id){
+        Connection cn = null;
+        int ProjectId = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select p.ProjectId from Groups gr join Project p on gr.GroupId = p.GroupId where gr.GroupId = ?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) {
+                    ProjectId = rs.getInt("ProjectId");
+                }
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return ProjectId;                
+    }
+    
+ 
+   
     public static StudentGroup viewTeamInformation(int id) {
         Connection cn = null;
         StudentGroup sg = null;
@@ -224,7 +249,7 @@ public class StudentGroupDAO {
                     String depName = rs.getString("depName");                    
                     String proName = rs.getString("proName");
                     String groupName = rs.getString("groupName");
-                    String groupStatus = rs.getString("groupStatus");
+                    int groupStatus = rs.getInt("groupStatus");
                     String proDescription = rs.getString("proDescription");
                     int members = rs.getInt("members");
 
@@ -250,7 +275,55 @@ public class StudentGroupDAO {
         }
         return sg;
     }
+    
+     public static StudentGroup viewTeamInformationNoProject(int id) {
+        Connection cn = null;
+        StudentGroup sg = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select sg.*,dep.Name as depName,gr.groupName,gr.groupStatus as groupStatus,u.Name as leaderName, gr.members,dep.departmentId as depId \n" +
+                                " from Users u join StudentGroup sg on u.UserId = sg.StudentId			\n" +
+                                " join Department dep on u.DepartmentId = dep.DepartmentId 										\n" +
+                                " join Groups gr on gr.groupId = sg.GroupId 										\n" +
+                                " where sg.LeaderStatus = 1 and gr.GroupId =?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    int ID = rs.getInt("id");
+                    int stuID = rs.getInt("studentId");
+                    int groupId = rs.getInt("groupId");
+                    int LeaderStatus = rs.getInt("leaderStatus");
+                    String leaderName = rs.getString("leaderName");
+                    String depName = rs.getString("depName");                                        
+                    String groupName = rs.getString("groupName");
+                    int groupStatus = rs.getInt("groupStatus");                    
+                    int members = rs.getInt("members");
+                    int depId = rs.getInt("depId");
 
+                    Users u = new Users();
+                    u.setName(leaderName);
+                    Department dep = new Department();
+                    dep.setName(depName);
+                    dep.setDepartmentId(depId);
+                    Project pro = new Project();                                                            
+                    Groups gr = new Groups();
+                    gr.setGroupName(groupName);
+                    gr.setGroupStatus(groupStatus);
+                    gr.setMembers(members);
+
+                    sg = new StudentGroup(ID, stuID, groupId, LeaderStatus, u, dep, pro, gr);
+
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return sg;
+    }
+    
     public static ArrayList<StudentGroup> viewTeamMembers(int id) {
         Connection cn = null;
         ArrayList<StudentGroup> list = new ArrayList<>();
@@ -337,6 +410,74 @@ public class StudentGroupDAO {
             e.getStackTrace();
         }
         return SGid;
+    }
+    
+    
+       public static int checkSemester(int id) {
+        Connection cn = null;
+        int semId = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = " select g.SemID\n"
+                        + "  from dbo.StudentGroup sg join dbo.Users u on sg.StudentId=u.UserId join dbo.Groups g on sg.GroupId=g.GroupId \n"
+                        + "  where u.UserId=?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) {
+                    semId = rs.getInt("SemID");
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return semId;
+    }
+       public static int checkDepartment(int id) {
+        Connection cn = null;
+        int depId = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select DepartmentId from dbo.Users where UserId=?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) {
+                    depId = rs.getInt("DepartmentId");
+
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return depId;
+
+    }
+    
+    public static int checkLeader(int id) {
+        Connection cn = null;
+        int status = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select sg.LeaderStatus from dbo.Users u join dbo.StudentGroup sg on u.UserId=sg.StudentId where u.UserId =?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) {
+                    status = rs.getInt("LeaderStatus");
+
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return status;
     }
 
     public static StudentGroup read(Object id) {

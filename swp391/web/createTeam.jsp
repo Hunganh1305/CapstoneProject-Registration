@@ -56,29 +56,24 @@
                         </div>
                         <div class="col teamAndMembers">
 
-                            <input type="text" placeholder="Team name" id="groupName" name="groupName">
+                            <input type="text" placeholder="Team name" id="groupName" name="groupName" required>                            
                             <div class="selection--members">
-                                    <label for="members" class="label_member">Members</label>
-                                    <input type="number" id="members" name="members" min="3" max="7" value="${members==null?5:members}"/>
+                                <label for="members" class="label_member">Members</label>
+                                <input type="number" id="members" name="members" min="3" max="7" value="${members==null?5:members}"/>
                             </div>
                         </div>
                         <div class="col">
-                                <div class="selection--status">
-                                    <label for="status" class="label_status">Status</label>
-                                    <div id="status">
-                                        <input type="radio" name="groupStatus" value="Public" /> Public <br/>
-                                        <input type="radio" name="groupStatus" value="Private" /> Private
-                                    </div>
+                            <div class="selection--status">
+                                <label for="status" class="label_status">Status</label>
+                                <div id="status">
+                                    <input type="radio" name="groupStatus" value="0" /> Public <br/>
+                                    <input type="radio" name="groupStatus" value="1" /> Private
                                 </div>
                             </div>
+                        </div>
 
-                                          
-                        <!--                        <div class="col ">
-                        
-                                                    <textarea placeholder="Description" cols="30" rows="10" name="description"></textarea>
-                                                </div>-->
                 </div>
-                <button type="submit" value="close" name="op" class="btn btn-Close"><i class="bi bi-x-circle"></i>Close</button>
+                <i class="bi bi-x-circle"></i><a class="btn btn-Close" href="<c:url value="../group/index.do"/>">Close</a>
                 <button type="submit" value="create" name="op" class="btn btn-Create"><i class="bi bi-box-arrow-down"></i>Create</button>
 
                 </form>
@@ -92,6 +87,12 @@
         </footer>
 
         <% }%>
+        <!-- preloader -->
+        <div id='preloader'>
+            <div class='preloader'></div>
+        </div>
+        <!-- /preloader -->
+
 
         <script type="text/javascript" src="../js/jquery.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>

@@ -10,6 +10,7 @@ package DTO;
  * @author HLong
  */
 public class Project {
+
     private int projectId;
     private String description;
     private String name;
@@ -17,27 +18,10 @@ public class Project {
     private int topicId;
     private int status;
     private int groupId;
+    private Groups group;
     private Users lecturer;
 
     public Project() {
-    }
-
-    public Project(int projectId, String description, String name, String sourceCode, int topicId, int status, int groupId) {
-        this.projectId = projectId;
-        this.description = description;
-        this.name = name;
-        this.sourceCode = sourceCode;
-        this.topicId = topicId;
-        this.status = status;
-        this.groupId = groupId;
-    }
-
-    public Users getLecturer() {
-        return lecturer;
-    }
-
-    public void setLecturer(Users lecturer) {
-        this.lecturer = lecturer;
     }
 
     public Project(int projectId, String description, String name, String sourceCode, int topicId, int status, int groupId, Users lecturer) {
@@ -50,8 +34,45 @@ public class Project {
         this.groupId = groupId;
         this.lecturer = lecturer;
     }
-
     
+
+    public Project(int projectId, String description, String name, String sourceCode, int topicId, int status, int groupId) {
+        this.projectId = projectId;
+        this.description = description;
+        this.name = name;
+        this.sourceCode = sourceCode;
+        this.topicId = topicId;
+        this.status = status;
+        this.groupId = groupId;
+    }
+
+    public Project(int projectId, String description, String name, String sourceCode, int topicId, int status, int groupId, Groups group, Users lecturer) {
+        this.projectId = projectId;
+        this.description = description;
+        this.name = name;
+        this.sourceCode = sourceCode;
+        this.topicId = topicId;
+        this.status = status;
+        this.groupId = groupId;
+        this.group = group;
+        this.lecturer = lecturer;
+    }
+
+    public Groups getGroup() {
+        return group;
+    }
+
+    public void setGroup(Groups group) {
+        this.group = group;
+    }
+
+    public Users getLecturer() {
+        return lecturer;
+    }
+
+    public void setLecturer(Users lecturer) {
+        this.lecturer = lecturer;
+    }
 
     public int getProjectId() {
         return projectId;
@@ -108,5 +129,5 @@ public class Project {
     public void setGroupId(int groupId) {
         this.groupId = groupId;
     }
-    
+
 }

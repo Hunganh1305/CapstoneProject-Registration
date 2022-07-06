@@ -1,7 +1,7 @@
 use master
 
 CREATE DATABASE SWP391
-DROP DATABASE SWP391
+
 -- SELECT * FROM Student
 -- SELECT * FROM Lecturer
 -- SELECT * FROM Semester
@@ -69,7 +69,7 @@ CREATE TABLE Groups (
 	GroupId INT PRIMARY KEY not null,
 	GroupName VARCHAR(30),
 	SemID INT FOREIGN KEY (SemID) REFERENCES Semester(SemesterId),
-	groupStatus VARCHAR(10),
+	groupStatus INT,
 	members INT
 
 )
@@ -233,6 +233,16 @@ insert into Users values(70,'Mai Thanh Phong','12345678',1,2,'phongmt@gmail.com'
 insert into Users values(71,'Dao Hong Tin','12345678',1,2,'tindh@gmail.com',1,null)
 insert into Users values(72,'Vu Duong Tuong Vi','12345678',1,2,'vivdt@gmail.com',1,null)
 
+insert into Users values(79,'Ba Tan vlog','12345678',1,1,'tanvl@gmail.com',1,null)
+insert into Users values(80,'Sang Vlog','12345678',1,1,'sangvl@gmail.com',1,null)
+insert into Users values(76,'NTN vlog','12345678',1,1,'ntnvl@gmail.com',1,null)
+insert into Users values(77,'Giang Oi','12345678',1,1,'giangoi@gmail.com',1,null)
+insert into Users values(78,'Khoai Lang Thang','12345678',1,1,'klt@gmail.com',1,null)
+--more student 
+insert into Users values(73,'Duong Qua','12345678',1,5,'duongqua@gmail.com',1,null)
+insert into Users values(74,'Bat Cai','12345678',1,4,'batcai@gmail.com',1,null)
+insert into Users values(75,'Anh Hung Xa Dieu','12345678',1,4,'anhhungxadieu@gmail.com',1,null)
+
 select * from Users
 
 
@@ -271,22 +281,22 @@ delete from Topic
 
 
 
-insert into Groups values(1,'Beaky Blinders',1,'Public',5)
-insert into Groups values(2,'Group 2',1,'Public',5)	
-insert into Groups values(3,'Group 3',1,'Private',5)
-insert into Groups values(4,'Showbit team',1,'Public',5)
-insert into Groups values(5,'Group 5',1,'Public',5)
-insert into Groups values(6,'Group 6',1,'Private',5)
-insert into Groups values(7,'Group 7',1,'Public',6)
-insert into Groups values(8,'Group 8',1,'Public',5)
-insert into Groups values(9,'Group 9',2,'Public',7)
-insert into Groups values(10,'Group 10',2,'Public',5)
-insert into Groups values(11,'Group ABC',3,'Private',5)
-insert into Groups values(12,'No name',3,'Private',5)
-insert into Groups values(13,'Gr 15',4,'Public',5)
-insert into Groups values(14,'G63',4,'Public',5)
-insert into Groups values(15,'Eagles',1,'Public',5)
-insert into Groups values(16,'Tigers',1,'Public',5)
+insert into Groups values(1,'Beaky Blinders',1,1,5)
+insert into Groups values(2,'Group 2',1,1,5)	
+insert into Groups values(3,'Group 3',1,0,5)
+insert into Groups values(4,'Showbit team',1,1,5)
+insert into Groups values(5,'Group 5',1,0,5)
+insert into Groups values(6,'Group 6',1,0,5)
+insert into Groups values(7,'Group 7',1,1,6)
+insert into Groups values(8,'Group 8',1,1,5)
+insert into Groups values(9,'Group 9',2,1,7)
+insert into Groups values(10,'Group 10',2,1,5)
+insert into Groups values(11,'Group ABC',3,0,5)
+insert into Groups values(12,'No name',3,0,5)
+insert into Groups values(13,'Gr 15',4,1,5)
+insert into Groups values(14,'G63',4,1,5)
+insert into Groups values(15,'Eagles',1,1,5)
+insert into Groups values(16,'Tigers',1,1,5)
 
 
 
@@ -371,6 +381,12 @@ insert into StudentGroup values(57,69,16,0)
 insert into StudentGroup values(58,70,16,0)
 insert into StudentGroup values(59,71,16,0)
 insert into StudentGroup values(60,72,16,0)
+
+insert into StudentGroup values(66,76,13,1)
+insert into StudentGroup values(67,77,13,0)
+insert into StudentGroup values(68,78,13,0)
+insert into StudentGroup values(69,79,13,0)
+insert into StudentGroup values(70,80,13,0)
 select * from StudentGroup
 
 insert into LecturerTopic values(1,6,1)
@@ -400,12 +416,14 @@ insert into Project values(5,'Make and marketing a brand to users','Research And
 insert into Project values(6,'Write an essay about social isues','Social issues','',6,1,6,58)
 insert into Project values(7,'Write an essay analyze cultural','An analysis on cultural','',7,1,7,59)
 insert into Project values(8,'Research and presentation','Economic Policy of Japan','',8,1,8,60)
+insert into Project values(9,'Manage a restaurant','Restaurant researching','',9,1,13,57)
+insert into Project values(10,'Study about whales','Cycle of whales','',10,1,12,58)
+insert into Project values(11,'Ecommerce jewelry selling website','Jewelry System','',11,1,15,6)
+insert into Project values(12,'Generate CV automatically','Online CV builder','',12,1,16,6)
+
 
 
 
 select * from Project
 select * from topic
-delete from Project 
-
-
-
+delete from Project
