@@ -5,6 +5,7 @@
 package Servlet;
 
 import DAO.ProjectDAO;
+import DAO.SemesterDAO;
 import DTO.Groups;
 import DTO.Project;
 import DTO.Semester;
@@ -181,7 +182,48 @@ public class ProjectLecturerController extends HttpServlet {
                 request.setAttribute("Group", group);
                 request.getRequestDispatcher("/projectDetailLecturer.jsp").forward(request, response);
                 break;
+            case "semester":
+                String semester = request.getParameter("semester");
+                proDao = new ProjectDAO();
+                SemesterDAO semDao = new SemesterDAO();
+                Semester currentSem = semDao.read(semester);
+                session.setAttribute("currentSem", currentSem);
+                List<Project> proList3 = proDao.readAllProject(currentSem.getSemesterId());
+                ArrayList<Semester> semList = (ArrayList<Semester>) session.getAttribute("semList");
+                //        pagination
+                String prevSemName = (String) session.getAttribute("prevProjectSemester");
+                if (prevSemName == null) {
+                    session.setAttribute("prevProjectSemester", semester);
+                    prevSemName = semester;
+                }
+                session.setAttribute("currProjectSemester", semester);
+                String currSemName = (String) session.getAttribute("currProjectSemester");
+                if (!prevAction.equals(currAction) || !prevSemName.equals(currSemName)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                for (int i = 0; i < semList.size(); i++) {
+                    if (currSemName.equals(semList.get(i).name)) {
+                        session.setAttribute("prevProjectSemester", semList.get(i).name);
+                    }
+                }
+                session.setAttribute("prevProjectAction", "semester");
+                session.setAttribute("currProjectAction", "pagesemester");
 
+                pagination(request, response, proList3);
+                //        pagination
+
+                request.getRequestDispatcher("/projectListLecturer.jsp").forward(request, response);
+                break;
+            case "pagesemester":
+                currSem = (Semester) session.getAttribute("currentSem");
+                proDao = new ProjectDAO();
+                proList3 = proDao.readAllProject(currSem.getSemesterId());
+                pagination(request, response, proList3);
+                session.setAttribute("prevTopicAction", "pagesemester");
+
+                request.getRequestDispatcher("/projectListLecturer.jsp").forward(request, response);
+                break;
         }
 
     }
