@@ -148,3 +148,7 @@
     display: flex;
     justify-content: space-between;
 }
+
+hided{
+    display: none;
+}
