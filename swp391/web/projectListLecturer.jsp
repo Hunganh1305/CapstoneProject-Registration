@@ -81,7 +81,7 @@
 
                 <div class="topic__search">
                     <form action="<c:url value="/projectlecturer/search.do"/>">
-                        <input placeholder=" " value="${searchText==null?"":searchText}" name="searchText" class="search__input" type="text">
+                        <input placeholder=" " value="${searchTextProject==null?"":searchTextProject}" name="searchText" class="search__input" type="text">
                         <label for="search" class="search__label">Search by project's name</label>
                         <button type="submit" class="search-btn ">
                             <img src="../img/search-interface-symbol.png" alt="">
