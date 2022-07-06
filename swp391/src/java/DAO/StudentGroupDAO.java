@@ -68,14 +68,14 @@ public class StudentGroupDAO {
         }
         return list;
     }
-
+  
     public static ArrayList<StudentGroup> searchGroupByName(String name, String currentSem) {
         Connection cn = null;
         ArrayList<StudentGroup> list = new ArrayList<>();
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName"
+                String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName,gr.groupStatus"
                         + " from Users u join StudentGroup sg on u.UserId = sg.StudentId\n"
                         + " join Department dep on u.DepartmentId = dep.DepartmentId \n"
                         + " join Project p on p.GroupId = sg.GroupId\n"
@@ -95,7 +95,7 @@ public class StudentGroupDAO {
                     String leaderName = rs.getString("leaderName");
                     String depName = rs.getString("depName");                    
                     String groupName = rs.getString("groupName");
-
+                    int groupStatus = rs.getInt("groupStatus");
                     Users u = new Users();
                     u.setName(leaderName);
                     Department dep = new Department();
@@ -103,7 +103,7 @@ public class StudentGroupDAO {
                     Project pro = new Project();                    
                     Groups gr = new Groups();
                     gr.setGroupName(groupName);
-
+                    gr.setGroupStatus(groupStatus);
                     StudentGroup sg = new StudentGroup(ID, stuID, groupId, LeaderStatus, u, dep, pro, gr);
                     list.add(sg);
                 }
@@ -121,7 +121,7 @@ public class StudentGroupDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName"
+                String sql = "select sg.*,dep.Name as depName,gr.groupName,u.Name as leaderName,gr.groupStatus"
                         + " from Users u join StudentGroup sg on u.UserId = sg.StudentId\n"
                         + " join Department dep on u.DepartmentId = dep.DepartmentId \n"
                         + " join Project p on p.GroupId = sg.GroupId\n"
@@ -141,7 +141,7 @@ public class StudentGroupDAO {
                     String leaderName = rs.getString("leaderName");
                     String depName = rs.getString("depName");                    
                     String groupName = rs.getString("groupName");
-
+                    int groupStatus = rs.getInt("groupStatus");
                     Users u = new Users();
                     u.setName(leaderName);
                     Department dep = new Department();
@@ -149,7 +149,7 @@ public class StudentGroupDAO {
                     Project pro = new Project();                    
                     Groups gr = new Groups();
                     gr.setGroupName(groupName);
-
+                    gr.setGroupStatus(groupStatus);
                     StudentGroup sg = new StudentGroup(ID, stuID, groupId, LeaderStatus, u, dep, pro, gr);
                     list.add(sg);
                 }
@@ -458,15 +458,18 @@ public class StudentGroupDAO {
 
     }
     
-    public static int checkLeader(int id) {
+    public static int checkLeader(int userId,int groupId) {
         Connection cn = null;
         int status = 0;
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select sg.LeaderStatus from dbo.Users u join dbo.StudentGroup sg on u.UserId=sg.StudentId where u.UserId =?";
+                String sql = "select sg.LeaderStatus from Users u join StudentGroup sg on u.UserId = sg.StudentId \n" +
+"										join Groups gr on gr.GroupId = sg.GroupId\n" +
+"										where sg.LeaderStatus = 1 and gr.GroupId = ? and u.UserId = ?";
                 PreparedStatement stm = cn.prepareStatement(sql);
-                stm.setInt(1, id);
+                stm.setInt(1, groupId);
+                stm.setInt(2, userId);
                 ResultSet rs = stm.executeQuery();
                 if (rs.next()) {
                     status = rs.getInt("LeaderStatus");
@@ -479,7 +482,7 @@ public class StudentGroupDAO {
         }
         return status;
     }
-
+   
     public static StudentGroup read(Object id) {
         Connection cn = null;
         StudentGroup stuGroup = null;
