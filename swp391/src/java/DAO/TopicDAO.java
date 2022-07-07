@@ -318,18 +318,32 @@ public class TopicDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select * from dbo.Topic where TopicId=?";
+                String sql = " select ltt.*,d.Name as DepartmentName,u.Name as LecturerName\n"
+                        + "                         from (select t.*,lt.LecturerId from dbo.LecturerTopic lt join dbo.Topic t on lt.TopicId = t.TopicId) ltt \n"
+                        + "                         join dbo.Users u on ltt.LecturerId=u.UserId \n"
+                        + "                         join dbo.Department d on ltt.DepartmentId=d.DepartmentId\n"
+                        + "			    where ltt.TopicId=?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, id.toString());
                 ResultSet rs = stm.executeQuery();
                 if (rs.next()) {
-                    topic = new Topic();
-                    topic.setTopicId(rs.getInt("topicId"));
-                    topic.setName(rs.getString("name"));
-                    topic.setCatergoryId(rs.getInt("categoryId"));
-                    topic.setDescription(rs.getString("description"));
-                    topic.setBusinessId(rs.getInt("businessId"));
-                    topic.setDepartmentId(rs.getInt("departmentId"));
+                    int topicID = rs.getInt("topicId");
+                    String name = rs.getString("Name");
+                    int category = rs.getInt("categoryId");
+                    String description = rs.getString("description");
+                    int businessId = rs.getInt("businessId");
+                    int depId = rs.getInt("DepartmentId");
+                    String depName = rs.getString("DepartmentName");
+                    String lecName = rs.getString("LecturerName");
+                    int status = rs.getInt("status");
+                    int semesterId = rs.getInt("semesterId");
+                    Semester sem = new Semester();
+                    sem.setSemesterId(semesterId);
+                    Users user = new Users();
+                    Department dep = new Department();
+                    dep.setName(depName);
+                    user.setName(lecName);
+                    topic = new Topic(topicID, name, category, description, businessId, depId, user, dep, sem, status);
                 }
                 cn.close();
             }
@@ -435,6 +449,28 @@ public class TopicDAO {
             e.getStackTrace();
         }
         return status;
+    }
+    
+      public int checkTopicName(String name){
+        Connection cn = null;
+        int check=0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select TopicId from dbo.Topic where Name like ?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setString(1, name);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) {
+                    check = rs.getInt("TopicId");
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        
+        return check;
     }
 
     public static int checkSemester(int id) {
@@ -710,14 +746,15 @@ public class TopicDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "update dbo.Topic set Name=?,CategoryId=?,Description=?,BusinessId=?,DepartmentId=? where TopicId=?";
+                String sql = "update dbo.Topic set Name=?,CategoryId=?,Description=?,BusinessId=?,DepartmentId=?,SemesterId =? where TopicId=?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setString(1, topic.getName());
                 stm.setInt(2, topic.getCatergoryId());
                 stm.setString(3, topic.getDescription());
                 stm.setInt(4, topic.getBusinessId());
                 stm.setInt(5, topic.getDepartmentId());
-                stm.setInt(6, topic.getTopicId());
+                stm.setInt(6, topic.getSemester().getSemesterId());
+                stm.setInt(7, topic.getTopicId());
                 stm.executeUpdate();
                 cn.close();
             }
@@ -725,6 +762,8 @@ public class TopicDAO {
             e.getStackTrace();
         }
     }
+    
+  
 
     public static void delete(Object id) {
         Connection cn = null;

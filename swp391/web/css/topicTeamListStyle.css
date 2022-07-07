@@ -406,4 +406,16 @@ modal-header{
     }
 }
 
+.button{  
+    font-size: 1.8rem;
+    padding-left: 5px;
+}
+
+.delete{
+    color:red;
+}
+
+.update{
+    color:green;
+}
 

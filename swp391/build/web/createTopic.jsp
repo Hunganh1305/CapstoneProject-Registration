@@ -46,6 +46,7 @@
         <!-- /Header -->
 
         <section id="topic" class="container">
+            <div class="text-danger" style="font-style: italic;">${errorMessage}</div>
             <!-- Create -->
             <h2>New Topic</h2>
 
@@ -64,62 +65,75 @@
                         <div class="col">
                             <div class="topicdetail__doc">
                                 <h6>Description</h6>
-                                <textarea name="topicDetail" value="${topicDetail==null?"" : topicDetail}" id="" cols="30" rows="10"></textarea>
+                                <textarea name="topicDetail" value="${topicDetail==null?"" : topicDetail}" id="" cols="30" rows="10">${topicDetail==null?"" : topicDetail}</textarea>
                             </div>
                         </div>
                         <div class="col">
                             <div class="selection">
                                 <div class="selection--right">
                                     <label for="semester" class="label_category">Semester</label>
-                                    <select style="height: 35px" id="semester" name="semester">
-<!--                                        <option value="0" name="semester">--Choose a Category--</option>-->
+                                    <select style="height: 35px"   id="semester" name="semester">
+                                        <!--                                        <option value="0" name="semester">--Choose a Category--</option>-->
                                         <c:forEach var="item" items="${semList}" varStatus="loop">
-                                            <option  value="${item.semesterId}" >${item.name}</option>
+                                            <c:if test="${item.semesterId==chosenSemester}">
+                                                <option  value="${item.semesterId}" selected="selected" >${item.name}</option>
+                                            </c:if>
+                                            <c:if test="${item.semesterId!=chosenSemester}">
+                                                <option  value="${item.semesterId}" >${item.name}</option>
+                                            </c:if>
                                         </c:forEach>
-                                            
-                                        </select>
-                                    </div>
+
+                                    </select>
                                 </div>
-                            
+                            </div>
+
                             <div class="selection">
                                 <div class="selection--right">
                                     <label for="business" class="label_category">Business</label>
-                                    <select style="height: 35px" id="business" name="business">
-<!--                                        <option value="0" name="semester">--Choose a Category--</option>-->
+                                    <select style="height: 35px"  id="business" name="business">
+                                        <!--                                        <option value="0" name="semester">--Choose a Category--</option>-->
                                         <c:forEach var="item" items="${bList}" varStatus="loop">
-                                            <option  value="${item.userId}" >${item.name}</option>
-                                        </c:forEach>
+                                            <c:if test="${item.userId==chosenBusiness}">
+                                               <option  value="${item.userId}" selected="selected" >${item.name}</option>
+                                            </c:if>
+                                            <c:if test="${item.userId!=chosenBusiness}">
+                                               <option  value="${item.userId}"  >${item.name}</option>
+                                            </c:if>
                                             
-                                        </select>
-                                    </div>
+                                        </c:forEach>
+
+                                    </select>
                                 </div>
-
                             </div>
-                            <!--                        <div class="col ">
-        
-                                    <textarea placeholder="Description" cols="30" rows="10" name="description"></textarea>
-                                </div>-->
 
-                            <button type="submit" value="close" name="op" class="btn btn-Close"><i class="bi bi-x-circle"></i>Close</button>
-                            <button type="submit" value="create" name="op" class="btn btn-Create"><i class="bi bi-box-arrow-down"></i>Create</button>
+                        </div>
+                        <!--                        <div class="col ">
+    
+                                <textarea placeholder="Description" cols="30" rows="10" name="description"></textarea>
+                            </div>-->
 
-                        </form>
-                    </div>
+                        <button type="submit" value="close" name="op" class="btn btn-Close"><i class="bi bi-x-circle"></i>Close</button>
+                        <button type="submit" value="create" name="op" class="btn btn-Create"><i class="bi bi-box-arrow-down"></i>Create</button>
+
+                    </form>
                 </div>
+            </div>
 
 
-            </section>
 
-            <footer>
-                <%@include file="footer.jsp" %>
-            </footer>
 
-            <% }
-            %>
+        </section>
 
-            <script type="text/javascript" src="../js/jquery.min.js"></script>
-            <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="../js/main.js"></script>
-            <script src="../js/topic.js"></script>
-        </body>
-    </html>
+        <footer>
+            <%@include file="footer.jsp" %>
+        </footer>
+
+        <% }
+        %>
+
+        <script type="text/javascript" src="../js/jquery.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/main.js"></script>
+        <script src="../js/topic.js"></script>
+    </body>
+</html>

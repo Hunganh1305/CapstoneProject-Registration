@@ -98,12 +98,12 @@
                         </div>
                         <div class="modal-footer ">
 
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -132,7 +132,8 @@
                                                 <td>${item2.department.name}</td>
                                                 <td>${item2.semester.name}</td>
                                                 <td>
-                                                    <a  href="${root}/topic/delete.do?topicId=${item2.topicId}" class="btn btn-danger">Delete</a>
+                                                    <a  href="${root}/topic/delete.do?topicId=${item2.topicId}" data-toggle="tooltip" data-placement="top" title="Delete topic" class="button"><i class="bi delete bi-x-circle-fill"></i></a>
+                                                    <a  href="${root}/topic/update.do?topicId=${item2.topicId}" data-toggle="tooltip" data-placement="top" title="Edit topic" class="button"><i class="bi update bi-gear-fill"></i></a>
                                                 </td>
                                             </tr>
 
@@ -151,7 +152,7 @@
                         </div>
                         <div class="modal-footer ">
 
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -181,7 +182,7 @@
                             Pending topics
                         </button>
                         <button type="button" class="btn team__btn" data-toggle="modal" data-target="#myModal1">
-                            Delete topics
+                            Manage topics
                         </button>
                         <button class="btn team__btn"><a href="<c:url value="/topic/create.do"/>">+ Create New Topic</a></button>
                     </div>
@@ -304,5 +305,10 @@
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/main.js"></script>
         <script src="../js/topic.js"></script>
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
     </body>
 </html>
