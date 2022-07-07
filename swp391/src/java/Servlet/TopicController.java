@@ -68,11 +68,10 @@ public class TopicController extends HttpServlet {
             if (user.getRoleId() == 1) {
                 ArrayList<Topic> appliableTopicList = checkValid(request, response);
                 session.setAttribute("appliableTopicList", appliableTopicList);
-            }  
-            else if (user.getRoleId() == 2) {
+            } else if (user.getRoleId() == 2) {
                 int depId = (int) session.getAttribute("depId");
-                ArrayList<PendingTopicGroup> pendingTopicList = ptg.readAll(depId,user.getUserId());
-                ArrayList<Topic> approvingTopicList=td.readAllAproveTopic();
+                ArrayList<PendingTopicGroup> pendingTopicList = ptg.readAll(depId, user.getUserId());
+                ArrayList<Topic> approvingTopicList = td.readAllAproveTopic();
                 session.setAttribute("approvingTopicList", approvingTopicList);
                 session.setAttribute("pendingTopicList", pendingTopicList);
             }
@@ -96,8 +95,7 @@ public class TopicController extends HttpServlet {
 
                 if (user.getRoleId() == 1) {
                     request.getRequestDispatcher("/topic.jsp").forward(request, response);
-                } 
-                else if (user.getRoleId() == 2) {
+                } else if (user.getRoleId() == 2) {
                     request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
                 }
                 break;
@@ -105,8 +103,8 @@ public class TopicController extends HttpServlet {
                 currSem = (Semester) session.getAttribute("currentSem");
                 String searchText = request.getParameter("searchText");
                 ArrayList<Topic> list2 = null;
-                
-                 //        pagination
+
+                //        pagination
                 String prevSearch = (String) session.getAttribute("prevTopicSearch");
                 if (prevSearch == null) {
                     session.setAttribute("prevTopicSearch", searchText);
@@ -114,24 +112,23 @@ public class TopicController extends HttpServlet {
                 }
                 session.setAttribute("currTopicSearch", searchText);
                 String currSearch = (String) session.getAttribute("currTopicSearch");
-               
+
                 if (searchText == null) {
                     list2 = td.readAll(currSem.getName());
                 } else {
                     list2 = td.searchByName(searchText, currSem.getName());
                 }
 
-               
                 if (!prevAction.equals(currAction)) {
                     session.setAttribute("totalPage", null);
                     session.setAttribute("page", null);
                 }
                 session.setAttribute("prevTopicAction", "search");
-                pagination(request, response, list2);           
+                pagination(request, response, list2);
                 session.setAttribute("searchText", searchText);
                 session.setAttribute("currTopicAction", "pagesearch");
-                  //        pagination
-                
+                //        pagination
+
                 if (user.getRoleId() == 1) {
                     request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 } else if (user.getRoleId() == 2) {
@@ -293,8 +290,6 @@ public class TopicController extends HttpServlet {
                 session.setAttribute("prevTopicAction", "index");
 
                 pagination(request, response, list5);
-                
-                
 
                 checkValid(request, response);
                 request.getRequestDispatcher("/topic.jsp").forward(request, response);
@@ -302,14 +297,139 @@ public class TopicController extends HttpServlet {
             case "approve":
                 currSem = (Semester) session.getAttribute("currentSem");
                 GroupsDAO gd = new GroupsDAO();
-                topicId= Integer.parseInt(request.getParameter("topicId"));
-                groupId= Integer.parseInt(request.getParameter("groupId"));
-                topic= td.read(topicId);
-                Groups group= gd.read(groupId);
+                topicId = Integer.parseInt(request.getParameter("topicId"));
+                groupId = Integer.parseInt(request.getParameter("groupId"));
+                topic = td.read(topicId);
+                Groups group = gd.read(groupId);
                 ptg.deletebyTopicId(topicId);
                 ptg.deletebyGroupId(groupId);
                 td.updateLockTopic(topicId);
                 td.createProject(topic, group, user.getUserId());
+
+                list = td.readAll(currSem.getName());
+
+                if (!prevAction.equals(currAction)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                session.setAttribute("currTopicAction", "index");
+                session.setAttribute("prevTopicAction", "index");
+
+                pagination(request, response, list);
+
+                ArrayList<PendingTopicGroup> pendingTopicList = ptg.readAll(user.getDepartmentId(), user.getUserId());
+                session.setAttribute("pendingTopicList", pendingTopicList);
+
+                request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+                break;
+            case "deny":
+                currSem = (Semester) session.getAttribute("currentSem");
+                topicId = Integer.parseInt(request.getParameter("topicId"));
+                groupId = Integer.parseInt(request.getParameter("groupId"));
+                ptg.deny(topicId, groupId);
+                if (ptg.checkContainTopic(topicId) == 0) {
+                    td.updateWaitingTopic(topicId);
+                }
+
+                list = td.readAll(currSem.getName());
+
+                if (!prevAction.equals(currAction)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                session.setAttribute("currTopicAction", "index");
+                session.setAttribute("prevTopicAction", "index");
+
+                pagination(request, response, list);
+
+                pendingTopicList = ptg.readAll(user.getDepartmentId(), user.getUserId());
+                session.setAttribute("pendingTopicList", pendingTopicList);
+
+                request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+                break;
+            case "create":
+                currSem = (Semester) session.getAttribute("currentSem");
+                UserDAO ud = new UserDAO();
+                int departmentId = user.getDepartmentId();
+                DepartmentDAO dd = new DepartmentDAO();
+                Department dep = dd.read(departmentId);
+                request.setAttribute("depName", dep.getName());
+                ArrayList<Users> bussinessList = ud.readAllBusiness();
+                request.setAttribute("bList", bussinessList);
+                request.setAttribute("chosenBusiness", bussinessList.get(0).getUserId());
+                request.setAttribute("chosenSemester", currSem.getSemesterId());
+                request.getRequestDispatcher("/createTopic.jsp").forward(request, response);
+                break;
+            case "save":
+                save(request, response);
+                break;
+            case "delete":
+                currSem = (Semester) session.getAttribute("currentSem");
+                LectureTopicDAO ltd = new LectureTopicDAO();
+                topicId = Integer.parseInt(request.getParameter("topicId"));
+                ltd.delete(topicId);
+
+                td.delete(topicId);
+
+                ArrayList<Topic> approvingTopicList = td.readAllAproveTopic();
+                session.setAttribute("approvingTopicList", approvingTopicList);
+
+                list = td.readAll(currSem.getName());
+
+                if (!prevAction.equals(currAction)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                session.setAttribute("currTopicAction", "index");
+                session.setAttribute("prevTopicAction", "index");
+
+                pagination(request, response, list);
+                request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+                break;
+            case "update":
+                ud = new UserDAO();
+                topicId = Integer.parseInt(request.getParameter("topicId"));
+                topic = td.read(topicId);
+                request.setAttribute("topicName", topic.getName());
+                request.setAttribute("topicDetail", topic.getDescription());
+                request.setAttribute("chosenSemester", topic.getSemester().getSemesterId());
+                request.setAttribute("depName", topic.getDepartment().getName());
+                bussinessList = ud.readAllBusiness();
+                request.setAttribute("bList", bussinessList);
+                request.setAttribute("chosenBusiness", topic.getBusinessId());
+                request.setAttribute("topicId", topicId);
+                request.getRequestDispatcher("/updateTopic.jsp").forward(request, response);
+                break;
+            case "saveupdate":
+                topicId = Integer.parseInt(request.getParameter("topicId"));
+                int category = 0;
+                currSem = (Semester) session.getAttribute("currentSem");
+                depId = (int) session.getAttribute("depId");
+                int lecId = (int) session.getAttribute("userId");
+                String topicName = request.getParameter("topicName");
+                String topicDetail = request.getParameter("topicDetail");
+                int semId = Integer.parseInt(request.getParameter("semester"));
+                int bussinessId = Integer.parseInt(request.getParameter("business"));
+                int check = td.checkTopicName(topicName);
+                Semester sem1 = new Semester();
+
+                sem1.setSemesterId(semId);
+
+                if (depId == 2) {
+                    category = 6;
+                } else if (depId == 1) {
+                    category = 2;
+                } else if (depId == 3) {
+                    category = 14;
+                } else if (depId == 4) {
+                    category = 16;
+                } else if (depId == 5) {
+                    category = 15;
+                }
+                topic = new Topic(topicId, topicName, category, topicDetail, bussinessId, depId, sem1);
+                td.update(topic);
+                approvingTopicList = td.readAllAproveTopic();
+                session.setAttribute("approvingTopicList", approvingTopicList);
                 
                 list = td.readAll(currSem.getName());
 
@@ -321,132 +441,81 @@ public class TopicController extends HttpServlet {
                 session.setAttribute("prevTopicAction", "index");
 
                 pagination(request, response, list);
-                
-                ArrayList<PendingTopicGroup> pendingTopicList = ptg.readAll(user.getDepartmentId(),user.getUserId());
-                session.setAttribute("pendingTopicList", pendingTopicList);
-                
                 request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
                 break;
-            case "deny":
-                currSem = (Semester) session.getAttribute("currentSem");
-                topicId= Integer.parseInt(request.getParameter("topicId"));
-                groupId= Integer.parseInt(request.getParameter("groupId"));
-                ptg.deny(topicId, groupId);
-                if(ptg.checkContainTopic(topicId)==0){
-                    td.updateWaitingTopic(topicId);
-                }
-                
-                 list = td.readAll(currSem.getName());
 
-                if (!prevAction.equals(currAction)) {
-                    session.setAttribute("totalPage", null);
-                    session.setAttribute("page", null);
-                }
-                session.setAttribute("currTopicAction", "index");
-                session.setAttribute("prevTopicAction", "index");
-
-                pagination(request, response, list);
-                
-                pendingTopicList = ptg.readAll(user.getDepartmentId(),user.getUserId());
-                session.setAttribute("pendingTopicList", pendingTopicList);
-                
-                request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
-                break;
-            case "create":
-                UserDAO ud=new UserDAO();
-                int departmentId=user.getDepartmentId();
-                DepartmentDAO dd=new DepartmentDAO();
-                Department dep =dd.read(departmentId);
-                request.setAttribute("depName", dep.getName());
-                ArrayList<Users> bussinessList=ud.readAllBusiness();
-                request.setAttribute("bList", bussinessList);
-                request.getRequestDispatcher("/createTopic.jsp").forward(request, response);
-                break;
-            case "save":
-                save( request,  response);
-                break;
-            case "delete":
-                currSem = (Semester) session.getAttribute("currentSem");
-                LectureTopicDAO ltd=new LectureTopicDAO();
-                topicId=Integer.parseInt(request.getParameter("topicId"));
-                ltd.delete(topicId);
-                
-                td.delete(topicId);
-                
-                ArrayList<Topic> approvingTopicList=td.readAllAproveTopic();
-                session.setAttribute("approvingTopicList", approvingTopicList);
-                
-               
-                 list = td.readAll(currSem.getName());
-
-                if (!prevAction.equals(currAction)) {
-                    session.setAttribute("totalPage", null);
-                    session.setAttribute("page", null);
-                }
-                session.setAttribute("currTopicAction", "index");
-                session.setAttribute("prevTopicAction", "index");
-
-                pagination(request, response, list);
-                request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
-                break;
         }
     }
-    
-     public void save(HttpServletRequest request, HttpServletResponse response) {
+
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         TopicDAO td = new TopicDAO();
-       
-                      
-        
         HttpSession session = request.getSession();
-        Semester currSem =  (Semester) session.getAttribute("currentSem");
+        Semester currSem = (Semester) session.getAttribute("currentSem");
         String prevAction = (String) session.getAttribute("prevTopicAction");
         String currAction = (String) session.getAttribute("currTopicAction");
         try {
             String op = request.getParameter("op");
             if (op.equals("create")) {
-                int category=0;
+                int category = 0;
                 currSem = (Semester) session.getAttribute("currentSem");
-                int depId=  (int) session.getAttribute("depId");
-                int lecId=  (int) session.getAttribute("userId");
-                String topicName=request.getParameter("topicName");
-                String topicDetail=request.getParameter("topicDetail");
-                Semester sem = new Semester();
-                int semId=Integer.parseInt(request.getParameter("semester"));
-                sem.setSemesterId(semId);
-                int bussinessId=Integer.parseInt(request.getParameter("business"));
-                if(depId==2){
-                    category=6;
-                }else if(depId==1){
-                    category=2;
-                }else if (depId==3){
-                    category=14;
-                }else if (depId==4){
-                    category=16;
-                }else if (depId==5){
-                    category=15;
+                int depId = (int) session.getAttribute("depId");
+                int lecId = (int) session.getAttribute("userId");
+                String topicName = request.getParameter("topicName");
+                String topicDetail = request.getParameter("topicDetail");
+                int semId = Integer.parseInt(request.getParameter("semester"));
+                int bussinessId = Integer.parseInt(request.getParameter("business"));
+                int check = td.checkTopicName(topicName);
+                if (check != 0) {
+                    UserDAO ud = new UserDAO();
+                    DepartmentDAO dd = new DepartmentDAO();
+                    request.setAttribute("errorMessage", "Topic name already exist");
+                    request.setAttribute("chosenSemester", semId);
+                    Department dep = dd.read(depId);
+                    request.setAttribute("depName", dep.getName());
+                    request.setAttribute("topicName", topicName);
+                    request.setAttribute("topicDetail", topicDetail);
+                    ArrayList<Users> bussinessList = ud.readAllBusiness();
+                    request.setAttribute("bList", bussinessList);
+                    request.setAttribute("chosenBusiness", bussinessId);
+                    request.getRequestDispatcher("/createTopic.jsp").forward(request, response);
+                } else {
+                    Semester sem = new Semester();
+
+                    sem.setSemesterId(semId);
+
+                    if (depId == 2) {
+                        category = 6;
+                    } else if (depId == 1) {
+                        category = 2;
+                    } else if (depId == 3) {
+                        category = 14;
+                    } else if (depId == 4) {
+                        category = 16;
+                    } else if (depId == 5) {
+                        category = 15;
+                    }
+
+                    int count = td.countTopic();
+                    count = count + 1;
+                    Topic topic = new Topic(count, topicName, category, topicDetail, bussinessId, depId, sem);
+                    td.create(topic);
+                    td.createTopicLecturer(lecId, topic.getTopicId());
+                    ArrayList<Topic> approvingTopicList = td.readAllAproveTopic();
+                    session.setAttribute("approvingTopicList", approvingTopicList);
                 }
-                
-                int count=td.countTopic();
-                count=count+1;
-                Topic topic = new Topic(count,topicName,category,topicDetail,bussinessId,depId,sem);
-                td.create(topic);
-                td.createTopicLecturer(lecId, topic.getTopicId());
-                ArrayList<Topic> approvingTopicList=td.readAllAproveTopic();
-                session.setAttribute("approvingTopicList", approvingTopicList);
-                
-                
+
             }
-            
-                ArrayList<Topic> list = td.readAll(currSem.getName());
 
-                if (!prevAction.equals(currAction)) {
-                    session.setAttribute("totalPage", null);
-                    session.setAttribute("page", null);
-                }
-                session.setAttribute("currTopicAction", "index");
-                session.setAttribute("prevTopicAction", "index");
+            ArrayList<Topic> list = td.readAll(currSem.getName());
 
-                pagination(request, response, list);
+            if (!prevAction.equals(currAction)) {
+                session.setAttribute("totalPage", null);
+                session.setAttribute("page", null);
+            }
+            session.setAttribute("currTopicAction", "index");
+            session.setAttribute("prevTopicAction", "index");
+
+            pagination(request, response, list);
             request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
 
         } catch (Exception ex) {

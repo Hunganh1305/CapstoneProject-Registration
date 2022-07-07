@@ -21,7 +21,7 @@
                 <div class="navbar-header">
                     <!-- Logo -->
                     <div class="navbar-brand">
-                        <a class="logo" href="profileLecturer.jsp">
+                        <a class="logo" href="../profileLecturer.jsp">
                             <img src="../img/logo.png" alt="logo">
                         </a>
                     </div>

@@ -53,7 +53,8 @@
             <hr />
             <div class="form__createTopic">
                 <div class="">
-                    <form action="<c:url value="/topic/save.do"/>" class="form__control">
+                    <form action="${root}/topic/saveupdate.do?" class="form__control">
+                        <input type="hidden" value="${topicId}" class="form-control" id="id1" placeholder="Enter id" name="topicId" >
                         <div class="topic__dep">
                             <label class="label_dep">Department</label>
                             <input class="" type="text" disabled value="${depName}" name="departmentName" required />
@@ -113,7 +114,7 @@
                             </div>-->
 
                         <button type="submit" value="close" name="op" class="btn btn-Close"><i class="bi bi-x-circle"></i>Close</button>
-                        <button type="submit" value="create" name="op" class="btn btn-Create"><i class="bi bi-box-arrow-down"></i>Create</button>
+                        <button type="submit" value="update" name="op" class="btn btn-Create"><i class="bi bi-box-arrow-down"></i>Save</button>
 
                     </form>
                 </div>
