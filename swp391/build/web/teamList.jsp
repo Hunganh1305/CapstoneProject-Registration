@@ -66,7 +66,7 @@
                     <div id="toasts">
                         <div class="toast error">
                             <i class="fa-solid fa-triangle-exclamation"></i>
-                            <span class="message">Fail to join</span>
+                            <span class="message">Fail to join.</span>
                             <span class="countdown"></span>
                         </div>
                     </div>
@@ -152,7 +152,7 @@
                         </thead>
 
                         <c:forEach var="list" items="${list}" varStatus="loop">
-
+                            <%--<c:if test="${list.group.groupStatus == 1}">--%>
                             <tbody>
                                 <tr>
                                     <td>${list.department.name}</td>
@@ -160,20 +160,29 @@
                                     <td>${list.user.name}</td>                             
                                     <c:choose >
                                         <c:when test="${list.group.groupStatus == 1}">
-                                            <td><span class="tdTbl__success">${list.group.groupStatus == 1?"Public":"Private"}</span></td>                                        
-                                            </c:when>
-                                            <c:when test="${list.group.groupStatus == 0}">
-                                            <td><span class="tdTbl__warning">${list.group.groupStatus == 1?"Public":"Private"}</span></td>                                    
-                                            </c:when>
-                                        </c:choose>
+                                            <td><span class="tdTbl__success">Public</span></td>                                        
+                                        </c:when>
+                                        <c:when test="${list.group.groupStatus == 0}">
+                                            <td><span class="tdTbl__warning">Private</span></td>                                    
+                                        </c:when>
+                                    </c:choose>
 
 
-<!--                                    <td><span class="tdTbl__success">${list.group.groupStatus == 1?"Public":"Private"}</span></td>                                    -->
+                                    <c:choose>
+                                        <c:when test="${list.group.groupStatus == 1}">
+                                            <td><a href="${root}/group/detail.do?id=${list.groupId}"><i class="fa fa-solid fa-eye"></i></a></td>                
+                                        </c:when>
+                                        <%--<c:when test="${list.group.groupStatus == 0 && list.group.groupName     }">--%>
 
-                                    <td><a href="${root}/group/detail.do?id=${list.groupId}"><i class="fa fa-solid fa-eye"></i></a></td>
+                                        <%--</c:when>--%>
+                                        <c:when test="${list.group.groupStatus == 0}">
+                                            <td><a href="#"data-placement="right" data-toggle="tooltip" title="This team is invisible to every actived student in this semester" ><i class="fa fa-solid fa-eye-slash"></i></a></td>                
+                                        </c:when>
+
+                                    </c:choose>     
                                 </tr>
                             </tbody>
-
+                            <%--</c:if>--%>                               
                         </c:forEach>
 
                     </table>
@@ -216,6 +225,11 @@
             <%@include file="footer.jsp" %>
         </footer>
         <% }%>
+        <!-- preloader -->
+        <div id='preloader'>
+            <div class='preloader'></div>
+        </div>
+        <!-- /preloader -->
 
         <script type="text/javascript" src="../js/jquery.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>

@@ -51,7 +51,7 @@
 
         <!-- Header -->
         <header>
-            <%@include file="header.jsp" %>
+            <%@include file="headerLecturer.jsp" %>
         </header>
         <!-- /Header -->
 
@@ -59,16 +59,7 @@
         <section id="team" class="container">
 
             <div class="team__header">
-                <h2>Team detail</h2>
-                <div class="btnControl">
-                    <c:choose>
-                        <c:when test="${countMembers == teamInfor.group.members }">
-                            <button class="team__btn-disabled"><a href="#" data-toggle="tooltip" title="This team is full. You should join another team."><span class="fa-solid fa-right-from-bracket fa-md"></span> Quick Join A Team</a></button>
-                        </c:when>
-                        <c:when test="${checkUserId != 0}"><button class="team__btn-disabled"><a href="#" data-toggle="tooltip" title="You are already have team! You can not join this team."><span class="fa-solid fa-right-from-bracket fa-md"></span> Quick Join A Team</a></button> </c:when>
-                        <c:when test="${checkUserId == 0}"><button class="team__btn"><a href="${root}/group/join.do?id=${userId}"><span class="fa-solid fa-right-from-bracket fa-md"></span>  Quick Join A Team</a> </button></c:when>
-                    </c:choose>
-                </div>
+                <h2>Team detail</h2>                
             </div>          
 
 
@@ -113,16 +104,6 @@
                 <div class="teamInfor-content">
                     <div class="flex">
                         <h4 class="teamInfor-tittle">Team Information</h6>
-
-
-                            <c:choose>
-                                <c:when test="${checkLeaderId == 1}">
-                                    <button class="team__btn "><a href="${root}/group/switch.do?id=${userId}">Switch to ${groupStatus == 0?"Public":"Private"}</a></button>        
-                                </c:when>
-                                <c:when test="${checkLeaderId == 0}">
-                                      
-                                </c:when>  
-                            </c:choose>
                     </div>
                     <hr/>
                     <ul class="teamInfor-list">

@@ -113,7 +113,16 @@
                 <div class="teamInfor-content">
                     <div class="flex">
                         <h4 class="teamInfor-tittle">Team Information</h6>
-                            <button class="team__btn"><a href="${root}/group/switch.do?id=${userId}">Switch to Private</a></button>
+
+
+                            <c:choose>
+                                <c:when test="${checkLeaderId == 1}">
+                                    <button class="team__btn "><a href="${root}/group/switch.do?id=${userId}">Switch to ${groupStatus == 0?"Public":"Private"}</a></button>        
+                                </c:when>
+                                <c:when test="${checkLeaderId == 0}">
+                                      
+                                </c:when>  
+                            </c:choose>
                     </div>
                     <hr/>
                     <ul class="teamInfor-list">
@@ -199,6 +208,11 @@
 
         <% }
         %>
+        <!-- preloader -->
+        <div id='preloader'>
+            <div class='preloader'></div>
+        </div>
+        <!-- /preloader -->
         <script type="text/javascript" src="../js/jquery.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/main.js"></script>

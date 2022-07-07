@@ -44,35 +44,11 @@
 
         <!-- Header -->
         <header>
-            <%@include file="header.jsp" %>
+            <%@include file="headerLecturer.jsp" %>
         </header>
         <!-- /Header -->
-
-
-
-        <!-- topic -->
+   
         <section id="topic" class="container">
-            <c:choose>
-                <c:when test="${noti == true}">
-                    <div id="toasts">
-                        <div class="toast success">
-                            <i class="fa-solid fa-circle-check"></i>
-                            <span class="message">Joining team successful</span>
-                            <span class="countdown"></span>                    
-                        </div>
-                    </div>
-                </c:when>
-                <c:when test="${noti == false}">
-                    <div id="toasts">
-                        <div class="toast error">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-                            <span class="message">Fail to join.</span>
-                            <span class="countdown"></span>
-                        </div>
-                    </div>
-                </c:when>
-            </c:choose>
-
             <div class="teamListControl">
                 <div class="topic__title">
                     <h1>Team List</h1>
@@ -95,12 +71,7 @@
                 <div class="teamListControl">
                     <h6 class="topic__text ">
                         All of public and unlocked teams in semester ${currentSem.name}_SWP
-                    </h6>
-                    <div class="btnControl">
-                        <c:if test="${checkUserId != 0}"><button class="team__btn-disabled"><a href="#" data-toggle="tooltip" title="You are already have team! You can not create any team.">+ Create A New Team</a></c:if>
-                            <c:if test="${checkUserId == 0}"><button class="team__btn"><a href="${root}/group/create.do?id=${userId}">+ Create A New Team</a> </button></c:if>
-
-                        </div>
+                    </h6>                   
                     </div>
 
                     <hr>
@@ -152,7 +123,7 @@
                         </thead>
 
                         <c:forEach var="list" items="${list}" varStatus="loop">
-                            <%--<c:if test="${list.group.groupStatus == 1}">--%>
+                            
                             <tbody>
                                 <tr>
                                     <td>${list.department.name}</td>
@@ -165,24 +136,11 @@
                                         <c:when test="${list.group.groupStatus == 0}">
                                             <td><span class="tdTbl__warning">Private</span></td>                                    
                                         </c:when>
-                                    </c:choose>
-
-
-                                    <c:choose>
-                                        <c:when test="${list.group.groupStatus == 1}">
-                                            <td><a href="${root}/group/detail.do?id=${list.groupId}"><i class="fa fa-solid fa-eye"></i></a></td>                
-                                        </c:when>
-                                        <%--<c:when test="${list.group.groupStatus == 0 && list.group.groupName     }">--%>
-
-                                        <%--</c:when>--%>
-                                        <c:when test="${list.group.groupStatus == 0}">
-                                            <td><a href="#"data-placement="right" data-toggle="tooltip" title="This team is invisible to every actived student in this semester" ><i class="fa fa-solid fa-eye-slash"></i></a></td>                
-                                        </c:when>
-
-                                    </c:choose>     
+                                    </c:choose>                                                                       
+                                    <td><a href="${root}/group/detail.do?id=${list.groupId}"><i class="fa fa-solid fa-eye"></i></a></td>                                                         
                                 </tr>
                             </tbody>
-                            <%--</c:if>--%>                               
+                           
                         </c:forEach>
 
                     </table>
@@ -240,5 +198,5 @@
             });
         </script>
         <script src="../js/topic.js"></script>
-        <script src="../js/teamNoti.js"></script>
+
     </body>
