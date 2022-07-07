@@ -496,6 +496,22 @@ public class TopicDAO {
         return semId;
     }
 
+     public static void updateApproveStatus(int id) {
+        Connection cn = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update dbo.Topic set ApproveStatus=1 where TopicId=?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
+    
     public static void updatePendingTopic(int id) {
         Connection cn = null;
         int status = 0;
