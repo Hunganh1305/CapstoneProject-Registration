@@ -81,7 +81,7 @@ public class LoginServlet extends HttpServlet {
                             response.sendRedirect("profileLecturer.jsp");
                         }
                     }
-                    else if(user.getRoleId()==3){
+                    else if(user.getRoleId()==4){
                         //chuyen sang trang cho admin
                         HttpSession session=request.getSession(true);
                         if(session!=null){
