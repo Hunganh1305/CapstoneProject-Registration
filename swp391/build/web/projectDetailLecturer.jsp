@@ -3,6 +3,8 @@
     Created on : 02/07/2022, 2:01:20 PM
     Author     : HLong
 --%>
+<%@page import="java.util.List"%>
+<%@page import="DTO.Users"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -33,13 +35,12 @@
     </head>
     <body>
 
-        <% String name = (String) session.getAttribute("name");
-            if (name == null) { %>
-        <p>
-            <font color='red'>You must login to view this page</font>
-        </p>
-        <p>Click <a href="../Login.jsp">here</a> to login</p>
-        <%} else {%>
+        <%
+            String name = (String) session.getAttribute("name");
+            if (name == null) {
+                response.sendRedirect("Login.jsp");
+            } else {
+        %>
 
         <!-- Header -->
         <header>
@@ -48,98 +49,92 @@
         <!-- /Header -->
 
         <!--content-->
-    <section id="project">
-        <div class="container">
-            <div class="project-title">
-                <h1 style="text-align: left">@Team Name - @Team ID</h1>
-            </div>
+        <section id="project">
+            <div class="container">
+                <div class="project-title">
+                    <h1 style="text-align: left">@${Group.groupName} - ID: ${Group.groupId}</h1>
+                </div>
 
-            <div class="project-contents">
-                <div class="project-left">
-                    <div class="project-content">
-                        <h6 class="project-name">Team information</h6>
-                        <hr>
-                        <ul class="project-list">
-                            <li class="project-item">
-                                <i class="fa fa-solid fa-bars col-sm-1"></i>
-                                <span class="col-sm-4">Team name</span>
-                                <span class="col-sm-7">ABCD</span>
-                            </li>
-                            <li class="project-item">
-                                <i class="fa-solid fa-clone col-sm-1"></i>
-                                <span class="col-sm-4">Joining code</span>
-                                <span class="col-sm-7">2xhbx</span>
-                            </li>
-                            <li class="project-item">
-                                <i class="fa-solid fa-clone col-sm-1"></i>
-                                <span class="col-sm-4">Topic</span>
-                                <span class="col-sm-7">Research And Developing Brands</span>
-                            </li>
-                            <li class="project-item">
-                                <i class="fa fa-regular fa-building col-sm-1"></i>
-                                <span class="col-sm-4">Department</span>
-                                <div class="col-sm-7">
-                                    <span class="blue-box">Information System</span>
+                <div class="project-contents">
+                    <div class="project-left">
+                        <div class="project-content">
+                            <h6 class="project-name">Team information</h6>
+                            <hr>
+                            <ul class="project-list">
+                                <li class="project-item">
+                                    <i class="fa fa-solid fa-bars col-sm-1"></i>
+                                    <span class="col-sm-4">Team Name</span>
+                                    <span class="col-sm-7">${Group.groupName}</span>
+                                </li>
+                                <li class="project-item">
+                                    <i class="fa-solid fa-file-signature col-sm-1"></i>
+                                    <span class="col-sm-4">Topic Name</span>
+                                    <span class="col-sm-7">${Topic.name}</span>
+                                </li>
+                                <li class="project-item">
+                                    <i class="fa-solid fa-calendar col-sm-1"></i>
+                                    <span class="col-sm-4">Semester</span>
+                                    <span class="col-sm-7">${Sem.name}</span>
+                                </li>
+                                <li class="project-item">
+                                    <i class="fa fa-regular fa-building col-sm-1"></i>
+                                    <span class="col-sm-4">Department</span>
+                                    <div class="col-sm-7">
+                                        <span class="blue-box">${DepName}</span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="project-item" style="margin-top: 5px">
+                                <i class="fa-solid fa-lock col-sm-1"></i>
+                                <div class="col-sm-2">
+                                    <span class="green-box">${Pro.status ==1?"Lock":"Unlock"}</span>
                                 </div>
-                            </li>
-
-
-                        </ul>
-                        <div class="project-item" style="margin-top: 5px">
-                            <i class="fa-solid fa-lock col-sm-1"></i>
-                            <div class="col-sm-2">
-                                <span class="green-box">Locked</span>
+                                <span class="col-sm-2"></span>
+                                <i class="fa-solid fa-shield col-sm-1"></i>
+                                <div class="col-sm-2">
+                                    <c:choose >
+                                        <c:when test="${Group.groupStatus == 1}">
+                                            <span class="green-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                     
+                                        </c:when>
+                                        <c:when test="${Group.groupStatus == 0}">
+                                            <span class="orange-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                  
+                                        </c:when>
+                                    </c:choose>
+                                </div>
                             </div>
-                            <span class="col-sm-2"></span>
-                            <i class="fa-solid fa-shield col-sm-1"></i>
-                            <div class="col-sm-2">
-                                <span class="green-box">Public</span>
+
+                        </div>
+                    </div>
+
+                    <div class="project-right">
+                            <div class="project-content">
+                                <h6 class="project-name">Team members</h6>
+                                <hr>
+                                <ul class="project-list">
+                                    <%!  List<Users> list;%>
+                                    <%
+                                        list = (List<Users>) request.getAttribute("list");
+                                        for (Users s : list) {
+                                            out.print("<li class='project-item'>"
+                                                    + "<div class='col-sm-2'>"
+                                                    + "<img class=\"avatar\" src=\"../img/sample-avatar.jpg\" alt=\"Avatar\">"
+                                                    + "</div>"
+                                                    + "<span>" + s.getName() + "</span>"
+                                                    + "</li>");
+                                        }
+
+                                    %>
+                                </ul>
+
                             </div>
                         </div>
-
-                    </div>
                 </div>
 
-                <div class="project-right">
-                    <div class="project-content">
-                        <h6 class="project-name">Team members</h6>
-                        <hr>
-                        <ul class="project-list">
-                            <li class="project-item">
-                                <div class="col-sm-2">
-                                    <img class="avatar" src="../img/sample-avatar.jpg" alt="Avatar">
-                                </div>
-                                <span>Nguyên Văn A</span>
-                            </li>
-                            <li class="project-item">
-                                <div class="col-sm-2">
-                                    <img class="avatar" src="../img/sample-avatar.jpg" alt="Avatar">
-                                </div>
-                                <span>Nguyên Văn B</span>
-                            </li>
-                            <li class="project-item">
-                                <div class="col-sm-2">
-                                    <img class="avatar" src="../img/sample-avatar.jpg" alt="Avatar">
-                                </div>
-                                <span>Phạm Văn C</span>
-                            </li>
-                            <li class="project-item">
-                                <div class="col-sm-2">
-                                    <img class="avatar" src="../img/sample-avatar.jpg" alt="Avatar">
-                                </div>
-                                <span>Trần Thị D</span>
-                            </li>
-                        </ul>
 
-                    </div>
-                </div>
             </div>
+        </section>
 
-
-        </div>
-    </section>
-
-    <!--/content-->
+        <!--/content-->
 
         <footer>
             <%@include file="footer.jsp" %>

@@ -1,0 +1,55 @@
+<%-- 
+    Document   : headerAdmin
+    Created on : 06/07/2022, 6:49:27 PM
+    Author     : HLong
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <!-- Header -->
+        <header id="header">
+            <div class="container">
+
+                <div class="navbar-header">
+                    <!-- Logo -->
+                    <div class="navbar-brand">
+                        <a class="logo" href="profileAdmin.jsp">
+                            <img src="./img/logo.png" alt="logo">
+                        </a>
+                    </div>
+                    <!-- /Logo -->
+
+                    <!-- Mobile toggle -->
+                    <button class="navbar-toggle">
+                        <span></span>
+                    </button>
+                    <!-- /Mobile toggle -->
+                </div>
+
+                <!-- Navigation -->
+                <nav id="nav">
+                    <ul class="main-menu nav navbar-nav navbar-right">
+                        <li><a class="align-nav" href="profileAdmin.jsp">Admin Profile</a></li>
+                        <li><a class="align-nav" href="manageSemester.jsp">Manage Semesters</a></li>
+                        <li><a class="align-nav" href="manageUser.jsp">Manage Users</a></li>
+                        <li><a class="align-nav" href="manageTopic.jsp">Manage Topics</a></li>
+                        <li class="nav-item dropdown">
+                            <a href="profileAdmin.jsp" role="button" aria-haspopup="true" aria-expanded="false">
+                                <img class="avatar" src="img/sample-avatar.jpg" alt="Avatar">
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /Navigation -->
+
+            </div>
+        </header>
+        <!-- /Header -->
+    </body>
+</html>
