@@ -57,7 +57,7 @@
                     <div id="toasts">
                         <div class="toast success">
                             <i class="fa-solid fa-circle-check"></i>
-                            <span class="message">Joining team successful</span>
+                            <span class="message">Joining team successful!</span>
                             <span class="countdown"></span>                    
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                     <div id="toasts">
                         <div class="toast error">
                             <i class="fa-solid fa-triangle-exclamation"></i>
-                            <span class="message">Fail to join.</span>
+                            <span class="message">Wrong Department! Fail to join.</span>
                             <span class="countdown"></span>
                         </div>
                     </div>
@@ -151,8 +151,7 @@
                             </tr>
                         </thead>
 
-                        <c:forEach var="list" items="${list}" varStatus="loop">
-                            <%--<c:if test="${list.group.groupStatus == 1}">--%>
+                        <c:forEach var="list" items="${list}" varStatus="loop">                            
                             <tbody>
                                 <tr>
                                     <td>${list.department.name}</td>
@@ -166,29 +165,26 @@
                                             <td><span class="tdTbl__warning">Private</span></td>                                    
                                         </c:when>
                                     </c:choose>
-
-
                                     <c:choose>
                                         <c:when test="${list.group.groupStatus == 1}">
                                             <td><a href="${root}/group/detail.do?id=${list.groupId}"><i class="fa fa-solid fa-eye"></i></a></td>                
-                                        </c:when>
-                                        <%--<c:when test="${list.group.groupStatus == 0 && list.group.groupName     }">--%>
-
-                                        <%--</c:when>--%>
-                                        <c:when test="${list.group.groupStatus == 0}">
+                                                </c:when>
+                                                <c:when test="${list.group.groupStatus == 0 && list.groupId == checkStudentInGroup}">
+                                            <td><a href="${root}/group/detail.do?id=${list.groupId}"><i class="fa fa-solid fa-eye"></i></a></td>                
+                                                </c:when>
+                                                <c:when test="${list.group.groupStatus == 0}">
                                             <td><a href="#"data-placement="right" data-toggle="tooltip" title="This team is invisible to every actived student in this semester" ><i class="fa fa-solid fa-eye-slash"></i></a></td>                
-                                        </c:when>
+                                                </c:when>
 
                                     </c:choose>     
                                 </tr>
-                            </tbody>
-                            <%--</c:if>--%>                               
+                            </tbody>                                                   
                         </c:forEach>
 
                     </table>
 
                 </c:if>
-
+               
 
                 <c:if test="${empty list}">
                     <div class="search-empty">

@@ -68,6 +68,30 @@ public class StudentGroupDAO {
         }
         return list;
     }
+                    
+    //
+    public static int checkStudentInGroup(int id) {
+        Connection cn = null;
+        int Grid = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select sg.GroupId from StudentGroup sg join Users u on sg.StudentId = u.UserId\n" +
+"				where sg.StudentId = ?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, id);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) {
+                    Grid = rs.getInt("GroupId");
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return Grid;
+    }
+    
   
     public static ArrayList<StudentGroup> searchGroupByName(String name, String currentSem) {
         Connection cn = null;

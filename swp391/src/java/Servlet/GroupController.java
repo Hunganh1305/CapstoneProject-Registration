@@ -64,10 +64,11 @@ public class GroupController extends HttpServlet {
             case "index":
                 currSem = (Semester) session.getAttribute("currentSem");
                 ArrayList<StudentGroup> list = sg.readAll(currSem.getName());
-                
+
                 //check
                 int studentId = (int) session.getAttribute("userId");
                 int checkUserId = sg.checkStudentHaveGroupByUserId(studentId);
+                int checkStudentInGroup = sg.checkStudentInGroup(studentId); //GroupID
                
                 //        pagination
                 if (!prevAction.equals(currAction)) {
@@ -78,8 +79,10 @@ public class GroupController extends HttpServlet {
                 
                 
                 pagination(request, response, list);
+
                 //        pagination 
                 session.setAttribute("checkUserId", checkUserId);
+                session.setAttribute("checkStudentInGroup", checkStudentInGroup);
                 
                 
                 if (user.getRoleId() == 1) {
