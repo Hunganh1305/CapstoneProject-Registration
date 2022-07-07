@@ -49,7 +49,7 @@
         
         <!-- Header -->
         <header>
-            <%@include file="headerAdmin.jsp" %>
+            <%@include file="headerAdminProfile.jsp" %>
         </header>
         <!-- /Header -->
 

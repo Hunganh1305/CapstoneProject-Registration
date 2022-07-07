@@ -10,6 +10,7 @@ package DTO;
  * @author HLong
  */
 public class Users {
+
     private int userId;
     private String name;
     private String password;
@@ -17,6 +18,53 @@ public class Users {
     private int departmentId;
     private String email;
     private int roleId;
+    private Department department;
+
+    public Users(int userId, String password, int departmentId, String email, int roleId) {
+        this.userId = userId;
+        this.password = password;
+        this.departmentId = departmentId;
+        this.email = email;
+        this.roleId = roleId;
+    }
+
+    public Users(int userId, String name, String password, String email, int roleId) {
+        this.userId = userId;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.roleId = roleId;
+    }
+
+    public Users(int userId, String name, String password, int departmentId, String email, int roleId) {
+        this.userId = userId;
+        this.name = name;
+        this.password = password;
+        this.departmentId = departmentId;
+        this.email = email;
+        this.roleId = roleId;
+    }
+
+    public Users(int userId, String name, String password, int departmentId, String email, int roleId, Department department) {
+        this.userId = userId;
+        this.name = name;
+        this.password = password;
+        this.departmentId = departmentId;
+        this.email = email;
+        this.roleId = roleId;
+        this.department = department;
+    }
+
+    public Users(int userId, String name, String password, int status, int departmentId, String email, int roleId, Department department) {
+        this.userId = userId;
+        this.name = name;
+        this.password = password;
+        this.status = status;
+        this.departmentId = departmentId;
+        this.email = email;
+        this.roleId = roleId;
+        this.department = department;
+    }
 
     public Users() {
     }
@@ -90,5 +138,5 @@ public class Users {
     public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
-    
+
 }
