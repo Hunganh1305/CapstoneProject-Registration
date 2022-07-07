@@ -41,6 +41,8 @@
                         <li><a class="align-nav" href="./profileLecturer.jsp">Profile</a></li>
                         <li><a class="align-nav" href="<c:url value="/projectlecturer/lecView.do"/>">Project List</a></li>
                         <li><a class="align-nav" href="<c:url value="/topic/index.do"/>">Topic List</a></li>
+                        <li><a class="align-nav" href="<c:url value="/group/index.do"/>">Team List</a></li>
+
                         <li class="nav-item dropdown">
                             <a href="./profileLecturer.jsp" role="button" aria-haspopup="true" aria-expanded="false">
                                 <img class="avatar" src="./img/sample-avatar.jpg" alt="Avatar">
