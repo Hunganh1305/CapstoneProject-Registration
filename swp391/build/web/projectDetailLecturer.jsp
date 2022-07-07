@@ -1,21 +1,17 @@
-<%-- 
-    Document   : topicListLecturer
-    Created on : 02/07/2022, 2:01:20 PM
-    Author     : HLong
---%>
 <%@page import="java.util.List"%>
 <%@page import="DTO.Users"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Dashboard - Topic List</title>
+        <title>Project Detail</title>
 
         <!-- Google font -->
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
@@ -27,20 +23,25 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
         <!-- Font Awesome Icon -->
+        <!--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
         <script src="https://kit.fontawesome.com/e7ea130b87.js" crossorigin="anonymous"></script>
 
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
+        
+
     </head>
+
     <body>
 
-        <%
-            String name = (String) session.getAttribute("name");
-            if (name == null) {
-                response.sendRedirect("Login.jsp");
-            } else {
-        %>
+        <% String name = (String) session.getAttribute("name");
+            if (name == null) { %>
+        <p>
+            <font color='red'>You must login to view this page</font>
+        </p>
+        <p>Click <a href="../Login.jsp">here</a> to login</p>
+        <%} else {%>
 
         <!-- Header -->
         <header>

@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Dashboard - Topic</title>
+        <title>Dashboard - Project</title>
 
         <!-- Google font -->
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
@@ -35,12 +35,13 @@
 
     <body>
 
-        <%
-            String name = (String) session.getAttribute("name");
-            if (name == null) {
-                response.sendRedirect("Login.jsp");
-            } else {
-        %>
+        <% String name = (String) session.getAttribute("name");
+            if (name == null) { %>
+        <p>
+            <font color='red'>You must login to view this page</font>
+        </p>
+        <p>Click <a href="../Login.jsp">here</a> to login</p>
+        <%} else {%>
 
         <!-- Header -->
         <header>

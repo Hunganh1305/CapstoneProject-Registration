@@ -243,6 +243,9 @@ insert into Users values(73,'Duong Qua','12345678',1,5,'duongqua@gmail.com',1,nu
 insert into Users values(74,'Bat Cai','12345678',1,4,'batcai@gmail.com',1,null)
 insert into Users values(75,'Anh Hung Xa Dieu','12345678',1,4,'anhhungxadieu@gmail.com',1,null)
 
+--admin
+insert into Users values(81,'Admin','12345678',1,null,'admin@gmail.com',4,null)
+
 select * from Users
 
 
