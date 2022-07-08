@@ -37,7 +37,7 @@
                 <nav id="nav">
                     <ul class="main-menu nav navbar-nav navbar-right">
                         <li><a class="align-nav" href="../profileAdmin.jsp">Admin Profile</a></li>
-                        <li><a class="align-nav" href="../manageSemester.jsp">Manage Semesters</a></li>
+                        <li><a class="align-nav" href="<c:url value="/semester/index.do"/>">Manage Semesters</a></li>
                         <li><a class="align-nav" href="<c:url value="/user/index.do"/>">Manage Users</a></li>
                         <li><a class="align-nav" href="<c:url value="/topic/index.do"/>">Manage Topics</a></li>
                         <li class="nav-item dropdown">
