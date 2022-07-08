@@ -57,7 +57,7 @@
                     <div id="toasts">
                         <div class="toast success">
                             <i class="fa-solid fa-circle-check"></i>
-                            <span class="message">Joining team successful</span>
+                            <span class="message">Joining team successful!</span>
                             <span class="countdown"></span>                    
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                     <div id="toasts">
                         <div class="toast error">
                             <i class="fa-solid fa-triangle-exclamation"></i>
-                            <span class="message">Fail to join.</span>
+                            <span class="message">Wrong Department! Fail to join.</span>
                             <span class="countdown"></span>
                         </div>
                     </div>

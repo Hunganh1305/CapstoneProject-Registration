@@ -74,6 +74,10 @@ public class TopicController extends HttpServlet {
                 ArrayList<Topic> approvingTopicList = td.readAllAproveTopic();
                 session.setAttribute("approvingTopicList", approvingTopicList);
                 session.setAttribute("pendingTopicList", pendingTopicList);
+            } else if (user.getRoleId() == 4) {
+                ArrayList<Topic> approvingTopicList = td.readAllAproveTopic();
+                session.setAttribute("approvingTopicList", approvingTopicList);
+
             }
         }
         session.setAttribute("currTopicAction", action);
@@ -97,6 +101,8 @@ public class TopicController extends HttpServlet {
                     request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 } else if (user.getRoleId() == 2) {
                     request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+                } else if (user.getRoleId() == 4) {
+                    request.getRequestDispatcher("/manageTopic.jsp").forward(request, response);
                 }
                 break;
             case "search":
@@ -105,13 +111,6 @@ public class TopicController extends HttpServlet {
                 ArrayList<Topic> list2 = null;
 
                 //        pagination
-                String prevSearch = (String) session.getAttribute("prevTopicSearch");
-                if (prevSearch == null) {
-                    session.setAttribute("prevTopicSearch", searchText);
-                    prevSearch = searchText;
-                }
-                session.setAttribute("currTopicSearch", searchText);
-                String currSearch = (String) session.getAttribute("currTopicSearch");
 
                 if (searchText == null) {
                     list2 = td.readAll(currSem.getName());
@@ -133,6 +132,8 @@ public class TopicController extends HttpServlet {
                     request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 } else if (user.getRoleId() == 2) {
                     request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+                } else if (user.getRoleId() == 4) {
+                    request.getRequestDispatcher("/manageTopic.jsp").forward(request, response);
                 }
                 break;
             case "pagesearch":
@@ -150,6 +151,8 @@ public class TopicController extends HttpServlet {
                     request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 } else if (user.getRoleId() == 2) {
                     request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+                } else if (user.getRoleId() == 4) {
+                    request.getRequestDispatcher("/manageTopic.jsp").forward(request, response);
                 }
                 break;
             case "filter":
@@ -196,6 +199,8 @@ public class TopicController extends HttpServlet {
                     request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 } else if (user.getRoleId() == 2) {
                     request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+                } else if (user.getRoleId() == 4) {
+                    request.getRequestDispatcher("/manageTopic.jsp").forward(request, response);
                 }
                 break;
             case "pagefilter":
@@ -209,6 +214,8 @@ public class TopicController extends HttpServlet {
                     request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 } else if (user.getRoleId() == 2) {
                     request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+                } else if (user.getRoleId() == 4) {
+                    request.getRequestDispatcher("/manageTopic.jsp").forward(request, response);
                 }
                 break;
             case "detail":
@@ -255,6 +262,8 @@ public class TopicController extends HttpServlet {
                     request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 } else if (user.getRoleId() == 2) {
                     request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+                } else if (user.getRoleId() == 4) {
+                    request.getRequestDispatcher("/manageTopic.jsp").forward(request, response);
                 }
                 break;
             case "pagesemester":
@@ -267,6 +276,8 @@ public class TopicController extends HttpServlet {
                     request.getRequestDispatcher("/topic.jsp").forward(request, response);
                 } else if (user.getRoleId() == 2) {
                     request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+                } else if (user.getRoleId() == 4) {
+                    request.getRequestDispatcher("/manageTopic.jsp").forward(request, response);
                 }
                 break;
             case "apply":
@@ -384,7 +395,12 @@ public class TopicController extends HttpServlet {
                 session.setAttribute("prevTopicAction", "index");
 
                 pagination(request, response, list);
-                request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+
+                if (user.getRoleId() == 2) {
+                    request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+                } else if (user.getRoleId() == 4) {
+                    request.getRequestDispatcher("/manageTopic.jsp").forward(request, response);
+                }
                 break;
             case "update":
                 ud = new UserDAO();
@@ -430,7 +446,7 @@ public class TopicController extends HttpServlet {
                 td.update(topic);
                 approvingTopicList = td.readAllAproveTopic();
                 session.setAttribute("approvingTopicList", approvingTopicList);
-                
+
                 list = td.readAll(currSem.getName());
 
                 if (!prevAction.equals(currAction)) {
@@ -442,6 +458,24 @@ public class TopicController extends HttpServlet {
 
                 pagination(request, response, list);
                 request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
+                break;
+            case "approveadmin":
+                currSem = (Semester) session.getAttribute("currentSem");
+                topicId = Integer.parseInt(request.getParameter("topicId"));
+                td.updateApproveStatus(topicId);
+                approvingTopicList = td.readAllAproveTopic();
+                session.setAttribute("approvingTopicList", approvingTopicList);
+                list = td.readAll(currSem.getName());
+
+                if (!prevAction.equals(currAction)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                session.setAttribute("currTopicAction", "index");
+                session.setAttribute("prevTopicAction", "index");
+
+                pagination(request, response, list);
+                request.getRequestDispatcher("/manageTopic.jsp").forward(request, response);
                 break;
 
         }

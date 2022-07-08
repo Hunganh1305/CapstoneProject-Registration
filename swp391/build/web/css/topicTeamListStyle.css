@@ -313,11 +313,11 @@ modal-header{
 }
 
 .toast {
-    padding: 10px;
+    padding: 8px;
     border: none;
     border-radius: 6px;
     color: white;
-    font-size: 15px;
+    font-size: 14px;
     border-left: 6px solid rgb(0, 159, 0);
     overflow: hidden;
     animation: slide_show 2s ease ;
@@ -325,17 +325,7 @@ modal-header{
 }
 
 .toast i {
-    margin: 0 10px;
-}
-
-.toast .countdown {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 4px;
-    width: 100%;
-    animation: countdown 2s ease ;
-
+    margin: 0 2px;
 }
 
 .toast.success {
@@ -350,15 +340,6 @@ modal-header{
     background: rgba(240, 13, 13, 0.4);
 }
 
-.toast.success .countdown {
-    /*background: rgb(0, 159, 0);*/
-}
-
-
-
-.toast.error .countdown {
-    /*background: rgb(240, 13, 13);*/
-}
 
 @keyframes countdown {
     0% {

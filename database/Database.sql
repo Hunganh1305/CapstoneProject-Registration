@@ -242,11 +242,15 @@ insert into Users values(78,'Khoai Lang Thang','12345678',1,1,'klt@gmail.com',1,
 insert into Users values(73,'Duong Qua','12345678',1,5,'duongqua@gmail.com',1,null)
 insert into Users values(74,'Bat Cai','12345678',1,4,'batcai@gmail.com',1,null)
 insert into Users values(75,'Anh Hung Xa Dieu','12345678',1,4,'anhhungxadieu@gmail.com',1,null)
+
 insert into Users values(79,'Ba Tan vlog','12345678',1,1,'tanvl@gmail.com',1,null)
 insert into Users values(80,'Sang Vlog','12345678',1,1,'sangvl@gmail.com',1,null)
 insert into Users values(76,'NTN vlog','12345678',1,1,'ntnvl@gmail.com',1,null)
 insert into Users values(77,'Giang Oi','12345678',1,1,'giangoi@gmail.com',1,null)
 insert into Users values(78,'Khoai Lang Thang','12345678',1,1,'klt@gmail.com',1,null)
+
+insert into Users values(81,'Admin','12345678',1,null,'admin@gmail.com',4,null)
+
 
 --admin
 insert into Users values(81,'Admin','12345678',1,null,'admin@gmail.com',4,null)

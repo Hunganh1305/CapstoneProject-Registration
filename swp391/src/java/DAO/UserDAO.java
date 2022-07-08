@@ -5,6 +5,8 @@
  */
 package DAO;
 
+import DTO.Department;
+import DTO.Role;
 import DTO.Users;
 import Utils.DBUtils;
 import java.sql.Connection;
@@ -29,6 +31,124 @@ public class UserDAO {
                         + "from dbo.Users\n";
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    int userID = rs.getInt("UserId");
+                    String name = rs.getString("Name");
+                    String password = rs.getString("Password");
+                    int status = rs.getInt("Status");
+                    int departmentId = rs.getInt("DepartmentId");
+                    String email = rs.getString("Email");
+                    int roleId = rs.getInt("RoleId");
+                    Users user = new Users(userID, name, password, status, departmentId, email, roleId);
+                    list.add(user);
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return list;
+    }
+
+    public static ArrayList<Users> readAllNotAdmin() {
+        Connection cn = null;
+        ArrayList<Users> list = new ArrayList<>();
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select *\n"
+                        + "from dbo.Users\n"
+                        + "where RoleId !=4";
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    int userID = rs.getInt("UserId");
+                    String name = rs.getString("Name");
+                    String password = rs.getString("Password");
+                    int status = rs.getInt("Status");
+                    int departmentId = rs.getInt("DepartmentId");
+                    String email = rs.getString("Email");
+                    int roleId = rs.getInt("RoleId");
+                    Users user = new Users(userID, name, password, status, departmentId, email, roleId);
+                    list.add(user);
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return list;
+    }
+
+    public static ArrayList<Role> readAllRole() {
+        Connection cn = null;
+        ArrayList<Role> list = new ArrayList<>();
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select *\n"
+                        + "from dbo.Roles \n"
+                        + "where RoleId!=4";
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    int RoleID = rs.getInt("RoleId");
+                    String name = rs.getString("RoleName");
+     
+                    Role role = new Role(RoleID, name);
+                    list.add(role);
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return list;
+    }
+
+    public static ArrayList<Users> searchUserByName(String userName) {
+        Connection cn = null;
+        ArrayList<Users> list = new ArrayList<>();
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select *\n"
+                        + "from dbo.Users\n"
+                        + "where RoleId !=4 and name like ?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setString(1, "%" + userName + "%");
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    int userID = rs.getInt("UserId");
+                    String name = rs.getString("Name");
+                    String password = rs.getString("Password");
+                    int status = rs.getInt("Status");
+                    int departmentId = rs.getInt("DepartmentId");
+                    String email = rs.getString("Email");
+                    int roleId = rs.getInt("RoleId");
+                    Users user = new Users(userID, name, password, status, departmentId, email, roleId);
+                    list.add(user);
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return list;
+    }
+
+    public static ArrayList<Users> filterByDepartment(String depName) {
+        Connection cn = null;
+        ArrayList<Users> list = new ArrayList<>();
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select *\n"
+                        + "from dbo.Users u join dbo.Department d on u.DepartmentId=d.DepartmentId\n"
+                        + "where d.Name like ?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setString(1, "%" + depName + "%");
+                ResultSet rs = stm.executeQuery();
                 while (rs.next()) {
                     int userID = rs.getInt("UserId");
                     String name = rs.getString("Name");
@@ -226,7 +346,7 @@ public class UserDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "insert into dbo.Users values(?, ?, ?, ?, ?, ?, ?)";
+                String sql = "insert into dbo.Users values(?, ?, ?, ?, ?, ?, ?, null)";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setInt(1, user.getUserId());
                 stm.setString(2, user.getName());
@@ -235,6 +355,26 @@ public class UserDAO {
                 stm.setInt(5, user.getDepartmentId());
                 stm.setString(6, user.getEmail());
                 stm.setInt(7, user.getRoleId());
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
+    
+     public static void createBusiness(Users user) {
+        Connection cn = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "  insert into dbo.Users (UserId,Name,Password,Email,RoleId) values (?,?,?,?,?)";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setInt(1, user.getUserId());
+                stm.setString(2, user.getName());
+                stm.setString(3, user.getPassword());                          
+                stm.setString(4, user.getEmail());
+                stm.setInt(5, user.getRoleId());
                 stm.executeUpdate();
                 cn.close();
             }
