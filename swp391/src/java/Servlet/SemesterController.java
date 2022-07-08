@@ -11,12 +11,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author phamquang
  */
-@WebServlet(name = "SemesterController", urlPatterns = {"/SemesterController"})
+@WebServlet(name = "SemesterController", urlPatterns = {"/semester"})
 public class SemesterController extends HttpServlet {
 
     /**
@@ -31,7 +32,21 @@ public class SemesterController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        String action = request.getAttribute("action").toString();
+        HttpSession session = request.getSession();
+        String prevAction = (String) session.getAttribute("prevSemesterAction");
+        if (prevAction == null) {
+            session.setAttribute("prevSemesterAction", action);
+            prevAction = action;
+
+        }
+        session.setAttribute("currSemesterAction", action);
+        String currAction = (String) session.getAttribute("currSemesterAction");
+        switch (action) {
+            case "index":
+                request.getRequestDispatcher("/manageSemester.jsp").forward(request, response);
+                break;
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
