@@ -1,9 +1,4 @@
-<%-- 
-    Document   : manageSemester
-    Created on : 06/07/2022, 6:45:54 PM
-    Author     : HLong
---%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,16 +13,16 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
 
         <!-- Bootstrap -->
-        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" />
 
         <!-- Font Awesome Icon -->
         <script src="https://kit.fontawesome.com/e7ea130b87.js" crossorigin="anonymous"></script>
 
         <!-- Custom stlylesheet -->
-        <link type="text/css" rel="stylesheet" href="./css/style.css" />
+        <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
         <!-- sem stylessheet -->
-        <link type="text/css" rel="stylesheet" href="./css/manageSemesterStyle.css" />  
+        <link type="text/css" rel="stylesheet" href="../css/manageSemesterStyle.css" />  
     </head>
     <body>
         
@@ -57,7 +52,6 @@
                         List of semesters from database
                     </h6>
                     <div class="btnControl">
-
                         <button class="team__btn">+ Create New Semester</button>
                     </div>
                 </div>
