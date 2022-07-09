@@ -56,7 +56,7 @@
                         List of semesters
                     </h6>
                     <div class="btnControl">
-                        <button class="team__btn">+ Create New Semester</button>
+                        <a href="<c:url value="/semester/create.do"/>" class="team__btn">+ Create New User</a>
                     </div>
                 </div>
 
