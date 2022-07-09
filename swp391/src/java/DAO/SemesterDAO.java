@@ -47,6 +47,34 @@ public class SemesterDAO {
         }
         return list;
     }
+    
+    public static ArrayList<Semester> readByName(String Name) {
+        Connection cn = null;
+        ArrayList<Semester> list = new ArrayList<>();
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select * from dbo.Semester where name like ?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setString(1,"%" + Name + "%");
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    Date startDate = rs.getDate("startDate");
+                    int semID = rs.getInt("semesterId");
+                    String name = rs.getString("name");
+                    
+                    Date endDate = rs.getDate("endDate");
+                    
+                    Semester semester = new Semester(semID, name, startDate, endDate);
+                    list.add(semester);
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return list;
+    }
 
     public static Semester read(String name) {
         Connection cn = null;
