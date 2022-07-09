@@ -86,19 +86,22 @@ public class SemesterController extends HttpServlet {
                 request.getRequestDispatcher("/manageSemester.jsp").forward(request, response);
                 break;
             case "pagesearch":
-//                searchText = (String) session.getAttribute("searchTextProject");
-//                proDao = new ProjectDAO();
-//                
-//                if (searchText == null) {
-//                    proList1 = proDao.readAllProject(currSem.getSemesterId());
-//                } else {
-//                    proList1 = proDao.searchByName(searchText, currSem.getSemesterId());
-//                }
-//                pagination(request, response, proList1);
-//                session.setAttribute("prevProjectAction", "pagesearch");
-//
-//                request.getRequestDispatcher("/projectListLecturer.jsp").forward(request, response);
+                searchText = (String) session.getAttribute("searchTextSemester");
+                semDao = new SemesterDAO();
+                
+                if (searchText == null) {
+                    list1 = semDao.readAll();
+                } else {
+                    list1 = semDao.readByName(searchText);
+                }
+                pagination(request, response, list1);
+                session.setAttribute("prevSemesterAction", "pagesearch");
 
+                request.getRequestDispatcher("/manageSemester.jsp").forward(request, response);
+
+                break;
+            case "create":
+                request.getRequestDispatcher("/createUser.jsp").forward(request, response);
                 break;
         }
     }
