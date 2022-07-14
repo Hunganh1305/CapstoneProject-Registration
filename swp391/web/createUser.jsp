@@ -43,13 +43,13 @@
             <%@include file="headerAdmin.jsp" %>
         </header>
         <!-- /Header -->
-        <section class="vh-100 mb-2">
+        <section class="vh-100 mb-2" style="margin-top: 4rem">
             <div class="container py-5 h-100">
                 <div class="row d-flex align-items-center justify-content-center h-100">
                     <!--                    <div class="col-md-5 col-lg-7 col-xl-6">
                                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="" alt="Phone image">
                                         </div>-->
-                    <div class="col-md-7 col-lg-5 col-xl-6 offset-xl-1">
+                    <div class="col-md-5  col-xl-6 offset-xl-1">
                         <form action="<c:url value="/user/signup.do"/>">
                             <!-- Email input -->
                             <div class="text-danger" style="font-style: italic;">${errMessage}</div>
@@ -115,6 +115,9 @@
                             <!-- Submit button -->
                             <button type="submit" class="btn btn-warning btn-lg btn-block margin-top">Create</button>
                         </form>
+                    </div>
+                    <div class="col-md-7  col-xl-6 img-contain">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">
                     </div>
                 </div>
             </div>
