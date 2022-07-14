@@ -7,7 +7,10 @@ package Servlet;
 import DAO.SemesterDAO;
 import DTO.Semester;
 import java.io.IOException;
-import java.io.PrintWriter;
+//import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDateTime;  
+import java.time.format.DateTimeFormatter; 
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -58,7 +61,7 @@ public class SemesterController extends HttpServlet {
                 session.setAttribute("prevSemesterAction", "index");
                 pagination(request, response, list);
                 //        pagination 
-                
+
                 request.getRequestDispatcher("/manageSemester.jsp").forward(request, response);
                 break;
             case "search":
@@ -67,7 +70,6 @@ public class SemesterController extends HttpServlet {
                 ArrayList<Semester> list1 = null;
 
                 //        pagination
-
                 if (searchText == null) {
                     list1 = semDao.readAll();
                 } else {
@@ -88,7 +90,7 @@ public class SemesterController extends HttpServlet {
             case "pagesearch":
                 searchText = (String) session.getAttribute("searchTextSemester");
                 semDao = new SemesterDAO();
-                
+
                 if (searchText == null) {
                     list1 = semDao.readAll();
                 } else {
@@ -101,11 +103,52 @@ public class SemesterController extends HttpServlet {
 
                 break;
             case "create":
-                request.getRequestDispatcher("/createUser.jsp").forward(request, response);
+                request.getRequestDispatcher("/createSemester.jsp").forward(request, response);
                 break;
+            case "signup":
+                semDao = new SemesterDAO();
+                ArrayList<Semester> list2 = null;
+                list2 = semDao.readAll();
+                int id = list2.size() + 1;
+                String semesterName = request.getParameter("semesterName");
+                String startDate = request.getParameter("startDate");
+                String endDate = request.getParameter("endDate");
+                String now = java.time.LocalDate.now().toString();
+                Date sDate = Date.valueOf(startDate);
+                Date eDate = Date.valueOf(endDate);
+                Date today = Date.valueOf(now);
+                String regexFA = "(^[F][A])+([0-9]{4}$)";
+                String regexSU = "(^[S][U])+([0-9]{4}$)";
+                String regexSP = "(^[S][P])+([0-9]{4}$)";
+                if (!semesterName.matches(regexFA) && !semesterName.matches(regexSU) && !semesterName.matches(regexSP)) {
+                    request.setAttribute("error-msg", "Must be FA or SU or SP + Years!");
+                    request.getRequestDispatcher("/createSemester.jsp").forward(request, response);
+                } else if(sDate.compareTo(today) == -1){
+                    request.setAttribute("error-msg1", "Start date cannot before now!");
+                    request.getRequestDispatcher("/createSemester.jsp").forward(request, response);
+                } else if(eDate.compareTo(sDate) == -1 || eDate.compareTo(sDate) == 0){
+                    request.setAttribute("error-msg2", "End date cannot before Start date!");
+                    request.getRequestDispatcher("/createSemester.jsp").forward(request, response);
+                } else {
+                    Semester sem = new Semester(id, semesterName, sDate, eDate);
+                    semDao.create(sem);
+                }
+                list2 = semDao.readAll();
+                session.setAttribute("semList", list2);
+                if (!prevAction.equals(currAction)) {
+                    session.setAttribute("totalPage", null);
+                    session.setAttribute("page", null);
+                }
+                session.setAttribute("currSemesterAction", "index");
+                session.setAttribute("prevSemesterAction", "index");
+                pagination(request, response, list2);
+
+                request.getRequestDispatcher("/manageSemester.jsp").forward(request, response);
+                break;
+
         }
     }
-    
+
     private void pagination(HttpServletRequest request, HttpServletResponse response, ArrayList<Semester> list) {
         int pageSize = 5;//Kich thuoc trang                        
         //Xac dinh so thu tu cua trang hien tai
