@@ -629,11 +629,11 @@ public class TopicDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select ID from dbo.LecturerTopic";
+                String sql = "select top 1 ID from dbo.LecturerTopic order by ID desc";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 ResultSet rs = stm.executeQuery();
                 while (rs.next()) {
-                    count++;
+                    count = rs.getInt("ID");
                 }
                 stm.executeUpdate();
                 cn.close();
@@ -650,11 +650,11 @@ public class TopicDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select TopicId from dbo.Topic";
+                String sql = "select top 1 TopicId from dbo.Topic order by TopicId desc";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 ResultSet rs = stm.executeQuery();
                 while (rs.next()) {
-                    count++;
+                    count=rs.getInt("TopicId");
                 }
                 stm.executeUpdate();
                 cn.close();
