@@ -37,8 +37,7 @@
 
                 <!-- Navigation -->
                 <nav id="nav">
-                    <ul class="main-menu nav navbar-nav navbar-right">
-                        <li><a class="align-nav" href="./profileLecturer.jsp">Profile</a></li>
+                    <ul class="main-menu nav navbar-nav navbar-right">                      
                         <li><a class="align-nav" href="<c:url value="/projectlecturer/lecView.do"/>">Project List</a></li>
                         <li><a class="align-nav" href="<c:url value="/topic/index.do"/>">Topic List</a></li>
                         <li><a class="align-nav" href="<c:url value="/group/index.do"/>">Team List</a></li>
