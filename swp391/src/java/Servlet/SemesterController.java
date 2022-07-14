@@ -120,6 +120,12 @@ public class SemesterController extends HttpServlet {
                 String regexFA = "(^[F][A])+([0-9]{4}$)";
                 String regexSU = "(^[S][U])+([0-9]{4}$)";
                 String regexSP = "(^[S][P])+([0-9]{4}$)";
+                for (Semester semester : list2) {
+                    if (semester.getName().equals(semesterName)) {
+                        request.setAttribute("error-msg3", "Semester existed!");
+                        request.getRequestDispatcher("/createSemester.jsp").forward(request, response);
+                    }
+                }
                 if (!semesterName.matches(regexFA) && !semesterName.matches(regexSU) && !semesterName.matches(regexSP)) {
                     request.setAttribute("error-msg", "Must be FA or SU or SP + Years!");
                     request.getRequestDispatcher("/createSemester.jsp").forward(request, response);
