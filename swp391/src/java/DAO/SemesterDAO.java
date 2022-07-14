@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -133,13 +133,12 @@ public class SemesterDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "insert into dbo.Semester values(?, ?, ?, ?, ?)";
+                String sql = "insert into dbo.Semester values(?, ?, ?, ?)";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setInt(1, sem.getSemesterId());
                 stm.setString(2, sem.getName());
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                stm.setString(3, df.format(sem.getStartDate()));
-                stm.setString(4, df.format(sem.getEndDate()));
+                stm.setDate(3, sem.getStartDate());
+                stm.setDate(4, sem.getEndDate());
                 stm.executeUpdate();
                 cn.close();
             }
