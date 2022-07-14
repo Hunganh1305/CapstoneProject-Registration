@@ -58,24 +58,39 @@
                     <div class="col-md-7 col-lg-5 col-xl-6 offset-xl-1" style="margin-top: 60px">
                         <form action="<c:url value="/semester/signup.do"/>">
                             <!-- Email input -->
-                            <div class="text-danger" style="font-style: italic;">${errMessage}</div>
 
                             <div class="form-outline mb-2">
                                 <label class="form-label" for="form1Example13">Semester</label>
                                 <input value="" type="text" name="semesterName" id="form1Example13" class="form-control form-control-lg" required />
-
                             </div>
-
+                            <div class="text-danger" style="font-style: italic;">
+                                <%
+                                    if (request.getAttribute("error-msg") != null && !request.getAttribute("error-msg").equals("")) {
+                                        out.print(request.getAttribute("error-msg"));
+                                    }
+                                %>
+                            </div>
                             <div class="form-outline mb-2">
                                 <label class="form-label" for="form1Example23">Start Date</label>
                                 <input type="date" name="startDate" id="form1Example23" class="form-control form-control-lg" required />
-
                             </div>
-
+                            <div class="text-danger" style="font-style: italic;">
+                                <%
+                                    if (request.getAttribute("error-msg1") != null && !request.getAttribute("error-msg1").equals("")) {
+                                        out.print(request.getAttribute("error-msg1"));
+                                    }
+                                %>
+                            </div>
                             <div class="form-outline mb-2">
                                 <label class="form-label" for="form1Example23">End Date</label>
                                 <input type="date" name="endDate" id="form1Example23" class="form-control form-control-lg" required />
-
+                            </div>
+                            <div class="text-danger" style="font-style: italic;">
+                                <%
+                                    if (request.getAttribute("error-msg2") != null && !request.getAttribute("error-msg2").equals("")) {
+                                        out.print(request.getAttribute("error-msg2"));
+                                    }
+                                %>
                             </div>
                             <!-- Submit button -->
                             <button type="submit" class="btn btn-warning btn-lg btn-block margin-top">Create</button>
