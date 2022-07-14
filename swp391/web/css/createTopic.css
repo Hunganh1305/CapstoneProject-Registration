@@ -166,3 +166,14 @@ select#category{
     margin-top: 2rem;
 }
 
+.img-contain{
+   height: 550px;
+}
+
+.img-contain img{
+    height: 100%;
+}
+
+.mb-2{
+    margin-bottom: 2rem;
+}
