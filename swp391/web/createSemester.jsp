@@ -68,6 +68,9 @@
                                     if (request.getAttribute("error-msg") != null && !request.getAttribute("error-msg").equals("")) {
                                         out.print(request.getAttribute("error-msg"));
                                     }
+                                    if (request.getAttribute("error-msg3") != null && !request.getAttribute("error-msg3").equals("")) {
+                                        out.print(request.getAttribute("error-msg3"));
+                                    }
                                 %>
                             </div>
                             <div class="form-outline mb-2">
