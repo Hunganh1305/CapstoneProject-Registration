@@ -1,5 +1,5 @@
 <%-- Document : topicDetail Created on : Jun 15, 2022, 8:47:17 AM Author : phamquang --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +35,15 @@
 
         <!-- Header -->
         <header>
-            <%@include file="header.jsp" %>
+            <c:if test="${user.roleId==1}">
+                 <%@include file="header.jsp" %>
+            </c:if>
+            <c:if test="${user.roleId==2}">
+                 <%@include file="headerLecturer.jsp" %>
+            </c:if>
+            <c:if test="${user.roleId==4}">
+                 <%@include file="headerAdmin.jsp" %>
+            </c:if>
         </header>
         <!-- /Header -->
 
