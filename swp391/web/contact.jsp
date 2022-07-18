@@ -37,7 +37,7 @@
 
     </head>
     <body>
-        
+
         <%
             String name = (String) session.getAttribute("name");
             if (name == null) {
@@ -66,15 +66,16 @@
                     <!-- contact form -->
                     <div class="col-md-6">
                         <div class="contact-form">
-                            <h4>Send A Message</h4>
+                            <h4>Send A FeedBack</h4>
                             <form action="<c:url value="/contact/save.do"/>">
                                 <input class="input" type="text" name="name" value="${name}" required=""/>
                                 <input class="input" type="email" name="email" value="${email}" required="">
                                 <input class="input" type="text" name="subject" placeholder="Subject" required="">
                                 <textarea class="input" type="text" name="message" placeholder="Enter your Message" required=""></textarea>
-                                <button type="submit" value="save" name="op" class="main-button icon-button pull-right" data-toggle="modal" data-target="#myModal">Send Message</button>
+                                <button type="submit" value="save" name="op" class="main-button icon-button pull-right">Send Message</button>
                             </form>
                         </div>
+                        <div class="textSuccess" style="font-style: italic;">${successMessage}</div>
                     </div>
                     <!-- /contact form -->
 
@@ -102,34 +103,18 @@
 
         </div>
         <!-- /Contact -->
-
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Thank you for your message!</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Your request have been sent!</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="main-button icon-button pull-right" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
 
         <!-- Footer -->
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
         <!-- /Footer -->
-        
+
         <% }
         %>
 
-     
+
         <!-- jQuery Plugins -->
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
