@@ -42,7 +42,7 @@
                         <li><a class="align-nav" href="<%=request.getContextPath()%>/project/show">Project</a></li>
                         <li><a class="align-nav" href="<c:url value="/topic/index.do"/>">Topic</a></li>
                         <li><a class="align-nav" href="<c:url value="/group/index.do"/>">Team List</a></li>
-                        <li><a class="align-nav" href="contact.jsp">Contact</a></li>
+                        <li><a class="align-nav" href="<c:url value="/contact/index.do"/>">Contact</a></li>
                         <li>
                             <a href="profile.jsp" role="button" aria-haspopup="true" aria-expanded="false">
                                 <img class="avatar" src="img/sample-avatar.jpg" alt="Avatar">

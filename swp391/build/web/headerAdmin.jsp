@@ -20,7 +20,7 @@
                 <div class="navbar-header">
                     <!-- Logo -->
                     <div class="navbar-brand">
-                        <a class="logo" href="profileAdmin.jsp">
+                        <a class="logo" href="../profileAdmin.jsp">
                             <img src="../img/logo.png" alt="logo">
                         </a>
                     </div>
@@ -37,11 +37,12 @@
                 <nav id="nav">
                     <ul class="main-menu nav navbar-nav navbar-right">
                         <li><a class="align-nav" href="../profileAdmin.jsp">Admin Profile</a></li>
-                        <li><a class="align-nav" href="../manageSemester.jsp">Manage Semesters</a></li>
+                        <li><a class="align-nav" href="<c:url value="/semester/index.do"/>">Manage Semesters</a></li>
                         <li><a class="align-nav" href="<c:url value="/user/index.do"/>">Manage Users</a></li>
                         <li><a class="align-nav" href="<c:url value="/topic/index.do"/>">Manage Topics</a></li>
+                        <li><a class="align-nav" href="<c:url value="/contact/index.do"/>">Manage FeedBacks</a></li>
                         <li class="nav-item dropdown">
-                            <a href="profileAdmin.jsp" role="button" aria-haspopup="true" aria-expanded="false">
+                            <a href="../profileAdmin.jsp" role="button" aria-haspopup="true" aria-expanded="false">
                                 <img class="avatar" src="../img/sample-avatar.jpg" alt="Avatar">
                             </a>
                         </li>

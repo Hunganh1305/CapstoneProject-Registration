@@ -99,7 +99,21 @@ CREATE TABLE Project(
 	GroupId INT NOT NULL FOREIGN KEY(GroupId) REFERENCES Groups(GroupId),
 	LecturerId INT NOT NULL FOREIGN KEY (LecturerId) REFERENCES Users(UserId)
 )
-
+CREATE TABLE FeedBack(
+	FeedBackId INT identity(1,1) Primary key not null,
+	Name VARCHAR(30),
+	Subject VARCHAR(50),
+	Email VARCHAR(30),
+	FeedBackMessage VARCHAR(200),
+	UserId INT FOREIGN KEY(UserId) REFERENCES Users(UserId)
+)
+insert into FeedBack(Name,Subject,Email,FeedBackMessage,UserId) values('Le Hai Long', 'loading page','lehailong@gmail.com','the page is loading too slow, i think you must fix it to increase web app performance',1)
+insert into FeedBack(Name,Subject,Email,FeedBackMessage,UserId) values('Le Quang Khai', 'i dont know','lequangkhai@gmail.com','pla pla pla pla...',61)
+insert into FeedBack(Name,Subject,Email,FeedBackMessage,UserId) values('Le Hai Long', 'reload page','lehailong@gmail.com',' i think you must fix it',1)
+insert into FeedBack(Name,Subject,Email,FeedBackMessage,UserId) values('Le Quang Khai', 'i dont know','lequangkhai@gmail.com','abczyx...',61)
+insert into FeedBack(Name,Subject,Email,FeedBackMessage,UserId) values('Le Hai Long', 'closing page','lehailong@gmail.com',' i think you must fix it',1)
+insert into FeedBack(Name,Subject,Email,FeedBackMessage,UserId) values('Le Quang Khai', 'i dont know','lequangkhai@gmail.com','testing...',61)
+select * from FeedBack
 
 
 insert into Department values(1,'Quan tri kinh doanh')
@@ -249,7 +263,7 @@ insert into Users values(76,'NTN vlog','12345678',1,1,'ntnvl@gmail.com',1,null)
 insert into Users values(77,'Giang Oi','12345678',1,1,'giangoi@gmail.com',1,null)
 insert into Users values(78,'Khoai Lang Thang','12345678',1,1,'klt@gmail.com',1,null)
 
-insert into Users values(81,'Admin','12345678',1,null,'admin@gmail.com',4,null)
+insert into Users values(82,'hongxh','12345678',1,null,'hongxh@fpt.edu.vn',1,null)
 
 
 --admin
