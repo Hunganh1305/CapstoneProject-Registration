@@ -137,7 +137,7 @@ public class ContactController extends HttpServlet {
                 FeedBack fbo = new FeedBack(feedbackId, name, email, subject, msg, studentID);
                 fb.create(fbo);
             }
-            request.setAttribute("successMessage", "Sending FeedBack successfull");
+            request.setAttribute("successMessage", "Sending FeedBack successful");
             request.getRequestDispatcher("contact.jsp").forward(request, response);
 
         } catch (Exception ex) {

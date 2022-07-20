@@ -32,8 +32,13 @@
 
         <%
             String name = (String) session.getAttribute("name");
+            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
+            } else if(roleId == 1) {
+                response.sendRedirect("profile.jsp");
+            } else if(roleId == 2) {
+                response.sendRedirect("profileLecturer.jsp");
             } else {
         %>
 

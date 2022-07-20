@@ -24,8 +24,7 @@
                     <div class="navbar-brand">
                         <a class="logo" id="logo-brand" href="./profile.jsp">
                             <img src="img/logo.png" alt="logo">
-                        </a>
-                        
+                        </a>                                             
                     </div>
                     <!-- /Logo -->
 
@@ -43,10 +42,18 @@
                         <li><a class="align-nav" href="<c:url value="/topic/index.do"/>">Topic</a></li>
                         <li><a class="align-nav" href="<c:url value="/group/index.do"/>">Team List</a></li>
                         <li><a class="align-nav" href="<c:url value="/contact/index.do"/>">Contact</a></li>
-                        <li>
-                            <a href="profile.jsp" role="button" aria-haspopup="true" aria-expanded="false">
+                        <li id="logo-dropdown">                                       
+                                <a 
+                                role="button" aria-haspopup="true" aria-expanded="false">
                                 <img class="avatar" src="img/sample-avatar.jpg" alt="Avatar">
                             </a>
+                            <div class="dropdown-password">
+                                <a href="<c:url value="/header/changePassword.do"/>">
+                                    Change Password 
+                                </a>
+                            </div>  
+                            
+                            
                         </li>
                     </ul>
                 </nav>
@@ -55,5 +62,9 @@
             </div>
         </header>
         <!-- /Header -->
+        
+        <script src="js/headerDropdown.js" type="text/javascript"></script>        
     </body>
+
+
 </html>

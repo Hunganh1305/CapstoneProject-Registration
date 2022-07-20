@@ -267,6 +267,7 @@ insert into Users values(80,'Sang Vlog','12345678',1,1,'sangvl@gmail.com',1,null
 
 insert into Users values(82,'hongxh','12345678',1,null,'hongxh@fpt.edu.vn',1,null)
 insert into Users values(83,'Quach Tinh','12345678',1,5,'quachtinh@gmail.com',1,null)
+insert into Users values(84,'Ly Binh','12345678',1,5,'lybinh@gmail.com',1,null)
 
 
 --admin

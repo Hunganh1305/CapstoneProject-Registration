@@ -37,8 +37,13 @@
 
         <%
             String name = (String) session.getAttribute("name");
+            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
+            } else if(roleId == 1) {
+                response.sendRedirect("profile.jsp");
+            } else if(roleId == 2) {
+                response.sendRedirect("profileLecturer.jsp");
             } else {
         %>
 
@@ -50,9 +55,6 @@
 
         <!-- topic -->
         <section id="topic" class="container">
-
-            
-
             <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -127,11 +129,11 @@
                         All of approved topics in semester ${currentSem.name}
                     </h6>
                     <div class="btnControl">
-         
+
                         <button type="button" class="btn team__btn" data-toggle="modal" data-target="#myModal1">
                             Manage topics
                         </button>
-                       
+
                     </div>
 
                 </div>
