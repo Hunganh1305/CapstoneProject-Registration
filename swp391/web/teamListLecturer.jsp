@@ -33,13 +33,18 @@
     </head>
 
     <body>
-        <% String name = (String) session.getAttribute("name");
-            if (name == null) { %>
-        <p>
-            <font color='red'>You must login to view this page</font>
-        </p>
-        <p>Click <a href="Login.jsp">here</a> to login</p>
-        <%} else {%>
+
+        <%
+            String name = (String) session.getAttribute("name");
+            int roleId = (int) session.getAttribute("roleId");
+            if (name == null) {
+                response.sendRedirect("Login.jsp");
+            } else if (roleId == 1) {
+                response.sendRedirect("profile.jsp");
+            } else if (roleId == 4) {
+                response.sendRedirect("profileAdmin.jsp");
+            } else {
+        %>
 
 
         <!-- Header -->
@@ -47,7 +52,7 @@
             <%@include file="headerLecturer.jsp" %>
         </header>
         <!-- /Header -->
-   
+
         <section id="topic" class="container">
             <div class="teamListControl">
                 <div class="topic__title">
@@ -72,12 +77,12 @@
                     <h6 class="topic__text ">
                         All of public and unlocked teams in semester ${currentSem.name}_SWP
                     </h6>                   
-                    </div>
+                </div>
 
-                    <hr>
+                <hr>
 
-                    <div class="topic__search">
-                        <form action="<c:url value="/group/search.do"/>">
+                <div class="topic__search">
+                    <form action="<c:url value="/group/search.do"/>">
                         <input placeholder=" " value="${searchText==null?"":searchText}" name="searchText" class="search__input" type="text">
                         <label for="search" class="search__label">Search by name</label>
                         <button type="submit" class="search-btn ">
@@ -123,7 +128,7 @@
                         </thead>
 
                         <c:forEach var="list" items="${list}" varStatus="loop">
-                            
+
                             <tbody>
                                 <tr>
                                     <td>${list.department.name}</td>
@@ -140,7 +145,7 @@
                                     <td><a href="${root}/group/detail.do?id=${list.groupId}"><i class="fa fa-solid fa-eye"></i></a></td>                                                         
                                 </tr>
                             </tbody>
-                           
+
                         </c:forEach>
 
                     </table>
