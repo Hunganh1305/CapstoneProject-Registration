@@ -60,6 +60,7 @@ public class LoginServlet extends HttpServlet {
                             session.setAttribute("name", user.getName());
                             session.setAttribute("email", user.getEmail());
                             session.setAttribute("userId", user.getUserId());
+                            session.setAttribute("roleId", user.getRoleId());
                             session.setAttribute("semList", semList);
                             session.setAttribute("currentSem", semList.get(0));
                             session.setAttribute("department", UserDAO.readUserDep(user.getDepartmentId()));
@@ -75,6 +76,7 @@ public class LoginServlet extends HttpServlet {
                             session.setAttribute("name", user.getName());
                             session.setAttribute("email", user.getEmail());
                             session.setAttribute("userId", user.getUserId());
+                            session.setAttribute("roleId", user.getRoleId());
                             session.setAttribute("semList", semList);
                             session.setAttribute("currentSem", semList.get(0));
                             session.setAttribute("department", UserDAO.readUserDep(user.getDepartmentId()));
@@ -90,6 +92,7 @@ public class LoginServlet extends HttpServlet {
                             session.setAttribute("name", user.getName());
                             session.setAttribute("email", user.getEmail());
                             session.setAttribute("userId", user.getUserId());
+                            session.setAttribute("roleId", user.getRoleId());
                             session.setAttribute("semList", semList);
                             session.setAttribute("currentSem", semList.get(0));
                             session.setAttribute("department", UserDAO.readUserDep(user.getDepartmentId()));
