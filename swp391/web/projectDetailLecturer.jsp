@@ -29,19 +29,23 @@
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
-        
+
 
     </head>
 
     <body>
 
-        <% String name = (String) session.getAttribute("name");
-            if (name == null) { %>
-        <p>
-            <font color='red'>You must login to view this page</font>
-        </p>
-        <p>Click <a href="../Login.jsp">here</a> to login</p>
-        <%} else {%>
+        <%
+            String name = (String) session.getAttribute("name");
+            int roleId = (int) session.getAttribute("roleId");
+            if (name == null) {
+                response.sendRedirect("Login.jsp");
+            } else if (roleId == 1) {
+                response.sendRedirect("profile.jsp");
+            } else if (roleId == 4) {
+                response.sendRedirect("profileAdmin.jsp");
+            } else {
+        %>
 
         <!-- Header -->
         <header>
@@ -108,27 +112,27 @@
                     </div>
 
                     <div class="project-right">
-                            <div class="project-content">
-                                <h6 class="project-name">Team members</h6>
-                                <hr>
-                                <ul class="project-list">
-                                    <%!  List<Users> list;%>
-                                    <%
-                                        list = (List<Users>) request.getAttribute("list");
-                                        for (Users s : list) {
-                                            out.print("<li class='project-item'>"
-                                                    + "<div class='col-sm-2'>"
-                                                    + "<img class=\"avatar\" src=\"../img/sample-avatar.jpg\" alt=\"Avatar\">"
-                                                    + "</div>"
-                                                    + "<span>" + s.getName() + "</span>"
-                                                    + "</li>");
-                                        }
+                        <div class="project-content">
+                            <h6 class="project-name">Team members</h6>
+                            <hr>
+                            <ul class="project-list">
+                                <%!  List<Users> list;%>
+                                <%
+                                    list = (List<Users>) request.getAttribute("list");
+                                    for (Users s : list) {
+                                        out.print("<li class='project-item'>"
+                                                + "<div class='col-sm-2'>"
+                                                + "<img class=\"avatar\" src=\"../img/sample-avatar.jpg\" alt=\"Avatar\">"
+                                                + "</div>"
+                                                + "<span>" + s.getName() + "</span>"
+                                                + "</li>");
+                                    }
 
-                                    %>
-                                </ul>
+                                %>
+                            </ul>
 
-                            </div>
                         </div>
+                    </div>
                 </div>
 
 
