@@ -33,22 +33,23 @@
     </head>
 
     <body>
-        <% String name = (String) session.getAttribute("name");
-            if (name == null) { %>
-        <p>
-            <font color='red'>You must login to view this page</font>
-        </p>
-        <p>Click <a href="Login.jsp">here</a> to login</p>
-        <%} else {%>
-
+        <%
+            String name = (String) session.getAttribute("name");
+            int roleId = (int) session.getAttribute("roleId");
+            if (name == null) {
+                response.sendRedirect("Login.jsp");
+            } else if (roleId == 2) {
+                response.sendRedirect("profileLecturer.jsp");
+            } else if (roleId == 4) {
+                response.sendRedirect("profileAdmin.jsp");
+            } else {
+        %>
 
         <!-- Header -->
         <header>
             <%@include file="header.jsp" %>
         </header>
         <!-- /Header -->
-
-
 
         <!-- topic -->
         <section id="topic" class="container">
@@ -184,7 +185,7 @@
                     </table>
 
                 </c:if>
-               
+
 
                 <c:if test="${empty list}">
                     <div class="search-empty">
