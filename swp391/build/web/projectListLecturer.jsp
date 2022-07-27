@@ -94,7 +94,8 @@
 
 
                     <div class="topic__filter">
-                        <i class="fa-solid fa-filter"></i>Filters
+                        <i class="fa-solid fa-filter"></i>
+                        <span class="hidden-xs hidden-sm">Filters</span>
                         <div class="dropdown1">
                             <ul class="filter__list">
                                 <li class="filter__item"><a href="${root}/projectlecturer/filter.do?filter=Quan tri kinh doanh">Quan tri kinh doanh</a></li>
@@ -114,8 +115,8 @@
                         <tr>
                             <th style="text-align: center">Group Name</th>
                             <th>Project Name</th>
-                            <th>Lecturer</th>
-                            <th style="text-align: center">Status</th>
+                            <th class="hidden-xs">Lecturer</th>
+                            <th class="hidden-xs hidden-sm" style="text-align: center">Status</th>
                             <th style="text-align: center">View</th>
                         </tr>
                     </thead>
@@ -124,8 +125,8 @@
                             <tr>
                                 <td style="text-align: center">${item.group.groupName}</td>
                                 <td>${item.name}</td>
-                                <td>${item.lecturer.name}</td>
-                                <td style="text-align: center">${item.status==1 ? "Approved" : "Waiting"}</td>
+                                <td class="hidden-xs">${item.lecturer.name}</td>
+                                <td class="hidden-xs hidden-sm" style="text-align: center">${item.status==1 ? "Approved" : "Waiting"}</td>
                                 <td style="text-align: center"><a href="${root}/projectlecturer/detail.do?id=${item.projectId}"><i class="fa-solid fa-eye"></i></a></td>
                             </tr>
                         </c:forEach>

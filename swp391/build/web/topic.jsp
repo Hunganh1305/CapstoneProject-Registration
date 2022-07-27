@@ -96,7 +96,8 @@
                     </form>
 
                     <div class="topic__filter">
-                        <i class="fa fa-solid fa-sort"></i>Filters
+                        <i class="fa fa-solid fa-sort"></i>
+                        <span class="hidden-xs hidden-sm">Filters</span>
                         <div class="dropdown1">
                             <ul class="filter__list">
                                 <li class="filter__item" name="filter"><a href="${root}/topic/filter.do?filter=Quan tri kinh doanh">Quan tri kinh doanh</a></li>
@@ -116,10 +117,10 @@
                         <thead>
                             <tr>
 
-                                <th>DEP.</th>
+                                <th class="hidden-xs">DEP.</th>
                                 <th>Name</th>                             
                                 <th>Lecturer</th>
-                                <th>Status</th>
+                                <th class="hidden-xs hidden-sm">Status</th>
                                 <th>Detail</th>
 
 
@@ -131,18 +132,18 @@
                             <tbody>
                                 <tr>  
 
-                                    <td>${item.department.name}</td>
+                                    <td class="hidden-xs">${item.department.name}</td>
                                     <td>${item.name}</td> 
                                     <td>${item.user.name}</td>
                                     <c:choose >
                                         <c:when test="${item.status==0}">
-                                            <td> <span class="tdTbl__warning">available</span></td> 
+                                            <td class="hidden-xs hidden-sm"> <span class="tdTbl__warning">available</span></td> 
                                         </c:when>
                                         <c:when test="${item.status==1}">
-                                            <td> <span class="tdTbl__warning">pending</span></td> 
+                                            <td class="hidden-xs hidden-sm"> <span class="tdTbl__warning">pending</span></td> 
                                         </c:when>    
                                         <c:otherwise>
-                                            <td> <span class="tdTbl__warning">locked</span></td> 
+                                            <td class="hidden-xs hidden-sm"> <span class="tdTbl__warning">locked</span></td> 
                                         </c:otherwise>
                                     </c:choose>                                                 
                                     <td><a href="${root}/topic/detail.do?id=${item.topicId}"><i class="fa fa-solid fa-eye"></i></a></td> 

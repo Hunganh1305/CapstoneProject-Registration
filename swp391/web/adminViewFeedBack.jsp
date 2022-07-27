@@ -80,9 +80,9 @@
                     <thead>
                         <tr>
                             <th>Student Name</th>
-                            <th>Email</th>
+                            <th class="hidden-xs hidden-sm">Email</th>
                             <th>Subject</th>
-                            <th>Message</th>
+                            <th class="hidden-xs">Message</th>
                             <th> </th>
                         </tr>
                     </thead>
@@ -90,9 +90,9 @@
                         <c:forEach var="item" items="${list}" varStatus="loop">
                             <tr>
                                 <td>${item.name}</td>
-                                <td>${item.email}</td>
+                                <td class="hidden-xs hidden-sm">${item.email}</td>
                                 <td>${item.subject}</td>
-                                <td>${item.feedBackMsg}</td>
+                                <td class="hidden-xs">${item.feedBackMsg}</td>
                                 <td><a href="${root}/contact/delete.do?feedBackId=${item.feedBackId}"  class="btn btn-sm tdTbl__danger"><i class="bi bi-x-circle-fill"></i> Delete</a></td>
                             </tr>
                         </c:forEach>

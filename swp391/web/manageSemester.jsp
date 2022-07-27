@@ -61,7 +61,7 @@
                         List of semesters
                     </h6>
                     <div class="btnControl">
-                        <a href="<c:url value="/semester/create.do"/>" class="team__btn">+ Create New Semester</a>
+                        <a href="<c:url value="/semester/create.do"/>" class="team__btn">+ Create Semester</a>
                     </div>
                 </div>
 
@@ -94,7 +94,7 @@
                 <table class="table sem__table">
                     <thead>
                         <tr>
-                            <th>Id</th>
+                            <th class="hidden-xs">Id</th>
                             <th>Semester Name</th>
                             <th>Start date</th>
                             <th>End date</th>
@@ -103,7 +103,7 @@
                     <tbody>
                         <c:forEach var="item" items="${list}" varStatus="loop">
                             <tr>
-                                <td>${item.semesterId}</td>
+                                <td class="hidden-xs">${item.semesterId}</td>
                                 <td>${item.name}</td>
                                 <td>${item.startDate}</td>
                                 <td>${item.endDate}</td>

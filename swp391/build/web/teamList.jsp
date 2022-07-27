@@ -116,7 +116,8 @@
                     </form>
 
                     <div class="topic__filter">
-                        <i class="fa fa-solid fa-sort"></i>Filters
+                        <i class="fa fa-solid fa-sort"></i>
+                        <span class="hidden-xs hidden-sm">Filters</span>
                         <div class="dropdown1">
                             <ul class="filter__list">
                                 <li class="filter__item" name="filter"><a
@@ -144,10 +145,10 @@
                     <table class="table topic__table">
                         <thead>
                             <tr>
-                                <th>DEP.</th>
+                                <th class="hidden-xs">DEP.</th>
                                 <th>TeamName</th>
                                 <th>Leader</th>
-                                <th>Status</th>
+                                <th class="hidden-xs hidden-sm">Status</th>
                                 <th>Detail</th>
                             </tr>
                         </thead>
@@ -155,20 +156,20 @@
                         <c:forEach var="list" items="${list}" varStatus="loop">                            
                             <tbody>
                                 <tr>
-                                    <td>${list.department.name}</td>
+                                    <td class="hidden-xs">${list.department.name}</td>
                                     <td>${list.group.groupName}</td>
                                     <td>${list.user.name}</td>                             
                                     <c:choose >
                                         <c:when test="${list.group.groupStatus == 1}">
-                                            <td><span class="tdTbl__success">Public</span></td>                                        
+                                            <td class="hidden-xs hidden-sm"><span class="tdTbl__success">Public</span></td>                                        
                                         </c:when>
                                         <c:when test="${list.group.groupStatus == 0}">
-                                            <td><span class="tdTbl__warning">Private</span></td>                                    
+                                            <td class="hidden-xs hidden-sm"><span class="tdTbl__warning">Private</span></td>                                    
                                         </c:when>
                                     </c:choose>
                                     <c:choose>
                                         <c:when test="${list.group.groupStatus == 1}">
-                                            <td><a href="${root}/group/detail.do?id=${list.groupId}"><i class="fa fa-solid fa-eye"></i></a></td>                
+                                            <td ><a href="${root}/group/detail.do?id=${list.groupId}"><i class="fa fa-solid fa-eye"></i></a></td>                
                                                 </c:when>
                                                 <c:when test="${list.group.groupStatus == 0 && list.groupId == checkStudentInGroup}">
                                             <td><a href="${root}/group/detail.do?id=${list.groupId}"><i class="fa fa-solid fa-eye"></i></a></td>                

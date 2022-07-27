@@ -110,7 +110,7 @@
             </div>
 
             <div class="topic__title flex">
-                <h1>Topic List</h1>
+                <h1>Manage Topic</h1>
                 <div class="semester">
                     ${currentSem.name}
                     <div class="dropdown2">

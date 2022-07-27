@@ -60,31 +60,31 @@
                     <h1 style="text-align: left">@${Group.groupName} - ID: ${Group.groupId}</h1>
                 </div>
 
-                <div class="project-contents">
-                    <div class="project-left">
+                <div class="container">
+                    <div class="col-md-6">
                         <div class="project-content">
                             <h6 class="project-name">Team information</h6>
                             <hr>
                             <ul class="project-list">
-                                <li class="project-item">
+                                <li class="project-item project-wrap">
                                     <i class="fa fa-solid fa-bars col-sm-1"></i>
                                     <span class="col-sm-4">Team Name</span>
                                     <span class="col-sm-7">${Group.groupName}</span>
                                 </li>
-                                <li class="project-item">
+                                <li class="project-item project-wrap">
                                     <i class="fa-solid fa-file-signature col-sm-1"></i>
                                     <span class="col-sm-4">Topic Name</span>
                                     <span class="col-sm-7">${Topic.name}</span>
                                 </li>
-                                <li class="project-item">
+                                <li class="project-item project-wrap">
                                     <i class="fa-solid fa-calendar col-sm-1"></i>
                                     <span class="col-sm-4">Semester</span>
                                     <span class="col-sm-7">${Sem.name}</span>
                                 </li>
-                                <li class="project-item">
+                                <li class="project-item project-wrap">
                                     <i class="fa fa-regular fa-building col-sm-1"></i>
                                     <span class="col-sm-4">Department</span>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-7 project-wrap">
                                         <span class="blue-box">${DepName}</span>
                                     </div>
                                 </li>
@@ -111,7 +111,7 @@
                         </div>
                     </div>
 
-                    <div class="project-right">
+                    <div class="col-md-6">
                         <div class="project-content">
                             <h6 class="project-name">Team members</h6>
                             <hr>

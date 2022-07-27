@@ -51,27 +51,30 @@
             <hr/>
             <div class ="form__createTeam">
                 <form action="<c:url value="/header/save.do"/>">
-                    <div class="team__dep">
+                    <div class="row form-line col-12 col-sm-7 col-md-7">
                         <label class="label_dep">User Name:</label>
                         <input class="" type="text"  disabled  value="${name}"/>
                     </div>
                     <br/>
-                    <div class="team__dep">
+                    <div class="row form-line col-12 col-sm-7 col-md-7">
                         <label class="label_dep">Current Password</label>
                         <input class="" type="text" name="currentPassword"  value="" required/>
                     </div>
                     <br/>
-                    <div class="team__dep">
+                    <div class="row form-line col-12 col-sm-7 col-md-7">
                         <label class="label_dep">New Password</label>
                         <input class="" type="text" name="newPassword"  value="" required/>
                     </div>
                     <br/>
-                    <div class="team__dep">
+                    <div class="row form-line col-12 col-sm-7 col-md-7">
                         <label class="label_dep">Confirm New Password</label>
                         <input class="" type="text" name="confirmPassword"  value="" required/>
                     </div>
                     <br/>
-                    <button type="submit" value="save" name="op" class="btn btn-Create"><i class="bi bi-box-arrow-down"></i>save</button>
+                    <div class="row form-line col-12 col-sm-7 col-md-7">
+                        <button type="submit" value="save" name="op" class="btn btn-Create"><i class="bi bi-box-arrow-down"></i>Save</button>
+                    </div>
+                    
                 </form>
                 <div class="text-danger" style="font-style: italic;">${errorMessage}</div>
                 <div class="text-success" style="font-style: italic;">${successMessage}</div>
