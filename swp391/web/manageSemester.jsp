@@ -14,14 +14,14 @@
 
         <!-- Bootstrap -->
         <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" />
-        
+
         <!--       Bootstrap Icon -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
         <!-- Font Awesome Icon -->
         <!--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
         <script src="https://kit.fontawesome.com/e7ea130b87.js" crossorigin="anonymous"></script>
-        
+
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
@@ -32,14 +32,15 @@
 
         <%
             String name = (String) session.getAttribute("name");
-            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
-            } else if(roleId == 1) {
-                response.sendRedirect("profile.jsp");
-            } else if(roleId == 2) {
-                response.sendRedirect("profileLecturer.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 1) {
+                    response.sendRedirect("profile.jsp");
+                } else if (roleId == 2) {
+                    response.sendRedirect("profileLecturer.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -144,6 +145,7 @@
         </footer>
 
         <% }
+            }
         %>
 
         <script type="text/javascript" src="js/jquery.min.js"></script>
