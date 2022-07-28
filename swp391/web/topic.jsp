@@ -37,14 +37,15 @@
 
         <%
             String name = (String) session.getAttribute("name");
-            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
-            } else if (roleId == 2) {
-                response.sendRedirect("profileLecturer.jsp");
-            } else if (roleId == 4) {
-                response.sendRedirect("profileAdmin.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 2) {
+                    response.sendRedirect("profileLecturer.jsp");
+                } else if (roleId == 4) {
+                    response.sendRedirect("profileAdmin.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -266,7 +267,10 @@
             <%@include file="footer.jsp" %>
         </footer>
 
-        <% }%>
+        <% }
+            }
+        %>
+
         <!-- preloader -->
         <div id='preloader'>
             <div class='preloader'></div>
