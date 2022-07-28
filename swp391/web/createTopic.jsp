@@ -34,14 +34,15 @@
 
         <%
             String name = (String) session.getAttribute("name");
-            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
-            } else if(roleId == 1) {
-                response.sendRedirect("profile.jsp");
-            } else if(roleId == 4) {
-                response.sendRedirect("profileAdmin.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 1) {
+                    response.sendRedirect("profile.jsp");
+                } else if (roleId == 4) {
+                    response.sendRedirect("profileAdmin.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -99,12 +100,12 @@
                                         <!--                                        <option value="0" name="semester">--Choose a Category--</option>-->
                                         <c:forEach var="item" items="${bList}" varStatus="loop">
                                             <c:if test="${item.userId==chosenBusiness}">
-                                               <option  value="${item.userId}" selected="selected" >${item.name}</option>
+                                                <option  value="${item.userId}" selected="selected" >${item.name}</option>
                                             </c:if>
                                             <c:if test="${item.userId!=chosenBusiness}">
-                                               <option  value="${item.userId}"  >${item.name}</option>
+                                                <option  value="${item.userId}"  >${item.name}</option>
                                             </c:if>
-                                            
+
                                         </c:forEach>
 
                                     </select>
@@ -134,6 +135,7 @@
         </footer>
 
         <% }
+            }
         %>
 
         <script type="text/javascript" src="../js/jquery.min.js"></script>
