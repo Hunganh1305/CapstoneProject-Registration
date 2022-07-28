@@ -40,7 +40,12 @@
 
         <!-- Header -->
         <header>
-            <%@include file="header.jsp" %>
+            <c:if test="${user.roleId==1}">
+                <%@include file="header.jsp" %>
+            </c:if>
+            <c:if test="${user.roleId==2}">
+                <%@include file="headerLecturer.jsp" %>
+            </c:if>
         </header>
         <!-- /Header -->
 
