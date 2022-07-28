@@ -44,14 +44,15 @@
 
         <%
             String name = (String) session.getAttribute("name");
-            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
-            } else if(roleId == 2) {
-                response.sendRedirect("profileLecturer.jsp");
-            } else if(roleId == 4) {
-                response.sendRedirect("profileAdmin.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 2) {
+                    response.sendRedirect("profileLecturer.jsp");
+                } else if (roleId == 4) {
+                    response.sendRedirect("profileAdmin.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -83,7 +84,7 @@
                                 <button class="project-button"><a href="<c:url value="/group/index.do"/>">Team list</a> </button>
                             </div>
                         </c:if>
-                        
+
                     </div>
                 </c:if>
                 <c:if test="${!empty Group && !empty Topic}">
@@ -131,13 +132,13 @@
                                     <i class="fa-solid fa-shield col-sm-1"></i>
                                     <div class="col-sm-2">
                                         <c:choose >
-                                        <c:when test="${Group.groupStatus == 1}">
-                                            <span class="green-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                     
-                                        </c:when>
-                                        <c:when test="${Group.groupStatus == 0}">
-                                            <span class="orange-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                  
-                                        </c:when>
-                                    </c:choose>
+                                            <c:when test="${Group.groupStatus == 1}">
+                                                <span class="green-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                     
+                                            </c:when>
+                                            <c:when test="${Group.groupStatus == 0}">
+                                                <span class="orange-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                  
+                                            </c:when>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </div>
@@ -180,7 +181,9 @@
         </footer>
 
         <% }
+            }
         %>
+
         <!-- preloader -->
         <div id='preloader'>
             <div class='preloader'></div>
