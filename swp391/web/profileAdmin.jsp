@@ -36,21 +36,22 @@
 
     </head>
     <body>
-        
+
         <%
             String name = (String) session.getAttribute("name");
-            String email = (String) session.getAttribute("email");
-            int userId = (int) session.getAttribute("userId");
-            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
-            } else if(roleId == 1) {
-                response.sendRedirect("profile.jsp");
-            } else if(roleId == 2) {
-                response.sendRedirect("profileLecturer.jsp");
             } else {
+                String email = (String) session.getAttribute("email");
+                int userId = (int) session.getAttribute("userId");
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 1) {
+                    response.sendRedirect("profile.jsp");
+                } else if (roleId == 2) {
+                    response.sendRedirect("profileLecturer.jsp");
+                } else {
         %>
-        
+
         <!-- Header -->
         <header>
             <%@include file="headerAdminProfile.jsp" %>
@@ -129,8 +130,9 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
-        
+
         <% }
+            }
         %>
 
         <!-- preloader -->
