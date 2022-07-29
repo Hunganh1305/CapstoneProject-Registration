@@ -33,6 +33,12 @@
             if (name == null) {
                 response.sendRedirect("Login.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 2) {
+                    response.sendRedirect("profileLecturer.jsp");
+                } else if (roleId == 4) {
+                    response.sendRedirect("profileAdmin.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -48,29 +54,40 @@
             <p>You have to have a team before you can match a topic in this semester</p>
             <hr/>
             <div class ="form__createTeam">
-                <div class="">
+                <div class="container">
                     <form action="<c:url value="/group/save.do"/>" class="form__control">
-                        <div class="team__dep">
-                            <label class="label_dep">Department</label>
-                            <input class="" type="text"  disabled  value="${depName}" required/>
-                        </div>
-                        <div class="col teamAndMembers">
-
-                            <input type="text" placeholder="Team name" id="groupName" name="groupName" required>                            
-                            <div class="selection--members">
-                                <label for="members" class="label_member">Members</label>
-                                <input type="number" id="members" name="members" min="3" max="7" value="${members==null?5:members}"/>
+                        <div class="row form-line">
+                            <div class="col-12 col-md-8">
+                                <label class="label_dep">Department</label>
+                                <input class="" type="text"  disabled  value="${depName}" required/>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="selection--status">
-                                <label for="status" class="label_status">Status</label>
-                                <div id="status">
-                                    <input type="radio" name="groupStatus" value="0" /> Public <br/>
-                                    <input type="radio" name="groupStatus" value="1" /> Private
+
+                        <div class="row form-line">
+                            <div class="col-12 col-md-8 teamAndMembers">
+                                <input type="text" placeholder="Team name" id="groupName" name="groupName" required>                            
+                                <div class="selection--members">
+                                    <label for="members" class="label_member">Members</label>
+                                    <input type="number" id="members" name="members" min="3" max="7" value="${members==null?5:members}"/>
+                                </div>
+                            </div> 
+                        </div>
+
+                        <div class="form-line2">
+                            <div class="col-12 col-md-8">
+                                <div class="selection--status">
+                                    <label for="status" class="label_status">Status</label>
+                                    <div id="status">
+                                        <input type="radio" name="groupStatus" value="0" id="public" /> 
+                                        <label for="public">Private</label>         
+                                        <br/>
+                                        <input type="radio" name="groupStatus" value="1" id="private"/>
+                                        <label for="private">Public</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
 
                 </div>
                 <i class="bi bi-x-circle"></i><a class="btn btn-Close" href="<c:url value="../group/index.do"/>">Close</a>
@@ -86,7 +103,9 @@
             <%@include file="footer.jsp" %>
         </footer>
 
-        <% }%>
+        <% }
+            }
+        %>
         <!-- preloader -->
         <div id='preloader'>
             <div class='preloader'></div>

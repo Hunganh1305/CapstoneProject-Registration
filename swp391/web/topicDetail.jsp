@@ -8,7 +8,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Dashboard - Profile</title>
+        <title>Dashboard - Topic Detail</title>
         <!-- Google font -->
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
 
@@ -31,18 +31,19 @@
         <% String name = (String) session.getAttribute("name");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
-            } else { %>
+            } else {
+        %>
 
         <!-- Header -->
         <header>
             <c:if test="${user.roleId==1}">
-                 <%@include file="header.jsp" %>
+                <%@include file="header.jsp" %>
             </c:if>
             <c:if test="${user.roleId==2}">
-                 <%@include file="headerLecturer.jsp" %>
+                <%@include file="headerLecturer.jsp" %>
             </c:if>
             <c:if test="${user.roleId==4}">
-                 <%@include file="headerAdmin.jsp" %>
+                <%@include file="headerAdmin.jsp" %>
             </c:if>
         </header>
         <!-- /Header -->
@@ -56,32 +57,8 @@
                     <h1>Topic detail</h1>
                 </div>
 
-                <div class="topicdetail__contents ">
-                    <div class="topicdetail__left">
-                        <div class="topicdetail__content">
-                            <h6 class="topicdetail__name">Register content of Capstone Project</h6>
-                            <hr>
-
-                            <div class="topicdetail__doc">
-                                <h6>Context</h6>
-                                <textarea name="" id="" cols="30" rows="10"></textarea>
-                            </div>
-
-                            <div class="topicdetail__doc">
-                                <h6>Problem</h6>
-                                <textarea name="" id="" cols="30" rows="10"></textarea>
-                            </div>
-
-                            <div class="topicdetail__doc">
-                                <h6>Proposed Solution</h6>
-                                <textarea name="" id="" cols="30" rows="10"></textarea>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-                    <div class="topicdetail__right">
+                <div class="container ">
+                    <div class="col-md-6">
                         <div class="topicdetail__content">
                             <h6 class="topicdetail__name">Topic information</h6>
                             <hr>
@@ -146,6 +123,28 @@
 
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="topicdetail__content">
+                            <h6 class="topicdetail__name">Register content of Capstone Project</h6>
+                            <hr>
+
+                            <div class="topicdetail__doc">
+                                <h6>Context</h6>
+                                <textarea name="" id="" cols="30" rows="10"></textarea>
+                            </div>
+
+                            <div class="topicdetail__doc">
+                                <h6>Problem</h6>
+                                <textarea name="" id="" cols="30" rows="10"></textarea>
+                            </div>
+
+                            <div class="topicdetail__doc">
+                                <h6>Proposed Solution</h6>
+                                <textarea name="" id="" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>

@@ -1362,7 +1362,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 }
 
 .head-title {
-    text-align: center;
+    /*text-align: center;*/
     font-weight: 700;
     line-height: 1.5;
     margin-bottom: 1rem;
@@ -1419,6 +1419,10 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
     white-space: pre-wrap;
     word-wrap: break-word;
     resize: none;
+}
+
+.project-wrap{
+    word-wrap: break-word;
 }
 
 .project-item{
@@ -1498,7 +1502,19 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
     font-weight: 700;
 
 }
-
+.tdTbl__danger {
+    font-size: 10px;
+    padding: 4px 6px;
+    border-radius: 10px;
+    color: rgb(183, 33, 54);
+    background-color: rgba(255, 72, 66, 0.16);
+    font-weight: 700;
+}
+.textSuccess{
+    color: green;
+    font-size: 20px;    
+    padding-top: 2em;
+}
 .dropdown-menu{
 	border-radius: 4px;
 	text-align: center;
@@ -1547,4 +1563,32 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 
 #logo-brand{
 	margin-right: 30px;
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#logo-dropdown{
+    position: relative;    
+}
+
+.dropdown-password{
+    display: none;
+    min-width: 200%;
+    position: absolute;
+    font-size: 12px;
+    padding-top: 1em;    
+    margin: 2px;   
+    z-index: 2;
+    text-align: center;    
+}
+.dropdown-password:hover{
+    background: rgb(247, 215, 200);       
+    cursor: pointer;
+}
+.toggle{
+    display: block;
 }

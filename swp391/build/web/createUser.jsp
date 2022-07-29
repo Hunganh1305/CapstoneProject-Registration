@@ -33,8 +33,13 @@
 
         <%
             String name = (String) session.getAttribute("name");
+            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
+            } else if(roleId == 1) {
+                response.sendRedirect("profile.jsp");
+            } else if(roleId == 2) {
+                response.sendRedirect("profileLecturer.jsp");
             } else {
         %>
 
@@ -116,7 +121,9 @@
                             <button type="submit" class="btn btn-warning btn-lg btn-block margin-top">Create</button>
                         </form>
                     </div>
-                    <div class="col-md-7  col-xl-6 img-contain">
+
+                    <div class="hidden-xs hidden-sm col-md-7 col-xl-6 img-contain">
+
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">
                     </div>
                 </div>

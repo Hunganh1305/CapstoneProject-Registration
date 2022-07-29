@@ -47,6 +47,12 @@
             if (name == null) {
                 response.sendRedirect("Login.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 2) {
+                    response.sendRedirect("profileLecturer.jsp");
+                } else if (roleId == 4) {
+                    response.sendRedirect("profileAdmin.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -78,40 +84,40 @@
                                 <button class="project-button"><a href="<c:url value="/group/index.do"/>">Team list</a> </button>
                             </div>
                         </c:if>
-                        
+
                     </div>
                 </c:if>
                 <c:if test="${!empty Group && !empty Topic}">
-                    <div class="project-contents">
-                        <div class="project-left">
+                    <div class="container">
+                        <div class="col-md-6">
                             <div class="project-content">
                                 <h6 class="project-name">Team information</h6>
                                 <hr>
                                 <ul class="project-list">
-                                    <li class="project-item">
+                                    <li class="project-item project-wrap">
                                         <i class="fa fa-solid fa-bars col-sm-1"></i>
                                         <span class="col-sm-4">Team Name</span>
                                         <span class="col-sm-7">${Group.groupName}</span>
                                     </li>
-                                    <li class="project-item">
+                                    <li class="project-item project-wrap">
                                         <i class="fa-solid fa-clone col-sm-1"></i>
                                         <span class="col-sm-4">Team ID</span>
                                         <span class="col-sm-7">${Group.groupId}</span>
                                     </li>
-                                    <li class="project-item">
+                                    <li class="project-item project-wrap">
                                         <i class="fa-solid fa-file-signature col-sm-1"></i>
                                         <span class="col-sm-4">Topic Name</span>
                                         <span class="col-sm-7">${Topic.name}</span>
                                     </li>
-                                    <li class="project-item">
+                                    <li class="project-item project-wrap">
                                         <i class="fa-solid fa-calendar col-sm-1"></i>
                                         <span class="col-sm-4">Semester</span>
                                         <span class="col-sm-7">${Sem.name}</span>
                                     </li>
-                                    <li class="project-item">
+                                    <li class="project-item project-wrap">
                                         <i class="fa fa-regular fa-building col-sm-1"></i>
                                         <span class="col-sm-4">Department</span>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-7 project-wrap">
                                             <span class="blue-box">${DepName}</span>
                                         </div>
                                     </li>
@@ -126,19 +132,19 @@
                                     <i class="fa-solid fa-shield col-sm-1"></i>
                                     <div class="col-sm-2">
                                         <c:choose >
-                                        <c:when test="${Group.groupStatus == 1}">
-                                            <span class="green-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                     
-                                        </c:when>
-                                        <c:when test="${Group.groupStatus == 0}">
-                                            <span class="orange-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                  
-                                        </c:when>
-                                    </c:choose>
+                                            <c:when test="${Group.groupStatus == 1}">
+                                                <span class="green-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                     
+                                            </c:when>
+                                            <c:when test="${Group.groupStatus == 0}">
+                                                <span class="orange-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                  
+                                            </c:when>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="project-right">
+                        <div class="col-md-6">
                             <div class="project-content">
                                 <h6 class="project-name">Team members</h6>
                                 <hr>
@@ -175,7 +181,9 @@
         </footer>
 
         <% }
+            }
         %>
+
         <!-- preloader -->
         <div id='preloader'>
             <div class='preloader'></div>

@@ -497,7 +497,7 @@ public class TopicController extends HttpServlet {
                 String topicName = request.getParameter("topicName");
                 String topicDetail = request.getParameter("topicDetail");
                 int semId = Integer.parseInt(request.getParameter("semester"));
-                int bussinessId = Integer.parseInt(request.getParameter("business"));
+                int bussinessId = Integer.parseInt(request.getParameter("business"));   
                 int check = td.checkTopicName(topicName);
                 if (check != 0) {
                     UserDAO ud = new UserDAO();

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -19,13 +20,13 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
 
         <!-- Bootstrap -->
-        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css"/>
 
         <!-- Font Awesome Icon -->
         <script src="https://kit.fontawesome.com/e7ea130b87.js" crossorigin="anonymous"></script>
 
         <!-- Custom stlylesheet -->
-        <link type="text/css" rel="stylesheet" href="css/style.css"/>
+        <link type="text/css" rel="stylesheet" href="../css/style.css"/>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,17 +37,22 @@
 
     </head>
     <body>
-        
+
         <%
             String name = (String) session.getAttribute("name");
+            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
+            } else if(roleId == 2) {
+                response.sendRedirect("profileLecturer.jsp");
+            } else if(roleId == 4) {
+                response.sendRedirect("profileAdmin.jsp");
             } else {
         %>
 
         <!-- Header -->
         <header>
-            <%@include file="header_profile.jsp" %>
+            <%@include file="header.jsp" %>
         </header>
         <!-- /Header -->
         <div class="container head-title">
@@ -65,15 +71,16 @@
                     <!-- contact form -->
                     <div class="col-md-6">
                         <div class="contact-form">
-                            <h4>Send A Message</h4>
-                            <form>
-                                <input class="input" type="text" name="name" placeholder="Name" required="">
-                                <input class="input" type="email" name="email" placeholder="Email" required="">
+                            <h4>Send A FeedBack</h4>
+                            <form action="<c:url value="/contact/save.do"/>">
+                                <input class="input" type="text" name="name" value="${name}" required=""/>
+                                <input class="input" type="email" name="email" value="${email}" required="">
                                 <input class="input" type="text" name="subject" placeholder="Subject" required="">
-                                <textarea class="input" name="message" placeholder="Enter your Message" required=""></textarea>
-                                <button type="submit" class="main-button icon-button pull-right" data-toggle="modal" data-target="#myModal">Send Message</button>
+                                <textarea class="input" type="text" name="message" placeholder="Enter your Message" required=""></textarea>
+                                <button type="submit" value="save" name="op" class="main-button icon-button pull-right">Send Message</button>
                             </form>
                         </div>
+                        <div class="textSuccess" style="font-style: italic;">${successMessage}</div>
                     </div>
                     <!-- /contact form -->
 
@@ -101,36 +108,16 @@
 
         </div>
         <!-- /Contact -->
-
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Thank you for your message!</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Your request have been sent!</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="main-button icon-button pull-right" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
 
         <!-- Footer -->
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
         <!-- /Footer -->
-        
+
         <% }
         %>
-
-        <!-- preloader -->
-        <div id='preloader'><div class='preloader'></div></div>
-        <!-- /preloader -->
 
 
         <!-- jQuery Plugins -->

@@ -47,6 +47,12 @@
             if (name == null) {
                 response.sendRedirect("Login.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 2) {
+                    response.sendRedirect("profileLecturer.jsp");
+                } else if (roleId == 4) {
+                    response.sendRedirect("profileAdmin.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -120,7 +126,7 @@
                                     <button class="team__btn "><a href="${root}/group/switch.do?id=${userId}">Switch to ${groupStatus == 0?"Public":"Private"}</a></button>        
                                 </c:when>
                                 <c:when test="${checkLeaderId == 0}">
-                                      
+
                                 </c:when>  
                             </c:choose>
                     </div>
@@ -207,11 +213,14 @@
         </footer>
 
         <% }
+            }
         %>
+
         <!-- preloader -->
         <div id='preloader'>
             <div class='preloader'></div>
         </div>
+
         <!-- /preloader -->
         <script type="text/javascript" src="../js/jquery.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>

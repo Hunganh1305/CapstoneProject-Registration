@@ -37,24 +37,30 @@
     </head>
 
     <body>
-        
+
         <%
             String name = (String) session.getAttribute("name");
             String email = (String) session.getAttribute("email");
             int userId = (int) session.getAttribute("userId");
+            int roleId = (int) session.getAttribute("roleId");
+            String password = (String) session.getAttribute("password");
             String department = (String) session.getAttribute("department");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
+            } else if (roleId == 2) {
+                response.sendRedirect("profileLecturer.jsp");
+            } else if (roleId == 4) {
+                response.sendRedirect("profileAdmin.jsp");
             } else {
         %>
-        
+
         <!-- Header -->
         <header>
             <%@include file="header_profile.jsp" %>
         </header>
         <!-- /Header -->
 
-        <div class="container head-title">
+        <div class="container head-title flex">
             <h1 class="col-sm-8" style="text-align: left;">Profile</h1>
             <h4 class="col-sm-4" style="text-align: right;">
                 <a href="MainController?action=logout">
@@ -70,8 +76,8 @@
             <div class="card text-center col-12 col-sm-5">
                 <img class="profile-pic img-fluid card-image-top" src="./img/sample-avatar.jpg" alt="Profile Picture">
                 <div class="card-body">
-                    <h2 class="card-title text-grey"><%= name %></h2>
-                    <p><%= email %></p>
+                    <h2 class="card-title text-grey"><%= name%></h2>
+                    <p><%= email%></p>
                 </div>
             </div>
             <div class="col-12 col-sm-7">
@@ -85,7 +91,7 @@
                                 <p class="mb-0">Full Name</p>
                             </div>
                             <div class="col-sm-8">
-                                <p class="text-muted mb-0"><%= name %></p>
+                                <p class="text-muted mb-0"><%= name%></p>
                             </div>
                         </div>
                         <hr>
@@ -97,7 +103,7 @@
                                 <p class="mb-0">Email</p>
                             </div>
                             <div class="col-sm-8">
-                                <p class="text-muted mb-0"><%= email %></p>
+                                <p class="text-muted mb-0"><%= email%></p>
                             </div>
                         </div>
                         <hr>
@@ -109,7 +115,7 @@
                                 <p class="mb-0">Code</p>
                             </div>
                             <div class="col-sm-8">
-                                <p class="text-muted mb-0"><%= userId %></p>
+                                <p class="text-muted mb-0"><%= userId%></p>
                             </div>
                         </div>
                         <hr>
@@ -121,7 +127,7 @@
                                 <p class="mb-0">Department</p>
                             </div>
                             <div class="col-sm-8">
-                                <p class="text-muted mb-0"><%= department %></p>
+                                <p class="text-muted mb-0"><%= department%></p>
                             </div>
                         </div>
                     </div>
@@ -137,10 +143,10 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
-        
+
         <% }
         %>
-        
+
         <!-- preloader -->
         <div id='preloader'>
             <div class='preloader'></div>

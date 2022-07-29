@@ -404,6 +404,24 @@ public class UserDAO {
             e.getStackTrace();
         }
     }
+    
+    public static void changePassword(String password,int id){
+       Connection cn = null;
+        
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update Users set Password = ? where UserId = ?";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                stm.setString(1, password);
+                stm.setInt(2, id);
+                stm.executeUpdate();
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }       
+    }
 
     public static void delete(Object id) {
         Connection cn = null;

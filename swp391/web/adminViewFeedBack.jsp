@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Admin - Manage Semesters</title>
+        <title>Admin - Manage FeedBack</title>
 
         <!-- Google font -->
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
@@ -49,65 +49,52 @@
         </header>
         <!-- /Header -->
 
-        <!-- sem -->
+
         <section id="sem" class="container">
 
             <div class="sem__title">
-                <h1>Manage Semesters</h1>
+                <h1>Manage FeedBack</h1>
             </div>
 
             <div class="sem__container">
                 <div class="semListControl">
                     <h6 class="sem__text">
-                        List of semesters
+                        List of FeedBacks
                     </h6>
-                    <div class="btnControl">
-                        <a href="<c:url value="/semester/create.do"/>" class="team__btn">+ Create Semester</a>
-                    </div>
+
                 </div>
 
                 <hr>
 
                 <div class="sem__search">
-                    <form action="<c:url value="/semester/search.do"/>">
-                        <input placeholder=" " value="${searchTextSemester==null?"":searchTextSemester}" name="searchText" class="search__input" type="text">
-                        <label for="search" class="search__label">Search by Semester's name</label>
+                    <form action="<c:url value="/contact/search.do"/>">
+                        <input placeholder=" " value="${searchText==null?"":searchText}" name="searchText" class="search__input" type="text">
+                        <label for="search" class="search__label">Search Student name</label>
                         <button type="submit" class="search-btn ">
                             <img src="../img/search-interface-symbol.png" alt="">
                         </button>
                     </form>
-
-                    <!-- <div class="sem__filter">
-                        <i class="fa-solid fa-filter"></i>Filters
-                        <div class="dropdown1">
-                            <ul class="filter__list">
-                                <li class="filter__item">Quan tri kinh doanh</li>
-                                <li class="filter__item">Cong nghe thong tin</li>
-                                <li class="filter__item">Ngon ngu Anh</li>
-                                <li class="filter__item">Ngon ngu Han Quoc</li>
-                                <li class="filter__item">Ngon ngu Nhat</li>
-                            </ul>
-                        </div>
-                    </div> -->
 
                 </div>
 
                 <table class="table sem__table">
                     <thead>
                         <tr>
-                            <th class="hidden-xs">Id</th>
-                            <th>Semester Name</th>
-                            <th>Start date</th>
-                            <th>End date</th>
+                            <th>Student Name</th>
+                            <th class="hidden-xs hidden-sm">Email</th>
+                            <th>Subject</th>
+                            <th class="hidden-xs">Message</th>
+                            <th> </th>
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach var="item" items="${list}" varStatus="loop">
                             <tr>
-                                <td class="hidden-xs">${item.semesterId}</td>
                                 <td>${item.name}</td>
-                                <td>${item.startDate}</td>
-                                <td>${item.endDate}</td>
+                                <td class="hidden-xs hidden-sm">${item.email}</td>
+                                <td>${item.subject}</td>
+                                <td class="hidden-xs">${item.feedBackMsg}</td>
+                                <td><a href="${root}/contact/delete.do?feedBackId=${item.feedBackId}"  class="btn btn-sm tdTbl__danger"><i class="bi bi-x-circle-fill"></i> Delete</a></td>
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -120,7 +107,7 @@
                     <div class="row pageBtn">
                         <div class="col" style="text-align: right;">
                             <br/>
-                            <form action="<c:url value="/semester/${currSemesterAction}.do" />">
+                            <form action="<c:url value="/contact/${currContactAction}.do" />">
                                 <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${page==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
                                 <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${page==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
                                 <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${page==totalPage}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
@@ -138,7 +125,7 @@
 
 
         </section>
-        <!-- sem -->
+
 
         <footer>
             <%@include file="footer.jsp" %>

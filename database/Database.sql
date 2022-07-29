@@ -99,7 +99,21 @@ CREATE TABLE Project(
 	GroupId INT NOT NULL FOREIGN KEY(GroupId) REFERENCES Groups(GroupId),
 	LecturerId INT NOT NULL FOREIGN KEY (LecturerId) REFERENCES Users(UserId)
 )
-
+CREATE TABLE FeedBack(
+	FeedBackId INT identity(1,1) Primary key not null,
+	Name VARCHAR(30),
+	Subject VARCHAR(50),
+	Email VARCHAR(30),
+	FeedBackMessage VARCHAR(200),
+	UserId INT FOREIGN KEY(UserId) REFERENCES Users(UserId)
+)
+insert into FeedBack(Name,Subject,Email,FeedBackMessage,UserId) values('Le Hai Long', 'loading page','lehailong@gmail.com','the page is loading too slow, i think you must fix it to increase web app performance',1)
+insert into FeedBack(Name,Subject,Email,FeedBackMessage,UserId) values('Le Quang Khai', 'i dont know','lequangkhai@gmail.com','pla pla pla pla...',61)
+insert into FeedBack(Name,Subject,Email,FeedBackMessage,UserId) values('Le Hai Long', 'reload page','lehailong@gmail.com',' i think you must fix it',1)
+insert into FeedBack(Name,Subject,Email,FeedBackMessage,UserId) values('Le Quang Khai', 'i dont know','lequangkhai@gmail.com','abczyx...',61)
+insert into FeedBack(Name,Subject,Email,FeedBackMessage,UserId) values('Le Hai Long', 'closing page','lehailong@gmail.com',' i think you must fix it',1)
+insert into FeedBack(Name,Subject,Email,FeedBackMessage,UserId) values('Le Quang Khai', 'i dont know','lequangkhai@gmail.com','testing...',61)
+select * from FeedBack
 
 
 insert into Department values(1,'Quan tri kinh doanh')
@@ -240,16 +254,20 @@ insert into Users values(77,'Giang Oi','12345678',1,1,'giangoi@gmail.com',1,null
 insert into Users values(78,'Khoai Lang Thang','12345678',1,1,'klt@gmail.com',1,null)
 --more student 
 insert into Users values(73,'Duong Qua','12345678',1,5,'duongqua@gmail.com',1,null)
+
 insert into Users values(74,'Bat Cai','12345678',1,4,'batcai@gmail.com',1,null)
 insert into Users values(75,'Anh Hung Xa Dieu','12345678',1,4,'anhhungxadieu@gmail.com',1,null)
 
-insert into Users values(79,'Ba Tan vlog','12345678',1,1,'tanvl@gmail.com',1,null)
-insert into Users values(80,'Sang Vlog','12345678',1,1,'sangvl@gmail.com',1,null)
 insert into Users values(76,'NTN vlog','12345678',1,1,'ntnvl@gmail.com',1,null)
 insert into Users values(77,'Giang Oi','12345678',1,1,'giangoi@gmail.com',1,null)
 insert into Users values(78,'Khoai Lang Thang','12345678',1,1,'klt@gmail.com',1,null)
+insert into Users values(79,'Ba Tan vlog','12345678',1,1,'tanvl@gmail.com',1,null)
+insert into Users values(80,'Sang Vlog','12345678',1,1,'sangvl@gmail.com',1,null)
 
-insert into Users values(81,'Admin','12345678',1,null,'admin@gmail.com',4,null)
+
+insert into Users values(82,'hongxh','12345678',1,null,'hongxh@fpt.edu.vn',1,null)
+insert into Users values(83,'Quach Tinh','12345678',1,5,'quachtinh@gmail.com',1,null)
+insert into Users values(84,'Ly Binh','12345678',1,5,'lybinh@gmail.com',1,null)
 
 
 --admin
@@ -394,11 +412,11 @@ insert into StudentGroup values(58,70,16,0)
 insert into StudentGroup values(59,71,16,0)
 insert into StudentGroup values(60,72,16,0)
 
-insert into StudentGroup values(66,76,13,1)
-insert into StudentGroup values(67,77,13,0)
-insert into StudentGroup values(68,78,13,0)
-insert into StudentGroup values(69,79,13,0)
-insert into StudentGroup values(70,80,13,0)
+insert into StudentGroup values(65,76,13,1)
+insert into StudentGroup values(66,77,13,0)
+insert into StudentGroup values(67,78,13,0)
+insert into StudentGroup values(68,79,13,0)
+insert into StudentGroup values(69,80,13,0)
 select * from StudentGroup
 
 insert into LecturerTopic values(1,6,1)

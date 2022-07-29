@@ -41,9 +41,13 @@
             String name = (String) session.getAttribute("name");
             String email = (String) session.getAttribute("email");
             int userId = (int) session.getAttribute("userId");
-            String department = (String) session.getAttribute("department");
+            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
+            } else if(roleId == 1) {
+                response.sendRedirect("profile.jsp");
+            } else if(roleId == 2) {
+                response.sendRedirect("profileLecturer.jsp");
             } else {
         %>
         

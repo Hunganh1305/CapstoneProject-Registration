@@ -40,6 +40,12 @@
             if (name == null) {
                 response.sendRedirect("Login.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 1) {
+                    response.sendRedirect("profile.jsp");
+                } else if (roleId == 2) {
+                    response.sendRedirect("profileLecturer.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -50,9 +56,6 @@
 
         <!-- topic -->
         <section id="topic" class="container">
-
-            
-
             <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -108,7 +111,7 @@
             </div>
 
             <div class="topic__title flex">
-                <h1>Topic List</h1>
+                <h1>Manage Topic</h1>
                 <div class="semester">
                     ${currentSem.name}
                     <div class="dropdown2">
@@ -127,11 +130,11 @@
                         All of approved topics in semester ${currentSem.name}
                     </h6>
                     <div class="btnControl">
-         
+
                         <button type="button" class="btn team__btn" data-toggle="modal" data-target="#myModal1">
                             Manage topics
                         </button>
-                       
+
                     </div>
 
                 </div>
@@ -246,6 +249,7 @@
         </footer>
 
         <% }
+            }
         %>
 
         <script type="text/javascript" src="../js/jquery.min.js"></script>

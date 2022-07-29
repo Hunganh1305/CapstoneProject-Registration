@@ -42,6 +42,12 @@
             if (name == null) {
                 response.sendRedirect("Login.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 1) {
+                    response.sendRedirect("profile.jsp");
+                } else if (roleId == 2) {
+                    response.sendRedirect("profileLecturer.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -78,7 +84,8 @@
 
 
                     <div class="topic__filter">
-                        <i class="fa-solid fa-filter"></i>Filters
+                        <i class="fa-solid fa-filter"></i>
+                        <span class="hidden-xs hidden-sm">Filters</span>
                         <div class="dropdown1">
                             <ul class="filter__list">
                                 <li class="filter__item" name="filter"><a href="${root}/user/filter.do?filter=Quan tri kinh doanh">Quan tri kinh doanh</a></li>
@@ -100,7 +107,7 @@
 
                                 <th>Name</th>
                                 <th>Department</th>
-                                <th>Email</th>
+                                <th class="hidden-xs">Email</th>
                                 <th>Role</th>
 
                             </tr>
@@ -132,7 +139,7 @@
                                         </c:otherwise>
                                     </c:choose>   
 
-                                    <td>${item.email}</td>
+                                    <td class="hidden-xs">${item.email}</td>
                                     <c:choose >
                                         <c:when test="${item.roleId==1}">
                                             <td> <span class="tdTbl__warning">Student</span></td> 
@@ -192,6 +199,7 @@
         </footer>
 
         <% }
+            }
         %>
 
         <script type="text/javascript" src="../js/jquery.min.js"></script>

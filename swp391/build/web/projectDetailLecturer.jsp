@@ -29,19 +29,23 @@
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
-        
+
 
     </head>
 
     <body>
 
-        <% String name = (String) session.getAttribute("name");
-            if (name == null) { %>
-        <p>
-            <font color='red'>You must login to view this page</font>
-        </p>
-        <p>Click <a href="../Login.jsp">here</a> to login</p>
-        <%} else {%>
+        <%
+            String name = (String) session.getAttribute("name");
+            int roleId = (int) session.getAttribute("roleId");
+            if (name == null) {
+                response.sendRedirect("Login.jsp");
+            } else if (roleId == 1) {
+                response.sendRedirect("profile.jsp");
+            } else if (roleId == 4) {
+                response.sendRedirect("profileAdmin.jsp");
+            } else {
+        %>
 
         <!-- Header -->
         <header>
@@ -56,31 +60,31 @@
                     <h1 style="text-align: left">@${Group.groupName} - ID: ${Group.groupId}</h1>
                 </div>
 
-                <div class="project-contents">
-                    <div class="project-left">
+                <div class="container">
+                    <div class="col-md-6">
                         <div class="project-content">
                             <h6 class="project-name">Team information</h6>
                             <hr>
                             <ul class="project-list">
-                                <li class="project-item">
+                                <li class="project-item project-wrap">
                                     <i class="fa fa-solid fa-bars col-sm-1"></i>
                                     <span class="col-sm-4">Team Name</span>
                                     <span class="col-sm-7">${Group.groupName}</span>
                                 </li>
-                                <li class="project-item">
+                                <li class="project-item project-wrap">
                                     <i class="fa-solid fa-file-signature col-sm-1"></i>
                                     <span class="col-sm-4">Topic Name</span>
                                     <span class="col-sm-7">${Topic.name}</span>
                                 </li>
-                                <li class="project-item">
+                                <li class="project-item project-wrap">
                                     <i class="fa-solid fa-calendar col-sm-1"></i>
                                     <span class="col-sm-4">Semester</span>
                                     <span class="col-sm-7">${Sem.name}</span>
                                 </li>
-                                <li class="project-item">
+                                <li class="project-item project-wrap">
                                     <i class="fa fa-regular fa-building col-sm-1"></i>
                                     <span class="col-sm-4">Department</span>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-7 project-wrap">
                                         <span class="blue-box">${DepName}</span>
                                     </div>
                                 </li>
@@ -107,28 +111,28 @@
                         </div>
                     </div>
 
-                    <div class="project-right">
-                            <div class="project-content">
-                                <h6 class="project-name">Team members</h6>
-                                <hr>
-                                <ul class="project-list">
-                                    <%!  List<Users> list;%>
-                                    <%
-                                        list = (List<Users>) request.getAttribute("list");
-                                        for (Users s : list) {
-                                            out.print("<li class='project-item'>"
-                                                    + "<div class='col-sm-2'>"
-                                                    + "<img class=\"avatar\" src=\"../img/sample-avatar.jpg\" alt=\"Avatar\">"
-                                                    + "</div>"
-                                                    + "<span>" + s.getName() + "</span>"
-                                                    + "</li>");
-                                        }
+                    <div class="col-md-6">
+                        <div class="project-content">
+                            <h6 class="project-name">Team members</h6>
+                            <hr>
+                            <ul class="project-list">
+                                <%!  List<Users> list;%>
+                                <%
+                                    list = (List<Users>) request.getAttribute("list");
+                                    for (Users s : list) {
+                                        out.print("<li class='project-item'>"
+                                                + "<div class='col-sm-2'>"
+                                                + "<img class=\"avatar\" src=\"../img/sample-avatar.jpg\" alt=\"Avatar\">"
+                                                + "</div>"
+                                                + "<span>" + s.getName() + "</span>"
+                                                + "</li>");
+                                    }
 
-                                    %>
-                                </ul>
+                                %>
+                            </ul>
 
-                            </div>
                         </div>
+                    </div>
                 </div>
 
 
