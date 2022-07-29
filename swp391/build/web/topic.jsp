@@ -262,6 +262,11 @@
         </footer>
 
         <% }%>
+        <!-- preloader -->
+        <div id='preloader'>
+            <div class='preloader'></div>
+        </div>
+        <!-- /preloader -->
 
         <script type="text/javascript" src="../js/jquery.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>

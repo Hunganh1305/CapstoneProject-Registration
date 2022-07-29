@@ -54,7 +54,13 @@
         <!-- /Header -->
 
         <div class="container head-title">
-            <h1 style="text-align: left;">Profile</h1>
+            <h1 class="col-sm-8" style="text-align: left;">Profile</h1>
+            <h4 class="col-sm-4" style="text-align: right;">
+                <a href="MainController?action=logout">
+                    <span class="fa-solid fa-right-from-bracket fa-md"></span>
+                    <span>Logout</span>
+                </a>
+            </h4>
         </div>
 
 

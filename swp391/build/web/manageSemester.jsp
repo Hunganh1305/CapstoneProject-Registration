@@ -1,9 +1,4 @@
-<%-- 
-    Document   : manageSemester
-    Created on : 06/07/2022, 6:45:54 PM
-    Author     : HLong
---%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,26 +13,30 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
 
         <!-- Bootstrap -->
-        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" />
+        
+        <!--       Bootstrap Icon -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
         <!-- Font Awesome Icon -->
+        <!--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
         <script src="https://kit.fontawesome.com/e7ea130b87.js" crossorigin="anonymous"></script>
-
+        
         <!-- Custom stlylesheet -->
-        <link type="text/css" rel="stylesheet" href="./css/style.css" />
+        <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
         <!-- sem stylessheet -->
-        <link type="text/css" rel="stylesheet" href="./css/manageSemesterStyle.css" />  
+        <link type="text/css" rel="stylesheet" href="../css/manageSemesterStyle.css" />  
     </head>
     <body>
-        
+
         <%
             String name = (String) session.getAttribute("name");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
             } else {
         %>
-        
+
         <!-- Header -->
         <header>
             <%@include file="headerAdmin.jsp" %>
@@ -54,22 +53,21 @@
             <div class="sem__container">
                 <div class="semListControl">
                     <h6 class="sem__text">
-                        List of semesters from database
+                        List of semesters
                     </h6>
                     <div class="btnControl">
-
-                        <button class="team__btn">+ Create New Semester</button>
+                        <a href="<c:url value="/semester/create.do"/>" class="team__btn">+ Create New Semester</a>
                     </div>
                 </div>
 
                 <hr>
 
                 <div class="sem__search">
-                    <form action="">
-                        <input placeholder=" " class="search__input" type="text">
-                        <label for="search" class="search__label">Search by name</label>
+                    <form action="<c:url value="/semester/search.do"/>">
+                        <input placeholder=" " value="${searchTextSemester==null?"":searchTextSemester}" name="searchText" class="search__input" type="text">
+                        <label for="search" class="search__label">Search by Semester's name</label>
                         <button type="submit" class="search-btn ">
-                            <img src="img/search-interface-symbol.png" alt="">
+                            <img src="../img/search-interface-symbol.png" alt="">
                         </button>
                     </form>
 
@@ -98,51 +96,37 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>SU2022</td>
-                            <td>2022-05-29</td>
-                            <td>2022-09-30</td>
-
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>FA2021</td>
-                            <td>2021-07-10</td>
-                            <td>2021-10-10</td>
-
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>SU2021</td>
-                            <td>2021-05-28</td>
-                            <td>2021-09-28</td>
-
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>SP2022</td>
-                            <td>2022-01-10</td>
-                            <td>2022-05-10</td>
-                        </tr>
+                        <c:forEach var="item" items="${list}" varStatus="loop">
+                            <tr>
+                                <td>${item.semesterId}</td>
+                                <td>${item.name}</td>
+                                <td>${item.startDate}</td>
+                                <td>${item.endDate}</td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
 
                 <hr>
 
-                <nav aria-label="pagination Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
+                <c:if test="${!empty list}">
+
+                    <div class="row pageBtn">
+                        <div class="col" style="text-align: right;">
+                            <br/>
+                            <form action="<c:url value="/semester/${currSemesterAction}.do" />">
+                                <button type="submit" class="btn btn-warning  btn-info" name="op" value="FirstPage" title="First Page" <c:if test="${page==1}">disabled</c:if>><i class="bi bi-chevron-bar-left"></i></button>
+                                <button type="submit" class="btn btn-warning  btn-info" name="op" value="PreviousPage" title="Previous Page" <c:if test="${page==1}">disabled</c:if>><i class="bi bi-chevron-left"></i></button>
+                                <button type="submit" class="btn btn-warning  btn-info" name="op" value="NextPage" title="Next Page" <c:if test="${page==totalPage}">disabled</c:if>><i class="bi bi-chevron-right"></i></button>
+                                <button type="submit" class="btn btn-warning  btn-info" name="op" value="LastPage" title="Last Page" <c:if test="${page==totalPage}">disabled</c:if>><i class="bi bi-chevron-bar-right"></i></button>
+                                <input type="text" name="gotoPage" value="${page}" class="btn-warning btn-outline-info" style="padding:12px;text-align:left;color:#000;width:40px;" title="Enter page number"/>
+                                <button type="submit" class="btn btn-warning  btn-info" name="op" value="GotoPage" title="Goto Page"><i class="bi bi-arrow-up-right-circle"></i></button>
+                            </form>
+                            Page ${page}/${totalPage}
+                        </div>
+                    </div>
+
+                </c:if>
 
             </div>
 
@@ -153,10 +137,10 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
-        
+
         <% }
         %>
-        
+
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
