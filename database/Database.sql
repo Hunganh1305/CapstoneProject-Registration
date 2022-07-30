@@ -1,5 +1,7 @@
 use master
 
+
+DROP DATABASE SWP391
 CREATE DATABASE SWP391
 
 -- SELECT * FROM Student
@@ -289,16 +291,16 @@ select * from Semester
 delete from Semester
 
 
-insert into Topic values(1,'CPManagement-Review',1,6,'Manage and review on this web',8,2,1,2)
-insert into Topic values(2,'PetCareSystem',1,6,'The best solution to manage and service your pet',9,2,1,2)
-insert into Topic values(3,'PT Tranning app',1,6,'The way to transform to the monster',11,2,1,2)
-insert into Topic values(4,'Game Animation',1,10,'Like a little MCU movie',7,2,1,2)
-insert into Topic values(5,'Research And Developing Brands',1,2,'Make and marketing a brand to users',7,1,1,2)
-insert into Topic values(6,'Social issues',1,14,'Write an essay about social isues',10,3,1,2)
-insert into Topic values(7,'An analysis on cultural',1,16,'Write an essay analyze cultural',11,4,1,2)
-insert into Topic values(8,'Economic Policy of Japan',1,15,'Research and presentation',9,5,1,2)
-insert into Topic values(9,'Restaurant researching',1,2,'Manage a restaurant',7,1,2,2)
-insert into Topic values(10,'Cycle of whales',1,14,'Study about whales',10,3,2,2)
+insert into Topic values(1,'CPManagement-Review',1,6,'Manage and review on this web',8,2,1,1)
+insert into Topic values(2,'PetCareSystem',1,6,'The best solution to manage and service your pet',9,2,1,1)
+insert into Topic values(3,'PT Tranning app',1,6,'The way to transform to the monster',11,2,1,1)
+insert into Topic values(4,'Game Animation',1,10,'Like a little MCU movie',7,2,1,1)
+insert into Topic values(5,'Research And Developing Brands',1,2,'Make and marketing a brand to users',7,1,1,1)
+insert into Topic values(6,'Social issues',1,14,'Write an essay about social isues',10,3,1,1)
+insert into Topic values(7,'An analysis on cultural',1,16,'Write an essay analyze cultural',11,4,1,1)
+insert into Topic values(8,'Economic Policy of Japan',1,15,'Research and presentation',9,5,1,1)
+insert into Topic values(9,'Restaurant researching',1,2,'Manage a restaurant',7,1,2,1)
+insert into Topic values(10,'Cycle of whales',1,14,'Study about whales',10,3,2,1)
 insert into Topic values(11,'Jewelry System',1,6,'Ecommerce jewelry selling website',8,2,1,0)
 insert into Topic values(12,'Online CV builder',1,6,'Generate CV automatically',9,2,1,0)
 
