@@ -70,7 +70,7 @@
                 <c:if test="${empty Group || empty Topic}">
                     <div class="search-empty">
                         <img src="../img/search-empty.png" class="search-empty-icon"/>
-                        <div class="search-empty-title">You don't have any project yet!</div>
+                        <div class="search-empty-title">You don't have any project!</div>
                         <c:if test="${empty Topic}">
                             <div class="search-empty-hint">${error}</div>
                             <div class="btnControl">
