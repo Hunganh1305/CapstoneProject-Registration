@@ -139,10 +139,7 @@
                                     <c:choose >
                                         <c:when test="${item.status==0}">
                                             <td class="hidden-xs hidden-sm"> <span class="tdTbl__warning">available</span></td> 
-                                        </c:when>
-                                        <c:when test="${item.status==1}">
-                                            <td class="hidden-xs hidden-sm"> <span class="tdTbl__warning">pending</span></td> 
-                                        </c:when>    
+                                        </c:when>   
                                         <c:otherwise>
                                             <td class="hidden-xs hidden-sm"> <span class="tdTbl__warning">locked</span></td> 
                                         </c:otherwise>
@@ -158,7 +155,7 @@
                 <c:if test="${empty list}">
                     <div class="search-empty">
                         <img src="../img/search-empty.png" class="search-empty-icon"/>
-                        <div class="search-empty-title">Cannot find any group</div>
+                        <div class="search-empty-title">Cannot find any topic</div>
 
                     </div>
                 </c:if>
