@@ -286,8 +286,6 @@ public class TopicController extends HttpServlet {
                 int userId = (int) session.getAttribute("userId");
                 int depId = (int) session.getAttribute("depId");
                 int groupId = td.getGroupIdByUser(userId);
-                td.updatePendingTopic(topicId);
-                td.updatePendingTopicGroup(groupId);
                 td.addPendingTable(groupId, topicId, depId);
                 ArrayList<Topic> appliableTopicList2 = checkValid(request, response);
                 session.setAttribute("appliableTopicList", appliableTopicList2);
@@ -338,9 +336,7 @@ public class TopicController extends HttpServlet {
                 topicId = Integer.parseInt(request.getParameter("topicId"));
                 groupId = Integer.parseInt(request.getParameter("groupId"));
                 ptg.deny(topicId, groupId);
-                if (ptg.checkContainTopic(topicId) == 0) {
-                    td.updateWaitingTopic(topicId);
-                }
+
 
                 list = td.readAll(currSem.getName());
 
@@ -642,7 +638,7 @@ public class TopicController extends HttpServlet {
 
         for (Topic item : list) {
             boolean check = td.checkHaveApplied(item.getTopicId(), groupId);
-            if (leaderStatus == 1 && depId == item.getDepartmentId() && semId == item.getSemester().getSemesterId() && topicStatus == 0 && item.getStatus() != 2 && check == false) {
+            if (leaderStatus == 1 && depId == item.getDepartmentId() && semId == item.getSemester().getSemesterId() && topicStatus == 0 && item.getStatus() != 1 && check == false) {
                 appliableTopicList.add(item);
             }
         }
