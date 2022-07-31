@@ -78,18 +78,7 @@
                             <div class="selection">
                                 <div class="selection--right">
                                     <label for="semester" class="label_category">Semester</label>
-                                    <select style="height: 35px"   id="semester" name="semester">
-                                        <!--                                        <option value="0" name="semester">--Choose a Category--</option>-->
-                                        <c:forEach var="item" items="${semList}" varStatus="loop">
-                                            <c:if test="${item.semesterId==chosenSemester}">
-                                                <option  value="${item.semesterId}" selected="selected" >${item.name}</option>
-                                            </c:if>
-                                            <c:if test="${item.semesterId!=chosenSemester}">
-                                                <option  value="${item.semesterId}" >${item.name}</option>
-                                            </c:if>
-                                        </c:forEach>
-
-                                    </select>
+                                    <input class="" type="text" disabled value="${validSemester}" name="semester" required />
                                 </div>
                             </div>
 
