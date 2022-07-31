@@ -59,6 +59,19 @@ public class StudentGroup {
         this.group = group;
     }
 
+    public StudentGroup(int id, int studentId, int groupId, int leaderStatus, Users user, Department department, Project project, Groups group, Semester semester) {
+        this.id = id;
+        this.studentId = studentId;
+        this.groupId = groupId;
+        this.leaderStatus = leaderStatus;
+        this.user = user;
+        this.department = department;
+        this.project = project;
+        this.group = group;
+        this.semester = semester;
+    }
+    
+
     public int getId() {
         return id;
     }
@@ -121,6 +134,14 @@ public class StudentGroup {
 
     public void setGroup(Groups group) {
         this.group = group;
+    }
+
+    public Semester getSemester() {
+        return semester;
+    }
+
+    public void setSemester(Semester semester) {
+        this.semester = semester;
     }
 
     
