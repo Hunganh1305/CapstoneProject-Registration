@@ -127,6 +127,31 @@ public class SemesterDAO {
         }
         return sem;
     }
+    
+    public static Semester readCurrentSemester() {
+        Connection cn = null;
+        Semester sem = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "SELECT TOP 1  * FROM dbo.Semester GROUP BY SemesterId, Name,StartDate,EndDate ORDER BY Max(StartDate) Desc";
+                PreparedStatement stm = cn.prepareStatement(sql);
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    sem = new Semester();
+                    sem.setSemesterId(rs.getInt("semesterId"));
+                    sem.setName(rs.getString("name"));
+                    sem.setStartDate(rs.getDate("startDate"));
+                    sem.setEndDate(rs.getDate("endDate"));
+
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return sem;
+    }
 
     public static void create(Semester sem) {
         Connection cn = null;
