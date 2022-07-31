@@ -71,20 +71,20 @@
                     <div class="search-empty">
                         <img src="../img/search-empty.png" class="search-empty-icon"/>
                         <div class="search-empty-title">You don't have any project!</div>
-                        <c:if test="${empty Topic}">
-                            <div class="search-empty-hint">${error}</div>
-                            <div class="btnControl">
-                                <button class="project-button"><a href="<c:url value="/topic/index.do"/>">Topic list</a> </button>
-                            </div>
-
-                        </c:if>
-                        <c:if test="${empty Group}">
-                            <div class="search-empty-hint">You don't have a team!</div>
-                            <div class="btnControl">
-                                <button class="project-button"><a href="<c:url value="/group/index.do"/>">Team list</a> </button>
-                            </div>
-                        </c:if>
-
+                        <c:choose>
+                            <c:when test="${empty Group}">
+                                <div class="search-empty-hint">You don't have a team!</div>
+                                <div class="btnControl">
+                                    <button class="project-button"><a href="<c:url value="/group/index.do"/>">Team list</a> </button>
+                                </div>
+                            </c:when>
+                            <c:when test="${empty Topic}">
+                                <div class="search-empty-hint">${error}</div>
+                                <div class="btnControl">
+                                    <button class="project-button"><a href="<c:url value="/topic/index.do"/>">Topic list</a> </button>
+                                </div>
+                            </c:when>
+                        </c:choose>
                     </div>
                 </c:if>
                 <c:if test="${!empty Group && !empty Topic}">
