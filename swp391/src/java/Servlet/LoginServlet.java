@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
             String password=request.getParameter("txtpassword");
             SemesterDAO sem= new SemesterDAO();
             
-     
+            Semester currsem= sem.readCurrentSemester();
             ArrayList<Semester> semList= sem.readAll();
             Users user=null;
            
@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
                             session.setAttribute("roleId", user.getRoleId());
                             session.setAttribute("password", user.getPassword());
                             session.setAttribute("semList", semList);
-                            session.setAttribute("currentSem", semList.get(0));
+                            session.setAttribute("currentSem", currsem);
                             session.setAttribute("department", UserDAO.readUserDep(user.getDepartmentId()));
                             response.sendRedirect("profile.jsp");
                         }
@@ -80,7 +80,7 @@ public class LoginServlet extends HttpServlet {
                             session.setAttribute("roleId", user.getRoleId());
                             session.setAttribute("password", user.getPassword());
                             session.setAttribute("semList", semList);
-                            session.setAttribute("currentSem", semList.get(0));
+                            session.setAttribute("currentSem", currsem);
                             session.setAttribute("department", UserDAO.readUserDep(user.getDepartmentId()));
                             response.sendRedirect("profileLecturer.jsp");
                         }
@@ -96,7 +96,7 @@ public class LoginServlet extends HttpServlet {
                             session.setAttribute("userId", user.getUserId());
                             session.setAttribute("roleId", user.getRoleId());
                             session.setAttribute("semList", semList);
-                            session.setAttribute("currentSem", semList.get(0));
+                            session.setAttribute("currentSem", currsem);
                             session.setAttribute("department", UserDAO.readUserDep(user.getDepartmentId()));
                             response.sendRedirect("profileAdmin.jsp");
                         }
