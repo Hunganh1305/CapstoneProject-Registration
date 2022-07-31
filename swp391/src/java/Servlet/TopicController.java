@@ -57,6 +57,7 @@ public class TopicController extends HttpServlet {
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
         PendingTopicGroupDAO ptg = new PendingTopicGroupDAO();
+        SemesterDAO sd= new SemesterDAO();
         Semester currSem = null;
         TopicDAO td = new TopicDAO();
 
@@ -355,7 +356,7 @@ public class TopicController extends HttpServlet {
                 request.getRequestDispatcher("/topicListLecturer.jsp").forward(request, response);
                 break;
             case "create":
-                currSem = (Semester) session.getAttribute("currentSem");
+                currSem = sd.readCurrentSemester();
                 UserDAO ud = new UserDAO();
                 int departmentId = user.getDepartmentId();
                 DepartmentDAO dd = new DepartmentDAO();
@@ -364,7 +365,7 @@ public class TopicController extends HttpServlet {
                 ArrayList<Users> bussinessList = ud.readAllBusiness();
                 request.setAttribute("bList", bussinessList);
                 request.setAttribute("chosenBusiness", bussinessList.get(0).getUserId());
-                request.setAttribute("chosenSemester", currSem.getSemesterId());
+                request.setAttribute("validSemester", currSem.getName());
                 request.getRequestDispatcher("/createTopic.jsp").forward(request, response);
                 break;
             case "save":
@@ -404,7 +405,7 @@ public class TopicController extends HttpServlet {
                 topic = td.read(topicId);
                 request.setAttribute("topicName", topic.getName());
                 request.setAttribute("topicDetail", topic.getDescription());
-                request.setAttribute("chosenSemester", topic.getSemester().getSemesterId());
+                request.setAttribute("validSemester", sd.readCurrentSemester().getName());
                 request.setAttribute("depName", topic.getDepartment().getName());
                 bussinessList = ud.readAllBusiness();
                 request.setAttribute("bList", bussinessList);
@@ -416,11 +417,12 @@ public class TopicController extends HttpServlet {
                 topicId = Integer.parseInt(request.getParameter("topicId"));
                 int category = 0;
                 currSem = (Semester) session.getAttribute("currentSem");
+                Semester validSem=sd.readCurrentSemester();
                 depId = (int) session.getAttribute("depId");
                 int lecId = (int) session.getAttribute("userId");
                 String topicName = request.getParameter("topicName");
                 String topicDetail = request.getParameter("topicDetail");
-                int semId = Integer.parseInt(request.getParameter("semester"));
+                int semId = validSem.getSemesterId();
                 int bussinessId = Integer.parseInt(request.getParameter("business"));
                 int check = td.checkTopicName(topicName);
                 Semester sem1 = new Semester();
@@ -479,6 +481,7 @@ public class TopicController extends HttpServlet {
 
     public void save(HttpServletRequest request, HttpServletResponse response) {
         TopicDAO td = new TopicDAO();
+        SemesterDAO sd= new SemesterDAO();
         HttpSession session = request.getSession();
         Semester currSem = (Semester) session.getAttribute("currentSem");
         String prevAction = (String) session.getAttribute("prevTopicAction");
@@ -487,19 +490,19 @@ public class TopicController extends HttpServlet {
             String op = request.getParameter("op");
             if (op.equals("create")) {
                 int category = 0;
-                currSem = (Semester) session.getAttribute("currentSem");
+                Semester validSem= sd.readCurrentSemester();
                 int depId = (int) session.getAttribute("depId");
                 int lecId = (int) session.getAttribute("userId");
                 String topicName = request.getParameter("topicName");
                 String topicDetail = request.getParameter("topicDetail");
-                int semId = Integer.parseInt(request.getParameter("semester"));
+               
                 int bussinessId = Integer.parseInt(request.getParameter("business"));   
                 int check = td.checkTopicName(topicName);
                 if (check != 0) {
                     UserDAO ud = new UserDAO();
                     DepartmentDAO dd = new DepartmentDAO();
                     request.setAttribute("errorMessage", "Topic name already exist");
-                    request.setAttribute("chosenSemester", semId);
+                    request.setAttribute("validSemester", validSem.getName());
                     Department dep = dd.read(depId);
                     request.setAttribute("depName", dep.getName());
                     request.setAttribute("topicName", topicName);
@@ -511,7 +514,7 @@ public class TopicController extends HttpServlet {
                 } else {
                     Semester sem = new Semester();
 
-                    sem.setSemesterId(semId);
+                    sem.setSemesterId(validSem.getSemesterId());
 
                     if (depId == 2) {
                         category = 6;
@@ -625,7 +628,8 @@ public class TopicController extends HttpServlet {
         HttpSession session = request.getSession();
         int userId = (int) session.getAttribute("userId");
         TopicDAO td = new TopicDAO();
-        Semester currSem = (Semester) session.getAttribute("currentSem");
+        SemesterDAO sd= new SemesterDAO();
+        Semester currSem = sd.readCurrentSemester();
 
         int groupId = td.getGroupIdByUser(userId);
         int leaderStatus = td.checkLeader(userId);
