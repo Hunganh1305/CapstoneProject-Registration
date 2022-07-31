@@ -68,7 +68,7 @@
                     <div id="toasts">
                         <div class="toast error">
                             <i class="fa-solid fa-triangle-exclamation"></i>
-                            <span class="message">Wrong Department! Fail to join.</span>
+                            <span class="message">Fail to join.</span>
                             <span class="countdown"></span>
                         </div>
                     </div>
