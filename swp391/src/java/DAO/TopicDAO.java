@@ -535,7 +535,7 @@ public class TopicDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "update dbo.Topic set Status=2 where TopicId=?";
+                String sql = "update dbo.Topic set Status=1 where TopicId=?";
                 PreparedStatement stm = cn.prepareStatement(sql);
                 stm.setInt(1, id);
                 stm.executeUpdate();
