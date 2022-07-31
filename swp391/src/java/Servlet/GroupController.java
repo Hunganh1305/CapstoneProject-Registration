@@ -50,6 +50,7 @@ public class GroupController extends HttpServlet {
         StudentGroupDAO sg = new StudentGroupDAO();
         Users user = (Users) session.getAttribute("user");
         GroupsDAO gr = new GroupsDAO();
+        SemesterDAO s = new SemesterDAO();
 
         //        pagination
         String prevAction = (String) session.getAttribute("prevGroupAction");
@@ -64,7 +65,11 @@ public class GroupController extends HttpServlet {
             case "index":
                 currSem = (Semester) session.getAttribute("currentSem");
                 ArrayList<StudentGroup> list = sg.readAll(currSem.getName());
-
+                
+                Semester checkSem = null;
+                checkSem = s.readCurrentSemester();
+                
+                int checkSemId = checkSem.getSemesterId();
                 //check
                 int studentId = (int) session.getAttribute("userId");
                 int checkUserId = sg.checkStudentHaveGroupByUserId(studentId);
@@ -83,7 +88,7 @@ public class GroupController extends HttpServlet {
                 //        pagination 
                 session.setAttribute("checkUserId", checkUserId);
                 session.setAttribute("checkStudentInGroup", checkStudentInGroup);
-                
+                session.setAttribute("checkSemId", checkSemId);
                 
                 if (user.getRoleId() == 1) {
                     request.getRequestDispatcher("/teamList.jsp").forward(request, response);
@@ -366,11 +371,11 @@ public class GroupController extends HttpServlet {
         try {
             String op = request.getParameter("op");
             if (op.equals("create")) {
-                currSem = (Semester) session.getAttribute("currentSem");
+//                currSem = (Semester) session.getAttribute("currentSem");
                 int groupId = sg.countGroupId();
                 groupId = groupId + 1;
                 String name = request.getParameter("groupName");
-                int semId = currSem.getSemesterId();
+                int semId = (int) session.getAttribute("checkSemId");//
 
                 int groupStatus = Integer.parseInt(request.getParameter("groupStatus"));
                 int members = Integer.parseInt(request.getParameter("members"));
@@ -416,13 +421,15 @@ public class GroupController extends HttpServlet {
         SemesterDAO sd = new SemesterDAO();
         Users user = null;
         Semester currSem = null;
+        Semester currSem1 = null;
         HttpSession session = request.getSession();
         String prevAction = (String) session.getAttribute("prevGroupAction");
         String currAction = (String) session.getAttribute("currGroupAction");
         boolean noti = false;
         try {
-            currSem = sd.readCurrentSemester();
-            int semId = currSem.getSemesterId(); //
+            
+            
+
 
             int studentID = (int) session.getAttribute("userId");
             int groupId = (int) session.getAttribute("groupId");
@@ -431,12 +438,14 @@ public class GroupController extends HttpServlet {
             sgId = sgId + 1;
 //            check valid
             int depId = sg.checkDepartment(studentID);
-            
+            currSem = sd.readCurrentSemester();
+            int semId = currSem.getSemesterId(); //
             
             int depIdCheck = (int) session.getAttribute("depIdCheck");
-            
+            currSem1 = (Semester) session.getAttribute("currentSem");
+            int semIdCheck = currSem1.getSemesterId();
 
-            if (depId == depIdCheck ) {
+            if (depId == depIdCheck && semId == semIdCheck ) {
                 //join success
                 StudentGroup stuGr = new StudentGroup(sgId, studentID, groupId, 0);
                 sg.create(stuGr);
