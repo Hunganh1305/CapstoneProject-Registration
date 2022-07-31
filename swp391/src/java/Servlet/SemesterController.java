@@ -113,10 +113,11 @@ public class SemesterController extends HttpServlet {
                 String semesterName = request.getParameter("semesterName");
                 String startDate = request.getParameter("startDate");
                 String endDate = request.getParameter("endDate");
-                String now = java.time.LocalDate.now().toString();
+                Semester validSem= semDao.readCurrentSemester();
+                String previousSem = validSem.getEndDate().toString();
                 Date sDate = Date.valueOf(startDate);
                 Date eDate = Date.valueOf(endDate);
-                Date today = Date.valueOf(now);
+                Date today = Date.valueOf(previousSem);
                 String regexFA = "(^[F][A])+([0-9]{4}$)";
                 String regexSU = "(^[S][U])+([0-9]{4}$)";
                 String regexSP = "(^[S][P])+([0-9]{4}$)";
@@ -130,7 +131,7 @@ public class SemesterController extends HttpServlet {
                     request.setAttribute("error-msg", "Must be FA or SU or SP + Years!");
                     request.getRequestDispatcher("/createSemester.jsp").forward(request, response);
                 } else if(sDate.compareTo(today) == -1){
-                    request.setAttribute("error-msg1", "Start date cannot before now!");
+                    request.setAttribute("error-msg1", "Start date cannot before previous semester's End date!");
                     request.getRequestDispatcher("/createSemester.jsp").forward(request, response);
                 } else if(eDate.compareTo(sDate) == -1 || eDate.compareTo(sDate) == 0){
                     request.setAttribute("error-msg2", "End date cannot before Start date!");
