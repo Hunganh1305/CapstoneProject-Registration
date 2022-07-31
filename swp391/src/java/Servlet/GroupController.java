@@ -413,6 +413,7 @@ public class GroupController extends HttpServlet {
         GroupsDAO gr = new GroupsDAO();
         UserDAO u = new UserDAO();
         StudentGroupDAO sg = new StudentGroupDAO();
+        SemesterDAO sd = new SemesterDAO();
         Users user = null;
         Semester currSem = null;
         HttpSession session = request.getSession();
@@ -420,7 +421,7 @@ public class GroupController extends HttpServlet {
         String currAction = (String) session.getAttribute("currGroupAction");
         boolean noti = false;
         try {
-            currSem = (Semester) session.getAttribute("currentSem");
+            currSem = sd.readCurrentSemester();
             int semId = currSem.getSemesterId(); //
 
             int studentID = (int) session.getAttribute("userId");
