@@ -365,16 +365,19 @@ public class GroupController extends HttpServlet {
         StudentGroupDAO sg = new StudentGroupDAO();
         Users user = null;
         Semester currSem = null;
+        Semester currSem1 = null;
+        SemesterDAO s = new SemesterDAO();
         HttpSession session = request.getSession();
         String prevAction = (String) session.getAttribute("prevGroupAction");
         String currAction = (String) session.getAttribute("currGroupAction");
         try {
             String op = request.getParameter("op");
             if (op.equals("create")) {
-//                currSem = (Semester) session.getAttribute("currentSem");
+                currSem1 = s.readCurrentSemester();
                 int groupId = sg.countGroupId();
                 groupId = groupId + 1;
                 String name = request.getParameter("groupName");
+                
                 int semId = (int) session.getAttribute("checkSemId");//
 
                 int groupStatus = Integer.parseInt(request.getParameter("groupStatus"));
@@ -394,7 +397,7 @@ public class GroupController extends HttpServlet {
                 sg.create(stuGr);
             } 
 
-            ArrayList<StudentGroup> list = sg.readAll(currSem.getName());
+            ArrayList<StudentGroup> list = sg.readAll(currSem1.getName());
 
             if (!prevAction.equals(currAction)) {
                 session.setAttribute("totalPage", null);
