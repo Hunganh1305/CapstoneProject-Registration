@@ -57,7 +57,7 @@ public class TopicController extends HttpServlet {
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
         PendingTopicGroupDAO ptg = new PendingTopicGroupDAO();
-        SemesterDAO sd= new SemesterDAO();
+        SemesterDAO sd = new SemesterDAO();
         Semester currSem = null;
         TopicDAO td = new TopicDAO();
 
@@ -66,20 +66,7 @@ public class TopicController extends HttpServlet {
         if (prevAction == null) {
             session.setAttribute("prevTopicAction", action);
             prevAction = action;
-            if (user.getRoleId() == 1) {
-                ArrayList<Topic> appliableTopicList = checkValid(request, response);
-                session.setAttribute("appliableTopicList", appliableTopicList);
-            } else if (user.getRoleId() == 2) {
-                int depId = (int) session.getAttribute("depId");
-                ArrayList<PendingTopicGroup> pendingTopicList = ptg.readAll(depId, user.getUserId());
-                ArrayList<Topic> approvingTopicList = td.readAllAproveTopic();
-                session.setAttribute("approvingTopicList", approvingTopicList);
-                session.setAttribute("pendingTopicList", pendingTopicList);
-            } else if (user.getRoleId() == 4) {
-                ArrayList<Topic> approvingTopicList = td.readAllAproveTopic();
-                session.setAttribute("approvingTopicList", approvingTopicList);
 
-            }
         }
         session.setAttribute("currTopicAction", action);
         String currAction = (String) session.getAttribute("currTopicAction");
@@ -89,6 +76,19 @@ public class TopicController extends HttpServlet {
                 currSem = (Semester) session.getAttribute("currentSem");
                 ArrayList<Topic> list = td.readAll(currSem.getName());
 
+                if (user.getRoleId() == 1) {
+                    ArrayList<Topic> appliableTopicList = checkValid(request, response);
+                    session.setAttribute("appliableTopicList", appliableTopicList);
+                } else if (user.getRoleId() == 2) {
+                    int depId = (int) session.getAttribute("depId");
+                    ArrayList<PendingTopicGroup> pendingTopicList = ptg.readAll(depId, user.getUserId());
+                    ArrayList<Topic> approvingTopicList = td.readAllAproveTopic();
+                    session.setAttribute("approvingTopicList", approvingTopicList);
+                    session.setAttribute("pendingTopicList", pendingTopicList);
+                } else if (user.getRoleId() == 4) {
+                    ArrayList<Topic> approvingTopicList = td.readAllAproveTopic();
+                    session.setAttribute("approvingTopicList", approvingTopicList);
+                }
                 //        pagination
                 if (!prevAction.equals(currAction)) {
                     session.setAttribute("totalPage", null);
@@ -112,7 +112,6 @@ public class TopicController extends HttpServlet {
                 ArrayList<Topic> list2 = null;
 
                 //        pagination
-
                 if (searchText == null) {
                     list2 = td.readAll(currSem.getName());
                 } else {
@@ -338,7 +337,6 @@ public class TopicController extends HttpServlet {
                 groupId = Integer.parseInt(request.getParameter("groupId"));
                 ptg.deny(topicId, groupId);
 
-
                 list = td.readAll(currSem.getName());
 
                 if (!prevAction.equals(currAction)) {
@@ -417,7 +415,7 @@ public class TopicController extends HttpServlet {
                 topicId = Integer.parseInt(request.getParameter("topicId"));
                 int category = 0;
                 currSem = (Semester) session.getAttribute("currentSem");
-                Semester validSem=sd.readCurrentSemester();
+                Semester validSem = sd.readCurrentSemester();
                 depId = (int) session.getAttribute("depId");
                 int lecId = (int) session.getAttribute("userId");
                 String topicName = request.getParameter("topicName");
@@ -481,7 +479,7 @@ public class TopicController extends HttpServlet {
 
     public void save(HttpServletRequest request, HttpServletResponse response) {
         TopicDAO td = new TopicDAO();
-        SemesterDAO sd= new SemesterDAO();
+        SemesterDAO sd = new SemesterDAO();
         HttpSession session = request.getSession();
         Semester currSem = (Semester) session.getAttribute("currentSem");
         String prevAction = (String) session.getAttribute("prevTopicAction");
@@ -490,13 +488,13 @@ public class TopicController extends HttpServlet {
             String op = request.getParameter("op");
             if (op.equals("create")) {
                 int category = 0;
-                Semester validSem= sd.readCurrentSemester();
+                Semester validSem = sd.readCurrentSemester();
                 int depId = (int) session.getAttribute("depId");
                 int lecId = (int) session.getAttribute("userId");
                 String topicName = request.getParameter("topicName");
                 String topicDetail = request.getParameter("topicDetail");
-               
-                int bussinessId = Integer.parseInt(request.getParameter("business"));   
+
+                int bussinessId = Integer.parseInt(request.getParameter("business"));
                 int check = td.checkTopicName(topicName);
                 if (check != 0) {
                     UserDAO ud = new UserDAO();
@@ -628,7 +626,7 @@ public class TopicController extends HttpServlet {
         HttpSession session = request.getSession();
         int userId = (int) session.getAttribute("userId");
         TopicDAO td = new TopicDAO();
-        SemesterDAO sd= new SemesterDAO();
+        SemesterDAO sd = new SemesterDAO();
         Semester currSem = sd.readCurrentSemester();
 
         int groupId = td.getGroupIdByUser(userId);
