@@ -374,6 +374,7 @@ public class GroupController extends HttpServlet {
             String op = request.getParameter("op");
             if (op.equals("create")) {
                 currSem1 = s.readCurrentSemester();
+                session.setAttribute("currentSem", currSem1);
                 int groupId = sg.countGroupId();
                 groupId = groupId + 1;
                 String name = request.getParameter("groupName");
