@@ -453,6 +453,11 @@ public class GroupController extends HttpServlet {
                 session.setAttribute("totalPage", null);
                 session.setAttribute("page", null);
             }
+            int studentId = (int) session.getAttribute("userId");
+            int checkUserId = sg.checkStudentHaveGroupByUserId(studentId);
+            int checkStudentInGroup = sg.checkStudentInGroup(studentId); //GroupID
+            session.setAttribute("checkUserId", checkUserId);
+            session.setAttribute("checkStudentInGroup", checkStudentInGroup);
             session.setAttribute("currGroupAction", "index");
             session.setAttribute("prevGroupAction", "index");
 
