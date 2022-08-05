@@ -37,14 +37,15 @@
 
         <%
             String name = (String) session.getAttribute("name");
-            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
-            } else if (roleId == 2) {
-                response.sendRedirect("profileLecturer.jsp");
-            } else if (roleId == 4) {
-                response.sendRedirect("profileAdmin.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 2) {
+                    response.sendRedirect("profileLecturer.jsp");
+                } else if (roleId == 4) {
+                    response.sendRedirect("profileAdmin.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -138,10 +139,7 @@
                                     <c:choose >
                                         <c:when test="${item.status==0}">
                                             <td class="hidden-xs hidden-sm"> <span class="tdTbl__warning">available</span></td> 
-                                        </c:when>
-                                        <c:when test="${item.status==1}">
-                                            <td class="hidden-xs hidden-sm"> <span class="tdTbl__warning">pending</span></td> 
-                                        </c:when>    
+                                        </c:when>   
                                         <c:otherwise>
                                             <td class="hidden-xs hidden-sm"> <span class="tdTbl__warning">locked</span></td> 
                                         </c:otherwise>
@@ -157,7 +155,7 @@
                 <c:if test="${empty list}">
                     <div class="search-empty">
                         <img src="../img/search-empty.png" class="search-empty-icon"/>
-                        <div class="search-empty-title">Cannot find any group</div>
+                        <div class="search-empty-title">Cannot find any topic</div>
 
                     </div>
                 </c:if>
@@ -247,7 +245,7 @@
 
                             </div>
                             <div class="modal-footer ">
-                                <button class='btn btn-warning' href="#" title="Conditions to apply:" data-html="true" data-toggle="popover" data-placement="top" data-content="+ You must be leader to apply.<br>+ Your department must be the same with topic's.<br>+ Your semester must be the same with topic's.<br>+ You can only apply 1 topic once<br>+ Topic status can not be locked.">
+                                <button class='btn btn-warning' href="#" title="Conditions to apply:" data-html="true" data-toggle="popover" data-placement="top" data-content="+ You must be leader to apply.<br>+ Your department must be the same with topic's.<br>+ Your group's semester must be current semester.<br>+ You can only apply 1 topic once<br>+ Topic status can not be locked.">
                                     Conditions
                                 </button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -266,7 +264,10 @@
             <%@include file="footer.jsp" %>
         </footer>
 
-        <% }%>
+        <% }
+            }
+        %>
+
         <!-- preloader -->
         <div id='preloader'>
             <div class='preloader'></div>

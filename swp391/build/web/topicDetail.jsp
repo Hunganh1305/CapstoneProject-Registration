@@ -37,15 +37,13 @@
         <!-- Header -->
         <header>
             <c:if test="${user.roleId==1}">
-
-                 <%@include file="header.jsp" %>
+                <%@include file="header.jsp" %>
             </c:if>
             <c:if test="${user.roleId==2}">
-                 <%@include file="headerLecturer.jsp" %>
+                <%@include file="headerLecturer.jsp" %>
             </c:if>
             <c:if test="${user.roleId==4}">
-                 <%@include file="headerAdmin.jsp" %>
-
+                <%@include file="headerAdmin.jsp" %>
             </c:if>
         </header>
         <!-- /Header -->

@@ -40,17 +40,18 @@
 
         <%
             String name = (String) session.getAttribute("name");
-            String email = (String) session.getAttribute("email");
-            int userId = (int) session.getAttribute("userId");
-            int roleId = (int) session.getAttribute("roleId");
-            String department = (String) session.getAttribute("department");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
-            } else if(roleId == 1) {
-                response.sendRedirect("profile.jsp");
-            } else if(roleId == 4) {
-                response.sendRedirect("profileAdmin.jsp");
             } else {
+                String email = (String) session.getAttribute("email");
+                int userId = (int) session.getAttribute("userId");
+                int roleId = (int) session.getAttribute("roleId");
+                String department = (String) session.getAttribute("department");
+                if (roleId == 1) {
+                    response.sendRedirect("profile.jsp");
+                } else if (roleId == 4) {
+                    response.sendRedirect("profileAdmin.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -144,6 +145,7 @@
         </footer>
 
         <% }
+            }
         %>
 
         <!-- preloader -->

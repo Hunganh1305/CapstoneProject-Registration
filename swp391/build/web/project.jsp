@@ -44,14 +44,15 @@
 
         <%
             String name = (String) session.getAttribute("name");
-            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
-            } else if(roleId == 2) {
-                response.sendRedirect("profileLecturer.jsp");
-            } else if(roleId == 4) {
-                response.sendRedirect("profileAdmin.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 2) {
+                    response.sendRedirect("profileLecturer.jsp");
+                } else if (roleId == 4) {
+                    response.sendRedirect("profileAdmin.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -69,21 +70,21 @@
                 <c:if test="${empty Group || empty Topic}">
                     <div class="search-empty">
                         <img src="../img/search-empty.png" class="search-empty-icon"/>
-                        <div class="search-empty-title">You don't have any project yet!</div>
-                        <c:if test="${empty Topic}">
-                            <div class="search-empty-hint">${error}</div>
-                            <div class="btnControl">
-                                <button class="project-button"><a href="<c:url value="/topic/index.do"/>">Topic list</a> </button>
-                            </div>
-
-                        </c:if>
-                        <c:if test="${empty Group}">
-                            <div class="search-empty-hint">You don't have a team!</div>
-                            <div class="btnControl">
-                                <button class="project-button"><a href="<c:url value="/group/index.do"/>">Team list</a> </button>
-                            </div>
-                        </c:if>
-                        
+                        <div class="search-empty-title">You don't have any project!</div>
+                        <c:choose>
+                            <c:when test="${empty Group}">
+                                <div class="search-empty-hint">You don't have a team!</div>
+                                <div class="btnControl">
+                                    <button class="project-button"><a href="<c:url value="/group/index.do"/>">Team list</a> </button>
+                                </div>
+                            </c:when>
+                            <c:when test="${empty Topic}">
+                                <div class="search-empty-hint">${error}</div>
+                                <div class="btnControl">
+                                    <button class="project-button"><a href="<c:url value="/topic/index.do"/>">Topic list</a> </button>
+                                </div>
+                            </c:when>
+                        </c:choose>
                     </div>
                 </c:if>
                 <c:if test="${!empty Group && !empty Topic}">
@@ -131,13 +132,13 @@
                                     <i class="fa-solid fa-shield col-sm-1"></i>
                                     <div class="col-sm-2">
                                         <c:choose >
-                                        <c:when test="${Group.groupStatus == 1}">
-                                            <span class="green-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                     
-                                        </c:when>
-                                        <c:when test="${Group.groupStatus == 0}">
-                                            <span class="orange-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                  
-                                        </c:when>
-                                    </c:choose>
+                                            <c:when test="${Group.groupStatus == 1}">
+                                                <span class="green-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                     
+                                            </c:when>
+                                            <c:when test="${Group.groupStatus == 0}">
+                                                <span class="orange-box">${Group.groupStatus == 1?"Public":"Private"}</span>                                  
+                                            </c:when>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </div>
@@ -180,7 +181,9 @@
         </footer>
 
         <% }
+            }
         %>
+
         <!-- preloader -->
         <div id='preloader'>
             <div class='preloader'></div>

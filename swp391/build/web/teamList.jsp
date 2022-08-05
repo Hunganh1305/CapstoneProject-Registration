@@ -35,14 +35,15 @@
     <body>
         <%
             String name = (String) session.getAttribute("name");
-            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
-            } else if (roleId == 2) {
-                response.sendRedirect("profileLecturer.jsp");
-            } else if (roleId == 4) {
-                response.sendRedirect("profileAdmin.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 2) {
+                    response.sendRedirect("profileLecturer.jsp");
+                } else if (roleId == 4) {
+                    response.sendRedirect("profileAdmin.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -67,7 +68,7 @@
                     <div id="toasts">
                         <div class="toast error">
                             <i class="fa-solid fa-triangle-exclamation"></i>
-                            <span class="message">Wrong Department! Fail to join.</span>
+                            <span class="message">Fail to join.</span>
                             <span class="countdown"></span>
                         </div>
                     </div>
@@ -222,7 +223,11 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
-        <% }%>
+
+        <% }
+            }
+        %>
+
         <!-- preloader -->
         <div id='preloader'>
             <div class='preloader'></div>

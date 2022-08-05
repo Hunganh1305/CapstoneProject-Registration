@@ -33,14 +33,15 @@
 
         <%
             String name = (String) session.getAttribute("name");
-            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
-            } else if(roleId == 1) {
-                response.sendRedirect("profile.jsp");
-            } else if(roleId == 4) {
-                response.sendRedirect("profileAdmin.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 1) {
+                    response.sendRedirect("profile.jsp");
+                } else if (roleId == 4) {
+                    response.sendRedirect("profileAdmin.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -119,6 +120,7 @@
         </footer>
 
         <% }
+            }
         %>
 
         <script type="text/javascript" src="./js/jquery.min.js"></script>

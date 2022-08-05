@@ -34,14 +34,15 @@
 
         <%
             String name = (String) session.getAttribute("name");
-            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
-            } else if(roleId == 1) {
-                response.sendRedirect("profile.jsp");
-            } else if(roleId == 4) {
-                response.sendRedirect("profileAdmin.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 1) {
+                    response.sendRedirect("profile.jsp");
+                } else if (roleId == 4) {
+                    response.sendRedirect("profileAdmin.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -77,18 +78,7 @@
                             <div class="selection">
                                 <div class="selection--right">
                                     <label for="semester" class="label_category">Semester</label>
-                                    <select style="height: 35px"   id="semester" name="semester">
-                                        <!--                                        <option value="0" name="semester">--Choose a Category--</option>-->
-                                        <c:forEach var="item" items="${semList}" varStatus="loop">
-                                            <c:if test="${item.semesterId==chosenSemester}">
-                                                <option  value="${item.semesterId}" selected="selected" >${item.name}</option>
-                                            </c:if>
-                                            <c:if test="${item.semesterId!=chosenSemester}">
-                                                <option  value="${item.semesterId}" >${item.name}</option>
-                                            </c:if>
-                                        </c:forEach>
-
-                                    </select>
+                                    <input class="" type="text" disabled value="${validSemester}" name="semester" required />
                                 </div>
                             </div>
 
@@ -99,12 +89,12 @@
                                         <!--                                        <option value="0" name="semester">--Choose a Category--</option>-->
                                         <c:forEach var="item" items="${bList}" varStatus="loop">
                                             <c:if test="${item.userId==chosenBusiness}">
-                                               <option  value="${item.userId}" selected="selected" >${item.name}</option>
+                                                <option  value="${item.userId}" selected="selected" >${item.name}</option>
                                             </c:if>
                                             <c:if test="${item.userId!=chosenBusiness}">
-                                               <option  value="${item.userId}"  >${item.name}</option>
+                                                <option  value="${item.userId}"  >${item.name}</option>
                                             </c:if>
-                                            
+
                                         </c:forEach>
 
                                     </select>
@@ -134,6 +124,7 @@
         </footer>
 
         <% }
+            }
         %>
 
         <script type="text/javascript" src="../js/jquery.min.js"></script>

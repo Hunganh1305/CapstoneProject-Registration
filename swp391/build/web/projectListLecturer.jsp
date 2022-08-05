@@ -37,14 +37,15 @@
 
         <%
             String name = (String) session.getAttribute("name");
-            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
-            } else if (roleId == 1) {
-                response.sendRedirect("profile.jsp");
-            } else if (roleId == 4) {
-                response.sendRedirect("profileAdmin.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 1) {
+                    response.sendRedirect("profile.jsp");
+                } else if (roleId == 4) {
+                    response.sendRedirect("profileAdmin.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -65,10 +66,10 @@
                             <c:forEach var="item" items="${semList}" varStatus="loop"> 
                                 <li name="semester" class="semester__item" >
                                     <a  href="${root}/projectlecturer/semester.do?semester=${item.name}">
-                                    ${item.name}
+                                        ${item.name}
                                     </a>
                                 </li>             
-                                </c:forEach>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>
@@ -164,7 +165,9 @@
         </footer>
 
         <% }
+            }
         %>
+
         <!-- preloader -->
         <div id='preloader'>
             <div class='preloader'></div>

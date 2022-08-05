@@ -30,17 +30,23 @@
     <body>
         <%
             String name = (String) session.getAttribute("name");
-            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
-                response.sendRedirect("Login.jsp");            
-            } else if (roleId == 4) {
-                response.sendRedirect("profileAdmin.jsp");
+                response.sendRedirect("Login.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 4) {
+                    response.sendRedirect("profileAdmin.jsp");
+                } else {
         %>
 
         <!-- Header -->
         <header>
-            <%@include file="header.jsp" %>
+            <c:if test="${user.roleId==1}">
+                <%@include file="header.jsp" %>
+            </c:if>
+            <c:if test="${user.roleId==2}">
+                <%@include file="headerLecturer.jsp" %>
+            </c:if>
         </header>
         <!-- /Header -->
 
@@ -74,7 +80,7 @@
                     <div class="row form-line col-12 col-sm-7 col-md-7">
                         <button type="submit" value="save" name="op" class="btn btn-Create"><i class="bi bi-box-arrow-down"></i>Save</button>
                     </div>
-                    
+
                 </form>
                 <div class="text-danger" style="font-style: italic;">${errorMessage}</div>
                 <div class="text-success" style="font-style: italic;">${successMessage}</div>
@@ -87,11 +93,14 @@
             <%@include file="footer.jsp" %>
         </footer>
 
-        <% }%>
+        <% }
+            }
+        %>
+
         <!-- preloader -->
-<!--        <div id='preloader'>
-            <div class='preloader'></div>
-        </div>-->
+        <!--        <div id='preloader'>
+                    <div class='preloader'></div>
+                </div>-->
         <!-- /preloader -->
 
 

@@ -37,14 +37,15 @@
 
         <%
             String name = (String) session.getAttribute("name");
-            int roleId = (int) session.getAttribute("roleId");
             if (name == null) {
                 response.sendRedirect("Login.jsp");
-            } else if(roleId == 1) {
-                response.sendRedirect("profile.jsp");
-            } else if(roleId == 2) {
-                response.sendRedirect("profileLecturer.jsp");
             } else {
+                int roleId = (int) session.getAttribute("roleId");
+                if (roleId == 1) {
+                    response.sendRedirect("profile.jsp");
+                } else if (roleId == 2) {
+                    response.sendRedirect("profileLecturer.jsp");
+                } else {
         %>
 
         <!-- Header -->
@@ -187,10 +188,7 @@
                                     <c:choose >
                                         <c:when test="${item.status==0}">
                                             <td> <span class="tdTbl__warning">available</span></td> 
-                                        </c:when>
-                                        <c:when test="${item.status==1}">
-                                            <td> <span class="tdTbl__warning">pending</span></td> 
-                                        </c:when>    
+                                        </c:when>  
                                         <c:otherwise>
                                             <td> <span class="tdTbl__warning">locked</span></td> 
                                         </c:otherwise>
@@ -248,6 +246,7 @@
         </footer>
 
         <% }
+            }
         %>
 
         <script type="text/javascript" src="../js/jquery.min.js"></script>
